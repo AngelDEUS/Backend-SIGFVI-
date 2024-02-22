@@ -26,6 +26,7 @@ import Tabla_inventario from "../pages-views/mod_inventario/tablaInventario";
 import Tabla_users from '../pages-views/mod_Usuarios/Tabla_users';
 import Tabla_proveedores from '../pages-views/mod_Usuarios/Tabla_proveedores';
 import Tabla_deudor from '../pages-views/mod_Usuarios/Tabla_deudor';
+import TablaAdmins from '../pages-views/mod_Usuarios/Admins/TablaAdmin';
 
 export function MyRoutes({ onLogin }) {
     return (
@@ -34,6 +35,7 @@ export function MyRoutes({ onLogin }) {
             <Route path='/Home' element={<Home />} />
             <Route path='/Dashboard' element={<Dashboard />} />
             {/* <Route path='/GestionUsuarios' element={<Usuarios />} /> */}
+            <Route path='/GestionUsuarios/Admins/TablaAdmin' element={<TablaAdmins />} />
             <Route path='/GestionUsuarios/TablaUsuarios' element={<Tabla_users />} />
             <Route path='/GestionUsuarios/TablaProveedores' element={<Tabla_proveedores />} />
             <Route path='/GestionUsuarios/TablaDeudores' element={<Tabla_deudor />} />
