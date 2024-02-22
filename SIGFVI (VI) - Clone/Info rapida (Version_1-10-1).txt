@@ -12,5 +12,10 @@ ______________________________________________________________________________
                                  /mod_inventario
                                  /mod_ventasyfacturacion
                                  /mod_informes
+                                 /mod_NewBackEnd_Santiago
+
 ______________________________________________________________________________
 =======> Integrantes:
+
+
+=======> Nota:Se añadio la rama de newbacken_santiago que añade funciones al modulo de usuarios(empleados)
