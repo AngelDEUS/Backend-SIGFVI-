@@ -2,3 +2,20 @@ Proyecto SIGFVI (BackEnd)
 Version: 1.1.0
 Notas:
 Construccion.
+
+----
++++++++++++++++++++++++++++++++++++*+++++++++++++++++++++++++++++++++++
+========================/ Notas de la version (BackEnd) \========================
+=======> Versión Actual: 0.1.0.
+=======> Notas de la versión: Se actualiza a la version 0.1.0, esta version contiene la inplementacion del backend, 
+con la conexion a la base de datos V2, Se establece el entorno BackEnd para SIGFVI, usando buenas practicas de entrada.
+______________________________________________________________________________
+=======> Ramas:
+                           /main ¿ ("Rama BackUp")
+                             /main_desarrollo ¿ ("Rama para implementar cambios")
+                                 /mod_usuarios
+                                 /mod_inventario
+                                 /mod_ventasyfacturacion
+                                 /mod_informes
+______________________________________________________________________________
+=======> Integrantes:
