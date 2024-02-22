@@ -20,9 +20,13 @@ const Tabla_Inventario = () => {
     setModalIsOpen(false);
   };
 
-  const { inventario, nuevoInventario, handleInputChange, agregarInventario, borrar } =
-    useInventario();
-
+  const {
+    inventario,
+    nuevoInventario,
+    handleInputChange,
+    agregarInventario,
+    borrar,
+  } = useInventario();
 
   return (
     <div className="mod__inventario--s">
@@ -79,7 +83,12 @@ const Tabla_Inventario = () => {
                     <td>{inv.fechaCaducidad}</td>
                     <td>{inv.proveedor}</td>
                     <td>
-                      <button className="botonBorrar" onClick={() => borrar(inv.codigo)}>Borrar</button>
+                      <button
+                        className="botonBorrar"
+                        onClick={() => borrar(inv.codigo)}
+                      >
+                        Borrar
+                      </button>
                     </td>
                   </tr>
                 );
@@ -140,7 +149,6 @@ const Tabla_Inventario = () => {
                 value={nuevoInventario.fechaCaducidad}
                 onChange={handleInputChange}
               />
-
             </div>
             <div class="mainDerecha">
               <input

@@ -1,0 +1,22 @@
+create database producto;
+use producto;
+
+CREATE TABLE categorias (
+    id_categoria SERIAL PRIMARY KEY,
+    descripcion VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE colecciones (
+    id_coleccion SERIAL PRIMARY KEY,
+    descripcion VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE pieza (
+    id_pieza SERIAL PRIMARY KEY,
+    categoria INT REFERENCES categorias(id_categoria),
+    coleccion INT REFERENCES colecciones(id_coleccion),
+    descripcion VARCHAR(255) NOT NULL,
+    valorCompra DECIMAL(10, 2),
+    fechaCompra DATE,
+    foto VARCHAR(255) 
+);
