@@ -9,7 +9,7 @@ ______________________________________________________________________________
                            /main ¿ ("Rama BackUp")
                              /main_desarrollo ¿ ("Rama para implementar cambios")
                                  /mod_usuarios
-                                 /mod_inventario
+                                 /mod_inventario_fs
                                  /mod_ventasyfacturacion
                                  /mod_informes
 ______________________________________________________________________________
