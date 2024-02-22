@@ -1,0 +1,15 @@
++++++++++++++++++++++++++++++++++++*+++++++++++++++++++++++++++++++++++
+========================/ Notas de la version (FrontEnd) \========================
+=======> Versión Actual: 1.5.2.
+=======> Notas de la versión: Se actualiza a la version 1.8.2, esta version contiene la inplementacion del backend, 
+con la conexion a la base de datos V2, y la crud en frontend.
+______________________________________________________________________________
+=======> Ramas:
+                           /main ¿ ("Rama BackUp")
+                             /main_desarrollo ¿ ("Rama para implementar cambios")
+                                 /mod_usuarios
+                                 /mod_inventario
+                                 /mod_ventasyfacturacion
+                                 /mod_informes
+______________________________________________________________________________
+=======> Integrantes:
