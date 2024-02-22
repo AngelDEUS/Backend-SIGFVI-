@@ -12,5 +12,8 @@ ______________________________________________________________________________
                                  /mod_inventario
                                  /mod_ventasyfacturacion
                                  /mod_informes
+                                 /new_Caracteristica_Juan
 ______________________________________________________________________________
 =======> Integrantes:
+
+=======> Nota: Se crea la nueva rama new_Caracteristica_Juan en donde se agrega una nueva función de la rama usuarios(Proveedor) mas endpoints
