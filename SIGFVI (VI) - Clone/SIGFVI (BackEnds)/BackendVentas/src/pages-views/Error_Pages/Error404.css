@@ -1,0 +1,87 @@
+.error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 20px;
+    height: 700px;
+}
+
+.error-container img {
+    width: 100px;
+    height: auto;
+    user-select: none;
+    filter: invert(99%) sepia(46%) saturate(1232%) hue-rotate(178deg) brightness(96%) contrast(92%);
+    margin: 15px 0;
+}
+
+.error-text {
+    margin: 25px 0;
+}
+
+.error-text-orange {
+    color: #fc8419;
+    font-size: 28px;
+    margin: 20px 0 10px 0;
+}
+
+.error-text-gray {
+    color: #dbdeed;
+    font-size: 20px;
+    margin: 0 0 20px 0;
+}
+
+.big-emoji {
+    color: #dbdeed;
+    font-size: 120px;
+    margin: 40px 0;
+}
+
+.return-to-home {
+    font-size: 15px;
+    margin: 40px 0;
+}
+
+.vuelve {
+    margin-top: 40px;
+    color: #a4a4ad;
+    font-style: italic;
+}
+
+.home {
+    font-style: italic;
+    text-decoration: underline;
+}
+
+.home:hover {
+    color: #fe7800;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.separator404 {
+    width: 450px;
+    height: 2px;
+    background-color: #dbdeed;
+    margin: 40px 0;
+}
+
+.error-message {
+    color: #a4a4ad;
+    font-size: 12px;
+    margin: 40px 0;
+}
+
+.tex404 {
+    color: #dbdeed;
+    margin: 80px;
+    font-size: 200px;
+    font-weight: bold;
+}
+
+.error-message strong {
+    letter-spacing: 0.5pt;
+    font-style: italic;
+    text-decoration: underline;
+}

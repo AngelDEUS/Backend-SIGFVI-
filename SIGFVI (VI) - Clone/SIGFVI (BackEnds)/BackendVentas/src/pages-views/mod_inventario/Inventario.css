@@ -1,0 +1,124 @@
+.mod__inventario--s .containerTitulo {
+  margin-bottom: 30px;
+}
+
+.mod__inventario--s .mod__inventario p {
+  font-size: 22px;
+}
+
+.subtitulo h3 {
+  font-size: 25px;
+  margin: 5px;
+}
+
+.mod__inventario--s .mainModal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 0px 0px;
+  grid-template-areas:
+    "mainTitulo mainTitulo"
+    "mainIzquierda mainDerecha";
+}
+
+.mod__inventario--s .mainTitulo {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    ". . MainBoton"
+    ". . .";
+  grid-area: mainTitulo;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.mod__inventario--s .MainBoton {
+  grid-area: MainBoton;
+}
+
+.mod__inventario--s .modalForm {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 800px;
+}
+
+.mainIzquierda {}
+
+.mainDerecha {}
+
+.MainBoton2 {}
+
+.mainModal input {
+  padding: 5px;
+  margin: 20px 0 20px 0;
+  border-radius: 5px;
+  width: 90%;
+  border: gainsboro solid 2px;
+}
+
+.boton_modal {
+  background-color: #8bdf46;
+  color: white;
+  padding: 10px 20px 10px 20px;
+  width: 90%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  border: none;
+  border-radius: 30px;
+  font-weight: 700;
+}
+
+.boton_modal2 {
+  background-color: #df4646;
+  color: white;
+  padding: 2px 3px 2px 3px;
+  width: 20%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  border: none;
+  border-radius: 30px;
+  font-weight: 700;
+}
+
+.botonBorrar {
+  background-color: #df4646;
+  color: white;
+  padding: 2px 10px 2px 10px;
+  width: 90%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  border: none;
+  border-radius: 30px;
+  font-weight: 700;
+}
+
+.botonBorrar:hover {
+  opacity: 50%;
+}
+
+.botonForm {
+  background-color: #4649df;
+  color: white;
+  padding: 10px 10px 10px 10px;
+  width: 50%;
+  margin-top: 3rem;
+  margin-bottom: 10px;
+  text-align: center;
+  border: none;
+  border-radius: 30px;
+  font-weight: 700;
+}
+
+.botonForm:hover {
+  opacity: 50%;
+}
+
+.boton_modal:hover {
+  opacity: 50%;
+}
