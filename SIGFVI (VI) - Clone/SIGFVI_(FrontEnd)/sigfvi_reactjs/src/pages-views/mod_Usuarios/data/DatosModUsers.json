@@ -1,0 +1,319 @@
+{
+    "Usuarios":[
+        {
+            "id": 1001339605,
+            "tipoIdentificacion": "CC",
+            "tipoUsuario": "Administrador",
+            "nombres": "Miguel Angel",
+            "apellidos": "Ayala Pinilla",
+            "numeroContacto": "12345678901",
+            "apodo": "Admon",
+            "email": "miguel.ayala@example.com",
+            "contrasena": "Admon123",
+            "estado": "Activo"
+        },
+        {
+            "id": 98765432102,
+            "tipoIdentificacion": "CE",
+            "tipoUsuario": "Administrador",
+            "nombres": "Ana Maria",
+            "apellidos": "Gomez Rodriguez",
+            "numeroContacto": "23456789012",
+            "apodo": "anagomez234",
+            "email": "ana.gomez@example.com",
+            "contrasena": "ana234",
+            "estado": "Activo"
+        },
+        {
+            "id": 23456789034,
+            "tipoIdentificacion": "CC",
+            "tipoUsuario": "Empleado",
+            "nombres": "Juan Carlos",
+            "apellidos": "Perez Lopez",
+            "numeroContacto": "34567890123",
+            "apodo": "juancarlos345",
+            "email": "juan.perez@example.com",
+            "contrasena": "juan345",
+            "estado": "Activo"
+        },
+        {
+            "id": 34567890103,
+            "tipoIdentificacion": "CC",
+            "tipoUsuario": "Empleado",
+            "nombres": "Sofia",
+            "apellidos": "Gutierrez Ramirez",
+            "numeroContacto": "45678901234",
+            "apodo": "sofiagutierrez456",
+            "email": "sofia.gutierrez@example.com",
+            "contrasena": "sofia456",
+            "estado": "Activo"
+        },
+        {
+            "id": 78901234506,
+            "tipoIdentificacion": "CC",
+            "tipoUsuario": "Empleado",
+            "nombres": "Carlos Andres",
+            "apellidos": "Lopez Martinez",
+            "numeroContacto": "56789012345",
+            "apodo": "carloslopez567",
+            "email": "carlos.lopez@example.com",
+            "contrasena": "carlos567",
+            "estado": "Inactivo"
+        },
+        {
+            "id": 45678901207,
+            "tipoIdentificacion": "CC",
+            "tipoUsuario": "Empleado",
+            "nombres": "Laura",
+            "apellidos": "Hernandez Gonzalez",
+            "numeroContacto": "67890123456",
+            "apodo": "laurahernandez678",
+            "email": "laura.hernandez@example.com",
+            "contrasena": "laura678",
+            "estado": "Activo"
+        },
+        {
+            "id": 89012345608,
+            "tipoIdentificacion": "CE",
+            "tipoUsuario": "Empleado",
+            "nombres": "Pedro",
+            "apellidos": "Ramirez Castaño",
+            "numeroContacto": "78901234567",
+            "apodo": "pedroramirez789",
+            "email": "pedro.ramirez@example.com",
+            "contrasena": "pedro789",
+            "estado": "Activo"
+        },
+        {
+            "id": 12345098709,
+            "tipoIdentificacion": "CC",
+            "tipoUsuario": "Empleado",
+            "nombres": "Maria",
+            "apellidos": "Fernandez Gomez",
+            "numeroContacto": "89012345678",
+            "apodo": "mariafernandez890",
+            "email": "maria.fernandez@example.com",
+            "contrasena": "maria890",
+            "estado": "Activo"
+        },
+        {
+            "id": 67890123410,
+            "tipoIdentificacion": "CC",
+            "tipoUsuario": "Empleado",
+            "nombres": "Daniel",
+            "apellidos": "Castillo Hernandez",
+            "numeroContacto": "90123456789",
+            "apodo": "danielcastillo901",
+            "email": "daniel.castillo@example.com",
+            "contrasena": "daniel901",
+            "estado": "Activo"
+        },
+        {
+            "id": 34567890111,
+            "tipoIdentificacion": "CC",
+            "tipoUsuario": "Empleado",
+            "nombres": "Isabel",
+            "apellidos": "Diaz Soto",
+            "numeroContacto": "01234567890",
+            "apodo": "isabeldiaz012",
+            "email": "isabel.diaz@example.com",
+            "contrasena": "isabel012",
+            "estado": "Activo"
+        },
+        {
+            "id": 90123456712,
+            "tipoIdentificacion": "CE",
+            "tipoUsuario": "Empleado",
+            "nombres": "Ricardo",
+            "apellidos": "Alvarez Perez",
+            "numeroContacto": "12345678901",
+            "apodo": "ricardoalvarez123",
+            "email": "ricardo.alvarez@example.com",
+            "contrasena": "ricardo123",
+            "estado": "Activo"
+        },
+        {
+            "id": 23456789013,
+            "tipoIdentificacion": "CC",
+            "tipoUsuario": "Empleado",
+            "nombres": "Juliana",
+            "apellidos": "Ortega Mendoza",
+            "numeroContacto": "23456789012",
+            "apodo": "julianaortega234",
+            "email": "juliana.ortega@example.com",
+            "contrasena": "juliana234",
+            "estado": "Activo"
+        },
+        {
+            "id": 56789012314,
+            "tipoIdentificacion": "CC",
+            "tipoUsuario": "Empleado",
+            "nombres": "Alejandro",
+            "apellidos": "Vargas Gutierrez",
+            "numeroContacto": "34567890123",
+            "apodo": "alejandrovargas345",
+            "email": "alejandro.vargas@example.com",
+            "contrasena": "alejandro345",
+            "estado": "Activo"
+        },
+        {
+            "id": 89012345615,
+            "tipoIdentificacion": "CC",
+            "tipoUsuario": "Empleado",
+            "nombres": "Camila",
+            "apellidos": "Molina Silva",
+            "numeroContacto": "45678901234",
+            "apodo": "camilamolina456",
+            "email": "camila.molina@example.com",
+            "contrasena": "camila456",
+            "estado": "Activo"
+        },
+        {
+            "id": 12345098716,
+            "tipoIdentificacion": "CC",
+            "tipoUsuario": "Empleado",
+            "nombres": "Andres",
+            "apellidos": "Fernandez Perez",
+            "numeroContacto": "56789012345",
+            "apodo": "andresfernandez567",
+            "email": "andres.fernandez@example.com",
+            "contrasena": "andres567",
+            "estado": "Activo"
+        },
+        {
+            "id": 67890123417,
+            "tipoIdentificacion": "CC",
+            "tipoUsuario": "Empleado",
+            "nombres": "Gabriela",
+            "apellidos": "Rios Jimenez",
+            "numeroContacto": "67890123456",
+            "apodo": "gabrielarios678",
+            "email": "gabriela.rios@example.com",
+            "contrasena": "gabriela678",
+            "estado": "Activo"
+        },
+        {
+            "id": 34567890118,
+            "tipoIdentificacion": "CC",
+            "tipoUsuario": "Empleado",
+            "nombres": "Jorge",
+            "apellidos": "Herrera Medina",
+            "numeroContacto": "78901234567",
+            "apodo": "jorgeherrera789",
+            "email": "jorge.herrera@example.com",
+            "contrasena": "jorge789",
+            "estado": "Activo"
+        },
+        {
+            "id": 90123456719,
+            "tipoIdentificacion": "CC",
+            "tipoUsuario": "Empleado",
+            "nombres": "Daniela",
+            "apellidos": "Santos Castro",
+            "numeroContacto": "89012345678",
+            "apodo": "danielasantos890",
+            "email": "daniela.santos@example.com",
+            "contrasena": "daniela890",
+            "estado": "Activo"
+        },
+        {
+            "id": 23456789020,
+            "tipoIdentificacion": "CE",
+            "tipoUsuario": "Empleado",
+            "nombres": "Roberto",
+            "apellidos": "Garcia Gonzalez",
+            "numeroContacto": "90123456789",
+            "apodo": "robertogarcia901",
+            "email": "roberto.garcia@example.com",
+            "contrasena": "roberto901",
+            "estado": "Activo"
+        }
+    ],
+    
+    "Proveedores":[
+        {
+            "id":"1",
+            "Nombre":"Babaria",
+            "Dirección":"Calle 15 #65-55",
+            "Telefono":"6015884774",
+            "Frecuencia":"Jueves",
+            "Estado":"Activo"
+        },
+        {
+            "id":"2",
+            "Nombre":"Frito Lay",
+            "Dirección":"Calle 25 #87a-44",
+            "Telefono":"6016854789",
+            "Frecuencia":"Jueves",
+            "Estado":"Activo"
+        },
+        {
+            "id":"3",
+            "Nombre":"Postobon",
+            "Dirección":"Cra 75 #95-05",
+            "Telefono":"6018554120",
+            "Frecuencia":"Viernes",
+            "Estado":"Activo"
+        },
+        {
+            "id":"4",
+            "Nombre":"Coca Cola",
+            "Dirección":"Calle 72 #68-55",
+            "Telefono":"6015889999",
+            "Frecuencia":"Martes",
+            "Estado":"Activo"
+        },
+        {
+            "id":"5",
+            "Nombre":"BBC",
+            "Dirección":"Cra 7 #105-95",
+            "Telefono":"6016542130",
+            "Frecuencia":"Jueves",
+            "Estado":"Activo"
+        }
+    
+    ],
+
+    "Deudores":[
+        {
+            "id":"1",
+            "Nombre":"Francisco Ariztizabal",
+            "Direccion":"Cra 11 #23-56",
+            "Telefono":"3114785252",
+            "Deuda":"50000",
+            "Estado":"Activo"
+        },
+        {
+            "id":"2",
+            "Nombre":"Ferney Colon",
+            "Direccion":"Transversal 25 #28-96",
+            "Telefono":"3587485252",
+            "Deuda":"45000",
+            "Estado":"Activo"
+        },
+        {
+            "id":"3",
+            "Nombre":"Arnulfo Cristancho",
+            "Direccion":"Cra 48 #33-86",
+            "Telefono":"3175896565",
+            "Deuda":"0",
+            "Estado":"Inactivo"
+        },
+        {
+            "id":"4",
+            "Nombre":"Juan Gonzalez",
+            "Direccion":"Cra 48 #83-56",
+            "Telefono":"3128478987",
+            "Deuda":"100000",
+            "Estado":"Activo"
+        },
+        {
+            "id":"5",
+            "Nombre":"Rosalba Quintero",
+            "Direccion":"Calle 85 #11-45",
+            "Telefono":"3214566200",
+            "Deuda":"28000",
+            "Estado":"Activo"
+        }
+    ]
+}
