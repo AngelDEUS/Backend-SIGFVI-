@@ -5,6 +5,7 @@ import Erro404 from '../pages-views/Error_Pages/error404';
 import Home from '../pages-views/Home/Home';
 import Dashboard from '../pages-views/Dashboard/main_Dashboard';
 import Usuarios from '../pages-views/mod_Usuarios/mai_Usuarios';
+
 import Inventario from '../pages-views/mod_inventario/mai_Inventario';
 
 import VentasFacturacion from '../pages-views/mod_Ventas-Facturacion/main_VentasFacturacion';
@@ -22,6 +23,7 @@ import InformeEmpleados from '../pages-views/mod_Informes/InformeEmpleados';
 
 
 import Tabla_inventario from "../pages-views/mod_inventario/tablaInventario";
+import AgregarProducto from "../pages-views/mod_inventario/agregarProducto";
 
 import Tabla_users from '../pages-views/mod_Usuarios/Tabla_users';
 import Tabla_proveedores from '../pages-views/mod_Usuarios/Tabla_proveedores';
@@ -39,6 +41,7 @@ export function MyRoutes({ onLogin }) {
             <Route path='/GestionUsuarios/TablaDeudores' element={<Tabla_deudor />} />
             <Route path='/Inventario' element={<Inventario />} />
             <Route path='/Inventario/TablaInventario' element={<Tabla_inventario />} />
+            <Route path='/Inventario/AgregarProducto' element={<AgregarProducto />} />
 
             <Route path='/VentasFacturacion/list' element={<VentasFacturacion />} />
             <Route path='/VentasFacturacion/ventas' element={<Ventas />} />
