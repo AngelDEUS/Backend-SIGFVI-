@@ -2,12 +2,18 @@ import React, { useState } from 'react';
 import './Tabla.css';
 import Edit_user from './Edit_user';
 import Swal from 'sweetalert2';
+import axios from 'axios';
+
 
 export const Tabla_users_item = (props) => {
 
-    const [editform , setEditform] = useState(false)
+    const [mostrarEditForm , setMostrarEditForm] = useState(false);
 
-    function confirmDelete(){
+    const handleMostrarEdit= () =>{            
+        setMostrarEditForm(!mostrarEditForm);          
+    }
+
+    function confirmDelete(val){
         Swal.fire({
             icon:'warning',
             title:'<h2 style="color:yellow">¿Desea eliminar este registro?</h2>',
@@ -19,51 +25,51 @@ export const Tabla_users_item = (props) => {
             toast:true
         }).then(response => {
             if(response.isConfirmed){
-                delit();
+                axios.delete(`http://localhost:3001/eliminar/${val.id}`).then(()=>{
+                    Swal.fire({
+                        title: "Eliminado!",
+                        text: `El empleado ${val.name}, se ha eliminado`,
+                        icon: "success"
+                      });
+                      props.consulta();
+                })
             }
         })
-    }
-    
-    function delit(){
-        alert('sql a ejecutar')
     }
 
   return (
     <>
     <tr>
         <td>
-            <h3>{props.name +" "+ props.last_name}</h3>
+            <h3>{props.name1 +" "+ props.lastname1}</h3>
         </td>
         <td>
-            <h3>{props.tipoid}</h3>
+            <h3>{props.tipoId}</h3>
         </td>
         <td>
             <h3>{props.id}</h3>
         </td>
         <td>
-            <h3>{props.tipouser}</h3>
+            <h3>{props.cargo}</h3>
         </td>
+        {/*<td>
+            <h3>{props.contrasena}</h3>
+         </td>*/}
         <td>
-            <h3>{props.nick}</h3>
-        </td>
-        <td>
-            <h3>{props.password}</h3>
-        </td>
-        <td>
-            <h3>{props.cel}</h3>
+            <h3>{props.tel}</h3>
         </td>
         <td>
             <h3>{props.email}</h3>
         </td>
         <td>
-            <h3>{props.state}</h3>
+            <h3>{props.estado}</h3>
         </td>
         <td>
-            <button type="button" id="edit" name="edit" className="boton b1" onClick={()=> setEditform(true)}>Editar</button>
-            <button type="button"id="delete" name="delete" className="boton b2" onClick={confirmDelete}>Borrar</button>
+            <button type="button" id="edit" name="edit" className="boton b1" onClick={handleMostrarEdit}>Editar</button>
+            <button type="button"id="delete" name="delete" className="boton b2" onClick={()=>{confirmDelete(props)}}>Borrar</button>
         </td>
     </tr>
-    <Edit_user isOpen={editform} closeModal={()=> setEditform(false)}/>
+    {mostrarEditForm && <Edit_user closeModal={handleMostrarEdit} datos={props}/>}
     </>
   )
 }
