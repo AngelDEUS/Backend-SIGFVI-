@@ -1,8 +1,22 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
+export const Register_user = ({isOpen, closeModal, reConsulta}) => {
 
-export const Register_user = ({isOpen, closeModal, funcion}) => {
+    const agregarRegistro = () =>{
+        axios.post("http://localhost:3001/crear",{
+            "id" : numid,
+            "tipoid" : tipoid,
+            "name1" : name1,
+            "name2" : name2,
+            "lastname1" : apell1,
+            "lastname2" :apell2,
+            "cel" : cel,
+            "email" : email,
+            "contrasena" :password,
+        })
+    }
    
     const [numid,setNumid] = useState('');
     const [tipoid,setTipoid] = useState('');
@@ -10,6 +24,7 @@ export const Register_user = ({isOpen, closeModal, funcion}) => {
     const [name2,setName2] = useState('');
     const [apell1,setApell1] = useState('');
     const [apell2,setApell2] = useState('');
+    const [cel,setCel] = useState('');
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
 
@@ -24,7 +39,7 @@ export const Register_user = ({isOpen, closeModal, funcion}) => {
         if(Innombre1.trim() === ""){
             document.getElementById('wrongname1').innerHTML='Este espacio no puede quedar en blanco';
             con=false;
-            /*Innombre.focus();*/
+            /*Innombre.focus();*/   
         }else if(!validacionlt.test(Innombre1)){
             document.getElementById('wrongname1').innerHTML='Digitar solo letras';
             con=false;
@@ -264,8 +279,9 @@ export const Register_user = ({isOpen, closeModal, funcion}) => {
                 icon:'success',
                 text:'Registro completado. Bienvenido '+document.getElementById('name1').value,
             }).then(function(){
+                agregarRegistro();
+                reConsulta();
                 closeModal();
-                funcion(numid,tipoid,/*,tipouser*/name1,name2,apell1,apell2,email,password);
             })
             return true;
             
@@ -316,10 +332,10 @@ export const Register_user = ({isOpen, closeModal, funcion}) => {
                         <label for="tipoid">Tipo de Identificación</label>
                         <select className='input-form' name="tipoid" id="tipoid" onBlur={Verificar_tipoid} onChange={(e) => setTipoid(e.target.value)}>
                             <option value="0">Seleccionar</option>
-                            <option value="CC">Cedula de Ciudadania</option>
-                            <option value="CE">Cedula Extranjera</option>
-                            <option value="PP">Pasaporte</option>
-                            <option value="TI">Tarjeta de identidad</option>
+                            <option value="1">Cedula de Ciudadania</option>
+                            <option value="2">Cedula Extranjera</option>
+                           {/*<option value="PP">Pasaporte</option>
+                            <option value="TI">Tarjeta de identidad</option>*/}
                         </select>
                         <p id="wrongtipoid"></p>
                     </span>
@@ -332,7 +348,7 @@ export const Register_user = ({isOpen, closeModal, funcion}) => {
                     
                     <span>
                         <label for="cel">Numero de Telefono</label>
-                        <input className='input-form' type="number" name="cel" id="cel" placeholder="Numero" onBlur={Verificar_tel} />
+                        <input className='input-form' type="number" name="cel" id="cel" placeholder="Numero" onBlur={Verificar_tel}onChange={(e)=> setCel(e.target.value)}/>
                         <p id="wrongtel"></p>
                     </span>
                     <span>

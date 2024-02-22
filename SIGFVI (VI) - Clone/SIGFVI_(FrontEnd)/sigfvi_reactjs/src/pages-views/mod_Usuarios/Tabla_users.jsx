@@ -4,39 +4,21 @@ import { Tabla_users_item } from './Tabla_users_item';
 import './Tabla.css';
 import { Register_user } from './Register_user';
 import TituloyDesc from '../../components/Titles/TituloyDesc'
+import axios from "axios"
 
 function Tabla_users() {
 
-  const url = 'http://localhost:3001/Usuarios'
-
   const [datos, setDatos] = useState([])
-
-  const fetchApi = async () => {
-      const respuesta = await fetch(url); 
-      const respuestaJSON = await respuesta.json();
-      setDatos(respuestaJSON)
+  const consulta = () => {
+    axios.get("http://localhost:3001/")
+        .then((response)=>{
+          setDatos(response.data);
+            //console.log(setDatos);
+        });
   }
-
     useEffect(()=>{
-        fetchApi();
+        consulta();
     },[]);
-
-    const handleAddUser = (id,tipoid/*,tipouser*/,nombre1,nombre2,apel1,apel2,email,pass) => {
-      
-      const newUser = {
-        "id": id,
-        "tipoIdentificacion": tipoid,
-        "tipoUsuario": "Empleado",
-        "nombres": nombre1+" "+nombre2,
-        "apellidos": apel1+" "+apel2,
-        "numeroContacto": "12345678901",
-        "apodo": "Admon",
-        "email": email,
-        "contrasena": pass,
-        "estado": "Activo"
-      }
-      setDatos([...datos, newUser])
-    }
 
   const [registerform, setRegisterform] = useState(false)
   
@@ -60,7 +42,7 @@ function Tabla_users() {
             <div className='teush'>
               <button type="button" className="boton b4" id="lanzar-modal" name="agregar" onClick={()=> setRegisterform(true)}>Agregar</button>
             </div>
-            <Register_user isOpen={registerform} closeModal={()=> setRegisterform(false)} funcion={handleAddUser}/>
+            <Register_user isOpen={registerform} closeModal={()=> setRegisterform(false)} reConsulta={consulta}/>
 
           </form>
         </div>
@@ -80,12 +62,9 @@ function Tabla_users() {
                 <th>
                     <h2>Tipo de Usuario</h2>
                 </th>
-                <th>
-                    <h2>Apodo</h2>
-                </th>
-                <th>
+                {/*<th>
                     <h2>Contraseña</h2>
-                </th>
+                </th>*/}
                 <th>
                     <h2>Telefono</h2>
                 </th>
@@ -107,15 +86,17 @@ function Tabla_users() {
                     <Tabla_users_item 
                       key={datos.id}
                       id={datos.id}
-                      tipoid={datos.tipoIdentificacion}
-                      tipouser={datos.tipoUsuario}
-                      name={datos.nombres}
-                      last_name={datos.apellidos}
-                      nick={datos.apodo}
-                      password={datos.contrasena}
-                      cel={datos.numeroContacto}
-                      email={datos.email}
-                      state={datos.estado}
+                      tipoId={datos.tipoId}
+                      name1={datos.Nombre_Usuario}
+                      name2={datos.Segundo_Nombre_Usuario}
+                      lastname1={datos.Apellido_Usuario}
+                      lastname2={datos.Segundo_Apellido_Usuario}
+                      tel={datos.telefono}
+                      email={datos.Email_Usuario}
+                      contrasena={datos.contrasena}
+                      cargo={datos.cargo}
+                      estado={datos.estado}
+                      consulta={consulta}
                       />
                   )
                 })
