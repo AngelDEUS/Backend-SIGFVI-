@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
-import Edit_proveedor from './Edit_proveedor';
+import EditProveedor from './Edit_proveedor';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 export const Tabla_proveedor_item = (props) => {
 
-    const [editform , setEditform] = useState(false)
+    const [mostrarEditForm , setMostrarEditForm] = useState(false);
 
-    function confirmDelete(){
+    const handleMostrarEdit= () =>{            
+        setMostrarEditForm(!mostrarEditForm);          
+    }
+
+    function confirmDelete(val){
         Swal.fire({
             icon:'warning',
             title:'<h2 style="color:yellow">¿Desea eliminar este registro?</h2>',
@@ -18,14 +23,18 @@ export const Tabla_proveedor_item = (props) => {
             toast:true
         }).then(response => {
             if(response.isConfirmed){
-                delit();
+                axios.delete(`http://localhost:3000/eliminar/${val.id}`).then(()=>{
+                    Swal.fire({
+                        title: "Eliminado!",
+                        text: `El empleado ${val.name}, se ha eliminado`,
+                        icon: "success"
+                      });
+                      props.consulta();
+                })
             }
         })
     }
-    
-    function delit(){
-        alert('sql a ejecutar')
-    }
+  
 
   return (
     <>
@@ -46,11 +55,11 @@ export const Tabla_proveedor_item = (props) => {
             <h3>{props.state}</h3>
         </td>
         <td>
-            <button type="button" id="edit" name="edit" className="boton b1" onClick={()=> setEditform(true)}>Editar</button>
-            <button type="button"id="delete" name="delete" className="boton b2" onClick={confirmDelete}>Eliminar</button>
+            <button type="button" id="edit" name="edit" className="boton b1" onClick={handleMostrarEdit}>Editar</button>
+            <button type="button"id="delete" name="delete" className="boton b2" onClick={()=>{confirmDelete(props)}}>Eliminar</button>
         </td>
     </tr>
-    <Edit_proveedor isOpen={editform} closeModal={()=> setEditform(false)}/>
+    {mostrarEditForm && <EditProveedor closeModal={handleMostrarEdit} datos={props}/>}
     </>
     )
 }

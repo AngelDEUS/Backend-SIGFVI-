@@ -12,6 +12,7 @@ ______________________________________________________________________________
                                  /mod_inventario_fs
                                  /mod_ventasyfacturacion
                                  /mod_informes
+<<<<<<< HEAD
                                  /mod_NewBackEnd_Santiago
 
 ______________________________________________________________________________
@@ -19,3 +20,10 @@ ______________________________________________________________________________
 
 
 =======> Nota:Se añadio la rama de newbacken_santiago que añade funciones al modulo de usuarios(empleados)
+=======
+                                 /new_Caracteristica_Juan
+______________________________________________________________________________
+=======> Integrantes:
+
+=======> Nota: Se crea la nueva rama new_Caracteristica_Juan en donde se agrega una nueva función de la rama usuarios(Proveedor) mas endpoints
+>>>>>>> origin/new_Caracteristica_Juan

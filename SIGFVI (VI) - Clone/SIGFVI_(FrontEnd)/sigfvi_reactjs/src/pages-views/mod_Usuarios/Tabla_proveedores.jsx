@@ -4,34 +4,22 @@ import './Tabla.css';
 import { Tabla_proveedor_item } from './Tabla_proveedor_item';
 import Register_proveedor from './Register_proveedor';
 import TituloyDesc from '../../components/Titles/TituloyDesc';
+import axios from 'axios';
 
 function Tabla_proveedores() {
 
-  const url = 'http://localhost:3001/Proveedores'
+  const [datos, setDatos] = useState([])
 
-  const [datos, setDatos] = useState()
-
-  const fetchApi = async () => {
-      const respuesta = await fetch(url); 
-      const respuestaJSON = await respuesta.json();
-      setDatos(respuestaJSON)
+  const consulta = () => {
+    axios.get("http://localhost:3000/")
+        .then((response)=>{
+          setDatos(response.data);
+            //console.log(setDatos);
+        });
   }
-
     useEffect(()=>{
-        fetchApi();
-    },[])
-
-    const handleAddProve = (id,empre,tel,frecuencia) => {
-      const newProve = {
-        "id": id,
-        "Nombre": empre,
-        "Dirección": 'cra 0 # 0-0',
-        "Telefono": tel,
-        "Frecuencia": frecuencia,
-        "Estado": "Activo"
-      }
-      setDatos([...datos, newProve])
-    }
+        consulta();
+    },[]);
 
   const [registerform, setRegisterform] = useState(false)
 
@@ -56,7 +44,7 @@ function Tabla_proveedores() {
             <button type="button" className="boton b4" id="lanzar-modal" name="agregar" onClick={()=> setRegisterform(true)}>Agregar</button>
             </div>
           </form>
-          <Register_proveedor isOpen={registerform} closeModal={()=> setRegisterform(false)} funcion={handleAddProve} />
+          <Register_proveedor isOpen={registerform} closeModal={()=> setRegisterform(false)} reConsulta={consulta}/>
         </div>
 
         <section className="table__body">
@@ -87,12 +75,13 @@ function Tabla_proveedores() {
                 datos.map((datos, index) => {
                   return(
                     <Tabla_proveedor_item 
-                      key={datos.id}
-                      id={datos.id}
-                      name={datos.Nombre}
-                      cel={datos.Telefono}
-                      frecuency={datos.Frecuencia}
-                      state={datos.Estado}
+                      key={datos.ID_Registro_Proveedor_PK}
+                      id={datos.ID_Registro_Proveedor_PK}
+                      name={datos.Nombre_Empresa}
+                      frecuency={datos.Dia_Visita}
+                      cel={datos.Telefono_Contacto}
+                      state={datos.Estado_ID_Estado_PK}
+                      consulta={consulta}
                     />
                   )
                 })
