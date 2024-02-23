@@ -5,6 +5,7 @@ import Erro404 from '../pages-views/Error_Pages/error404';
 import Home from '../pages-views/Home/Home';
 import Dashboard from '../pages-views/Dashboard/main_Dashboard';
 import Usuarios from '../pages-views/mod_Usuarios/mai_Usuarios';
+
 import Inventario from '../pages-views/mod_inventario/mai_Inventario';
 
 import VentasFacturacion from '../pages-views/mod_Ventas-Facturacion/main_VentasFacturacion';

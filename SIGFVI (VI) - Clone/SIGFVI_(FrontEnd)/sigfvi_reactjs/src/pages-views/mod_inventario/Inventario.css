@@ -1,3 +1,34 @@
+:root {
+  --Color-input-02: #bec0c5;
+  --Color-input-01: var(--Color-Text-02);
+
+  --Color-bg-buscar-01: #ffffff;
+  --Color-bg-buscar-02: #dbdcde;
+
+  --Color-bg-separador-01: #c6c3c9;
+
+  /*BTNS TOP*/
+  --Color-btn-texts: #ffffff;
+  --Color-btn-01-abrir: #fc7c02;
+  --Color-btn-02-abrir: #fc7b0283;
+  --Color-btn-02-limpiar: #5cb0ff;
+  --Color-btn-03-nuevoT: #b85cff;
+  --Color-btn-04-cancela: #ff5c5c;
+
+  /*Factura */
+  --Color-factura-text-00: #ffffff;
+  --Color-factura-text-01: #bbbcc0;
+  --Color-factura-text-02: #9396a4;
+  --Color-factura-text-03: #7c7e8d;
+
+  --Color-factura-separador-01: #bbbcc096;
+
+  --Color-factura-bg-01: #f6f6f6;
+  --Color-factura-top-01: #e9eaeb;
+  --Color-factura-bottom-01: #fc7c02;
+
+}
+
 .mod__inventario--s .containerTitulo {
   margin-bottom: 30px;
 }
@@ -121,4 +152,71 @@
 
 .boton_modal:hover {
   opacity: 50%;
+}
+
+/* ---------: Buscar -----> */
+.buscar {
+  background-color: var(--Color-bg-buscar-01);
+  padding: 10px;
+  display: flex;
+  width: 500px;
+  height: 50px;
+  border-radius: 15px;
+}
+
+.buscar-light {
+  background-color: rgb(238, 238, 238);
+  padding: 10px;
+  display: flex;
+  width: 500px;
+  height: 50px;
+  border-radius: 15px;
+  display: flex;
+}
+
+
+.buscar_i {
+  height: 25px;
+  font-size: 20px;
+  color: var(--Color-bg-buscar-02);
+  align-self: center;
+}
+
+
+.right__b input {
+  color: var(--Color-input-01);
+  outline: none;
+  padding: 10px;
+  width: 100%;
+}
+
+.right__b input::placeholder {
+  color: var(--Color-input-02);
+}
+
+.btn_f {
+  color: var(--Color-btn-texts);
+  margin: 0 10px;
+  padding: 10px 20px;
+  border-radius: 15px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.limpiar {
+  background-color: var(--Color-btn-02-limpiar);
+  box-shadow: 0px 0px 28px 0px var(--Color-btn-02-limpiar);
+}
+
+.limpiar:hover {
+  box-shadow: 0px 0px 40px 10px var(--Color-btn-02-limpiar);
+}
+
+.cancelar {
+  background-color: var(--Color-btn-04-cancela);
+  box-shadow: 0px 0px 28px 0px var(--Color-btn-04-cancela);
+}
+
+.cancelar:hover {
+  box-shadow: 0px 0px 40px 10px var(--Color-btn-04-cancela);
 }

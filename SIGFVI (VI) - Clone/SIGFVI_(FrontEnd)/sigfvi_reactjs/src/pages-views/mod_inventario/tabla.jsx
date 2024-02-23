@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import EditProd from './EditProducto';
+import "./Inventario.css";
 
 export const Tabla_users_item = (props) => {
+
+  const [mostrarEditForm , setMostrarEditForm] = useState(false);
+
+  const handleMostrarEdit= () =>{            
+    setMostrarEditForm(!mostrarEditForm);          
+}
+
 
 
   const confirmDelete = () => {
@@ -63,7 +72,8 @@ export const Tabla_users_item = (props) => {
           type="button"
           id="edit"
           name="edit"
-          className="boton b1"
+          className="btn_f limpiar"
+          onClick={handleMostrarEdit}
         >
           Editar
         </button>
@@ -71,12 +81,14 @@ export const Tabla_users_item = (props) => {
           type="button"
           id="delete"
           name="delete"
-          className="boton b2"
+          className="btn_f cancelar"
           onClick={confirmDelete}
         >
           Borrar
         </button>
           </td>
+          {mostrarEditForm && <EditProd closeModal={handleMostrarEdit} datos={props}/>}
         </tr>
+
       )
-    }
+      }

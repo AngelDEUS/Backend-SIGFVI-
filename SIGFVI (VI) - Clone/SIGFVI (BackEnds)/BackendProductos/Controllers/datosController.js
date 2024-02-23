@@ -42,17 +42,68 @@ const BuscarDatoPorId = async (req, res) => {
   }
 };
 
-const ActualizarDato = async (req, res) => {
+const ActualizarProducto = async (req, res) => {
   const { id } = req.params;
-  const { Nombre_Producto, Cantida_Neto_producto, Precio_Proveedor, Precio_Venta } = req.body;
+  const {
+    Nombre_Producto,
+    Cantida_Neto_producto,
+    Precio_Proveedor,
+    Precio_Venta,
+  } = req.body;
 
   try {
-    const query = `UPDATE producto SET Nombre_Producto=?, Cantida_Neto_producto=?, Precio_Proveedor=?, Precio_Venta=? WHERE ID_Producto_PK=?`;
-    await db.query(query, [Nombre_Producto, Cantida_Neto_producto, Precio_Proveedor, Precio_Venta, id]);
-    res.json({ mensaje: "Dato actualizado exitosamente" });
+    const query = `
+      UPDATE producto 
+      SET Nombre_Producto=?, Cantida_Neto_producto=?, Precio_Proveedor=?, Precio_Venta=?
+      WHERE ID_Producto_PK=?
+    `;
+    await db.query(query, [
+      Nombre_Producto,
+      Cantida_Neto_producto,
+      Precio_Proveedor,
+      Precio_Venta,
+      id,
+    ]);
+    res.json({ mensaje: "Producto actualizado exitosamente" });
   } catch (error) {
-    console.error("No se pudo actualizar el dato", error);
-    res.status(500).json({ error: "No se pudo actualizar el dato" });
+    console.error("No se pudo actualizar el producto", error);
+    res.status(500).json({ error: "No se pudo actualizar el producto" });
+  }
+};
+
+const AgregarProducto = async (req, res) => {
+  const {
+    ID_Producto_PK,
+    Nombre_Producto,
+    ID_Tipo_Producto_FK,
+    Cantida_Neto_producto,
+    Precio_Proveedor,
+    Precio_Venta,
+    Foto_Producto,
+    ID_Estado_FK,
+  } = req.body;
+
+  try {
+    const query = `
+      INSERT INTO producto 
+      (ID_Producto_PK, Nombre_Producto, ID_Tipo_Producto_FK, Cantida_Neto_producto, Precio_Proveedor, Precio_Venta, Foto_Producto, ID_Estado_FK) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+    await db.query(query, [
+      ID_Producto_PK,
+      Nombre_Producto,
+      ID_Tipo_Producto_FK,
+      Cantida_Neto_producto,
+      Precio_Proveedor,
+      Precio_Venta,
+      Foto_Producto,
+      ID_Estado_FK,
+    ]);
+
+    res.json({ mensaje: "Producto agregado correctamente" });
+  } catch (error) {
+    console.error("Error al agregar el producto", error);
+    res.status(500).json({ error: "No se pudo agregar el producto" });
   }
 };
 
@@ -60,7 +111,8 @@ module.exports = {
   Datos,
   BorrarDato,
   BuscarDatoPorId,
-  ActualizarDato,
+  ActualizarProducto,
+  AgregarProducto,
 };
 
 //react Axios Y cors
