@@ -23,7 +23,6 @@ import InformeEmpleados from '../pages-views/mod_Informes/InformeEmpleados';
 
 
 import Tabla_inventario from "../pages-views/mod_inventario/tablaInventario";
-import AgregarProducto from "../pages-views/mod_inventario/agregarProducto";
 
 import Tabla_users from '../pages-views/mod_Usuarios/Tabla_users';
 import Tabla_proveedores from '../pages-views/mod_Usuarios/Tabla_proveedores';
@@ -41,7 +40,6 @@ export function MyRoutes({ onLogin }) {
             <Route path='/GestionUsuarios/TablaDeudores' element={<Tabla_deudor />} />
             <Route path='/Inventario' element={<Inventario />} />
             <Route path='/Inventario/TablaInventario' element={<Tabla_inventario />} />
-            <Route path='/Inventario/AgregarProducto' element={<AgregarProducto />} />
 
             <Route path='/VentasFacturacion/list' element={<VentasFacturacion />} />
             <Route path='/VentasFacturacion/ventas' element={<Ventas />} />

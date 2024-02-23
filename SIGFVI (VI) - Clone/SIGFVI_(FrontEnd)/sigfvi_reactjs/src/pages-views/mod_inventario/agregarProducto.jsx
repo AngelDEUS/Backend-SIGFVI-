@@ -1,102 +1,86 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
 
-function AgregarProducto() {
-  const [producto, setProducto] = useState({
-    Nombre_Producto: "",
-    ID_Tipo_Producto_FK: 0,
-    Cantida_Neto_producto: 0,
-    Precio_Proveedor: 0,
-    Precio_Venta: 0,
-    Foto_Producto: "",
-    ID_Estado_FK: 0,
-  });
+export const RegisterProd = ({isOpen, closeModal,reConsulta}) => {
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setProducto({
-      ...producto,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    axios
-      .post("http://localhost:3001/AgregarProducto", producto)
-      .then((response) => {
-        console.log("Producto agregado correctamente");
-      })
-      .catch((error) => {
-        console.error("Error al agregar el producto:", error);
-      });
-  };
-
-  return (
-    <div>
-      <h2>Agregar Nuevo Producto</h2>
-      <form onSubmit={handleSubmit}>
-        <label>Nombre del Producto:</label>
-        <input
-          type="text"
-          name="Nombre_Producto"
-          value={producto.Nombre_Producto}
-          onChange={handleInputChange}
-        />
-
-        <label>Tipo de Producto:</label>
-        <input
-          type="number"
-          name="ID_Tipo_Producto_FK"
-          value={producto.ID_Tipo_Producto_FK}
-          onChange={handleInputChange}
-        />
-
-        <label>Cantidad Neta del Producto:</label>
-        <input
-          type="number"
-          name="Cantida_Neto_producto"
-          value={producto.Cantida_Neto_producto}
-          onChange={handleInputChange}
-        />
-
-        <label>Precio Proveedor:</label>
-        <input
-          type="number"
-          name="Precio_Proveedor"
-          value={producto.Precio_Proveedor}
-          onChange={handleInputChange}
-        />
-
-        <label>Precio Venta:</label>
-        <input
-          type="number"
-          name="Precio_Venta"
-          value={producto.Precio_Venta}
-          onChange={handleInputChange}
-        />
-        
-        <label>Foto del Producto:</label>
-        <input
-          type="text"
-          name="Foto_Producto"
-          value={producto.Foto_Producto}
-          onChange={handleInputChange}
-        />
-
-        <label>Estado:</label>
-        <input
-          type="number"
-          name="ID_Estado_FK"
-          value={producto.ID_Estado_FK}
-          onChange={handleInputChange}
-        />
-
-        <button type="submit">Agregar Producto</button>
-      </form>
-    </div>
-  );
+  const nuevoProducto = () =>{
+    axios.post("http://localhost:3001/Create",{
+      "id" : id,
+      "nombre" :nombre,
+      "tProducto" : tProducto,
+      "cantidad" : cantidad,
+      "precioCompra" : precioCompra,
+      "precioVenta" : precioVenta,
+      "foto" : foto,
+      "estado" : estado,
+    })
 }
 
-export default AgregarProducto;
+const [id,setId] = useState('');
+const [nombre,setNombre] = useState('');
+const [tProducto,setTproducto] = useState('');
+const [cantidad,setCantidad] = useState('');
+const [precioCompra,setprecioCompra] = useState('');
+const [precioVenta,setPrecioVenta] = useState('');
+const [foto,setFoto] = useState('');
+const [estado,setEstado] = useState('');
+
+if(!isOpen) return null ;
+
+
+
+
+
+return (
+  <div className='register-container' >
+      <div className='fondo-register'>
+          <div>
+              <p onClick={closeModal} >X</p>
+          </div>
+          <div class="container__Main-register">
+              <div class="titulo"><h1 className='main-title'>Registar Producto</h1></div>
+              <form className="datos-contenido">
+                  <span>
+                      <label for="nombre">Nombre producto</label>
+                      <input className='input-form' type="text" name="nombre" id="nombre" placeholder="Nombre Producto" onChange={(e) => setNombre(e.target.value)} />
+                  </span>
+                  <span>
+                      <label for="tProducto">Tipo Producto</label>
+                      <input className='input-form' type="text" name="tProducto" id="tProducto" placeholder="Tipo Producto" onChange={(e) => setTproducto(e.target.value)} />
+                  </span>
+                  <span>
+                      <label for="cantidad">Cantidad</label>
+                      <input className='input-form' type="text" name="cantidad" id="cantidad" placeholder="Cantidad"  onChange={(e) => setCantidad(e.target.value)} />
+                  </span>
+                  <span>
+                      <label for="precioCompra">Precio Compra</label>
+                      <input className='input-form' type="text" name="precioCompra" id="precioCompra" placeholder="precio Compra"  onChange={(e) => setprecioCompra(e.target.value)} />
+                  </span>
+                  
+                  <span>
+                      <label for="precioVenta">Precio Venta</label>
+                      <input className='input-form' type="text" name="precioVenta" id="precioVenta" placeholder="precio Venta"  onChange={(e) => setPrecioVenta(e.target.value)} />
+                  </span>
+
+                  <span>
+                      <label for="foto">Foto</label>
+                      <input className='input-form' type="text" name="foto" id="foto" placeholder="foto"  onChange={(e) => setFoto(e.target.value)} />
+                  </span>
+                  
+                  <span>
+                      <label for="estado">Estado</label>
+                      <input className='input-form' type="number" name="estado" id="estado" placeholder="estado"  onChange={(e)=> setEstado(e.target.value)}/>
+                  </span>
+                  <span class="bloc">
+                      <br/>
+                      <input type="button" value="Registar" class="boton b4" name="submit" id="submit" />
+                  </span>
+              </form>
+          </div>
+      </div>
+  </div>
+)
+
+}
+
+
+

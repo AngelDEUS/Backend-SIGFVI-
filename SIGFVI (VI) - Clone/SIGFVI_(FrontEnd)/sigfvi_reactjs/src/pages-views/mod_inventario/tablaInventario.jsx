@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Tabla_users_item } from "./tabla";
 import TituloyDesc from "../../components/Titles/TituloyDesc";
-import { Modal, Button, Form } from "react-bootstrap";
+import { RegisterProd } from "./agregarProducto";
 import "./Inventario.css";
 import "./AllStyle.css";
 
@@ -27,8 +27,8 @@ const Tabla_Inventario = () => {
     }
   };
 
-  useEffect(() => {
-    console.log("Realizando solicitud...");
+
+  const consulta = () => {
     axios
       .get("http://localhost:3001/Datos")
       .then((response) => {
@@ -38,7 +38,14 @@ const Tabla_Inventario = () => {
       .catch((error) => {
         console.error("Error al obtener datos:", error);
       });
+  };
+
+  useEffect(() => {
+    console.log("Realizando solicitud...");
+    consulta();  
   }, []);
+
+  const [registerform, setRegisterform] = useState(false)
 
   return (
     <>
@@ -51,20 +58,35 @@ const Tabla_Inventario = () => {
             <div className="subtitulo">
               <h3>Inventario de Productos</h3>
             </div>
-            <div className="valores">
-              <div>
+            <div className="buscar">
+                <i className="bi bi-search buscar_i"></i>
+                <div className='sep_vertical_b'></div>
                 <input
                   type="text"
-                  className="buscar"
-                  placeholder="Buscar en el inventario"
-                  value={searchId}
+                  id="search"
+                  name="search"
+                  className="barra-buscar"
+                  placeholder="ID del Pedido"
                   onChange={(e) => setSearchId(e.target.value)}
                 />
+                <button className='btn_buscar' onClick={handleSearch}>Buscar</button>
               </div>
-              <div className="valor1">
-                <button className="boton_modal" onClick={handleSearch}>
-                  Buscar
-                </button>
+            <div className="valores">
+
+              <div>
+                <div className="teush">
+                <button type="button" className="boton b4" id="lanzar-modal" name="agregar" onClick={()=> setRegisterform(true)}>Agregar</button>
+
+                  <button
+                    type="button"
+                    className="boton b4"
+                    id="lanzar-modal2"
+                    name="Reporte"
+                  >
+                    Reporte
+                  </button>
+                </div>
+                <RegisterProd isOpen={registerform} closeModal={()=> setRegisterform(false)}/>
               </div>
             </div>
           </div>
