@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
+import axios from 'axios'
 
 export const RegisterProd = ({isOpen, closeModal,reConsulta}) => {
 
   const nuevoProducto = () =>{
-    axios.post("http://localhost:3001/Create",{
-      "id" : id,
-      "nombre" :nombre,
-      "tProducto" : tProducto,
-      "cantidad" : cantidad,
-      "precioCompra" : precioCompra,
-      "precioVenta" : precioVenta,
-      "foto" : foto,
-      "estado" : estado,
+    axios.post("http://localhost:3001/AgregarProducto",{
+      "ID_Producto_PK" : id,
+      "Nombre_Producto" :nombre,
+      "ID_Tipo_Producto_FK" : tProducto,
+      "Cantida_Neto_producto" : cantidad,
+      "Precio_Proveedor" : precioCompra,
+      "Precio_Venta" : precioVenta,
+      "Foto_Producto" : foto,
+      "ID_Estado_FK" : estado,
     })
 }
 
@@ -30,6 +31,7 @@ if(!isOpen) return null ;
 
 
 
+
 return (
   <div className='register-container' >
       <div className='fondo-register'>
@@ -39,6 +41,10 @@ return (
           <div class="container__Main-register">
               <div class="titulo"><h1 className='main-title'>Registar Producto</h1></div>
               <form className="datos-contenido">
+              <span>
+                      <label for="Id">Codigo</label>
+                      <input className='input-form' type="text" name="id" id="id" placeholder="Codigo" onChange={(e) => setId(e.target.value)} />
+                  </span>
                   <span>
                       <label for="nombre">Nombre producto</label>
                       <input className='input-form' type="text" name="nombre" id="nombre" placeholder="Nombre Producto" onChange={(e) => setNombre(e.target.value)} />
@@ -72,7 +78,7 @@ return (
                   </span>
                   <span class="bloc">
                       <br/>
-                      <input type="button" value="Registar" class="boton b4" name="submit" id="submit" />
+                      <input type="button" value="Registar" class="boton b4" name="submit" id="submit" onClick={nuevoProducto}/>
                   </span>
               </form>
           </div>

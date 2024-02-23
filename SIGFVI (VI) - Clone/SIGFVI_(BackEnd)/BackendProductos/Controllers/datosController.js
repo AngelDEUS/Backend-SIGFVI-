@@ -73,6 +73,7 @@ const ActualizarProducto = async (req, res) => {
 
 const AgregarProducto = async (req, res) => {
   const {
+    ID_Producto_PK,
     Nombre_Producto,
     ID_Tipo_Producto_FK,
     Cantida_Neto_producto,
@@ -85,10 +86,11 @@ const AgregarProducto = async (req, res) => {
   try {
     const query = `
       INSERT INTO producto 
-      (Nombre_Producto, ID_Tipo_Producto_FK, Cantida_Neto_producto, Precio_Proveedor, Precio_Venta, Foto_Producto, ID_Estado_FK) 
-      VALUES (?, ?, ?, ?, ?, ?, ?)
+      (ID_Producto_PK, Nombre_Producto, ID_Tipo_Producto_FK, Cantida_Neto_producto, Precio_Proveedor, Precio_Venta, Foto_Producto, ID_Estado_FK) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `;
     await db.query(query, [
+      ID_Producto_PK,
       Nombre_Producto,
       ID_Tipo_Producto_FK,
       Cantida_Neto_producto,
