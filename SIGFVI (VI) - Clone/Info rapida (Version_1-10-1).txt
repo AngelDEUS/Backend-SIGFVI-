@@ -1,6 +1,6 @@
 +++++++++++++++++++++++++++++++++++*+++++++++++++++++++++++++++++++++++
 ========================/ Notas de la version (FrontEnd) \========================
-=======> Versión Actual: 1.10.0
+=======> Versión Actual: 1.10.1
 =======> Notas de la versión: Se actualiza a la version 1.10.0, esta version contiene la inplementacion del backend, 
 con la conexion a la base de datos V2, y la crud en frontend, el proyecto se actualiza a la version mas reciente y se cambian las ramas con terminacion, 
 fs (Full Stack), Haciendo referencia a la implementacion de la nueva version del proyecto SIGFVI.
@@ -25,5 +25,4 @@ ______________________________________________________________________________
 ______________________________________________________________________________
 =======> Integrantes:
 
-=======> Nota: Se crea la nueva rama new_Caracteristica_Juan en donde se agrega una nueva función de la rama usuarios(Proveedor) mas endpoints
->>>>>>> origin/new_Caracteristica_Juan
+=======> Nota: Se hacen todos los merge de todas las ramas y se agrega en mod_inventario_fs agregar y editar productos.
