@@ -5,6 +5,7 @@ const app = express();
 const cors = require('cors');
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const corsOptions = {
   origin: 'http://localhost:3000', // Reemplaza con la URL de tu frontend
