@@ -3,18 +3,26 @@ import axios from 'axios'
 
 export const RegisterProd = ({isOpen, closeModal,reConsulta}) => {
 
-  const nuevoProducto = () =>{
-    axios.post("http://localhost:3001/AgregarProducto",{
-      "ID_Producto_PK" : id,
-      "Nombre_Producto" :nombre,
-      "ID_Tipo_Producto_FK" : tProducto,
-      "Cantida_Neto_producto" : cantidad,
-      "Precio_Proveedor" : precioCompra,
-      "Precio_Venta" : precioVenta,
-      "Foto_Producto" : foto,
-      "ID_Estado_FK" : estado,
-    })
-}
+    const nuevoProducto = async () => {
+        try {
+          const response = await axios.post("http://localhost:3001/AgregarProducto", {
+            "ID_Producto_PK": id,
+            "Nombre_Producto": nombre,
+            "ID_Tipo_Producto_FK": tProducto,
+            "Cantida_Neto_producto": cantidad,
+            "Precio_Proveedor": precioCompra,
+            "Precio_Venta": precioVenta,
+            "Foto_Producto": foto,
+            "ID_Estado_FK": estado,
+          });
+    
+          console.log(response.data); // Puedes imprimir la respuesta si es necesario
+          // Puedes realizar alguna acción adicional después de la inserción, si es necesario
+        } catch (error) {
+          console.error("Error al agregar el producto:", error);
+        }
+      };
+    
 
 const [id,setId] = useState('');
 const [nombre,setNombre] = useState('');
