@@ -125,7 +125,7 @@
     height: 100%;
     margin: 0 10px;
     padding: 0 10px;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     color: var(--Color-bg-separador-01);
     background-color: var(--Color-bg-buscar-01);

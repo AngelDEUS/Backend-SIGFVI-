@@ -8,7 +8,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 // ---> Modulos de Ventas y Facturación:
-const pedidosRouter = require('./routers/pedidosRouter');
+const pedidosRouter = require('./routers/mod_ventas_facturacion_r/pedidosRouter');
+const metodoPagoRouter = require('./routers/mod_ventas_facturacion_r/metodoPagoRouter');
 
 
 // - Uses
@@ -27,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 // - Rutas principales --->
-app.use('/', pedidosRouter);
+app.use('/', metodoPagoRouter);
 app.get("/", (req, res) => { // Mensajes de pagina principal.
     res.send("¡Hola! Este es el servidor backend!");
     console.log("¡Hola! Este es el servidor backend!");

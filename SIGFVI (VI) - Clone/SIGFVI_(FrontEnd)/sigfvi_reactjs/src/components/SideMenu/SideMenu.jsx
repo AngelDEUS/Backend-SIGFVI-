@@ -55,6 +55,29 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
         window.location.reload();
     }
 
+    const preguntaVenta = () =>{
+        const miRuta = "VentasFacturacion/ventas";
+        const miRutaFinal = "/";
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success"
+              });
+              return miRutaFinal = miRuta;
+            }
+          });
+    }
     return (
         <>
             <div className={`barra-lateral ${miniBarraLateral ? 'mini-barra-lateral' : ''}`} id="barraLateral">
@@ -72,7 +95,7 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                 </div>
                 <div className='rules'>
                     <div>
-                        <Link to='/VentasFacturacion/ventas'>
+                        <Link to='VentasFacturacion/ventas'>
                             <button className='boton'>
                                 <i className="bi bi-patch-plus-fill svg"></i>
                                 <span className=''>Nueva Venta</span>
@@ -158,11 +181,19 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                                 <ul className={`sub-menu-options${showSubMenu === 'ventas' ? ' active' : ''}`}>
                                     <li ><Link to="/VentasFacturacion/ventas">
                                         <div className='circle__sidemenu'></div>
+                                        <span>Prueba Ventas</span>
+                                    </Link></li>
+                                    <li ><Link to="/VentasFacturacion/ventas">
+                                        <div className='circle__sidemenu'></div>
                                         <span>Ventas</span>
                                     </Link></li>
                                     <li ><Link to="/VentasFacturacion/list">
                                         <div className='circle__sidemenu'></div>
                                         <span>Lista de ventas</span>
+                                    </Link></li>
+                                    <li ><Link to="/VentasFacturacion/metodo_pago">
+                                        <div className='circle__sidemenu'></div>
+                                        <span>Métodos de pago</span>
                                     </Link></li>
                                 </ul>
                             </li>

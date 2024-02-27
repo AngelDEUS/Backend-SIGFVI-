@@ -117,9 +117,13 @@ CREATE TABLE
 
 CREATE TABLE
     Metodo_de_pago (
-        ID_Metodo_Pago_PK TINYINT NOT NULL COMMENT 'Campo con la llave primaria del metodo de pago',
+        ID_Metodo_Pago_PK SMALLINT AUTO_INCREMENT NOT NULL COMMENT 'Campo con la llave primaria del metodo de pago',
         Nombre_Metodo VARCHAR(45) NOT NULL COMMENT 'Campo con el nombre del metodo de pago.',
-        PRIMARY KEY (ID_Metodo_Pago_PK)
+        Tipo_Metodo_Pago VARCHAR(45) NOT NULL COMMENT 'Campo con el nombre del tipo de metodo de pago.',
+        Referencia VARCHAR(45) COMMENT 'Campo con el nombre de la referencia del metodo de pago, puede estar vacio',
+        ID_Estado_FK TINYINT NOT NULL COMMENT 'Campo con la llave foranea de la tabla Estado para los metodos de pagos.',
+        PRIMARY KEY (ID_Metodo_Pago_PK),
+        FOREIGN KEY (Id_Estado_FK) REFERENCES Estado(ID_Estado_PK)
     );
 
 -- #10 Saldo_Cuenta_Deudor -------------->
@@ -139,7 +143,7 @@ CREATE TABLE
 CREATE TABLE
     Pedido (
         ID_Pedido_PK INT NOT NULL AUTO_INCREMENT COMMENT 'Campo con la llave primaria del pedido.',
-        ID_Metodo_Pago_FK TINYINT NOT NULL COMMENT 'Campo con el ID de la llave foranea del metodo de pago.',
+        ID_Metodo_Pago_FK SMALLINT NOT NULL COMMENT 'Campo con el ID de la llave foranea del metodo de pago.',
         Fecha_Pedido DATE NOT NULL COMMENT 'Campo con la fecha en la que crea el pedido.',
         Hora_Pedido TIME NOT NULL COMMENT 'Campo con la hora en la que se crea el pedido.',
         IVA TINYINT(30) NOT NULL COMMENT 'Campo en donde se calcula el total del IVA segun el total del pedido.',

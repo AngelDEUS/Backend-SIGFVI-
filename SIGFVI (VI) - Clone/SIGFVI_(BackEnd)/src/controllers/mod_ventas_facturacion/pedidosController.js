@@ -2,7 +2,7 @@
     * Controlador del modulo de ventas.
 */
 
-const db = require('../models/sigfviDBModelo');
+const db = require('../../models/sigfviDBModelo');
 
 
 // CONSULTAR PEDIDOS;
