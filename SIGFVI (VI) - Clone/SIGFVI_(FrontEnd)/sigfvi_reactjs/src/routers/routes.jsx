@@ -22,7 +22,7 @@ import InformeInventario from '../pages-views/mod_Informes/InformeInventario';
 import InformeEmpleados from '../pages-views/mod_Informes/InformeEmpleados';
 
 
-import Tabla_inventario from "../pages-views/mod_inventario/tablaInventario";
+import Tabla_inventario from "../pages-views/mod_inventario/tablaProductoitem";
 
 import Tabla_users from '../pages-views/mod_Usuarios/Tabla_users';
 import Tabla_proveedores from '../pages-views/mod_Usuarios/Tabla_proveedores';

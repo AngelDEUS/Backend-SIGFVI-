@@ -30,6 +30,7 @@ export const Tabla_users_item = (props) => {
           .delete(`http://localhost:3001/BorrarDato/${props.id}`)
           .then(() => {
             console.log("Dato eliminado correctamente");
+            props.consulta();
           })
           .catch((error) => {
             console.error("Error al borrar el dato:", error);
@@ -53,7 +54,7 @@ export const Tabla_users_item = (props) => {
             <h3>{props.tProducto}</h3>
           </td>
           <td>
-            <h3>{props.cantidad}</h3>
+            <h3>{props.descripcion}</h3>
           </td>
           <td>
             <h3>{props.precioCompra}</h3>
