@@ -1,9 +1,27 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 
-const Pagar_deudor = ({isOpen, closeModal}) => {
+const Pagar_deudor = ({ closeModal, datos}) => {
 
-    if(!isOpen) return null ;
+    //if(!isOpen) return null ;
+    const saldo=parseInt(datos.saldo);
+    const [quitar,setQuitar] = useState(0);
+
+    const restarSaldo = async (id) =>{
+        let resta = (saldo - quitar)
+        try {
+            const response = await axios.put(`http://localhost:3001/updatesaldo/${id}`,{
+                saldo: resta
+            })
+            console.log(response);
+        } catch (error) {
+            console.error('no se pudo sumar ',error);
+        }
+    }
+
+    const consulta=(function (){
+        datos.consulta();});
 
     function Verificar_pago(){
         const Insuma = document.getElementById('suma').value;
@@ -34,6 +52,8 @@ const Pagar_deudor = ({isOpen, closeModal}) => {
                 icon:'success',
                 text:'Adicion exitosa'
             }).then(function(){
+                restarSaldo(datos.id)
+                consulta();
                 closeModal();
             })
             return true;
@@ -59,10 +79,10 @@ const Pagar_deudor = ({isOpen, closeModal}) => {
             <form action="" class="">
                 <span>
                     <h2>Monto actual</h2>
-                    <input type="text" name="mopnto" id="monto" value='$50.000' readOnly />
+                    <input type="text" name="mopnto" id="monto" value={saldo} readOnly />
                     <br />
                     <label for="suma">Cantidad a pagar</label><br />
-                    <input type="number" name="suma" id="suma" placeholder="Pago" onBlur={Verificar_pago} />
+                    <input type="number" name="suma" id="suma" placeholder="Pago" onChange={(e)=>{setQuitar(parseInt(e.target.value))}} onBlur={Verificar_pago} />
                     <p id="wrong"></p>
                 </span>
                 <span>

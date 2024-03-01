@@ -1,11 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import EditProveedor from './Edit_proveedor';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
 export const Tabla_proveedor_item = (props) => {
 
+    const [textoActivar,setTextoActivar]= useState('');
+    const [estado,setEstado] = useState(parseInt(props.idEstado));
     const [mostrarEditForm , setMostrarEditForm] = useState(false);
+
+    const ponerTexto = () =>{
+        if(estado === 1){
+            setTextoActivar('Desactivar');
+        }else if(estado === 0){
+            setTextoActivar('Activar');
+        }
+    }
+    useEffect(() => {
+        ponerTexto();
+    },[]);
 
     const handleMostrarEdit= () =>{            
         setMostrarEditForm(!mostrarEditForm);          
@@ -14,23 +27,36 @@ export const Tabla_proveedor_item = (props) => {
     function confirmDelete(val){
         Swal.fire({
             icon:'warning',
-            title:'<h2 style="color:yellow">¿Desea eliminar este registro?</h2>',
+            title:'<h2 style="color:yellow">¿Desea Cambiar de estado este registro?</h2>',
             background:'#252327',
             confirmButtonColor:'#f2bb15',
-            confirmButtonText:`Eliminar`,
+            confirmButtonText:textoActivar,
             showCancelButton: true,
             cancelButtonText:'Cancelar',
             toast:true
-        }).then(response => {
+        }).then(async response => {
             if(response.isConfirmed){
-                axios.delete(`http://localhost:3000/eliminar/${val.id}`).then(()=>{
-                    Swal.fire({
-                        title: "Eliminado!",
-                        text: `El empleado ${val.name}, se ha eliminado`,
-                        icon: "success"
-                      });
-                      props.consulta();
-                })
+                if(estado===1 || estado==='1'){
+                    setEstado(0);
+                }else if(estado===0 || estado==='0'){
+                    setEstado(1);
+                }
+                try {
+                    //axios.delete(`http://localhost:3000/eliminar/${val.id}`).then(()=>{
+                    await axios.put(`http://localhost:3001/cambioestadoprovee/${val.id}`, {
+                        "state": estado
+                    }).then(()=>{
+                        Swal.fire({
+                            title: "Actualizado!",
+                            text: `Se cambio el estado del Gerente ${val.name1}`,
+                            icon: "success"
+                            });
+                            props.consulta();
+                            ponerTexto();
+                    })
+                } catch (error) {
+                    console.error('no se pudo cambiar de estado en la funcion confirmdelete', error);
+                }
             }
         })
     }
@@ -56,7 +82,7 @@ export const Tabla_proveedor_item = (props) => {
         </td>
         <td>
             <button type="button" id="edit" name="edit" className="boton b1" onClick={handleMostrarEdit}>Editar</button>
-            <button type="button"id="delete" name="delete" className="boton b2" onClick={()=>{confirmDelete(props)}}>Eliminar</button>
+            <button type="button"id="delete" name="delete" className="boton b2" onClick={()=>{confirmDelete(props)}}>{textoActivar}</button>
         </td>
     </tr>
     {mostrarEditForm && <EditProveedor closeModal={handleMostrarEdit} datos={props}/>}

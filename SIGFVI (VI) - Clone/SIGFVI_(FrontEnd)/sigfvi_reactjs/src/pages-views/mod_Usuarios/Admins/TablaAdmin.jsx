@@ -57,6 +57,7 @@ function TablaAdmins() {
                     <td>Tipo de Usuario</td>
                     <td>Telefono</td>
                     <td>Correo</td>
+                    <td>Estado</td>
                     <td>Acciones</td>
             </thead>
             <tbody>
@@ -77,6 +78,7 @@ function TablaAdmins() {
                       contrasena={datos.contrasena}
                       cargo={datos.cargo}
                       estado={datos.estado}
+                      idEstado={datos.ID_Estado_FK}
                       consulta={consulta}
                       />
                   )
