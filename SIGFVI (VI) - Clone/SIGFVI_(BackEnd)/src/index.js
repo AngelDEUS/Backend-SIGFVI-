@@ -6,10 +6,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+//const swaggerDos = require('./swagger-jsdoc');
 
 // ---> Modulos de Ventas y Facturación:
 const pedidosRouter = require('./routers/mod_ventas_facturacion_r/pedidosRouter');
 const metodoPagoRouter = require('./routers/mod_ventas_facturacion_r/metodoPagoRouter');
+
+// --> Modúlo de Productos e Inventario
+const productoRouter = require('./routers/mod_inventario_r/productoRouter')
 
 
 // - Uses
@@ -28,7 +32,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 // - Rutas principales --->
+app.use('/', pedidosRouter);
 app.use('/', metodoPagoRouter);
+app.use('/', productoRouter);
 app.get("/", (req, res) => { // Mensajes de pagina principal.
     res.send("¡Hola! Este es el servidor backend!");
     console.log("¡Hola! Este es el servidor backend!");

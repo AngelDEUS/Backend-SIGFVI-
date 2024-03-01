@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ListaProductosModal = ({ productos, onClose }) => {
+const ListaProductosModal = ({ productos, onClose, handleAddToTab }) => {
     const productosPorPagina = 10;
     const [paginaActual, setPaginaActual] = useState(1);
 
@@ -21,6 +21,12 @@ const ListaProductosModal = ({ productos, onClose }) => {
         if (paginaActual < totalPages) {
             setPaginaActual(paginaActual + 1);
         }
+    };
+
+    const addToTab = (productId) => {
+        // Llama a la función handleAddToTab pasada como prop desde el componente padre
+        handleAddToTab(productId);
+        onClose(); // Cierra el modal después de agregar el producto
     };
 
     return (
@@ -53,7 +59,7 @@ const ListaProductosModal = ({ productos, onClose }) => {
                     </thead>
                     <tbody>
                         {productosPaginados.map((producto) => (
-                            <tr key={producto.Id_producto}>
+                            <tr key={producto.Id_producto} onClick={() => addToTab(producto.Id_producto)}>
                                 <td>{producto.Id_producto}</td>
                                 <td>{producto.tipo}</td>
                                 <td>{producto.nombre}</td>

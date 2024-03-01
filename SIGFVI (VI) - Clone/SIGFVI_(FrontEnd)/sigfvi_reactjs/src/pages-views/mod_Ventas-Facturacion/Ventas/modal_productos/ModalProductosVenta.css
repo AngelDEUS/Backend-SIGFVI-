@@ -1,0 +1,133 @@
+.modal-productos-venta {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center; transition: opacity 1s ease;
+    opacity: 1;
+}
+.modal-productos-venta.cerrado {
+    opacity: 0;
+    pointer-events: none; 
+}
+
+.modal-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    transition: opacity 0.3s ease;
+    opacity: 1;
+}
+
+/* Cerrar modal */
+.modal-productos-venta.cerrado .modal-content {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-buttons {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.busqueda__prod {
+    width: 100%;
+}
+
+.buscar_productos {
+    display: flex;
+    justify-content: space-between;
+}
+
+.buscar {
+    display: flex;
+    align-items: center;
+}
+
+.buscar_i {
+    margin-right: 5px;
+}
+
+.sep_vertical_b {
+    width: 1px;
+    height: 20px;
+    margin: 0 10px;
+}
+
+.sep_vertical_b--outS {
+    width: 1px;
+    height: 30px;
+    margin: 0 10px;
+}
+
+.right__b {
+    display: flex;
+    align-items: center;
+}
+
+.left__b {
+    display: flex;
+    align-items: center;
+}
+
+.contenedor-productos {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.productos-seleccionados,
+.productos-encontrados {
+    width: 30%;
+}
+
+.productos-seleccionados,
+.productos-encontrados h2 {
+    margin-bottom: 10px;
+}
+
+.productos-encontrados {
+    border-right: 1px solid #000;
+    padding-right: 20px;
+}
+
+.separador-vertical {
+    width: 1px;
+    height: 100%;
+    background-color: #000;
+}
+
+.separador-horizontal {
+    width: 100%;
+    height: 1px;
+    background-color: #000;
+    margin: 20px 0;
+}
+
+.acciones {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-agregar,
+.btn-cancelar {
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-agregar {
+    background-color: orange;
+    color: #fff;
+}
+
+.btn-cancelar {
+    background-color: gray;
+    color: #fff;
+}

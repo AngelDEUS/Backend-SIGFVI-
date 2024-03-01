@@ -70,6 +70,12 @@ INSERT INTO Usuario(ID_Numero_Identificacion_PK,ID_Tipo_Identificacion_FKPK,Nomb
 			('Nequi','Electronico','123-456-789-000',0),
 			('Daviplata','Electronico','123-000-456-789',0),
 			('Tarjeta','Electronico','123-456-000-789',1);
+SELECT * FROM Metodo_de_pago;
+
+SELECT * FROM producto WHERE Nombre_Producto LIKE '%%';
+SELECT * FROM Metodo_de_pago WHERE Nombre_Metodo LIKE '%Tarjeta%';
+
+
             
 -- #10 -- Saldo_Cuenta_Deudor
 INSERT INTO Saldo_Cuenta_Deudor(ID_Deudor_FK,Fecha_Cancelacion_Pedido,Total_Saldo_Deuda)

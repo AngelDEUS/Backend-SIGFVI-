@@ -179,13 +179,17 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
 
                                 </Link>
                                 <ul className={`sub-menu-options${showSubMenu === 'ventas' ? ' active' : ''}`}>
-                                    <li ><Link to="/VentasFacturacion/ventas">
+                                    <li ><Link to="/VentasFacturacion/ventas_main">
                                         <div className='circle__sidemenu'></div>
-                                        <span>Prueba Ventas</span>
+                                        <span>Ventas Main</span>
                                     </Link></li>
                                     <li ><Link to="/VentasFacturacion/ventas">
                                         <div className='circle__sidemenu'></div>
-                                        <span>Ventas</span>
+                                        <span>Ventas Antiguo</span>
+                                    </Link></li>
+                                    <li ><Link to="/VentasFacturacion/tabs">
+                                        <div className='circle__sidemenu'></div>
+                                        <span>ver tabs</span>
                                     </Link></li>
                                     <li ><Link to="/VentasFacturacion/list">
                                         <div className='circle__sidemenu'></div>

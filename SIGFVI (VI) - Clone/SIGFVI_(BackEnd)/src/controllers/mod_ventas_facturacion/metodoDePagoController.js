@@ -33,6 +33,21 @@ function getMetodoPagoId(req, res) {
         })
 }
 
+// CONSULTAR MEDOTOD DE PAGO POR NOMBRE METODO PAGO:
+function getMetodoPagoNombre(req, res) {
+    const Nombre_Metodo = req.params.nombre;
+    db.query(`SELECT * FROM Metodo_de_pago WHERE Nombre_Metodo LIKE '%${Nombre_Metodo}%';`, 
+        (err, result) => {
+            if (err) {
+                console.error('\x1b[31m', err, '\x1b[0m\n');
+                res.status(500).send('Error al obtener el Método de Pago específico.');
+            } else {
+                res.json(result); 
+                console.log('Resultados encontrados: ', result);
+            }
+        });
+}
+
 // CREAR NUEVO METODO DE PAGO:
 function createMetodoPago(req, res) {
     const { Nombre_Metodo, Tipo_Metodo_Pago, Referencia, ID_Estado_FK } = req.body;
@@ -126,6 +141,7 @@ function deleteMetodoPago(req, res) {
 module.exports = {
     getMetodoPagos,
     getMetodoPagoId,
+    getMetodoPagoNombre,
     createMetodoPago,
     updateMetodoPago,
     deleteMetodoPago,
