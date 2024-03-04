@@ -9,6 +9,7 @@ const ModalProductosVenta = () => {
 
     // Use states    
     const [modalAbierto, setModalAbierto] = useState(true);
+    let [calcularCantProd,setCalcularCantProd] = useState(1);
 
     // Cancelar Agregar productos al Ticket.
     const handleCancelar = () => {
@@ -26,6 +27,30 @@ const ModalProductosVenta = () => {
         });
     };
 
+    // Calcular total de producto seleccionado
+
+    // Funcion solo sumar.
+    const sumarProducSelect = () => {
+        setCalcularCantProd(parseInt(calcularCantProd) + 1);      
+    }
+
+    const restarProductSelect = () => {
+        parseInt(calcularCantProd);
+        if (calcularCantProd <= 1) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Para agregar cantidad de producto, como mínimo debe ser 1, para agregar al ticket.",
+                footer: '<p>Revisa la cantidad de producto que desea agregar por favor.</p>'
+              });
+              setCalcularCantProd(1);
+        } else {
+            setCalcularCantProd(parseInt(calcularCantProd) - 1);
+        }
+    }
+
+
+    //Cosnt del input calcular cantidad de productos
 
     return (
         <div className={`modal-productos-venta ${modalAbierto ? '' : 'cerrado'}`}>
@@ -46,29 +71,46 @@ const ModalProductosVenta = () => {
                                 />
                                 <button className='btn_buscar'>Buscar</button>
                             </div>
-                            <button className="btn_f abrir">+ Abrir lista</button>
-                            <div className='sep_vertical_b--outS'></div>
-                            <button className="btn_f limpiar">Limpiar</button>
-                        </div>
-                        <div className='left__b'>
-                            <button className="btn_f nuevo">Consultar Deudores</button>
-                            <div className='sep_vertical_b--outS'></div>
-                            <button className="btn_f cancelar">Cancelar</button>
                         </div>
                     </div>
                 </div>
-                <div className="separador-vertical"></div>
-                <div className="contenedor-productos">
-                    <div className="productos-seleccionados">
-                        <h2>Productos Seleccionados</h2>
-                        <div className="subcontenedor-productos">
-                            {/* Contenido de productos seleccionados */}
+                <div className="contenedor-productos--Main">
+                    <div className="productos-encontrados">
+                        <div className="titleContentModal">
+                            <h2>Lista de Productos Encontrados</h2>
+                            <div className="caretTitle"></div>
+                        </div>
+                        <div className="subcontenedor-productos-encontradosDiv">
+                            {/* Contenido de productos encontrados en tabla */}
                         </div>
                     </div>
-                    <div className="productos-encontrados">
-                        <h2>Productos Encontrados</h2>
-                        <div className="subcontenedor-productos">
-                            {/* Contenido de productos encontrados en tabla */}
+                    <div className="separador-vertical"></div>
+                    <div className="productos-seleccionados">
+                        <div className="contentProdSecTop">
+                            <div className="titleContentModal">
+                                <h2>Productos Seleccionados</h2>
+                                <div className="caretTitle"></div>
+                            </div>
+                            <div className="subcontenedor-productos">
+                                <div className="sub-content-prod-encontrados">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div className="contentProdSecBootom">
+                            <div className="titleContentModal">
+                                <h2>Productos Seleccionados</h2>
+                                <div className="caretTitle"></div>
+                            </div>
+                            <div className="subcontenedor-productos-sum">
+                                <div className="sumar-restar-cantidad-prod">
+                                    <button className="btnCantidadModal" id='opModal_Resta' onClick={restarProductSelect}><span className='txtbtn'>-</span></button>
+                                    <span  className="totalSumatoria-CantProd" id='opModal_Resultado' >{calcularCantProd}</span>
+                                    {/*<input type="number" className='noneInputClass' id='opModal_Resultado' value={calcularCantProd} onChange={(e) => setCalcularCantProd(parseInt(e.target.value))} />*/}
+                                    <button className="btnCantidadModal" id='opModal_Suma' onClick={sumarProducSelect}><span className='txtbtn'>+</span></button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

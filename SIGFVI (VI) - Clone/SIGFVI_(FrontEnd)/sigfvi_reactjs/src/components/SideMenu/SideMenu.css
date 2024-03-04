@@ -13,21 +13,7 @@
     --color-linea: #b0b0b021;
     --color-menu-icons: #1f1f21;
     --color-usuario-bg: #1b1b1c;
-    --color-scroll: rgba(192, 192, 192, 0.267);
-    --color-scroll-hover: rgba(241, 241, 241, 0.178);
     --Color-Text-highlight-01: #fe9a1a;
-}
-
-*::-webkit-scrollbar {
-    width: 5px;
-}
-
-*::-webkit-scrollbar-thumb {
-    background-color: var(--color-scroll);
-}
-
-*::-webkit-scrollbar-thumb:hover {
-    background-color: var(--color-scroll-hover);
 }
 
 /* Contenedor general del menú */

@@ -1,3 +1,13 @@
+:root {
+    --Color--Separador: #a2a1a650;
+
+    --Color-bg-contenedores: #e8e4e4;
+    --Color-bg-buttons-sumar-restar: #ff9c20;
+    --Color-bg-buttons-sumar-restar-hover: #e96113;
+
+    --Color-texto-01: #78777d;
+}
+
 .modal-productos-venta {
     position: fixed;
     top: 0;
@@ -7,12 +17,14 @@
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
-    align-items: center; transition: opacity 1s ease;
+    align-items: center;
+    transition: opacity 1s ease;
     opacity: 1;
 }
+
 .modal-productos-venta.cerrado {
     opacity: 0;
-    pointer-events: none; 
+    pointer-events: none;
 }
 
 .modal-content {
@@ -81,31 +93,28 @@
     align-items: flex-start;
 }
 
-.productos-seleccionados,
-.productos-encontrados {
-    width: 30%;
-}
+.productos-seleccionados {
+    width: 400px;
+    padding-left: 20px;
 
-.productos-seleccionados,
-.productos-encontrados h2 {
-    margin-bottom: 10px;
 }
 
 .productos-encontrados {
-    border-right: 1px solid #000;
+    width: 800px;
     padding-right: 20px;
 }
 
+
 .separador-vertical {
     width: 1px;
-    height: 100%;
-    background-color: #000;
+    height: auto;
+    background-color: var(--Color--Separador);
 }
 
 .separador-horizontal {
     width: 100%;
     height: 1px;
-    background-color: #000;
+    background-color: var(--Color--Separador);
     margin: 20px 0;
 }
 
@@ -118,7 +127,7 @@
 .btn-agregar,
 .btn-cancelar {
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 30px;
     cursor: pointer;
 }
 
@@ -130,4 +139,122 @@
 .btn-cancelar {
     background-color: gray;
     color: #fff;
+}
+
+/* Productos */
+.contenedor-productos--Main {
+    margin: 20px 0;
+    display: flex;
+}
+
+/* Tutulos de los modales */
+.titleContentModal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.titleContentModal h2 {
+    color: #78777d;
+    font-weight: 500;
+}
+
+/* Caret --> */
+.caretTitle {
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid #78777d;
+    border-radius: 2px;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+/* Sub COntenedor*/
+.subcontenedor-productos {
+    height: 335px;
+    background-color: #e8e4e4;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+.subcontenedor-productos-sum {
+    height: 100px;
+    background-color: #e8e4e4;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+.subcontenedor-productos-encontradosDiv {
+    height: 500px;
+    background-color: #e8e4e4;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+/* sub-content-prod-encontrados */
+.sub-content-prod-encontrados {
+    height: auto;
+}
+
+/* Contenedor acciones sumar cantidad Prod. */
+.contentProdSecBootom {
+    margin-top: 20px;
+}
+
+/*sumar-restar-cantidad-prod*/
+.sumar-restar-cantidad-prod {
+    background-color: white;
+    height: 100%;
+    border-radius: 15px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* operaciones btn */
+.btnCantidadModal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    width: 40px;
+    height: 40px;
+    background-color: var(--Color-bg-buttons-sumar-restar);
+    border-radius: 50%;
+    padding: 5px 10px;
+    margin: 10px;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+.btnCantidadModal:hover {
+    background-color: var(--Color-bg-buttons-sumar-restar-hover);
+}
+
+.btnCantidadModal:active {
+    background-color: var(--Color-bg-buttons-sumar-restar);
+}
+
+.btnCantidadModal .txtbtn {
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.totalSumatoria-CantProd {
+    color: var(--Color-texto-01);
+    font-size: 25px;
+    margin: 0px 20px;
+}
+
+.noneInputClass {
+    color: black;
+    font-size: 25px;
+    margin: 0px 20px;
+    cursor: text;
+    border: none;
+    outline: none;
+    width: 100px;
 }
