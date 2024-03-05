@@ -57,6 +57,7 @@ table th {
     background-color: #fcefda;
 }
 
+
 table,
 table th,
 table td {
@@ -64,8 +65,23 @@ table td {
     padding: 1rem;
 }
 
-table td{
+table td {
     color: #2e2b2b;
+}
+
+.esquinaIz-Top {
+    border-radius: 15px 0px 0px 0px;
+}
+
+.esquinaDe-Top {
+    border-radius: 0px 15px 0px 0px;
+}
+
+.esquinaIz-Bootom {
+    border-radius: 0px 15px 0px 15px;
+}
+.esquinaDe-Bootom {
+    border-radius: 0px 0px 15px 0px;
 }
 
 tbody tr:nth-child(odd) {
@@ -77,7 +93,7 @@ tbody tr:nth-child(even) {
     /* Color de fondo para filas pares */
 }
 
-.thAcciones{
+.thAcciones {
     background-color: #ffe5ba;
 }
 

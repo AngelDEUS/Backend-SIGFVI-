@@ -100,7 +100,7 @@
 }
 
 .productos-encontrados {
-    width: 800px;
+    width: 1120px;
     padding-right: 20px;
 }
 
@@ -191,7 +191,9 @@
     background-color: #e8e4e4;
     padding: 15px;
     border-radius: 15px;
+    overflow: hidden;
 }
+
 
 /* sub-content-prod-encontrados */
 .sub-content-prod-encontrados {
@@ -258,3 +260,5 @@
     outline: none;
     width: 100px;
 }
+
+/*------------: Mini Card SELECTEDD ------------>*/
