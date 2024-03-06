@@ -1,0 +1,65 @@
+
+/* Estilo para la tabla 2 */
+.tabla2 {
+    width: 100%;
+    /* border-collapse: collapse; */
+    transition: all .5s ease;
+}
+
+.tabla2 thead {
+    background-color: #fcefda;
+    position: relative;
+}
+
+.tabla2 th, .tabla2 td {
+    padding: 0.5rem;
+    text-align: left;
+}
+.tabla2 td {
+    border-left: 1px solid #d8cab56b;
+
+}
+.tabla2 tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.tabla2 tbody tr:nth-child(odd):hover {
+    background-color: #ffe5ba71;
+}
+
+.tabla2 tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+.tabla2 tbody tr:nth-child(even):hover {
+    background-color: #ffe5ba71;
+}
+
+.tabla2 .thAcciones {
+    background-color: #ffe5ba;
+    border-left: 1px solid #ffe3b7;
+}
+
+.tabla2 tbody tr:nth-child(odd) .tdAcciones {
+    background-color: #f1e9de;
+    border-left: 1px solid #ffe5ba;
+}
+
+.tabla2 tbody tr:nth-child(even) .tdAcciones {
+    background-color: #fff6ee;
+    border-left: 1px solid #ffe5ba;
+}
+
+/* Footer */
+.tabla2 tfoot .tablefooterBg {
+    background-color: #cfc8c1;
+    padding: 0px;
+    height: 8px;
+    border-radius: 0px 0px 10px 10px;
+}
+
+@media (max-width: 1000px) {
+    .tabla2 td:not(:first-of-type) {
+        min-width: 6.5rem;
+    }
+}

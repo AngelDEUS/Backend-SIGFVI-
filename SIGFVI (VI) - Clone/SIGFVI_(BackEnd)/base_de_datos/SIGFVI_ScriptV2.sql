@@ -1,7 +1,10 @@
 -- Active: 1695004089364@@127.0.0.1@3306@sigfvi_v2
+/* 
+**** 1: Se borraron campos de la tabla inventario
+*/
 
 CREATE DATABASE SIGFVI_V2;
-
+-- DROP DATABASE SIGFVI_V2;
 USE SIGFVI_V2;
 
 -- #1 Estado -------------->
@@ -29,7 +32,7 @@ CREATE TABLE
         ID_Producto_PK VARCHAR(15) NOT NULL COMMENT 'Campo como llave primaria de tipo varchar del producto.',
         ID_Tipo_Producto_FK TINYINT NOT NULL,
         Nombre_Producto VARCHAR(25) NOT NULL COMMENT 'Campo con el nombre del producto.',
-        Cantida_Neto_producto MEDIUMINT NOT NULL COMMENT 'Campo con la cantidad neta del producto segun el tipo de producto.',
+        Descripcion_Producto VARCHAR(100) NOT NULL COMMENT 'Campo con la descripcion breve del producto.',
         Precio_Proveedor DECIMAL(11, 2) UNSIGNED NOT NULL COMMENT 'Campo con el precio inicial de compra a el proveedor.',
         Precio_Venta DECIMAL(11, 2) UNSIGNED NOT NULL COMMENT 'Campo con el precio de venta al cliente.',
         Fecha_Vencimiento DATE NOT NULL COMMENT 'Campo con la fecha de vencimiento del producto.',
@@ -193,12 +196,9 @@ SELECT * FROM Facturacion;
 CREATE TABLE
     Inventario (
         ID_Inventario_PK SMALLINT(10) AUTO_INCREMENT NOT NULL COMMENT 'Campo que contiene la clave unica del registro del inventario autoincrementable.',
-        Cantidad_Lote SMALLINT(10) NOT NULL COMMENT 'Campo del numero de la cantidad de entrada del lote de un producto',
         Stock INT UNSIGNED NOT NULL COMMENT 'Campo que calcula y agrupa la cantidad del stock de productos registrados.',
-        ID_Estado_FK TINYINT NOT NULL COMMENT 'Campo en el que se asigna el ID del Estado actual del inventario',
         ID_Producto_FK VARCHAR(15) NOT NULL COMMENT 'Campo con la llave foranea el ID del producto referenciado',
         PRIMARY KEY (ID_Inventario_PK),
-        FOREIGN KEY (ID_Estado_FK) REFERENCES Estado (ID_Estado_PK),
         FOREIGN KEY (ID_Producto_FK) REFERENCES Producto (ID_Producto_PK)
     );
 

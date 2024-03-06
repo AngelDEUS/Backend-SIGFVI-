@@ -11,6 +11,7 @@ const cors = require('cors');
 // ---> Modulos de Ventas y Facturación:
 const pedidosRouter = require('./routers/mod_ventas_facturacion_r/pedidosRouter');
 const metodoPagoRouter = require('./routers/mod_ventas_facturacion_r/metodoPagoRouter');
+const routerConsultas = require('./routers/mod_ventas_facturacion_r/consulatasImportRouter.js')
 
 // --> Modúlo de Productos e Inventario
 const productoRouter = require('./routers/mod_inventario_r/productoRouter')
@@ -31,10 +32,11 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-// - Rutas principales --->
+// - Rutas principales Para ventas --->
 app.use('/', pedidosRouter);
 app.use('/', metodoPagoRouter);
 app.use('/', productoRouter);
+app.use('/vyf', routerConsultas);
 app.get("/", (req, res) => { // Mensajes de pagina principal.
     res.send("¡Hola! Este es el servidor backend!");
     console.log("¡Hola! Este es el servidor backend!");

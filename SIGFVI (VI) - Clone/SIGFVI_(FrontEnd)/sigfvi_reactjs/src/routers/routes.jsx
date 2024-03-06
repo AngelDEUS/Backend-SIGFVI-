@@ -33,10 +33,10 @@ import Tabla_proveedores from '../pages-views/mod_Usuarios/Tabla_proveedores';
 import Tabla_deudor from '../pages-views/mod_Usuarios/Tabla_deudor';
 import TablaAdmins from '../pages-views/mod_Usuarios/Admins/TablaAdmin';
 
-export function MyRoutes({ onLogin }) {
+export function MyRoutes() {
     return (
         <Routes>
-            <Route path='/Layout/*' element={<MainLayout onLogin={onLogin} />} />
+            <Route path='/Layout/*' element={<MainLayout />} />
             <Route path='/Home' element={<Home />} />
             <Route path='/Dashboard' element={<Dashboard />} />
             {/* <Route path='/GestionUsuarios' element={<Usuarios />} /> */}
@@ -61,8 +61,8 @@ export function MyRoutes({ onLogin }) {
 
             <Route path='/Ayuda' element={<Ayuda />} />
             <Route path='*' element={<Erro404 />} />
-            <Route path='/' element={<LoginMain onLogin={onLogin} />} />
-            <Route path='/Login' element={<LoginMain onLogin={onLogin} />} />
+            <Route path='/' element={<LoginMain />} />
+            <Route path='/Login' element={<LoginMain />} />
         </Routes>
     );
 }
