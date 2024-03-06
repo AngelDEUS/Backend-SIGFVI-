@@ -13,11 +13,7 @@ const nomDatabase = "SIGFVI_V2"; // nombre de la base de datos.
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
-<<<<<<< HEAD
     password: "0000",
-=======
-    password: "",
->>>>>>> origin/mod_usuarios_fs
     database: "SIGFVI_V2"
 })
 
