@@ -25,6 +25,18 @@ const BorrarDato = async (req, res) => {
   }
 };
 
+const BorrarInventario = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const query = `DELETE FROM inventario WHERE ID_Producto_FK = ?`;
+    await db.query(query, [id]);
+    res.json({ mensaje: "Inventario eliminado exitosamente" });
+  } catch (error) {
+    console.error("No se pudo borrar el inventario", error);
+    res.status(500).json({ error: "No se pudo borrar el inventario" });
+  }
+};
+
 const BuscarDatoPorId = async (req, res) => {
   const { id } = req.params;
   try {
@@ -130,6 +142,7 @@ module.exports = {
   Datos,
   BorrarDato,
   BuscarDatoPorId,
+  BorrarInventario,
   ActualizarProducto,
   AgregarProducto,
   VerificarDuplicado,

@@ -27,10 +27,16 @@ export const Tabla_Prod_item = (props) => {
     }).then((response) => {
       if (response.isConfirmed) {
         axios
-          .delete(`http://localhost:3001/BorrarDato/${props.id}`)
+          .delete(`http://localhost:3001/BorrarInventario/${props.id}`)
           .then(() => {
-            console.log("Dato eliminado correctamente");
-            props.consulta();
+            axios.delete(`http://localhost:3001/BorrarDato/${props.id}`)
+              .then(() => {
+                console.log("Dato eliminado correctamente");
+                props.consulta();
+              })
+              .catch((error) => {
+                console.error("Error al borrar el inventario:", error);
+              });
           })
           .catch((error) => {
             console.error("Error al borrar el dato:", error);
