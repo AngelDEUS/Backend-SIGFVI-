@@ -10,9 +10,13 @@ const ModalProductosVenta = () => {
     const tituloVentasControl = 'Modal Busqueda de productos'
 
     // Guardar Productos
-    const productosModal = {
-        "": ""
+    const productoAgregarVenta = {
+        "ID_Producto": "",
+        "Nombre_Producto": "",
+        "Precio_Venta": "",
+        "Cantidad_Producto": "",
     }
+    const producsSeleccionadosPVenta = []
 
     // Use states    
     const [modalAbierto, setModalAbierto] = useState(true);
