@@ -3,6 +3,7 @@ import axios from "axios";
 import "./inputstyle.css";
 
 export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
+
   const nuevoProducto = async () => {
     try {
       const generarId = async (pre) => {
@@ -260,7 +261,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
               <button
                 name="submit"
                 id="submit"
-                onSubmit={nuevoProducto}
+                onClick={nuevoProducto}
                 className="btn_f limpiar btn-registro"
               >
                 Registar
