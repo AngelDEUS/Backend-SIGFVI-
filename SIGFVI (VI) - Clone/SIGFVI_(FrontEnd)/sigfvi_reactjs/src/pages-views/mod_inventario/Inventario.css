@@ -227,3 +227,11 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.subtitulo__h3{
+  color: #3503ff;
+  font-size: 15px;
+  text-transform: capitalize;
+  margin-left: 10px;
+}
+
