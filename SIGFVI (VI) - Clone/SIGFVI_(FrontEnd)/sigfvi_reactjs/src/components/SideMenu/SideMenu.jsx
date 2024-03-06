@@ -156,13 +156,13 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                                     </div>
                                 </Link>
                                 <ul className={`sub-menu-options${showSubMenu === 'inventario' ? ' active' : ''}`}>
-                                    <li><Link to="/Inventario/TablaInventario">
+                                    <li><Link to="/Inventario/Producto">
                                         <div className='circle__sidemenu'></div>
                                         <span>Gestion de Productos</span>
                                     </Link></li>
-                                    <li><Link to="/Inventario/AgregarProducto">
+                                    <li><Link to="/Inventario/GestionInventario">
                                         <div className='circle__sidemenu'></div>
-                                        <span>AgregarProducto</span>
+                                        <span>Gestion Inventario</span>
                                     </Link></li>
                                 </ul>
                             </li>

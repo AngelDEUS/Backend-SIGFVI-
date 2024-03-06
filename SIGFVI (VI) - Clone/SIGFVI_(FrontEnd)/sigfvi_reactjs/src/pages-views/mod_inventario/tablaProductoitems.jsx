@@ -4,12 +4,12 @@ import axios from 'axios';
 import EditProd from './EditProducto';
 import "./Inventario.css";
 
-export const Tabla_users_item = (props) => {
+export const Tabla_Prod_item = (props) => {
 
   const [mostrarEditForm , setMostrarEditForm] = useState(false);
 
-  const handleMostrarEdit= () =>{            
-    setMostrarEditForm(!mostrarEditForm);          
+  const handleMostrarEdit= () =>{
+    setMostrarEditForm(!mostrarEditForm);
 }
 
 
@@ -27,9 +27,16 @@ export const Tabla_users_item = (props) => {
     }).then((response) => {
       if (response.isConfirmed) {
         axios
-          .delete(`http://localhost:3001/BorrarDato/${props.id}`)
+          .delete(`http://localhost:3001/BorrarInventario/${props.id}`)
           .then(() => {
-            console.log("Dato eliminado correctamente");
+            axios.delete(`http://localhost:3001/BorrarDato/${props.id}`)
+              .then(() => {
+                console.log("Dato eliminado correctamente");
+                props.consulta();
+              })
+              .catch((error) => {
+                console.error("Error al borrar el inventario:", error);
+              });
           })
           .catch((error) => {
             console.error("Error al borrar el dato:", error);
@@ -53,7 +60,7 @@ export const Tabla_users_item = (props) => {
             <h3>{props.tProducto}</h3>
           </td>
           <td>
-            <h3>{props.cantidad}</h3>
+            <h3>{props.descripcion}</h3>
           </td>
           <td>
             <h3>{props.precioCompra}</h3>
