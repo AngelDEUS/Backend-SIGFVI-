@@ -4,12 +4,14 @@ const Get = async (req, res) => {
   try {
     const query =  `select u.ID_Numero_Identificacion_PK as id, ti.Nombre_Identificacion as tipoId,u.Nombre_Usuario,
     u.Segundo_Nombre_Usuario,u.Apellido_Usuario,Segundo_Apellido_Usuario,u.Numero_Contacto_Usuario as telefono,
-    u.Email_Usuario,Password_Usuario as contrasena,tc.Nombre_Tipo_cargo as cargo,ID_Estado_FK as estado
+    u.Email_Usuario,Password_Usuario as contrasena,tc.Nombre_Tipo_cargo as cargo,ID_Estado_FK,e.Nombre_Estado as estado
     from usuario u 
     inner join Tipo_Cargo tc
     on tc.ID_Tipo_Cargo_PK = u.ID_Tipo_Cargo_FK
     inner join Tipo_identificacion ti
     on u.ID_Tipo_Identificacion_FKPK = ti.ID_Tipo_Identificacion_PK
+    inner join Estado e
+    on u.ID_Estado_FK=e.ID_Estado_PK
     where  u.ID_Tipo_Cargo_FK = 2;`;
     const [result] = await db.query(query);
     res.json(result);
@@ -65,6 +67,20 @@ const Put =async (req,res)=>{
     }
 }
 
+const cambioEstadoAdmin = async(req,res)=>{
+  const {id} = req.params;
+  const {state} = req.body;
+
+  try {
+      const estado = `UPDATE usuario SET ID_Estado_FK = ? WHERE ID_Numero_Identificacion_PK = ? ;`;
+      await db.query(estado,[state,id]);
+      res.json({message: "Estado cambiado"})
+  } catch (error) {
+      console.error('Edtado no cambiado',error);
+      res.json('Edtado no cambiado',error);
+  }
+}
+
 const Delete = async (req, res) => {
     const {id} = req.params;
   
@@ -84,5 +100,6 @@ module.exports={
     getUpdate,
     Post,
     Put,
-    Delete
+    Delete,
+    cambioEstadoAdmin
 }

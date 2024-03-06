@@ -1,6 +1,10 @@
 ###
 GET http://localhost:3001/read HTTP/1.1
 
+
+###
+GET http://localhost:3001/consdeudor HTTP/1.1
+
 ###
 POST http://localhost:3001/Create HTTP/1.1
 Content-Type: application/json
@@ -15,6 +19,20 @@ Content-Type: application/json
     "cel":"3104552860",
     "email":"admon@gmail.com",
     "contrasena":"0000"
+}
+
+###
+POST http://localhost:3001/createdeudor HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": 5855,
+    "name1": "deudor",
+    "name2": "tales",
+    "lastname1": "ashe",
+    "lastname2": "deudor",
+    "address": "carrera tales transversal",
+    "tel": "3102427741"
 }
 
 ###
@@ -35,4 +53,42 @@ Content-Type: application/json
 }
 
 ###
+PUT http://localhost:3001/updatedeudor/14523698 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name1": "xdd",
+    "name2": "xdd",
+    "lastname1": "xdd",
+    "lastname2": "xddd",
+    "address": "carrera tales transversal",
+    "tel": "3102427741",
+    "estado":0
+}
+
+###
+PUT http://localhost:3001/updatesaldo/7 HTTP/1.1
+Content-Type: application/json
+
+{
+    "saldo":888
+}
+###
+PUT http://localhost:3001/cambiarestado/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "state":1
+}
+###
+PUT http://localhost:3001/cambioestadoadmin/35684579 HTTP/1.1
+Content-Type: application/json
+
+{
+    "state":1
+}
+###
 DELETE http://localhost:3001/Delete/12234579 HTTP/1.1
+
+###
+DELETE http://localhost:3001/deletedeudor/14523698 HTTP/1.1

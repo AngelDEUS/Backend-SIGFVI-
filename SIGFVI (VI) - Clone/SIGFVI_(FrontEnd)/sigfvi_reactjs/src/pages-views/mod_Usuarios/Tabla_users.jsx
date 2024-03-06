@@ -96,6 +96,7 @@ function Tabla_users() {
                       contrasena={datos.contrasena}
                       cargo={datos.cargo}
                       estado={datos.estado}
+                      idEstado={datos.ID_Estado_FK}
                       consulta={consulta}
                       />
                   )
