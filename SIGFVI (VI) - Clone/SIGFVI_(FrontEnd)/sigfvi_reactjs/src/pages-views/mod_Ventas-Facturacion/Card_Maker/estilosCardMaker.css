@@ -16,7 +16,7 @@
     align-items: center;
 }
 
-.product-title-ID{
+.product-title-ID {
     color: #bbb9be;
 }
 
@@ -26,6 +26,11 @@
     object-fit: cover;
     border-radius: 50%;
     background-color: #edeaf1;
+    border: 1px solid #8283851e;
+}
+
+.product-image img{
+    border: none;
 }
 
 .product-details {
@@ -51,32 +56,33 @@
 
 
 /*-------- downCardProducto */
-.downCardProducto{
+.downCardProducto {
     margin-top: 20px;
     display: block;
     width: 100%;
 }
 
-.dividerCardH{
+.dividerCardH {
     width: 100%;
     height: 2px;
     background-color: #bbb9be83;
 }
-.sumatoriaProductCart{
+
+.sumatoriaProductCart {
     margin-top: 15px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.dividerCardV{
+.dividerCardV {
     width: 2px;
     height: 30px;
     background-color: #bbb9be83;
 }
 
 /* btnCP */
-.btnCP{
+.btnCP {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -90,23 +96,29 @@
     transition: all .2s ease;
 }
 
-.btnCP:hover{
+.btnCP:hover {
     color: rgb(171, 173, 179);
     background-color: rgb(233, 236, 238);
     border: 1px solid #ff7c04;
 }
 
-.btnCP:active{
+.btnCP:active {
     color: white;
     border: 1px solid #ff7c04;
     background-color: #ff7c04;
     box-shadow: 0px 0px 20px 0px #ff7d04;
 }
 
-.calculoCantidadProd{
+.calculoCantidadProd {
     font-size: 20px;
 }
 
-.excedeCant{
+.excedeCant {
     color: rgb(255, 104, 104);
+}
+
+
+.containerCards {
+    display: flex;
+    flex-wrap: wrap;
 }

@@ -5,30 +5,44 @@ import TituloyDesc from '../../../../components/Titles/TituloyDesc';
 import Swal from 'sweetalert2';
 import './miTablaModal.css'
 
-const ModalProductosVenta = () => {
+const ModalProductosVenta = ({ onAgregarProductos, onClose }) => {
     const descipcion = 'En este panel puede realizar la busqueda de todos los productos, tanto las busquedas por nombre o por ID de producto.'
     const tituloVentasControl = 'Modal Busqueda de productos'
 
-    // Guardar Productos
-    const productoAgregarVenta = {
-        "ID_Producto": "",
-        "Nombre_Producto": "",
-        "Precio_Venta": "",
-        "Cantidad_Producto": "",
-    }
-    const producsSeleccionadosPVenta = []
 
     // Use states    
     const [modalAbierto, setModalAbierto] = useState(true);
     let [calcularCantProd, setCalcularCantProd] = useState(1);
+    const [productoSeleccionadoID, setProductoSeleccionadoID] = useState(null);
 
     const [busqueda, setBusqueda] = useState('');
     const [productos, setProductos] = useState([]);
 
+    /* UseState para seleccionar un producto de la tabla. */
+    const [productosSeleccionados, setProductosSeleccionados] = useState([]);
+
+    /* Guardas mis productos seleccionados*/
+    const [productosConCantidad, setProductosConCantidad] = useState([]);
+    const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
+
+    /* Renderizado al iniciar el componente */
+    useEffect(() => {
+        let sumaTotal = 0;
+        productosSeleccionados.forEach(producto => {
+            sumaTotal += producto.cantidad;
+        });
+        setCalcularCantProd(sumaTotal);
+    }, [productosSeleccionados]);
+
     useEffect(() => {
         obtenerProductosVenta();
-    }, []);
+    }, [modalAbierto]);
 
+    useEffect(() => {
+        guardarProductosConCantidad();
+    }, [productosSeleccionados]);
+
+    /* Metodo para encontrar productos*/
     const obtenerProductosVenta = () => {
         axios.get('http://localhost:3001/vyf/productosparaventas')
             .then(response => {
@@ -97,34 +111,65 @@ const ModalProductosVenta = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 setModalAbierto(false);
+                onClose();
             }
         });
     };
 
-    const sumarProducSelect = () => {
-        setCalcularCantProd(parseInt(calcularCantProd) + 1);
-    };
-
-    const restarProductSelect = () => {
-        parseInt(calcularCantProd);
-        if (calcularCantProd <= 1) {
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Para agregar cantidad de producto, como mínimo debe ser 1, para agregar al ticket.",
-                footer: '<p>Revisa la cantidad de producto que desea agregar por favor.</p>'
-            });
-            setCalcularCantProd(1);
-        } else {
-            setCalcularCantProd(parseInt(calcularCantProd) - 1);
+    //------:  FUNCIÓN PARA SUMAR :----> //
+    const sumarProducSelect = (productoId) => {
+        const producto = productosSeleccionados.find(producto => producto.ID_Producto_PK === productoId);
+        if (producto) {
+            if (producto.cantidad < producto.Stock_Total) {
+                setProductosSeleccionados(productosSeleccionados.map(prod => {
+                    if (prod.ID_Producto_PK === productoId) {
+                        return { ...prod, cantidad: prod.cantidad + 1 };
+                    }
+                    return prod;
+                }));
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "No puedes agregar más productos de los que hay en el inventario.",
+                    footer: '<p>Selecciona un producto de la lista para sumar su cantidad.</p>'
+                });
+            }
         }
     };
 
 
-    /* Parte para seleccionar un producto de la tabla. */
-    const [productosSeleccionados, setProductosSeleccionados] = useState([]);
+    //------:  FUNCIÓN PARA RESTAR :----> //
+    const restarProductSelect = (id) => {
+        const producto = productosSeleccionados.find(p => p.ID_Producto_PK === id);
+        if (producto) {
+            if (producto.cantidad > 1) {
+                setProductosSeleccionados(productosSeleccionados.map(p => {
+                    if (p.ID_Producto_PK === id) {
+                        return { ...p, cantidad: p.cantidad - 1 };
+                    }
+                    return p;
+                }));
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "No se puede reducir la cantidad a menos de 1.",
+                    footer: '<p>La cantidad mínima permitida es 1.</p>'
+                });
+            }
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Para restar la cantidad de producto, primero debes seleccionar un producto.",
+                footer: '<p>Selecciona un producto de la lista para restar su cantidad.</p>'
+            });
+        }
+    };
 
-    // Función para agregar un producto seleccionado
+
+    //----: Función para agregar un producto seleccionado :------>
     const agregarProductoSeleccionado = (producto) => {
         // Verificar si el producto ya ha sido agregado
         const productoExistente = productosSeleccionados.find(p => p.ID_Producto_PK === producto.ID_Producto_PK);
@@ -137,9 +182,10 @@ const ModalProductosVenta = () => {
             return;
         }
 
-        // Agregar el producto a la lista de productos seleccionados
-        setProductosSeleccionados([...productosSeleccionados, producto]);
+        // Agregar el producto a la lista de productos seleccionados con cantidad inicial de 1
+        setProductosSeleccionados([...productosSeleccionados, { ...producto, cantidad: 1 }]);
     };
+
 
     /* Parte para quitar la plantilla agregada. */
     const quitarProductoSeleccionado = (producto) => {
@@ -147,6 +193,77 @@ const ModalProductosVenta = () => {
         setProductosSeleccionados(nuevosProductos);
         console.log(`Producto "${producto.Nombre_Producto}" con ID "${producto.ID_Producto_PK}" eliminado.`);
     };
+
+    // Función para manejar la selección de un producto.
+    const handleSeleccionarProducto = (producto) => {
+        setProductoSeleccionadoID(producto.ID_Producto_PK);
+    };
+
+    /* Guardar mis productos seleccionados */
+    const guardarProductosConCantidad = () => {
+        const productosConCantidad = productosSeleccionados.map(producto => ({
+            ...producto,
+            cantidad: producto.cantidad
+        }));
+        setProductosConCantidad(productosConCantidad);
+    };
+
+    const handleCloseModal = () => {
+        setModalAbierto(false); // Cierra el modal
+        onClose(); // Llama a la función onClose
+    };
+
+
+    /* Ultimo paso para guardar y confirmar los productos */
+    const handleAgregarProductos = () => {
+        guardarProductosVenta(() => {
+            //---+ Cierra el modal después de guardar los productos
+            setModalAbierto(false); 
+            //---+ Llama a la función para agregar productos
+            onAgregarProductos(productosSeleccionados); 
+        });
+    };
+
+    // --- Guardar mis productos
+    const guardarProductosVenta = (callback) => {
+        try {
+            // Verificar que los productos seleccionados sean válidos
+            if (!Array.isArray(productosSeleccionados) || productosSeleccionados.length === 0) {
+                throw new Error('No se han seleccionado productos válidos.');
+            }
+            
+            // Convertir los productos seleccionados a un formato específico si es necesario
+            const mensaje = productosSeleccionados.map(producto => (
+                `${producto.ID_Producto_PK}, ${producto.Nombre_Producto}, ${producto.Precio_Venta}, ${producto.cantidad}`
+            )).join('\n');
+    
+            // Mostrar confirmación al usuario
+            Swal.fire({
+                title: '¿Estás seguro que deseas guardar estos productos?',
+                text: `Productos:\n${mensaje}`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, guardar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    console.log('Se guardan los productos', mensaje);
+                    // Llamamos a la función de devolución de llamada y pasamos los productos seleccionados
+                    callback(productosSeleccionados);
+                }
+            });
+        } catch (error) {
+            console.error('Error al guardar los productos:', error);
+            // Manejo del error: mostrar mensaje de alerta
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al guardar los productos',
+                text: 'Hubo un problema al intentar guardar los productos. Por favor, inténtalo de nuevo más tarde.'
+            });
+        }
+    };
+  
+
 
     return (
         <div className={`modal-productos-venta ${modalAbierto ? '' : 'cerrado'}`}>
@@ -228,14 +345,14 @@ const ModalProductosVenta = () => {
                             <div className="subcontenedor-productos">
                                 <div className="sub-content-prod-encontrados">
                                     {productosSeleccionados.map(producto => (
-                                        <div className='productoSelect-Container' key={producto.ID_Producto_PK}>
+                                        <div className={`productoSelect-Container ${producto.ID_Producto_PK === productoSeleccionadoID ? 'selectedForSum' : ''}`} key={producto.ID_Producto_PK} onClick={() => handleSeleccionarProducto(producto)}>
                                             <div className="bolita_imgProd--selected">
                                                 <i className="bi bi-bag-plus-fill"></i>
                                             </div>
                                             <div className="tittle_Prod--Selected">
                                                 <div className="right-selected">
                                                     <span className='CantidadProd--selected'>{producto.Nombre_Producto}</span>
-                                                    <span className='CantidadProd--selected' id='calCantidadProd'>x{calcularCantProd}</span>
+                                                    <span className='CantidadProd--selected' id='calCantidadProd'>x{producto.cantidad}</span>
                                                 </div>
                                                 <div className="left-selected" onClick={() => quitarProductoSeleccionado(producto)}>
                                                     <button className='quitarProd--selected'>
@@ -259,20 +376,18 @@ const ModalProductosVenta = () => {
                             </div>
                             <div className="subcontenedor-productos-sum">
                                 <div className="sumar-restar-cantidad-prod">
-                                    <button className="btnCantidadModal" id='opModal_Resta' onClick={restarProductSelect}><span className='txtbtn'><i className="bi bi-dash"></i></span></button>
-                                    <span className="totalSumatoria-CantProd" id='opModal_Resultado' >{calcularCantProd}</span>
-                                    {/*<input type="number" className='noneInputClass' id='opModal_Resultado' value={calcularCantProd} onChange={(e) => setCalcularCantProd(parseInt(e.target.value))} />*/}
-                                    <button className="btnCantidadModal" id='opModal_Suma' onClick={sumarProducSelect}><span className='txtbtn'><i className="bi bi-plus"></i></span></button>
+                                    <button className="btnCantidadModal" onClick={() => restarProductSelect(productoSeleccionadoID)}><span className='txtbtn'><i className="bi bi-dash"></i></span></button>
+                                    <span className="totalSumatoria-CantProd">{productosSeleccionados.find(p => p.ID_Producto_PK === productoSeleccionadoID)?.cantidad || 0}</span>
+                                    <button className="btnCantidadModal" onClick={() => sumarProducSelect(productoSeleccionadoID)}><span className='txtbtn'><i className="bi bi-plus"></i></span></button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
                 <div className="separador-horizontal"></div>
                 <div className="acciones">
                     <button className="btn-cancelar" onClick={handleCancelar}>Cancelar</button>
-                    <button className="btn-agregar">Agregar Productos</button>
+                    <button className="btn-agregar" onClick={handleAgregarProductos}>Agregar Productos</button>
                 </div>
             </div>
         </div >

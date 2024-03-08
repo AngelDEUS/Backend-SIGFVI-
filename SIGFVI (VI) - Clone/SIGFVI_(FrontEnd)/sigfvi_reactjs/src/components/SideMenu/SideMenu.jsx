@@ -55,7 +55,7 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
         window.location.reload();
     }
 
-    const preguntaVenta = () =>{
+    const preguntaVenta = () => {
         const miRuta = "VentasFacturacion/ventas";
         const miRutaFinal = "/";
 
@@ -67,16 +67,16 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!"
-          }).then((result) => {
+        }).then((result) => {
             if (result.isConfirmed) {
-              Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
-                icon: "success"
-              });
-              return miRutaFinal = miRuta;
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                });
+                return miRutaFinal = miRuta;
             }
-          });
+        });
     }
     return (
         <>
@@ -90,7 +90,10 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                             id="LogoSideMenu"
                             onClick={toggleMiniBarraLateral}
                         />
-                        <span className=''>Tiendecita Alemana<highlight>.</highlight></span>
+                        <div className="textsTopMenu">
+                            <span className=''>Tiendecita Alemana</span>
+                            <span className='highlight'>.</span>
+                        </div>
                     </div>
                 </div>
                 <div className='rules'>

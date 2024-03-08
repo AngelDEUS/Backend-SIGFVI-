@@ -16,6 +16,7 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(30px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -463,4 +464,9 @@
 
 .quitarProd--selected:active {
     background-color: var(--Color-bg-buttons-sumar-restar-active);
+}
+
+/* Seleccionado */
+.selectedForSum{
+    border: 1px solid #ff920c;
 }

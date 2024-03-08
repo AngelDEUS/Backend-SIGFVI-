@@ -60,7 +60,7 @@
 }
 
 /* Nombre de la Página */
-highlight {
+.highlight {
     color: var(--Color-Text-highlight-01);
 }
 
@@ -89,7 +89,7 @@ highlight {
     cursor: pointer;
 }
 
-.barra-lateral .nombre-pagina span {
+.barra-lateral .nombre-pagina .textsTopMenu {
     font-size: 15px;
     font-weight: bold;
     margin-left: 15px;
