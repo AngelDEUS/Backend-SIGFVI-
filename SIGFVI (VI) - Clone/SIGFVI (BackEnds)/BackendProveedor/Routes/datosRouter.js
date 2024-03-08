@@ -7,6 +7,7 @@ rutaProveedores.get("/:id", proveedorController.obtenerProveedorPorId);
 rutaProveedores.post("/crear", proveedorController.crearProveedor);
 rutaProveedores.put("/actualizar/:id", proveedorController.actualizarProveedor);
 rutaProveedores.delete("/eliminar/:id", proveedorController.eliminarProveedor);
+rutaProveedores.put("/cambioestadoprovee/:id", proveedorController.cambioEstadoProveedor);
 
 module.exports = rutaProveedores;
 

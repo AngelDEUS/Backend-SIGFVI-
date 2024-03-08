@@ -156,13 +156,13 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                                     </div>
                                 </Link>
                                 <ul className={`sub-menu-options${showSubMenu === 'inventario' ? ' active' : ''}`}>
-                                    <li><Link to="/Inventario/TablaInventario">
+                                    <li><Link to="/Inventario/Producto">
                                         <div className='circle__sidemenu'></div>
                                         <span>Gestion de Productos</span>
                                     </Link></li>
-                                    <li><Link to="/Inventario/AgregarProducto">
+                                    <li><Link to="/Inventario/GestionInventario">
                                         <div className='circle__sidemenu'></div>
-                                        <span>AgregarProducto</span>
+                                        <span>Gestion Inventario</span>
                                     </Link></li>
                                 </ul>
                             </li>
@@ -179,13 +179,17 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
 
                                 </Link>
                                 <ul className={`sub-menu-options${showSubMenu === 'ventas' ? ' active' : ''}`}>
-                                    <li ><Link to="/VentasFacturacion/ventas">
+                                    <li ><Link to="/VentasFacturacion/ventas_main">
                                         <div className='circle__sidemenu'></div>
-                                        <span>Prueba Ventas</span>
+                                        <span>Ventas Main</span>
                                     </Link></li>
                                     <li ><Link to="/VentasFacturacion/ventas">
                                         <div className='circle__sidemenu'></div>
-                                        <span>Ventas</span>
+                                        <span>Ventas Antiguo</span>
+                                    </Link></li>
+                                    <li ><Link to="/VentasFacturacion/tabs">
+                                        <div className='circle__sidemenu'></div>
+                                        <span>ver tabs</span>
                                     </Link></li>
                                     <li ><Link to="/VentasFacturacion/list">
                                         <div className='circle__sidemenu'></div>

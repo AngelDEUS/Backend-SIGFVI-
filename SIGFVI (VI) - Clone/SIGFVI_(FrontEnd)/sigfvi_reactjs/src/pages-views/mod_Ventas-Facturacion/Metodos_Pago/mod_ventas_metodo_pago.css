@@ -44,10 +44,18 @@
 .container-inputs-metodo_pago {
     position: relative;
     width: 1000px;
+    height: 100%;
     background-color: #ffffff7c;
     border-radius: 20px;
     border: 1px solid #bec0c5;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.buttonsContainer {
+    margin-top: auto;
 }
 
 /* labels -->*/
@@ -55,7 +63,6 @@
     color: #afb8ca;
     font-weight: 400;
 }
-
 
 /* inputs text -->*/
 .input-Metod_pago {
@@ -68,6 +75,9 @@
     width: 350px;
 }
 
+.input-Metod_pago:read-only{
+    background-color: #acb1b852;
+}
 
 .input-Metod_pago::placeholder {
     color: #afb8ca;
@@ -150,7 +160,6 @@
     padding: 0.5em 1em;
     cursor: pointer;
     transition: background-color 0.3s ease;
-
     border-radius: 0.5em;
 }
 
@@ -178,14 +187,20 @@
     justify-content: center;
 }
 
-
-/* BOTONES DE ACCIONES EN LOS INPUTS*/
-.opciones_metodo_pago {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.desactivarMetodoPago:disabled {
+    color: rgb(88, 92, 97);
+    background-color: #e0e5e6;
+    box-shadow: none;
+    transition: all 0.3s ease;
+    cursor: no-drop;
+    transition: all .3s ease;
 }
 
+
+.desactivarMetodoPago:hover:disabled {
+    background-color: #adb3b4;
+    box-shadow: none;
+}
 
 /* SEPARADOR HORIZONTAL */
 .separador-metod_pago {
@@ -210,7 +225,6 @@
     position: relative;
     border-radius: 20px;
     background-color: white;
-    padding: 20px;
     margin: 20px;
     color: #626f88;
     font-size: 12px;
@@ -258,7 +272,7 @@
     min-height: 120px;
     max-height: 120px;
     border-radius: 50%;
-    background-color: #626f8848;
+    background-color: #e1f1e5;
 }
 
 .img--metodpago {
@@ -379,4 +393,54 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
+}
+
+/*Card hover*/
+.card--_Main {
+    display: flex;
+    padding: 20px;
+}
+
+.card_Contenido-Hover {
+    position: absolute;
+    display: flex;
+    z-index: 100;
+    background-color: rgba(247, 251, 255, 0.90);
+    color: #626f88;
+    transition: all 0.3s ease;
+    font-size: 12px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    padding: 20px;
+    border: 1px solid #7378813a;
+    transition: all 1s ease;
+    opacity: 0;
+}
+
+.show-card_hover{
+    opacity: 1;
+}
+
+
+.card_Hover-Options{
+    display: flex;
+}
+
+.card-hover-subcontent{
+    display: block;
+    align-items: center;
+    justify-content: center;
+}
+
+.title-hover-card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+}
+.card_Hover-Options{
+    margin-top: 20px;
 }

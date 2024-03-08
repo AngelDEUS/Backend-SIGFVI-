@@ -4,34 +4,28 @@ import { Tabla_deudor_item } from './Tabla_deudor_item';
 import Register_deudor from './Register_deudor';
 import './Tabla.css';
 import TituloyDesc from '../../components/Titles/TituloyDesc';
+import axios from 'axios';
 
 function Tabla_deudor() {
 
+<<<<<<< HEAD
   const url = 'http://localhost:3006/Deudores'
 
+=======
+>>>>>>> 881f8ae262aae192c2e398f16e903e1f8d4751fa
   const [datos, setDatos] = useState()
 
-  const fetchApi = async () => {
-      const respuesta = await fetch(url); 
-      const respuestaJSON = await respuesta.json();
-      setDatos(respuestaJSON)
+  const consulta = () => {
+    axios.get("http://localhost:3001/consdeudor")
+        .then((response)=>{
+          setDatos(response.data);   
+            //console.log(setDatos);
+        });
   }
 
     useEffect(()=>{
-        fetchApi();
+        consulta();
     },[])
-
-    const handleAddDeudor = (id,name,address,tel,deuda) =>{
-      const newDeudor = {
-        "id": id,
-        "Nombre": name,
-        "Direccion": address,
-        "Telefono": tel,
-        "Deuda": 0,
-        "Estado": "Activo"
-      }
-      setDatos([...datos, newDeudor])
-    }
 
   const [registerform, setRegisterform] = useState(false)
   
@@ -55,7 +49,7 @@ function Tabla_deudor() {
             <div className='teush'>
             <button type="button" className="boton b4" id="lanzar-modal" name="agregar" onClick={()=> setRegisterform(true)}>Agregar</button>
             </div>
-            <Register_deudor isOpen={registerform} closeModal={()=> setRegisterform(false)} funcion={handleAddDeudor} />
+            <Register_deudor isOpen={registerform} closeModal={()=> setRegisterform(false)} reConsulta={consulta} />
           </form>
         </div>
 
@@ -92,11 +86,16 @@ function Tabla_deudor() {
                     <Tabla_deudor_item
                       key={datos.id}
                       id={datos.id}
-                      name={datos.Nombre}
-                      cel={datos.Telefono}
-                      direccion={datos.Direccion}
-                      deuda={datos.Deuda}
-                      state={datos.Estado}
+                      name1={datos.Primer_Nombre}
+                      name2={datos.Segundo_Nombre}
+                      lastname1={datos.Primer_Apellido}
+                      lastname2={datos.Segundo_Apellido}
+                      address={datos.Direccion_Deudor}
+                      tel={datos.Telefono_Deudor}
+                      saldo={datos.saldo}
+                      state={datos.estado}
+                      idEstado={datos.ID_Estado_FK}
+                      consulta={consulta}
                     />
                   )
                 })

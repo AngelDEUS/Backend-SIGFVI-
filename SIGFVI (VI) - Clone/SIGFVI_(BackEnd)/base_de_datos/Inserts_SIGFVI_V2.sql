@@ -18,13 +18,18 @@ INSERT INTO Estado(ID_Estado_PK, Nombre_Estado)
 			(4,'Encajado');
  
  -- #3 -- Producto
- INSERT INTO Producto(ID_Producto_PK, ID_Tipo_Producto_FK, Nombre_Producto, Cantida_Neto_producto, Precio_Proveedor, Precio_Venta, Fecha_Vencimiento, Foto_Producto, ID_Estado_FK)
-	VALUES  ('EMRC001',1,'Ron Caldas',750,40000,50000,'2023-12-08','PROYECTO SIGFVI (IV)\View\img\Imagenes_PROD\1',0);
- INSERT INTO Producto(ID_Producto_PK, ID_Tipo_Producto_FK, Nombre_Producto, Cantida_Neto_producto, Precio_Proveedor, Precio_Venta, Fecha_Vencimiento, Foto_Producto, ID_Estado_FK)
-	VALUES  ('ENPk001',2,'Poker',250,1600,2000,'2024-01-09','PROYECTO SIGFVI (IV)\View\img\Imagenes_PROD\2',0),
-			('EMCT001',3,'Cheese-Tris',75,1000,1500,'2023-10-01','PROYECTO SIGFVI (IV)\View\img\Imagenes_PROD\3',0),
-			('ENNL001',4,'Nectar 1L',1000,3000,38000,'2024-2-20','PROYECTO SIGFVI (IV)\View\img\Imagenes_PROD\4',0),
-			('ENFr002',4,'Fruper',200,800,1200,'2023-11-13','PROYECTO SIGFVI (IV)\View\img\Imagenes_PROD\5',1);
+ INSERT INTO Producto(ID_Producto_PK, ID_Tipo_Producto_FK, Nombre_Producto, Descripcion_Producto, Precio_Proveedor, Precio_Venta, Fecha_Vencimiento, Foto_Producto, ID_Estado_FK)
+	VALUES  ('EMRC001',1,'Ron Caldas','1 Litro',40000,50000,'2023-12-08','PROYECTO SIGFVI (IV)\View\img\Imagenes_PROD\1',0);
+ INSERT INTO Producto(ID_Producto_PK, ID_Tipo_Producto_FK, Nombre_Producto, Descripcion_Producto, Precio_Proveedor, Precio_Venta, Fecha_Vencimiento, Foto_Producto, ID_Estado_FK)
+	VALUES  ('ENPk001',2,'Poker','250 mili-Litros',1600,2000,'2024-01-09','PROYECTO SIGFVI (IV)\View\img\Imagenes_PROD\2',0),
+			('EMCT001',3,'Cheese-Tris','75 gramos',1000,1500,'2023-10-01','PROYECTO SIGFVI (IV)\View\img\Imagenes_PROD\3',0),
+			('ENNL001',4,'Nectar 1L','1 Litro',3000,38000,'2024-2-20','PROYECTO SIGFVI (IV)\View\img\Imagenes_PROD\4',0),
+			('ENFr002',4,'Fruper','200 mili-Litros',800,1200,'2023-11-13','PROYECTO SIGFVI (IV)\View\img\Imagenes_PROD\5',1);
+            
+INSERT INTO Producto(ID_Producto_PK, ID_Tipo_Producto_FK, Nombre_Producto, Descripcion_Producto, Precio_Proveedor, Precio_Venta, Fecha_Vencimiento, Foto_Producto, ID_Estado_FK)
+	VALUES  ('RON002',1,'Ron','1 Litro',60000,70000,'2024-03-16','PROYECTO SIGFVI (IV)\View\img\Imagenes_PROD\1',0);
+INSERT INTO Producto(ID_Producto_PK, ID_Tipo_Producto_FK, Nombre_Producto, Descripcion_Producto, Precio_Proveedor, Precio_Venta, Fecha_Vencimiento, Foto_Producto, ID_Estado_FK)
+	VALUES  ('RON003',1,'Ron Super','10 Litro',60000,70000,'2024-03-16','PROYECTO SIGFVI (IV)\View\img\Imagenes_PROD\1',0);
             
  -- #4 -- Tipo_Cargo
 INSERT INTO Tipo_Cargo(ID_Tipo_Cargo_PK, Nombre_Tipo_cargo,Estado_ID_Estado_PK)
@@ -70,6 +75,12 @@ INSERT INTO Usuario(ID_Numero_Identificacion_PK,ID_Tipo_Identificacion_FKPK,Nomb
 			('Nequi','Electronico','123-456-789-000',0),
 			('Daviplata','Electronico','123-000-456-789',0),
 			('Tarjeta','Electronico','123-456-000-789',1);
+SELECT * FROM Metodo_de_pago;
+
+SELECT * FROM producto WHERE Nombre_Producto LIKE '%%';
+SELECT * FROM Metodo_de_pago WHERE Nombre_Metodo LIKE '%Tarjeta%';
+
+
             
 -- #10 -- Saldo_Cuenta_Deudor
 INSERT INTO Saldo_Cuenta_Deudor(ID_Deudor_FK,Fecha_Cancelacion_Pedido,Total_Saldo_Deuda)
@@ -123,14 +134,24 @@ INSERT INTO Facturacion(Fecha_Factura,Hora_Factura,ID_Venta_Realizada_FK)
 			('2023-02-17','06:09:09',8);
 
 -- #14 -- Inventario
-INSERT INTO Inventario(Cantidad_Lote,Stock,ID_Estado_FK,ID_Producto_FK)
-	VALUES  (2,4,1,'EMCT001');
-INSERT INTO Inventario(Cantidad_Lote,Stock,ID_Estado_FK,ID_Producto_FK)
-	VALUES  (3,6,1,'EMRC001'),
-			(4,10,1,'ENFr002'),
-			(3,8,1,'ENNL001'),
-			(6,6,1,'ENPk001');
-SELECT * FROM producto;
+INSERT INTO Inventario(Stock,ID_Producto_FK)
+	VALUES  (2,'EMCT001');
+    
+INSERT INTO Inventario(Stock,ID_Producto_FK)
+	VALUES  (10,'RON002'),
+			(5,'RON002');
+
+INSERT INTO Inventario(Stock,ID_Producto_FK)
+	VALUES  (15,'RON003');
+    
+INSERT INTO Inventario(Stock,ID_Producto_FK)
+	VALUES  (1,'EMRC001'),
+			(10,'ENFr002'),
+			(8,'ENNL001'),
+			(6,'ENPk001'),
+			(8,'ENNL001'),
+            (10,'EMRC001');
+SELECT * FROM Inventario;
     
 -- #15 -- Tipo_Informe_Venta
 INSERT INTO Tipo_Informe_Venta(ID_Informe_Venta_PF,ID_Factura_FK)

@@ -26,7 +26,10 @@ const Main_VentasFacturacion = () => {
   const descModalAgregar = `Esta venta funciona para agregar un nuevo pedido a la tabla, tenga en cuenta que no se puede agregar un ID que ya exista, además rectifique antes de agregar por favor.`;
 
   const titulo = 'Listado de ventas';
-  const descipcion = 'En este panel se mostrarán todas las ventas';
+  var fechaActual = new Date();
+  var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  var fechaFormateada = fechaActual.toLocaleDateString('es-ES', options);
+  const descipcion = `En este panel se mostrarán todos los pedidos registrados hasta la fecha (${fechaFormateada}).`;
 
   // -->
   const [pedidos, setPedidos] = useState([]);

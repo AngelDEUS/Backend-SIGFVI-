@@ -1,0 +1,12 @@
+//Get
+GET http://localhost:3001 HTTP/1.1
+
+###
+
+// Mostrar productos:
+GET http://localhost:3001/Datos HTTP/1.1
+###
+
+// Mostrar producto por nombre:
+GET http://localhost:3001/productoNombre/e HTTP/1.1
+###

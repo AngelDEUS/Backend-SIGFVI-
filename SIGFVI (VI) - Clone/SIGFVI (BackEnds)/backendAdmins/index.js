@@ -23,7 +23,25 @@ app.put('/Update/:id',datosRouter);
 
 app.delete('/Delete/:id',datosRouter);
 
+<<<<<<< HEAD
 const PORT = process.env.PORT || 3002;
+=======
+app.get('/consdeudor',datosRouter);
+
+app.post('/createdeudor',datosRouter);
+
+app.put('/updatedeudor/:id',datosRouter);
+
+app.delete("/deletedeudor/:id",datosRouter);
+
+app.put('/updatesaldo/:id',datosRouter);
+
+app.put('/cambiarestado/:id',datosRouter);
+
+app.put('/cambioestadoadmin/:id',datosRouter)
+
+const PORT = process.env.PORT || 3001;
+>>>>>>> 881f8ae262aae192c2e398f16e903e1f8d4751fa
 
 app.listen(PORT, () => {
   console.log(

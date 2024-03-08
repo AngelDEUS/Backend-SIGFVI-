@@ -1,0 +1,10 @@
+//Get
+GET http://localhost:3001/vyf/productosparaventas HTTP/1.1
+###
+
+GET http://localhost:3001/vyf/buscarpornombreparaventas/Poker HTTP/1.1
+###
+
+GET http://localhost:3001/vyf/buscarporidparaventas/EMRC001 HTTP/1.1
+###
+

@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import './CardProducto.css';
 import All_image from './../../assets/Productos/Producto_p.png';
 
-const CardProducto = ({ producto }) => {
-    // Mueve la llamada a useState a la parte superior del componente
+const CardProducto = ({ producto, onAgregarProductoVenta}) => {
     const [cantidad, setCantidad] = useState(0);
 
     if (!producto) {
@@ -22,6 +21,10 @@ const CardProducto = ({ producto }) => {
         if (cantidad < stock) {
             setCantidad(cantidad + 1);
         }
+    };
+    const handleAgregarProducto = () => {
+        // Llamar a la función proporcionada por el padre para agregar el producto a la lista de productosVenta
+        onAgregarProductoVenta(producto);
     };
 
     return (

@@ -1,11 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import consulta  from './tablaInventario';
+
 
 const EditProducto = ({ closeModal, datos }) => {
+
   const [nombre, setNombre] = useState(datos.nombre || "");
-  const [cantidad, setCantidad] = useState(datos.cantidad || "");
+  const [descripcion, setDescripcion] = useState(datos.descripcion || "");
   const [precioCompra, setPrecioC] = useState(datos.precioCompra || "");
   const [precioVenta, setPrecioV] = useState(datos.precioVenta || "");
   const [con, setCon] = useState(true);
@@ -16,12 +17,13 @@ const EditProducto = ({ closeModal, datos }) => {
         `http://localhost:3004/ActualizarProducto/${id}`,
         {
           "Nombre_Producto": nombre,
-          "Cantida_Neto_producto": cantidad,
+          "Descripcion": descripcion,
           "Precio_Proveedor": precioCompra,
           "Precio_Venta": precioVenta,
         }
       );
       setCon(true);
+      consulta();
       console.log(response.data);
     } catch (err) {
       console.error("No se pudo hacer la petición put", err);
@@ -29,9 +31,8 @@ const EditProducto = ({ closeModal, datos }) => {
     }
   };
 
-  const consulta = function () {
-    datos.consulta();
-  };
+  const consulta=(function (){
+    datos.consulta();});
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,7 +46,7 @@ const EditProducto = ({ closeModal, datos }) => {
         text: "Datos Actualizados para: " + nombre,
       }).then(() => {
         editarRegistro(datos.id);
-        consulta();
+       
         closeModal();
       });
     } else {
@@ -65,7 +66,7 @@ const EditProducto = ({ closeModal, datos }) => {
         </div>
         <div className="container__Main-register">
           <h1 className="main-title">Editar Producto</h1>
-          <form onSubmit={handleSubmit} className="datos-contenido">
+          <form  className="datos-contenido">
             <span>
               <label htmlFor="nombre">Nombre</label>
               <input
@@ -80,15 +81,15 @@ const EditProducto = ({ closeModal, datos }) => {
               />
             </span>
             <span>
-              <label htmlFor="cantidad">Cantidad</label>
+              <label htmlFor="descripcion">descripcion</label>
               <input
                 className="input-form"
                 type="text"
-                name="cantidad"
+                name="descripcion"
                 id="cantiad"
-                value={cantidad}
+                value={descripcion}
                 onChange={(e) => {
-                  setCantidad(e.target.value);
+                  setDescripcion(e.target.value);
                 }}
               />
             </span>
@@ -125,6 +126,7 @@ const EditProducto = ({ closeModal, datos }) => {
                 name="submit"
                 id="submit"
                 className="boton b4"
+                onClick={handleSubmit}
               >
                 Guardar Cambios
               </button>

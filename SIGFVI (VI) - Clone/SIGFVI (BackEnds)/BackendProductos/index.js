@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const datosRouter = require("./Routers/datosRouter");
+const rutaDatosInventario = require("./Routers/consultas");
 const app = express();
 const cors = require('cors');
 
@@ -16,6 +17,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use("/", datosRouter);
+app.use("/", rutaDatosInventario);
 
 const PORT = process.env.PORT || 3004;
 

@@ -1,0 +1,112 @@
+.product-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    padding: 20px;
+    width: 300px;
+    margin: 20px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px 0px #8283851e;
+}
+
+.upCardProducto {
+    display: flex;
+    align-items: center;
+}
+
+.product-title-ID{
+    color: #bbb9be;
+}
+
+.product-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    background-color: #edeaf1;
+}
+
+.product-details {
+    text-align: left;
+    margin-left: 20px;
+}
+
+.product-title {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.product-description {
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.product-price {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #ff7c04;
+}
+
+
+/*-------- downCardProducto */
+.downCardProducto{
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+}
+
+.dividerCardH{
+    width: 100%;
+    height: 2px;
+    background-color: #bbb9be83;
+}
+.sumatoriaProductCart{
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dividerCardV{
+    width: 2px;
+    height: 30px;
+    background-color: #bbb9be83;
+}
+
+/* btnCP */
+.btnCP{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+    background-color: white;
+    border-radius: 15px;
+    border: 1px solid #bbb9be;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.btnCP:hover{
+    color: rgb(171, 173, 179);
+    background-color: rgb(233, 236, 238);
+    border: 1px solid #ff7c04;
+}
+
+.btnCP:active{
+    color: white;
+    border: 1px solid #ff7c04;
+    background-color: #ff7c04;
+    box-shadow: 0px 0px 20px 0px #ff7d04;
+}
+
+.calculoCantidadProd{
+    font-size: 20px;
+}
+
+.excedeCant{
+    color: rgb(255, 104, 104);
+}

@@ -11,7 +11,11 @@ function Tabla_proveedores() {
   const [datos, setDatos] = useState([])
 
   const consulta = () => {
+<<<<<<< HEAD
     axios.get("http://localhost:3003/")
+=======
+    axios.get("http://localhost:3001")
+>>>>>>> 881f8ae262aae192c2e398f16e903e1f8d4751fa
         .then((response)=>{
           setDatos(response.data);
             //console.log(setDatos);
@@ -80,7 +84,8 @@ function Tabla_proveedores() {
                       name={datos.Nombre_Empresa}
                       frecuency={datos.Dia_Visita}
                       cel={datos.Telefono_Contacto}
-                      state={datos.Estado_ID_Estado_PK}
+                      state={datos.Nombre_Estado}
+                      idEstado={datos.Estado_ID_Estado_PK}
                       consulta={consulta}
                     />
                   )
