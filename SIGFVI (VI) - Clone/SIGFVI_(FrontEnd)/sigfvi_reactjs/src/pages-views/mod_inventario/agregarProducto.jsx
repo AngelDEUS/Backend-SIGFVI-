@@ -5,7 +5,7 @@ export const RegisterProd = ({isOpen, closeModal,reConsulta}) => {
 
     const nuevoProducto = async () => {
         try {
-          const response = await axios.post("http://localhost:3001/AgregarProducto", {
+          const response = await axios.post("http://localhost:3004/AgregarProducto", {
             "ID_Producto_PK": id,
             "Nombre_Producto": nombre,
             "ID_Tipo_Producto_FK": tProducto,

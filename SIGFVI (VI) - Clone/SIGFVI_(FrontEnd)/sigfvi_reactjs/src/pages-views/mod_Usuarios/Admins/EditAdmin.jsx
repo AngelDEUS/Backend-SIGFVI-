@@ -17,7 +17,7 @@ const EditAdmin = ({closeModal, datos}) => {
 
     const editarRegistro = async (x) =>{
         try{
-            const response = await axios.put(`http://localhost:3001/Update/${x}`,{
+            const response = await axios.put(`http://localhost:3003/Update/${x}`,{
                 name1:name1,
                 name2:name2,
                 lastname1:lastname1,

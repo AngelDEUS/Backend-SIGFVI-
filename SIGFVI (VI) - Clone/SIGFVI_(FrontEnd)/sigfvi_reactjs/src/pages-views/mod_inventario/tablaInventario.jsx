@@ -17,7 +17,7 @@ const Tabla_Inventario = () => {
   const handleSearch = () => {
     if (searchId.trim() !== "") {
       axios
-        .get(`http://localhost:3001/BuscarDatoPorId/${searchId}`)
+        .get(`http://localhost:3004/BuscarDatoPorId/${searchId}`)
         .then((response) => {
           setDatos(response.data.dato ? [response.data.dato] : []);
         })
@@ -30,7 +30,7 @@ const Tabla_Inventario = () => {
 
   const consulta = () => {
     axios
-      .get("http://localhost:3001/Datos")
+      .get("http://localhost:3004/Datos")
       .then((response) => {
         console.log("Datos recibidos:", response.data.datos);
         setDatos(response.data.datos);

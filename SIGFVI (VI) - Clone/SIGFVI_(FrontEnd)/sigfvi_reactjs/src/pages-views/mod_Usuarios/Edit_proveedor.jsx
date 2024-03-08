@@ -11,7 +11,7 @@ const EditProveedor = ({ closeModal, datos }) => {
 
   const editarProveedor = async (idProveedor) => {
     try {
-      const response = await axios.put(`http://localhost:3000/actualizar/${idProveedor}`, {
+      const response = await axios.put(`http://localhost:3005/actualizar/${idProveedor}`, {
         Nombre_Empresa: nombreEmpresa,
         Dia_Visita: diaVisita,
         Telefono_Contacto: telefonoContacto,

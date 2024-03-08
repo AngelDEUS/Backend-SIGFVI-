@@ -45,7 +45,7 @@ export const TablaAdminItem = (props) => {
                 }
                 try {
                     //axios.delete(`http://localhost:3001/Delete/${val.id}`).then(()=>{
-                    await axios.put(`http://localhost:3001/cambioestadoadmin/${val.id}`, {
+                    await axios.put(`http://localhost:3003/cambioestadoadmin/${val.id}`, {
                         "state": estado
                     }).then(()=>{
                         Swal.fire({

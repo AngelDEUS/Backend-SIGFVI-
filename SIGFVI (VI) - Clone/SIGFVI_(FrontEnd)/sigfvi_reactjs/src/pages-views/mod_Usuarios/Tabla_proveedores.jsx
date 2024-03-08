@@ -11,7 +11,7 @@ function Tabla_proveedores() {
   const [datos, setDatos] = useState([])
 
   const consulta = () => {
-    axios.get("http://localhost:3001")
+    axios.get("http://localhost:3005")
         .then((response)=>{
           setDatos(response.data);
             //console.log(setDatos);

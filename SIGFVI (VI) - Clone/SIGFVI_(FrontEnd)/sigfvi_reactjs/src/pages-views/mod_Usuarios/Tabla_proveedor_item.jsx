@@ -43,7 +43,7 @@ export const Tabla_proveedor_item = (props) => {
                 }
                 try {
                     //axios.delete(`http://localhost:3000/eliminar/${val.id}`).then(()=>{
-                    await axios.put(`http://localhost:3001/cambioestadoprovee/${val.id}`, {
+                    await axios.put(`http://localhost:3005/cambioestadoprovee/${val.id}`, {
                         "state": estado
                     }).then(()=>{
                         Swal.fire({

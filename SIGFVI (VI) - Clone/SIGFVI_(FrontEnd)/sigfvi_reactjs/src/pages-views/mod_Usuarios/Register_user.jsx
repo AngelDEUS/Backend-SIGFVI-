@@ -5,7 +5,7 @@ import axios from 'axios';
 export const Register_user = ({isOpen, closeModal, reConsulta}) => {
 
     const agregarRegistro = () =>{
-        axios.post("http://localhost:3001/crear",{
+        axios.post("http://localhost:3002/crear",{
             "id" : numid,
             "tipoid" : tipoid,
             "name1" : name1,

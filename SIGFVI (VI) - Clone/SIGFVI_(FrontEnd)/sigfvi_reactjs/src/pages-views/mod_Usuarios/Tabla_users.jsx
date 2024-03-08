@@ -10,7 +10,7 @@ function Tabla_users() {
 
   const [datos, setDatos] = useState([])
   const consulta = () => {
-    axios.get("http://localhost:3001/")
+    axios.get("http://localhost:3002/")
         .then((response)=>{
           setDatos(response.data);
             //console.log(setDatos);

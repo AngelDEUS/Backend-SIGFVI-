@@ -46,7 +46,7 @@ export const Tabla_users_item = (props) => {
                 }
                 try {
                     //axios.delete(`http://localhost:3001/eliminar/${val.id}`).then(()=>{
-                    await axios.put(`http://localhost:3001/cambioestadoempleado/${val.id}`, {
+                    await axios.put(`http://localhost:3002/cambioestadoempleado/${val.id}`, {
                         "state": estado
                     }).then(()=>{
                         Swal.fire({

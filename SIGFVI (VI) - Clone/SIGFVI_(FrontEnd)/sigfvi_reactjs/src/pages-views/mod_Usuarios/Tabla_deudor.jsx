@@ -11,7 +11,7 @@ function Tabla_deudor() {
   const [datos, setDatos] = useState()
 
   const consulta = () => {
-    axios.get("http://localhost:3001/consdeudor")
+    axios.get("http://localhost:3003/consdeudor")
         .then((response)=>{
           setDatos(response.data);   
             //console.log(setDatos);

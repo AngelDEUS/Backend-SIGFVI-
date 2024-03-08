@@ -54,7 +54,7 @@ export const Tabla_deudor_item = (props) => {
                     setEstado(1);
                 }
                 try {
-                    await axios.put(`http://localhost:3001/cambiarestado/${val.id}`, {
+                    await axios.put(`http://localhost:3003/cambiarestado/${val.id}`, {
                         "state": estado
                     }).then(()=>{
                     Swal.fire({
