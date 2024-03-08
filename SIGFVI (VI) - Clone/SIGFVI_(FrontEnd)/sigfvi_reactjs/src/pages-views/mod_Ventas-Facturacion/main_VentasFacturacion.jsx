@@ -12,7 +12,7 @@ import { useModal } from '../../hooks/modal/useModal.js';
 import Modal from '../../components/modal/Modal.jsx'
 
 
-const main_VentasFacturacion = () => {
+const Main_VentasFacturacion = () => {
 
   // Modal de Actualizar
   const [isOpenModal1, OpenModal1, closeModal1] = useModal(false); // Desestructuracion del Hook useModal
@@ -64,7 +64,7 @@ const main_VentasFacturacion = () => {
   }, []);
 
   const obtenerPedidos = () => {
-    Axios.get("http://localhost:3001/pedidos")
+    Axios.get("http://localhost:3005/pedidos")
       .then((response) => {
         setPedidos(response.data);
         console.log("pedidos encontrados.");
@@ -83,7 +83,7 @@ const main_VentasFacturacion = () => {
   // BUSCAR PEDIDOS:
   const buscarPedido = () => {
     if (idPedido) {
-      Axios.get(`http://localhost:3001/pedido/${idPedido}`)
+      Axios.get(`http://localhost:3005/pedido/${idPedido}`)
         .then((response) => {
           setPedidoEncontrado(response.data);
           console.log(`se esta buscando: ${idPedido}`);
@@ -101,7 +101,7 @@ const main_VentasFacturacion = () => {
 
   // CREAR PEDIDOS:
   const agregarNuevoPedido = () => {
-    Axios.post('http://localhost:3001/pedido', agregarPedido)
+    Axios.post('http://localhost:3005/pedido', agregarPedido)
       .then(response => {
         console.log('Pedido agregado correctamente:', response.data);
         // Actualizar la lista de pedidos después de agregar uno nuevo
@@ -198,7 +198,7 @@ const main_VentasFacturacion = () => {
           text: `Tu pedido con id: (${ID_Pedido_PK}), ha sido actualizado.`,
           icon: "success"
         });
-        Axios.put(`http://localhost:3001/pedidoActualizar/${editarPedido.ID_Pedido_PK}`, editarPedido)
+        Axios.put(`http://localhost:3005/pedidoActualizar/${editarPedido.ID_Pedido_PK}`, editarPedido)
           .then(() => {
             console.log('Pedido actualizado correctamente');
             obtenerPedidos(); // Actualizar lista de pedidos
@@ -224,7 +224,7 @@ const main_VentasFacturacion = () => {
       confirmButtonText: 'Sí, eliminar'
     }).then((result) => {
       if (result.isConfirmed) {
-        Axios.delete(`http://localhost:3001/pedidoEliminar/${idPedido}`)
+        Axios.delete(`http://localhost:3005/pedidoEliminar/${idPedido}`)
           .then(() => {
             console.log('Pedido eliminado correctamente');
             obtenerPedidos(); // Actualizar lista de pedidos
@@ -449,4 +449,4 @@ const main_VentasFacturacion = () => {
   )
 }
 
-export default main_VentasFacturacion;
+export default Main_VentasFacturacion;

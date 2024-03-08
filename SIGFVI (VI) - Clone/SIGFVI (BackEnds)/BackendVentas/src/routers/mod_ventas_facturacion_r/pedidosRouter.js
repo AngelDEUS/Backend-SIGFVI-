@@ -3,7 +3,7 @@
 */
 
 const express = require('express');
-const pedidosController = require('../controllers/pedidosController'); // - Controlador de Ventas
+const pedidosController = require('../../controllers/mod_ventas_facturacion/pedidosController'); // - Controlador de Ventas
 
 const router = express.Router(); // -  Router.
 

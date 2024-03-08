@@ -27,7 +27,7 @@ export const Tabla_users_item = (props) => {
     }).then((response) => {
       if (response.isConfirmed) {
         axios
-          .delete(`http://localhost:3001/BorrarDato/${props.id}`)
+          .delete(`http://localhost:3004/BorrarDato/${props.id}`)
           .then(() => {
             console.log("Dato eliminado correctamente");
           })

@@ -2,11 +2,24 @@
     * Controlador del modulo de ventas.
 */
 
-const db = require('../models/sigfviDBModelo');
+const db = require('../../models/sigfviDBModelo');
 
 
 // CONSULTAR PEDIDOS;
 function getPedidos(req, res) {
+    db.query(`SELECT * FROM Pedido`,
+        (err, result) => {
+            if (err) {
+                console.error('\x1b[31m', err, '\x1b[0m\n');
+                res.status(500).send('Error al obtener las Venta Realizadas.');
+            } else {
+                res.send(result);
+            }
+        });
+};
+
+// CONSULTAR PEDIDO POR NOMBRE:
+function getPedidosNombre(req, res) {
     db.query(`SELECT * FROM Pedido`,
         (err, result) => {
             if (err) {
@@ -137,6 +150,7 @@ function deletePedidoId(req, res) {
 
 module.exports = {
     getPedidos,
+    getPedidosNombre,
     getPedidoId,
     createPedidos,
     updatePedido,

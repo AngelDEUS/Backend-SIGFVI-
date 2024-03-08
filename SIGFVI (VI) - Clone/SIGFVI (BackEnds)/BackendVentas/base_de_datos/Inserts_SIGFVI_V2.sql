@@ -65,10 +65,13 @@ INSERT INTO Usuario(ID_Numero_Identificacion_PK,ID_Tipo_Identificacion_FKPK,Nomb
             ('Andrés','Felipe','López','Pérez','Avenida 23 #34-56','89012345',1);
 
  -- #9 -- Metodo_de_pago
- INSERT INTO Metodo_de_pago(ID_Metodo_Pago_PK,Nombre_Metodo)
-	VALUES  (1,'Efectivo'),
-			(2,'Nequi'),
-			(3,'Daviplata');
+ INSERT INTO Metodo_de_pago(Nombre_Metodo, Tipo_Metodo_Pago, Referencia, ID_Estado_FK)
+	VALUES  ('Efectivo','Fisico','',0),
+			('Nequi','Electronico','123-456-789-000',0),
+			('Daviplata','Electronico','123-000-456-789',0),
+			('Tarjeta','Electronico','123-456-000-789',1);
+ INSERT INTO Metodo_de_pago(Nombre_Metodo, Tipo_Metodo_Pago, Referencia, ID_Estado_FK)
+		VALUES	('Banco','Electronico','252668555',1);
             
 -- #10 -- Saldo_Cuenta_Deudor
 INSERT INTO Saldo_Cuenta_Deudor(ID_Deudor_FK,Fecha_Cancelacion_Pedido,Total_Saldo_Deuda)

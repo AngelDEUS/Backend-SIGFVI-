@@ -5,7 +5,7 @@ const datosRouter = require("./Routes/datosRouter");
 const app = express();
 
 const corsOptions = {
-    origin: "http://localhost:3001",
+    origin: "http://localhost:3000",
     methods: "GET,POST,PUT,DELETE",
 };
 app.use(cors(corsOptions));
@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 
 app.use("/", datosRouter);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3003;
 
 app.listen(PORT, () => {
     console.log(`Servidor funcionando en el puerto ${PORT}`);

@@ -18,14 +18,12 @@ import axios from 'axios';
 
 
 
-const main_Metodo_Pago = () => {
+const Main_Metodo_Pago = () => {
     const titulo = 'Gestión de Metodos de Pago';
     const descipcion = 'En este panel se mostrarán todas las ventas';
 
     // Arreglos:
     const imgClases = ['--otro__MP', '--Efectivo__MP', '--Nequi__MP', '--Daviplata__MP', '--Tarjeta__MP'];
-    const estadoClases = ['estMD_None', 'estMD_Activo', 'estMD_Inactivo', 'estMD_Diferente'];
-    const imagenesCards = [noneImagen, efectivoImagen, nequiImagen, daviplataImagen, tarjetaImagen]
     const estadoNombres = ['Activo', 'Inactivo', 'otro']
 
     // DropdawnMenu Tipo de Método de Pago:
@@ -99,7 +97,7 @@ const main_Metodo_Pago = () => {
     /* CONSULTAS Y METODOS PARA EL BACKEDN */
     const [metodosPago, setMetodosPago] = useState([]);
     useEffect(() => {
-        axios.get('http://localhost:3001/metodopagos')
+        axios.get('http://localhost:3005/metodopagos')
             .then(response => {
                 setMetodosPago(response.data);
             })
@@ -108,9 +106,27 @@ const main_Metodo_Pago = () => {
             });
     }, []);
 
+    
+  // BUSCAR PEDIDOS:
+  const buscarPedidoNombre = (idPedido) => {
+    if (idPedido) {
+      axios.get(`http://localhost:3005/pedido/${idPedido}`)
+        .then((response) => {
+          console.log(`se esta buscando: ${idPedido}`);
+          console.log(`Se encontro: `, response.data);
+        })
+        .catch((error) => {
+          console.error('Error al buscar el pedido:', error);
+        });
+    } else {
+    }
+  };
+
+
+
     //---> Función para obtener la clase correspondiente al estado
     const obtenerClaseEstado = (ID_Estado_FK) => {
-        const estadoClases = ['estMD_None', 'estMD_Activo', 'estMD_Inactivo', 'estMD_Diferente'];
+        const estadoClases = [ 'estMD_Activo', 'estMD_Inactivo', 'estMD_Diferente','estMD_None'];
         return estadoClases[ID_Estado_FK] || estadoClases[0];
     };
 
@@ -218,10 +234,10 @@ const main_Metodo_Pago = () => {
                         </div>
                         <div className="subContainer-metodopagoCards">
                             {metodosPago.map(metodo => (
-                                <div className={`container_card-metodopago ${imgClases[metodo.ID_Metodo_Pago_PK]}`} key={metodo.ID_Metodo_Pago_PK}>
+                                <div className='container_card-metodopago'>
                                     <div className="img_container_metodopago">
                                         <div className='img_y_etiqueta--metodo_pago'>
-                                            <div className="contenedor-img_metodpago">
+                                            <div className={`contenedor-img_metodpago ${imgClases[metodo.ID_Metodo_Pago_PK]}`}key={metodo.ID_Metodo_Pago_PK}>
                                                 <img className='img--metodpago' src={obtenerImagenMetodoPago(metodo.ID_Metodo_Pago_PK)} alt="Método de pago" />
                                             </div>
                                             <div className="etiqueta-estado_medotopago">
@@ -263,4 +279,4 @@ const main_Metodo_Pago = () => {
     )
 }
 
-export default main_Metodo_Pago
+export default Main_Metodo_Pago

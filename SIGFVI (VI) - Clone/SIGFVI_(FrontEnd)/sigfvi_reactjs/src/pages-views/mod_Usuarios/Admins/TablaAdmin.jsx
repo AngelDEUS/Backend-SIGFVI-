@@ -11,7 +11,7 @@ function TablaAdmins() {
   const [datos, setDatos] = useState([]);
 
   const consulta = () => {
-    axios.get("http://localhost:3001/read")
+    axios.get("http://localhost:3002/read")
         .then((response)=>{
           setDatos(response.data);   
             //console.log(setDatos);

@@ -1,4 +1,3 @@
-// Usamos esta arquitectura escalable y buenas practicas.
 const mysql = require("mysql2");
 
 const db = mysql.createConnection({

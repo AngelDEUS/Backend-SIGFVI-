@@ -23,7 +23,7 @@ export const Tabla_proveedor_item = (props) => {
             toast:true
         }).then(response => {
             if(response.isConfirmed){
-                axios.delete(`http://localhost:3000/eliminar/${val.id}`).then(()=>{
+                axios.delete(`http://localhost:3003/eliminar/${val.id}`).then(()=>{
                     Swal.fire({
                         title: "Eliminado!",
                         text: `El empleado ${val.name}, se ha eliminado`,

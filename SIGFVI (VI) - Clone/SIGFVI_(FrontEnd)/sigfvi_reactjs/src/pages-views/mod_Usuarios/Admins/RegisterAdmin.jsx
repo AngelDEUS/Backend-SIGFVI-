@@ -7,7 +7,7 @@ export const RegisterAdmin = ({isOpen, closeModal,reConsulta}) => {
     
 
     const agregarRegistro = () =>{
-        axios.post("http://localhost:3001/Create",{
+        axios.post("http://localhost:3002/Create",{
             "id" : numid,
             "tipoid" : tipoid,
             "name1" : name1,

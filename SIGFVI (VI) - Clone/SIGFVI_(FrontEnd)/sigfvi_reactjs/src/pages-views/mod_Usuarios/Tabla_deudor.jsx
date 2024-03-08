@@ -7,7 +7,7 @@ import TituloyDesc from '../../components/Titles/TituloyDesc';
 
 function Tabla_deudor() {
 
-  const url = 'http://localhost:3001/Deudores'
+  const url = 'http://localhost:3006/Deudores'
 
   const [datos, setDatos] = useState()
 

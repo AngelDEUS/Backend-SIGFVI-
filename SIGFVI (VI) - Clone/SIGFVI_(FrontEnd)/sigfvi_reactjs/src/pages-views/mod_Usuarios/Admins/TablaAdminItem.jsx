@@ -24,7 +24,7 @@ export const TablaAdminItem = (props) => {
             toast:true
         }).then(response => {
             if(response.isConfirmed){
-                axios.delete(`http://localhost:3001/Delete/${val.id}`).then(()=>{
+                axios.delete(`http://localhost:3002/Delete/${val.id}`).then(()=>{
                     Swal.fire({
                         title: "Eliminado!",
                         text: `El empleado ${val.name1}, se ha eliminado`,
