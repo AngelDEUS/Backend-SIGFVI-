@@ -3,7 +3,11 @@ const mysql = require("mysql2");
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
+<<<<<<< HEAD
   password: "0000",
+=======
+  password: "",
+>>>>>>> origin/mod_usuarios_fs
   database: "SIGFVI_V2",
 });
 
