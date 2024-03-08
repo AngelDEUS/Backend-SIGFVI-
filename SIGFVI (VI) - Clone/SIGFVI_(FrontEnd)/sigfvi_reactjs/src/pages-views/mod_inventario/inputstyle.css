@@ -55,6 +55,31 @@ fieldset {
     box-shadow: 0 0 0 0.2rem rgba(255, 123, 0, 0.25);
     color: rgb(78, 73, 73);
   }
+
+  .form-desc input[type="text"] {
+    width: 400px;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    color: rgb(61, 55, 55);
+  }
+  .form-desc input[type="text"]::placeholder {
+    color: rgb(155, 162, 168);
+  }
+  
+  .form-desc input:disabled{
+      border: 1px solid #e1e6eb;
+      background-color: #f1f3f570;
+      color: rgb(145, 161, 175);
+  } 
+  
+  .form-desc input[type="text"]:focus {
+    outline: none;
+    border-color: #ffa880;
+    box-shadow: 0 0 0 0.2rem rgba(255, 123, 0, 0.25);
+    color: rgb(78, 73, 73);
+  }
   
   .divisorHr{
       background-color: rgba(141, 153, 175, 0.2);

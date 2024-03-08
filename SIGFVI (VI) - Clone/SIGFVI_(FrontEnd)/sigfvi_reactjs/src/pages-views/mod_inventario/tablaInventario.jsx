@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import TituloyDesc from "../../components/Titles/TituloyDesc";
 import { Tabla_Stock_item } from "./tablainventarioitem";
+import { Link } from "react-router-dom";
 import "./Inventario.css";
 import "./AllStyle.css";
 import "./pruebastyle.css";
@@ -10,25 +11,25 @@ const Gestion_Inventario = () => {
   const titulo = "Inventario";
   const descripcion =
     "En este panel es el encargado de gestionar las Cantidades de los Productos, ademas, el registro de entrada y salido de los productos.";
-  
-    const [datos, setDatos] = useState([]);
 
-    const consulta = () => {
-      axios
-        .get("http://localhost:3001/consultaInventario")
-        .then((response) => {
-          console.log("Datos recibidos:", response.data.datos);
-          setDatos(response.data.datos);
-        })
-        .catch((error) => {
-          console.error("Error al obtener datos:", error);
-        });
-    };
-  
-    useEffect(() => {
-      console.log("Realizando solicitud...");
-      consulta();
-    }, []);
+  const [datos, setDatos] = useState([]);
+
+  const consulta = () => {
+    axios
+      .get("http://localhost:3001/consultaInventario")
+      .then((response) => {
+        console.log("Datos recibidos:", response.data.datos);
+        setDatos(response.data.datos);
+      })
+      .catch((error) => {
+        console.error("Error al obtener datos:", error);
+      });
+  };
+
+  useEffect(() => {
+    console.log("Realizando solicitud...");
+    consulta();
+  }, []);
 
   return (
     <>
@@ -58,9 +59,9 @@ const Gestion_Inventario = () => {
                 <div className="sep_vertical_b--outS"></div>
               </div>
               <div className="left__b">
-                <button className="btn_f limpiar">entrega Productos</button>
-
-                <button className="btn_f cancelar">Reporte</button>
+                <Link to="/Inventario/EntregaProducto">
+                  <button className="btn_f limpiar">entrega Productos</button>
+                </Link>
               </div>
             </div>
           </div>
@@ -73,10 +74,11 @@ const Gestion_Inventario = () => {
                   <th>Tipo Producto</th>
                   <th>Descripcion</th>
                   <th>Cantidad</th>
+                  <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
-              {!datos
+                {!datos
                   ? "Loading....."
                   : datos.map((dato) => (
                       <Tabla_Stock_item
