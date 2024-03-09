@@ -14,7 +14,7 @@ const Tabla_Producto = () => {
   const [datos, setDatos] = useState([]);
   const [searchId, setSearchId] = useState("");
 
-  const handleSearch = () => {
+  const handleSearch = () => {ALTER TABLE inventario AUTO_INCREMENT=0;
     if (searchId.trim() !== "") {
       axios
         .get(`http://localhost:3001/BuscarDatoPorId/${searchId}`)

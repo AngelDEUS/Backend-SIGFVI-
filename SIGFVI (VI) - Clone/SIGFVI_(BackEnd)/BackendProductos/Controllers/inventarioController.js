@@ -1,4 +1,4 @@
-const db = require("../../Models/database").promise();
+const db = require("../Models/database").promise();
 
 const consultaDatos = async (req, res) => {
     try {
