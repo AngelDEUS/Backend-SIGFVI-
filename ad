@@ -1,0 +1,131 @@
+[33mcommit d03dcfbf5ef2f52b543ba9b06ae1900d0e64e5d5[m[33m ([m[1;36mHEAD -> [m[1;32mmod_inventario_fs[m[33m)[m
+Author: JeanC4rlo7355 <jeancabelt@gmail.com>
+Date:   Sat Mar 9 16:13:17 2024 -0500
+
+    Se añadio el backend desde la rama de ventas y facturas
+
+[33mcommit b32c979e083fe4f9b3666fdd617b096528e70034[m[33m ([m[1;31morigin/mod_inventario_fs[m[33m)[m
+Author: JeanC4rlo7355 <jeancabelt@gmail.com>
+Date:   Fri Mar 8 12:01:23 2024 -0500
+
+    Ajuste en el frontend, se agredo una nueva ventana para la entraga de producto y reposte.
+
+[33mcommit 30b75d966d84529dc9426f17a50872cd54da27e3[m
+Author: JeanC4rlo7355 <jeancabelt@gmail.com>
+Date:   Wed Mar 6 11:36:46 2024 -0500
+
+    Arreglo del enpoint de borrarporid.
+
+[33mcommit 177345842fc18190e5eaf2e140f22aaf82837256[m
+Author: JeanC4rlo7355 <jeancabelt@gmail.com>
+Date:   Wed Mar 6 10:38:03 2024 -0500
+
+    Arreglos en los enpoints de inventario.
+
+[33mcommit a8b846b25b8503960ef809abdce9f6ae2a9e17a8[m
+Author: JeanC4rlo7355 <jeancabelt@gmail.com>
+Date:   Wed Mar 6 00:16:29 2024 -0500
+
+    Se añadio la pagina de inventario y su respectiba tabla. Se modifico el backend de productos, Cambie los enpoints de consulta.
+
+[33mcommit b417217683d3c52f0c6cf3bfa2b1bd9cd9e4b260[m
+Author: JeanC4rlo7355 <jeancabelt@gmail.com>
+Date:   Wed Feb 28 22:47:41 2024 -0500
+
+    Requerimientos de la gestion de productos actualizados.
+
+[33mcommit a7165667fc9fa46e687d4e8f37c921d783680314[m
+Author: JeanC4rlo7355 <jeancabelt@gmail.com>
+Date:   Mon Feb 26 00:39:00 2024 -0500
+
+    Solucion de errores en agregar y editar producto.
+
+[33mcommit 0301558fafe37afb8731b29af640b849f012f553[m
+Author: JeanC4rlo7355 <jeancabelt@gmail.com>
+Date:   Fri Feb 23 09:09:22 2024 -0500
+
+    Acabando la parte de fontend del modulo de inventario
+
+[33mcommit 1bee23dcdf5717dbafb9d34de29a685f0f122d7e[m
+Author: JeanC4rlo7355 <jeancabelt@gmail.com>
+Date:   Fri Feb 23 08:37:51 2024 -0500
+
+    Acabando la parte de fontend del modulo de inventario
+
+[33mcommit 8954714e21afabb5eefc4dd19bc2f0de877dfe02[m
+Author: JeanC4rlo7355 <jeancabelt@gmail.com>
+Date:   Thu Feb 22 16:00:13 2024 -0500
+
+    Se cambiaron los jsx de mod inventario
+
+[33mcommit 1bb083315666192336df8583a680408b39d1ef32[m
+Author: JeanC4rlo7355 <jeancabelt@gmail.com>
+Date:   Thu Feb 22 15:54:14 2024 -0500
+
+    Se cambiaron los jsx de mod inventario
+
+[33mcommit 6df9e27b9c4e8b0cc5e3d11db1a9f87c245a4634[m
+Author: JeanC4rlo7355 <jeancabelt@gmail.com>
+Date:   Thu Feb 22 15:21:04 2024 -0500
+
+    Se sube el backend a la rama mod_inventario_fs.
+
+[33mcommit db563aefcf48f0dde26deb5f4d5e579e13fcc1b6[m
+Author: JeanC4rlo7355 <jeancabelt@gmail.com>
+Date:   Thu Feb 22 15:10:12 2024 -0500
+
+    Se sube el backend a la rama mod_inventario_fs.
+
+[33mcommit 53ac4fe3ecbe5ee83f194762cb77e3e74e200aba[m
+Author: JeanC4rlo7355 <jeancabelt@gmail.com>
+Date:   Thu Feb 22 14:13:02 2024 -0500
+
+    Se crea la rama mod_inventario_fs y se ejecuta.
+
+[33mcommit 2dcf6170acd5bc6760b07228ae1ae2292f2303c5[m[33m ([m[1;31morigin/mod_ventas_facturacion_fs[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: Angel Ayala <m44p1angel@gmail.com>
+Date:   Thu Feb 22 13:35:36 2024 -0500
+
+    Se añaden los archivos git ignore y Readme
+
+[33mcommit 91c758332fb0c3fff29c746f8a231d59155d7b32[m
+Author: Angel Ayala <m44p1angel@gmail.com>
+Date:   Thu Feb 22 13:17:37 2024 -0500
+
+    Se actualizan las notas de version
+
+[33mcommit f4a059304ee3b3448bf8c8462b88b9968cd45027[m
+Author: Angel Ayala <m44p1angel@gmail.com>
+Date:   Thu Feb 22 12:55:31 2024 -0500
+
+    Se añaden los ficheros del frontEnd actualizado a la version 1.8.0 y los Nuevos MockUps 2024.
+
+[33mcommit c22ff51beddbfb1491d12fbecd700729252d7767[m
+Author: Angel Ayala <m44p1angel@gmail.com>
+Date:   Thu Feb 22 12:50:34 2024 -0500
+
+    Se agraga la carpeta del FrontEnd
+
+[33mcommit 8b3c0a8bd770a81ac34e2a07ed6f44b5d04b01dd[m
+Author: Angel Ayala <m44p1angel@gmail.com>
+Date:   Thu Feb 22 12:48:21 2024 -0500
+
+    Se cambian las carpetas del FronEnd.
+
+[33mcommit 3406fd3f0122aea6cf11fede681a436e2c80d967[m
+Author: Angel Ayala <m44p1angel@gmail.com>
+Date:   Thu Feb 22 12:47:05 2024 -0500
+
+    Se actualizan los archivos de Notas de version.
+
+[33mcommit 5a6b9a63ae3a3c57960a549c892ae23c8e8bef05[m
+Author: Angel Ayala <m44p1angel@gmail.com>
+Date:   Thu Feb 22 12:24:36 2024 -0500
+
+    Se suben las carpetas de frontEnd y BackEnd, con sus respectivas directivas y archivos
+
+[33mcommit 711212e6767bc1882489359817fe8688da6d2a89[m
+Author: Angel Ayala <m44p1angel@gmail.com>
+Date:   Mon Feb 19 20:59:58 2024 -0500
+
+    Se crear archivo Git Release
