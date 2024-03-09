@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Tabla_users_item } from "./tabla";
 import TituloyDesc from "../../components/Titles/TituloyDesc";
-import { RegisterProd } from "./agregarProducto";
+import { Tabla_Stock_item } from "./tablainventarioitem";
+import { Link } from "react-router-dom";
 import "./Inventario.css";
 import "./AllStyle.css";
+import "./pruebastyle.css";
 
-const Tabla_Inventario = () => {
+const Gestion_Inventario = () => {
   const titulo = "Inventario";
   const descripcion =
-    "En este panel es el encargado de gestionar los productos, el stock y notificaciones por estado";
+    "En este panel es el encargado de gestionar las Cantidades de los Productos, ademas, el registro de entrada y salido de los productos.";
 
   const [datos, setDatos] = useState([]);
+<<<<<<< HEAD
   const [searchId, setSearchId] = useState("");
 
   const handleSearch = () => {
@@ -31,6 +33,12 @@ const Tabla_Inventario = () => {
   const consulta = () => {
     axios
       .get("http://localhost:3004/Datos")
+=======
+
+  const consulta = () => {
+    axios
+      .get("http://localhost:3001/consultaInventario")
+>>>>>>> origin/mod_inventario_fs
       .then((response) => {
         console.log("Datos recibidos:", response.data.datos);
         setDatos(response.data.datos);
@@ -42,10 +50,8 @@ const Tabla_Inventario = () => {
 
   useEffect(() => {
     console.log("Realizando solicitud...");
-    consulta();  
+    consulta();
   }, []);
-
-  const [registerform, setRegisterform] = useState(false)
 
   return (
     <>
@@ -56,37 +62,28 @@ const Tabla_Inventario = () => {
         <div className="mod__inventario">
           <div className="inventario">
             <div className="subtitulo">
-              <h3>Inventario de Productos</h3>
+              <h3 className="subtitulo__h3">Inventario de Productos</h3>
             </div>
-            <div className="buscar">
-                <i className="bi bi-search buscar_i"></i>
-                <div className='sep_vertical_b'></div>
-                <input
-                  type="text"
-                  id="search"
-                  name="search"
-                  className="barra-buscar"
-                  placeholder="ID del Pedido"
-                  onChange={(e) => setSearchId(e.target.value)}
-                />
-                <button className='btn_buscar' onClick={handleSearch}>Buscar</button>
-              </div>
-            <div className="valores">
-
-              <div>
-                <div className="teush">
-                <button type="button" className="boton b4" id="lanzar-modal" name="agregar" onClick={()=> setRegisterform(true)}>Agregar</button>
-
-                  <button
-                    type="button"
-                    className="boton b4"
-                    id="lanzar-modal2"
-                    name="Reporte"
-                  >
-                    Reporte
-                  </button>
+          </div>
+          <div className="busqueda__prod">
+            <div className="buscar_productos">
+              <div className="right__b">
+                <div className="buscar">
+                  <i className="bi bi-search buscar_i"></i>
+                  <div className="sep_vertical_b"></div>
+                  <input
+                    type="text"
+                    placeholder="Buscar productos"
+                    id="buscarProducto"
+                  />
+                  <button className="btn_buscar">Buscar</button>
                 </div>
-                <RegisterProd isOpen={registerform} closeModal={()=> setRegisterform(false)}/>
+                <div className="sep_vertical_b--outS"></div>
+              </div>
+              <div className="left__b">
+                <Link to="/Inventario/EntregaProducto">
+                  <button className="btn_f limpiar">entrega Productos</button>
+                </Link>
               </div>
             </div>
           </div>
@@ -95,13 +92,10 @@ const Tabla_Inventario = () => {
               <thead>
                 <tr>
                   <th>Codigo</th>
-                  <th>Nombre</th>
+                  <th>Nombre del Producto</th>
                   <th>Tipo Producto</th>
+                  <th>Descripcion</th>
                   <th>Cantidad</th>
-                  <th>Precio Compra</th>
-                  <th>Precio Venta</th>
-                  <th>foto</th>
-                  <th>Estado</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
@@ -109,16 +103,13 @@ const Tabla_Inventario = () => {
                 {!datos
                   ? "Loading....."
                   : datos.map((dato) => (
-                      <Tabla_users_item
+                      <Tabla_Stock_item
                         key={dato.ID_Producto_PK}
                         id={dato.ID_Producto_PK}
                         nombre={dato.Nombre_Producto}
-                        tProducto={dato.ID_Tipo_Producto_FK}
-                        cantidad={dato.Cantida_Neto_producto}
-                        precioCompra={dato.Precio_Proveedor}
-                        precioVenta={dato.Precio_Venta}
-                        foto={dato.Foto_Producto}
-                        estado={dato.ID_Estado_FK}
+                        tProducto={dato.Nombre_Tipo_Producto}
+                        descripcion={dato.Descripcion}
+                        cantidad={dato.Stock}
                       />
                     ))}
               </tbody>
@@ -130,4 +121,4 @@ const Tabla_Inventario = () => {
   );
 };
 
-export default Tabla_Inventario;
+export default Gestion_Inventario;

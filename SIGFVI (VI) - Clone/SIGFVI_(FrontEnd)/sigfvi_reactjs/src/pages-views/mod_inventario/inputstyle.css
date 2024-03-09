@@ -1,0 +1,142 @@
+/* Estilos para el fieldset */
+fieldset {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  legend {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #838891;
+  }
+  
+  /* Estilos para los form-group */
+  .form-group {
+    margin-bottom: 20px;
+    margin-right: 20px;
+  }
+  
+  .inputs-grup{
+      display: flex;
+  }
+  
+  /* Estilos para las etiquetas */
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #ffd093;
+  }
+  
+  /* Estilos para los input */
+  .form-group input[type="text"] {
+    width: 250px;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    color: rgb(61, 55, 55);
+  }
+  .form-group input[type="text"]::placeholder {
+    color: rgb(155, 162, 168);
+  }
+  
+  .form-group input:disabled{
+      border: 1px solid #e1e6eb;
+      background-color: #f1f3f570;
+      color: rgb(145, 161, 175);
+  } 
+  
+  .form-group input[type="text"]:focus {
+    outline: none;
+    border-color: #ffa880;
+    box-shadow: 0 0 0 0.2rem rgba(255, 123, 0, 0.25);
+    color: rgb(78, 73, 73);
+  }
+
+  .form-desc input[type="text"] {
+    width: 400px;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    color: rgb(61, 55, 55);
+  }
+  .form-desc input[type="text"]::placeholder {
+    color: rgb(155, 162, 168);
+  }
+  
+  .form-desc input:disabled{
+      border: 1px solid #e1e6eb;
+      background-color: #f1f3f570;
+      color: rgb(145, 161, 175);
+  } 
+  
+  .form-desc input[type="text"]:focus {
+    outline: none;
+    border-color: #ffa880;
+    box-shadow: 0 0 0 0.2rem rgba(255, 123, 0, 0.25);
+    color: rgb(78, 73, 73);
+  }
+  
+  .divisorHr{
+      background-color: rgba(141, 153, 175, 0.2);
+      width: 100%;
+      height: 5px;
+      margin: 20px 0;
+      border-radius: 30px;
+  }
+  
+  .divisorHr2{
+      background-color: rgba(141, 153, 175, 0.2);
+      width: auto;
+      height: 1px;
+      margin: 20px 0;
+  }
+  
+  .actualizar{
+      background-color: #4aa7ff;
+      color: #ffffff;
+      transition: all 0.3s ease;
+  }
+  
+  .actualizar:active{
+      background-color: #4aa7ff50;
+  }
+  
+  .cancelarActualizar{
+      background-color: #838891;
+      color: #ffffff;
+      transition: all 0.3s ease;
+  }
+  .cancelarActualizar:active{
+      background-color: #83889150;
+  }
+  
+  .nuevoP{
+    background-color: #4aa7ff;
+    color: #ffffff;
+    transition: all 0.3s ease;
+    width: 190px;
+  }
+  
+  
+  .nuevoP:active{
+    background-color: #4aa7ff50;
+  }
+
+  .inputs-grup{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .form-btn{
+    display: flex;
+    justify-content: end;
+    margin: 12px;
+  }
+  .btn-registro{
+    color: black;
+  }

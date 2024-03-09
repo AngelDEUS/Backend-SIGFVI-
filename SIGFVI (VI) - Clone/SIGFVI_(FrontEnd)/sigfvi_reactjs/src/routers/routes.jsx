@@ -26,7 +26,9 @@ import InformeInventario from '../pages-views/mod_Informes/InformeInventario';
 import InformeEmpleados from '../pages-views/mod_Informes/InformeEmpleados';
 
 
-import Tabla_inventario from "../pages-views/mod_inventario/tablaInventario";
+import Tabla_Producto from "../pages-views/mod_inventario/tablaProducto";
+import Gestion_Inventario from "../pages-views/mod_inventario/tablaInventario";
+import Entrega_Producto from "../pages-views/mod_inventario/entregaProducto";
 
 import Tabla_users from '../pages-views/mod_Usuarios/Tabla_users';
 import Tabla_proveedores from '../pages-views/mod_Usuarios/Tabla_proveedores';
@@ -44,8 +46,11 @@ export function MyRoutes() {
             <Route path='/GestionUsuarios/TablaUsuarios' element={<Tabla_users />} />
             <Route path='/GestionUsuarios/TablaProveedores' element={<Tabla_proveedores />} />
             <Route path='/GestionUsuarios/TablaDeudores' element={<Tabla_deudor />} />
+
             <Route path='/Inventario' element={<Inventario />} />
-            <Route path='/Inventario/TablaInventario' element={<Tabla_inventario />} />
+            <Route path='/Inventario/Producto' element={<Tabla_Producto />} />
+            <Route path='/Inventario/GestionInventario' element={<Gestion_Inventario />} />
+            <Route path='/Inventario/EntregaProducto' element={<Entrega_Producto />} />
 
             <Route path='/VentasFacturacion/list' element={<VentasFacturacion />} />
             <Route path='/VentasFacturacion/ventas_main' element={<VentasMain />} />

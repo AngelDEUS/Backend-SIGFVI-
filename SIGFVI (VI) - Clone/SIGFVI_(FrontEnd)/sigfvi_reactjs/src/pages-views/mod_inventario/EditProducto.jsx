@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import consulta  from './tablaInventario';
+import "./inputstyle.css";
 
 const EditProducto = ({ closeModal, datos }) => {
   const [nombre, setNombre] = useState(datos.nombre || "");
-  const [cantidad, setCantidad] = useState(datos.cantidad || "");
+  const [descripcion, setDescripcion] = useState(datos.descripcion || "");
   const [precioCompra, setPrecioC] = useState(datos.precioCompra || "");
   const [precioVenta, setPrecioV] = useState(datos.precioVenta || "");
   const [con, setCon] = useState(true);
@@ -15,13 +15,14 @@ const EditProducto = ({ closeModal, datos }) => {
       const response = await axios.put(
         `http://localhost:3004/ActualizarProducto/${id}`,
         {
-          "Nombre_Producto": nombre,
-          "Cantida_Neto_producto": cantidad,
-          "Precio_Proveedor": precioCompra,
-          "Precio_Venta": precioVenta,
+          Nombre_Producto: nombre,
+          Descripcion: descripcion,
+          Precio_Proveedor: precioCompra,
+          Precio_Venta: precioVenta,
         }
       );
       setCon(true);
+      consulta();
       console.log(response.data);
     } catch (err) {
       console.error("No se pudo hacer la petición put", err);
@@ -45,7 +46,7 @@ const EditProducto = ({ closeModal, datos }) => {
         text: "Datos Actualizados para: " + nombre,
       }).then(() => {
         editarRegistro(datos.id);
-        consulta();
+
         closeModal();
       });
     } else {
@@ -58,6 +59,8 @@ const EditProducto = ({ closeModal, datos }) => {
   };
 
   return (
+    {
+      /* 
     <div className="register-container">
       <div className="fondo-register">
         <div>
@@ -65,7 +68,7 @@ const EditProducto = ({ closeModal, datos }) => {
         </div>
         <div className="container__Main-register">
           <h1 className="main-title">Editar Producto</h1>
-          <form onSubmit={handleSubmit} className="datos-contenido">
+          <form  className="datos-contenido">
             <span>
               <label htmlFor="nombre">Nombre</label>
               <input
@@ -80,15 +83,15 @@ const EditProducto = ({ closeModal, datos }) => {
               />
             </span>
             <span>
-              <label htmlFor="cantidad">Cantidad</label>
+              <label htmlFor="descripcion">descripcion</label>
               <input
                 className="input-form"
                 type="text"
-                name="cantidad"
+                name="descripcion"
                 id="cantiad"
-                value={cantidad}
+                value={descripcion}
                 onChange={(e) => {
-                  setCantidad(e.target.value);
+                  setDescripcion(e.target.value);
                 }}
               />
             </span>
@@ -125,6 +128,7 @@ const EditProducto = ({ closeModal, datos }) => {
                 name="submit"
                 id="submit"
                 className="boton b4"
+                onClick={handleSubmit}
               >
                 Guardar Cambios
               </button>
@@ -132,7 +136,85 @@ const EditProducto = ({ closeModal, datos }) => {
           </form>
         </div>
       </div>
-    </div>
+    </div> */
+    },
+    (
+      <div className="editarPedido register-container">
+        <div className="inputsGrup fondo-register">
+          <div>
+            <p onClick={closeModal}>X</p>
+          </div>
+          <fieldset>
+            <legend>Editar Producto</legend>
+            <div className="inputs-grup">
+              <div className="form-group">
+                <label>Nombre</label>
+                <input
+                  type="text"
+                  name="nombre"
+                  id="nombre"
+                  placeholder="Ingrese el valor"
+                  value={nombre}
+                  onChange={(e) => {
+                    setNombre(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="form-group">
+                <label>descripcion</label>
+                <input
+                  type="text"
+                  name="descripcion"
+                  id="cantiad"
+                  placeholder="Ingrese el valor"
+                  value={descripcion}
+                  onChange={(e) => {
+                    setDescripcion(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="form-group">
+                <label>descripcion</label>
+                <input
+                  type="text"
+                  name="precioCompra"
+                  id="precioCompra"
+                  value={precioCompra}
+                  placeholder="Ingrese el valor"
+                  onChange={(e) => {
+                    setPrecioC(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="form-group">
+                <label>Precio de Venta</label>
+                <input
+                  type="text"
+                  name="tipoid"
+                  id="tipoid"
+                  placeholder="Ingrese el valor"
+                  value={precioVenta}
+                  onChange={(e) => {
+                    setPrecioV(e.target.value);
+                  }}
+                />
+              </div>
+            </div>
+            <div className="form-btn">
+            <button
+                type="submit"
+                name="submit"
+                id="submit"
+                className="btn_f limpiar btn-registro"
+                onClick={handleSubmit}
+              >
+                Guardar Cambios
+              </button>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    )
   );
 };
 
