@@ -6,8 +6,8 @@ USE SIGFVI_V2;
 
  -- #1 -- Estado
 INSERT INTO Estado(ID_Estado_PK, Nombre_Estado)
-	VALUES  (0,'Activo'),
-			(1,'Inactivo'),
+	VALUES  (0,'Inactivo'),
+			(1,'Activo'),
 			(3,'Cancelado');
 
  -- #2 -- Tipo_Producto
