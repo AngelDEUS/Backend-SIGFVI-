@@ -14,7 +14,14 @@ const metodoPagoRouter = require('./routers/mod_ventas_facturacion_r/metodoPagoR
 const routerConsultas = require('./routers/mod_ventas_facturacion_r/consulatasImportRouter.js')
 
 // --> Modúlo de Productos e Inventario
-const productoRouter = require('./routers/mod_inventario_r/productoRouter')
+const inventarioRouter = require('./routers/mod_inventario_r/inventarioRouter.js');
+const productoRouter = require('./routers/mod_inventario_r/productoRouter');
+
+// Modulo de Usuarios.
+const empleadoRouter = require('./routers/mod_usuarios_r/empleadoRouter.js');
+const proveedorRouter = require('./routers/mod_usuarios_r/proveedorRouter.js');
+const adminRouter = require('./routers/mod_usuarios_r/administradorRouter.js');
+
 
 
 // - Uses
@@ -32,11 +39,21 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-// - Rutas principales Para ventas --->
-app.use('/', pedidosRouter);
+// Modulo de ventas y facturacion.
+app.use('/', pedidosRouter); 
 app.use('/', metodoPagoRouter);
-app.use('/', productoRouter);
 app.use('/vyf', routerConsultas);
+
+// Modulo de productos en inventario.
+app.use('/producto', productoRouter); 
+app.use('/inventario', inventarioRouter);
+
+// Modulo de Usuario.
+app.use('/usuario', empleadoRouter); // Empleados
+app.use('/usuario', proveedorRouter); // Proveedores
+app.use('/usuario', adminRouter); // Administradores
+
+
 app.get("/", (req, res) => { // Mensajes de pagina principal.
     res.send("¡Hola! Este es el servidor backend!");
     console.log("¡Hola! Este es el servidor backend!");
