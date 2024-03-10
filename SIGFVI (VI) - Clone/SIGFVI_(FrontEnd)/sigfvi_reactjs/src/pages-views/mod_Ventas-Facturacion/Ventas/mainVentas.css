@@ -608,7 +608,7 @@
     border: 1px solid var(--Color-bg-separador-01);
     border-radius: 15px;
     cursor: pointer;
-    transition: background-color .3s ease, border .1s ease, opacity .1s ease, ;
+    transition: background-color .3s ease, border .1s ease, opacity .1s ease;
 }
 
 .btnModalSelectProd:hover{
