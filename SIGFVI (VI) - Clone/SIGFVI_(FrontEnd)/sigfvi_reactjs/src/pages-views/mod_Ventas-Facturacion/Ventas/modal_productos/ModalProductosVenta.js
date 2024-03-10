@@ -274,7 +274,7 @@ const ModalProductosVenta = ({ onAgregarProductos, onClose }) => {
                 <div className="busqueda__prod">
                     <div className='buscar_productos'>
                         <div className='right__b'>
-                            <div className="buscar">
+                            <div className="buscar--Modal">
                                 <i className="bi bi-search buscar_i"></i>
                                 <div className='sep_vertical_b'></div>
                                 <input

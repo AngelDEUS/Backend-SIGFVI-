@@ -13,7 +13,6 @@ const Gestion_Inventario = () => {
     "En este panel es el encargado de gestionar las Cantidades de los Productos, ademas, el registro de entrada y salido de los productos.";
 
   const [datos, setDatos] = useState([]);
-<<<<<<< HEAD
   const [searchId, setSearchId] = useState("");
 
   const handleSearch = () => {
@@ -33,12 +32,6 @@ const Gestion_Inventario = () => {
   const consulta = () => {
     axios
       .get("http://localhost:3004/Datos")
-=======
-
-  const consulta = () => {
-    axios
-      .get("http://localhost:3001/consultaInventario")
->>>>>>> origin/mod_inventario_fs
       .then((response) => {
         console.log("Datos recibidos:", response.data.datos);
         setDatos(response.data.datos);

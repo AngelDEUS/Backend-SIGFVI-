@@ -4,25 +4,6 @@ import "./inputstyle.css";
 
 export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
 
-<<<<<<< HEAD
-    const nuevoProducto = async () => {
-        try {
-          const response = await axios.post("http://localhost:3004/AgregarProducto", {
-            "ID_Producto_PK": id,
-            "Nombre_Producto": nombre,
-            "ID_Tipo_Producto_FK": tProducto,
-            "Cantida_Neto_producto": cantidad,
-            "Precio_Proveedor": precioCompra,
-            "Precio_Venta": precioVenta,
-            "Foto_Producto": foto,
-            "ID_Estado_FK": estado,
-          });
-    
-          console.log(response.data); // Puedes imprimir la respuesta si es necesario
-          // Puedes realizar alguna acción adicional después de la inserción, si es necesario
-        } catch (error) {
-          console.error("Error al agregar el producto:", error);
-=======
   const nuevoProducto = async () => {
     try {
       const generarId = async (pre) => {
@@ -32,7 +13,6 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
         while (await idDuplicado(formatoId)) {
           num++;
           formatoId = `${pre}-${num.toString().padStart(3, "0")}`;
->>>>>>> origin/mod_inventario_fs
         }
 
         return formatoId;

@@ -57,7 +57,7 @@ const VentasControl_Main = () => {
             const newIndex = Object.keys(nuevosProductos).length + 1;
             const productoValidado = {
                 ...producto,
-                Precio_Venta: parseFloat(producto.Precio_Venta)  // Convertir el precio de venta a número
+                Precio_Venta: parseInt(producto.Precio_Venta)  // Convertir el precio de venta a número
             };
             const productoAgregado = {
                 index: newIndex,
@@ -105,7 +105,7 @@ const VentasControl_Main = () => {
     const calcularTotalIVA = () => {
         const totalSubtotal = productosSeleccionados.reduce((acc, producto) => {
             // Asegurémonos de que los precios de venta y las cantidades sean números
-            const precio = parseFloat(producto.Precio_Venta);
+            const precio = parseInt(producto.Precio_Venta);
             const cantidad = parseInt(producto.cantidad);
             // Verifiquemos que los datos sean números válidos
             if (isNaN(precio) || isNaN(cantidad)) {
@@ -114,14 +114,14 @@ const VentasControl_Main = () => {
             }
             return acc + (precio * cantidad);
         }, 0);
-        return totalSubtotal * 0.12;
+        return Math.round(totalSubtotal * 0.12);
     };
 
     // Función para calcular el subtotal sin IVA
     const calcularSubtotalSinIVA = () => {
         return productosSeleccionados.reduce((acc, producto) => {
             // Asegurémonos de que los precios de venta y las cantidades sean números
-            const precio = parseFloat(producto.Precio_Venta);
+            const precio = parseInt(producto.Precio_Venta);
             const cantidad = parseInt(producto.cantidad);
             // Verifiquemos que los datos sean números válidos
             if (isNaN(precio) || isNaN(cantidad)) {
@@ -164,33 +164,44 @@ const VentasControl_Main = () => {
                                 <span className='tittleProdSelect' id='codigo_producto--select'>#CH1-003</span>
                                 <div className='inputs-grup--product_select'>
                                     <span className='tittleProdSelect'>Nombre producto: </span>
-                                    <span className='tittleProdSelectN' id='codigo_producto--select'>Cocacola</span>
+                                    <span className='tittleProdSelectN' id='nombre_producto--select'>Cocacola
+                                        <span className='puntoModal'>.</span> </span>
                                 </div>
                                 <div className='inputs-grup--product_select'>
                                     <span className='tittleProdSelect'>Tipo de Producto: </span>
-                                    <span className='tittleProdSelectN' id='tipo_producto--select'>Cocacola</span>
+                                    <span className='tittleProdSelectN' id='tipo_producto--select'>Cocacola
+                                        <span className='puntoModal'>.</span> </span>
                                 </div>
                                 <div className='inputs-grup--product_select'>
                                     <span className='tittleProdSelect'>Detalle del producto: </span>
-                                    <span className='tittleProdSelectN' id='descripcion_producto--select'>Cocacola de 120 ml</span>
+                                    <span className='tittleProdSelectN' id='descripcion_producto--select'>Cocacola de 120 ml
+                                        <span className='puntoModal'>.</span> </span>
                                 </div>
                                 <div className='inputs-grup--product_select'>
                                     <span className='tittleProdSelect'>Precio de venta: </span>
-                                    <span className='tittleProdSelectN' id='descripcion_producto--select'>$ 20000</span>
+                                    <span className='tittleProdSelectN' id='descripcion_producto--select'>$ 20000
+                                        <span className='puntoModal'>.</span> </span>
                                 </div>
                                 <div className='inputs-grup--product_select'>
                                     <span className='tittleProdSelect'>Stock Total en el Inventario: </span>
-                                    <span className='tittleProdSelectN' id='descripcion_producto--select'>20 (unidades)</span>
+                                    <span className='tittleProdSelectN' id='descripcion_producto--select'>20
+                                        <span className='puntoModal' style={{ marginLeft: '5px' }}>(unidades).</span> </span>
                                 </div>
                             </div>
                             <div className="divisorHr2"></div>
                             <div className="inputs-grup bootomInputs">
-                                <button className='btn_f actualizar' type="button" >Agregar Pedido</button>
-                                <div className="candidadProd-Sum">
-                                    <button id='restarCantidad_ModalSelect'></button>
-                                    <button id='sumarCantidad_ModalSelect'></button>
-
+                                <div className="tittleCalcProdSelectModal">
+                                    <span>Agregar o quitar canditad del producto seleccionado:</span>
                                 </div>
+                                <div className="candidadProd-Sum">
+                                    <div className="buttonsCalcSelectProdModal">
+                                        <button className='btnModalSelectProd' id='restarCantidad_ModalSelect'>-</button>
+                                        <span>1</span>
+                                        <button className='btnModalSelectProd' id='sumarCantidad_ModalSelect'>+</button>
+                                    </div>
+                                </div>
+                                <button className='btn_f actualizar' type="button" >Agregar Pedido</button>
+
                                 <button className='btn_f cancelarActualizar' type="button">Cancelar</button>
                             </div>
                         </fieldset>
@@ -204,7 +215,7 @@ const VentasControl_Main = () => {
                 <div className="busqueda__prod">
                     <div className='buscar_productos'>
                         <div className='right__b'>
-                            <div className="buscar">
+                            <div className="buscar--Ventas">
                                 <i className="bi bi-search buscar_i"></i>
                                 <div className='sep_vertical_b'></div>
                                 <input
@@ -262,17 +273,17 @@ const VentasControl_Main = () => {
                             <div className='footer__calculos'>
                                 <div className='sep--'>
                                     <span id='titulo-iva'>IVA (12%)</span>
-                                    <span id='ivaTotalFactura'>{`$${calcularTotalIVA().toFixed(2)}`}</span>
+                                    <span id='ivaTotalFactura'>{`$${calcularTotalIVA()}`}</span>
                                 </div>
                                 <div className='sep__factura'></div>
                                 <div className='sep--'>
                                     <span id='titulo-subtotal'>Sub-Total</span>
-                                    <span id='subTotalSinIva'>{`$${calcularSubtotalSinIVA().toFixed(2)}`}</span>
+                                    <span id='subTotalSinIva'>{`$${calcularSubtotalSinIVA()}`}</span>
                                 </div>
                             </div>
                             <div className='footer__title'>
                                 <h1 className='__cobrar'>Cobar:</h1>
-                                <span className='__total_factura'>${calcularTotalFactura().toFixed(2)}</span>
+                                <span className='__total_factura'>${calcularTotalFactura()}</span>
                             </div>
                         </div>
                     </div>
@@ -302,8 +313,8 @@ const VentasControl_Main = () => {
                                     </div>
                                     <div className="--sep_vertical"></div>
                                     <div className="text__container">
-                                        <p id='impuestosVentaResumen'>{`$${calcularTotalIVA().toFixed(2)}`}</p>
-                                        <p style={{ color: '#fc7c02' }} id='sub-totalResumen'>{`$${calcularSubtotalSinIVA().toFixed(2)}`}</p>
+                                        <p id='impuestosVentaResumen'>{`$${calcularTotalIVA()}`}</p>
+                                        <p style={{ color: '#fc7c02' }} id='sub-totalResumen'>{`$${calcularSubtotalSinIVA()}`}</p>
                                     </div>
                                 </div>
                             </div>
@@ -315,7 +326,7 @@ const VentasControl_Main = () => {
                         <div className='resumen--right'>
                             <div className="total__venta">
                                 <p className='p-t' style={{ color: '#6f727e' }}>Total:</p>
-                                <p className='p-m' style={{ color: '#fc7c02' }} id='totalApagarResumen'>{`$${calcularTotalFactura().toFixed(2)}`}</p>
+                                <p className='p-m' style={{ color: '#fc7c02' }} id='totalApagarResumen'>{`$${calcularTotalFactura()}`}</p>
                             </div>
                         </div>
                     </div>

@@ -65,7 +65,7 @@
 }
 
 /* ---------: Buscar -----> */
-.buscar {
+.buscar--Ventas {
     background-color: var(--Color-bg-buscar-01);
     padding: 10px;
     display: flex;
@@ -154,7 +154,6 @@
     border-radius: 15px;
     margin-right: 10px;
     cursor: pointer;
-
     transition: all .5s ease;
 }
 
@@ -226,7 +225,7 @@
 .ticket-p_contenido {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
     color: var(--Color-tab-text-02);
     padding: 15px;
     margin-top: -1px;
@@ -243,6 +242,7 @@
     background-color: var(--Color-tab-top-01);
     border-radius: 0 0 15px 15px;
 }
+
 /* ---------: Factura right -----> */
 .__factura {
     width: 30%;
@@ -552,4 +552,71 @@
 
 .p-m {
     font-size: 32px;
+}
+
+
+/* Modal Ventas */
+.tittleProdSelect {
+    font-weight: 600;
+    color: #717380;
+}
+
+#codigo_producto--select {
+    font-size: 20px;
+    color: var(--Color-factura-bottom-01);
+}
+
+.tittleProdSelectN {
+    color: #8f919e;
+    font-style: italic;
+}
+
+.puntoModal {
+    color: var(--Color-factura-bottom-01);
+}
+
+/* --------------> Calcular suma prod */
+.tittleCalcProdSelectModal {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8f919e;
+}
+
+.bootomInputs {
+    justify-content: space-between;
+}
+
+.candidadProd-Sum {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttonsCalcSelectProdModal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btnModalSelectProd {
+    margin: 0 20px;
+    padding: 10px 15px;
+    background-color: var(--Color-bg-buscar-02);
+    border: 1px solid var(--Color-bg-separador-01);
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color .3s ease, border .1s ease, opacity .1s ease, ;
+}
+
+.btnModalSelectProd:hover{
+    background-color: var(--Color-btn-01-abrir);
+    border: 1px solid var(--Color-btn-01-abrir);
+    color: white;
+}
+
+.btnModalSelectProd:active{
+    opacity: 70%;
 }

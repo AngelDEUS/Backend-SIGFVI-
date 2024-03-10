@@ -8,25 +8,25 @@ const db = require('../../models/sigfviDBModelo');
 const ObtenerProductosVenta = (req, res) => {
     console.log("\n-----> Obteniendo datos de productos...");
     db.query(`
-      SELECT 
-        Producto.ID_Producto_PK,
-        Producto.Nombre_Producto,
-        Tipo_Producto.Nombre_Tipo_Producto,
-        Producto.Descripcion_Producto,
-        Producto.Precio_Venta,
-        SUM(Inventario.Stock) AS Stock_Total
-      FROM 
-        Inventario
-      JOIN 
-        Producto ON Inventario.ID_Producto_FK = Producto.ID_Producto_PK
-      JOIN
-        Tipo_Producto ON Producto.ID_Tipo_Producto_FK = Tipo_Producto.ID_Tipo_Producto_PK
-      GROUP BY 
-        Producto.ID_Producto_PK, 
-        Producto.Nombre_Producto,
-        Tipo_Producto.Nombre_Tipo_Producto,
-        Producto.Descripcion_Producto,
-        Producto.Precio_Venta
+    SELECT 
+    Producto.ID_Producto_PK,
+    Producto.Nombre_Producto,
+    Tipo_Producto.Nombre_Tipo_Producto,
+    Producto.Descripcion,
+    Producto.Precio_Venta,
+    SUM(Inventario.Stock) AS Stock_Total
+FROM 
+    Inventario
+JOIN 
+    Producto ON Inventario.ID_Producto_FK = Producto.ID_Producto_PK
+JOIN
+    Tipo_Producto ON Producto.ID_Tipo_Producto_FK = Tipo_Producto.ID_Tipo_Producto_PK
+GROUP BY 
+    Producto.ID_Producto_PK, 
+    Producto.Nombre_Producto,
+    Tipo_Producto.Nombre_Tipo_Producto,
+    Producto.Descripcion,
+    Producto.Precio_Venta;
     `, (err, result) => {
         if (err) {
             console.error("Error al obtener datos de productos", err);
@@ -121,8 +121,8 @@ const BuscarProductoPorID = (req, res) => {
 };
 
 
-module.exports = { 
-    ObtenerProductosVenta, 
-    BuscarProductoPorNombre, 
-    BuscarProductoPorID 
+module.exports = {
+    ObtenerProductosVenta,
+    BuscarProductoPorNombre,
+    BuscarProductoPorID
 };
