@@ -3,7 +3,23 @@ const db = require("../../models/sigfviDBModelo").promise();
 const Datos = async (req, res) => {
   try {
     console.log("Obteniendo datos...");
-    const query = `SELECT * FROM producto`;
+    const query = `
+    SELECT
+        P.ID_Producto_PK,
+        TP.Nombre_Tipo_Producto AS Tipo_Producto,
+        P.Nombre_Producto,
+        P.Descripcion,
+        P.Precio_Proveedor,
+        P.Precio_Venta,
+        P.Foto_Producto,
+        E.Nombre_Estado AS Estado
+    FROM
+        Producto P
+    JOIN
+        Tipo_Producto TP ON P.ID_Tipo_Producto_FK = TP.ID_Tipo_Producto_PK
+    JOIN
+        Estado E ON P.ID_Estado_FK = E.ID_Estado_PK;
+    `;
     const [result] = await db.query(query);
     console.log("Enviando respuesta...");
     res.json({ datos: result });

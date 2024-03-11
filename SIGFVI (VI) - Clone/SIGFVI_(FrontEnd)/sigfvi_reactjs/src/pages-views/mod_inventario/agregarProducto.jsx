@@ -3,7 +3,6 @@ import axios from "axios";
 import "./inputstyle.css";
 
 export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
-
   const nuevoProducto = async () => {
     try {
       const generarId = async (pre) => {
@@ -23,7 +22,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
       const formatoId = await generarId(idPre);
 
       const response = await axios.post(
-        "http://localhost:3001/AgregarProducto",
+        "http://localhost:3001/producto/AgregarProducto",
         {
           ID_Producto_PK: formatoId,
           Nombre_Producto: nombre,
@@ -47,7 +46,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
   const idDuplicado = async (id) => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/VerificarDuplicado/${id}`
+        `http://localhost:3001/producto/VerificarDuplicado/${id}`
       );
       return response.data.duplicate;
     } catch (error) {
@@ -196,7 +195,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
                   onChange={(e) => setNombre(e.target.value)}
                 />
               </div>
-              <div className="form-group">
+              {/* <div className="form-group">
                 <label>Tipo de Producto</label>
                 <input
                   type="text"
@@ -205,6 +204,23 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
                   placeholder="Ingrese valor"
                   onChange={(e) => setTproducto(e.target.value)}
                 />
+              </div>*/}
+              <div className="form-group">
+                <label>Tipo de Producto</label>
+                <select
+                  name=""
+                  id=""
+                  type="text"
+                  onChange={(e) => setTproducto(e.target.value)}
+                >
+                  <option value="" hidden>
+                    Elegir Tipo de producto
+                  </option>
+                  <option value="1">Botella</option>
+                  <option value="2">Lata</option>
+                  <option value="3">Paquete</option>
+                  <option value="4">Caja</option>
+                </select>
               </div>
               <div className="form-group">
                 <label>Descripcion</label>
@@ -246,7 +262,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
                   onChange={(e) => setFoto(e.target.value)}
                 />
               </div>
-              <div className="form-group">
+              {/* <div className="form-group">
                 <label>Estado</label>
                 <input
                   type="text"
@@ -255,6 +271,14 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
                   placeholder="Ingrese valor"
                   onChange={(e) => setEstado(e.target.value)}
                 />
+            </div>*/}
+              <div className="form-group">
+                <label>Estado</label>
+                <select name="" id="">
+                  <option value="" hidden>Elegir Estado</option>
+                  <option value="0">Inactivo</option>
+                  <option value="1">Activo</option>
+                </select>
               </div>
             </div>
             <div className="form-btn">

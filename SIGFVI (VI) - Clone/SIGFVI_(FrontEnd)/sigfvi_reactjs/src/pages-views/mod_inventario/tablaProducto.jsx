@@ -14,10 +14,10 @@ const Tabla_Producto = () => {
   const [datos, setDatos] = useState([]);
   const [searchId, setSearchId] = useState("");
 
-  const handleSearch = () => {ALTER TABLE inventario AUTO_INCREMENT=0;
+  const handleSearch = () => {
     if (searchId.trim() !== "") {
       axios
-        .get(`http://localhost:3001/BuscarDatoPorId/${searchId}`)
+        .get(`http://localhost:3001/producto/BuscarDatoPorId/${searchId}`)
         .then((response) => {
           setDatos(response.data.datos ? response.data.datos : []);
         })
@@ -31,7 +31,7 @@ const Tabla_Producto = () => {
 
   const consulta = () => {
     axios
-      .get("http://localhost:3001/Datos")
+      .get("http://localhost:3001/producto/Datos")
       .then((response) => {
         console.log("Datos recibidos:", response.data.datos);
         setDatos(response.data.datos);
@@ -168,12 +168,12 @@ const Tabla_Producto = () => {
                         key={dato.ID_Producto_PK}
                         id={dato.ID_Producto_PK}
                         nombre={dato.Nombre_Producto}
-                        tProducto={dato.ID_Tipo_Producto_FK}
+                        tProducto={dato.Tipo_Producto}
                         descripcion={dato.Descripcion}
                         precioCompra={dato.Precio_Proveedor}
                         precioVenta={dato.Precio_Venta}
                         foto={dato.Foto_Producto}
-                        estado={dato.ID_Estado_FK}
+                        estado={dato.Estado}
                         consulta={consulta}
                       />
                     ))}
