@@ -13,10 +13,25 @@ const Gestion_Inventario = () => {
     "En este panel es el encargado de gestionar las Cantidades de los Productos, ademas, el registro de entrada y salido de los productos.";
 
   const [datos, setDatos] = useState([]);
+  const [searchId, setSearchId] = useState("");
+
+  const handleSearch = () => {
+    if (searchId.trim() !== "") {
+      axios
+        .get(`http://localhost:3004/BuscarDatoPorId/${searchId}`)
+        .then((response) => {
+          setDatos(response.data.dato ? [response.data.dato] : []);
+        })
+        .catch((error) => {
+          console.error("Error al buscar el dato:", error);
+        });
+    }
+  };
+
 
   const consulta = () => {
     axios
-      .get("http://localhost:3001/consultaInventario")
+      .get("http://localhost:3004/Datos")
       .then((response) => {
         console.log("Datos recibidos:", response.data.datos);
         setDatos(response.data.datos);

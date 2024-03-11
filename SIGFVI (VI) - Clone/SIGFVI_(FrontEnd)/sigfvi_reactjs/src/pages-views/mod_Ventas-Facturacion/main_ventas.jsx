@@ -4,14 +4,40 @@ import './mod_ventas.css';
 import TabsVentas from './tabs_ventas';
 import ListaProductosModal from './ListaProductosModal';
 import Producto from './productos.json';
+import Swal from 'sweetalert2';
 
 const MainVentas = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [productos, setProductos] = useState([]);
+    const [productosVenta, setProductosVenta] = useState([]);
+    const [productoAAgregar, setProductoAAgregar] = useState('');
+
+    const agregarProductoVenta = (productId) => {
+        const productoEncontrado = productos.find(producto => producto.Id_producto === productId);
+
+        if (productoEncontrado) {
+            setProductosVenta([...productosVenta, productoEncontrado]);
+            Swal.fire('Producto agregado con éxito', '', 'success');
+        } else {
+            Swal.fire('Producto no encontrado', '', 'error');
+        }
+    };
+
 
     const handleSearch = (term) => {
         setSearchTerm(term);
+    };
+
+
+    const handleAddProductToTab = (productId) => {
+        const productToAdd = productos.find((producto) => producto.Id_producto === productId);
+        if (productToAdd) {
+            setProductosVenta([...productosVenta, productToAdd]);
+            Swal.fire('Producto agregado a la pestaña actual', '', 'success');
+        } else {
+            Swal.fire('Producto no encontrado', '', 'error');
+        }
     };
 
     const openModal = () => {
@@ -24,8 +50,10 @@ const MainVentas = () => {
 
     useEffect(() => {
         import('./productos.json')
-            .then((data) => setProductos(data))
+            .then((data) => setProductos(data.default))
             .catch((error) => console.error('Error fetching data:', error));
+        
+        setProductos(Producto);
     }, []);
 
     const descipcion =
@@ -56,10 +84,13 @@ const MainVentas = () => {
                                 />
                                 <button className='btn_buscar'>Buscar</button>
                             </div>
-                            {/* onClick={openModal} */}
-                            <button className="btn_f abrir">
+                            <button className="btn_f abrir" onClick={openModal}>
                                 + Abrir lista
                             </button>
+                            <button className="btn_f limpiar" onClick={() => setIsModalOpen(true)}>
+                                Agregar Producto
+                            </button>
+
                             <div className='sep_vertical_b--outS'></div>
                             <button className="btn_f limpiar">Limpiar</button>
                         </div>
@@ -72,7 +103,8 @@ const MainVentas = () => {
                 </div>
                 <div className='cointainer__tickets__factura'>
                     <div className="__tickets">
-                        <TabsVentas productos={Producto} />
+                    <TabsVentas productos={productos} productosVenta={productosVenta} setProductosVenta={setProductosVenta} />
+
                     </div>
                     <div className="__factura">
                         <div className='triangulo-container'>{triangulos}</div>
@@ -176,7 +208,7 @@ const MainVentas = () => {
             </div>
 
             {isModalOpen && (
-                <ListaProductosModal productos={productos} onClose={closeModal} />
+                <ListaProductosModal productos={productos} onClose={closeModal} handleAddToTab={handleAddProductToTab} />
             )}
         </div>
     );

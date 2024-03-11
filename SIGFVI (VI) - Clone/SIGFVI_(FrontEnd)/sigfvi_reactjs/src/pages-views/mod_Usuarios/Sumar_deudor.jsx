@@ -1,9 +1,33 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 
-const Sumar_deudor = ({isOpen, closeModal}) => {
+const Sumar_deudor = ( {closeModal,datos}) => {
 
-    if(!isOpen) return null ;
+    //if(!isOpen) return null ;
+    const saldo=parseInt(datos.saldo);
+    const [adicional,setAdicional]=useState(0);
+
+    // function sumar(num1,num2){
+    //     let result = parseInt(num1)+parseInt(num2);
+    //     setSaldo(result);
+    //     sumarSaldo(datos.id);
+    // }
+
+    const sumarSaldo = async (id) =>{
+        let adicion = (saldo + adicional)
+        try {
+            const response = await axios.put(`http://localhost:3003/updatesaldo/${id}`,{
+                saldo: adicion
+            })
+            console.log(response);
+        } catch (error) {
+            console.error('no se pudo sumar ',error);
+        }
+    }
+
+    const consulta=(function (){
+        datos.consulta();});
 
     function Verificar_suma(){
         const Insuma = document.getElementById('suma').value;
@@ -35,6 +59,8 @@ const Sumar_deudor = ({isOpen, closeModal}) => {
                 icon:'success',
                 text:'Adicion exitosa'
             }).then(function(){
+                sumarSaldo(datos.id);
+                consulta();
                 closeModal();
             })
             return true;
@@ -60,10 +86,10 @@ const Sumar_deudor = ({isOpen, closeModal}) => {
             <form action="" class="">
                 <span>
                     <h2>Monto actual</h2>
-                    <input type="text" name="mopnto" id="monto" value='$50.000' readOnly />
+                    <input type="text" name="mopnto" id="monto" value={saldo} readOnly />
                     <br />
                     <label for="suma">Sumar</label><br/>
-                    <input type="number" name="suma" id="suma" placeholder="Añadir" onBlur={Verificar_suma} />
+                    <input type="number" name="suma" id="suma" placeholder="Añadir" onChange={(e)=>{setAdicional(parseInt(e.target.value))}} onBlur={Verificar_suma} />
                     <p id="wrong"></p>
                 </span>
                 <span>

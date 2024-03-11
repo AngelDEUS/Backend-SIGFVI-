@@ -3,8 +3,7 @@ import Swal from 'sweetalert2';
 import './TabsVentas.css';
 import CardProducto from './Card_producto';
 
-const TabsVentas = ({ productos }) => {
-    console.log('Tipo de productos:', typeof productos);
+const TabsVentas = ({ productos, productosVenta,setProductosVenta }) => {
     const [tabs, setTabs] = useState([
         { id: 1, title: 'Ticket (1)', content: 'Contenido de Ticket (1)' },
     ]);
@@ -13,7 +12,6 @@ const TabsVentas = ({ productos }) => {
     const handleTabClick = (tabId) => {
         setActiveTab(tabId);
     };
-
 
     const addNewTab = async () => {
         const { value: ticketTitle } = await Swal.fire({
@@ -89,6 +87,15 @@ const TabsVentas = ({ productos }) => {
         }
     };
 
+    const handleAgregarProductoVenta = (producto) => {
+        setProductosVenta((prevProductosVenta) => [...prevProductosVenta, producto]);
+    };
+   
+    
+
+    // Combina los productos y productosVenta para mostrarlos juntos
+    const mergedProducts = Array.isArray(productosVenta) ? [...productos, ...productosVenta] : [...productos];
+
     return (
         <div className="tabs-container">
             <div className="tabs">
@@ -109,8 +116,12 @@ const TabsVentas = ({ productos }) => {
             <div className="tab-content">
                 <div className="tab-panel">
                     <div className="card-container">
-                        {productos.slice(0, 4).map((producto) => (
-                            <CardProducto key={producto.Id_producto} producto={producto} />
+                        {mergedProducts.slice(0, 4).map((producto) => (
+                            <CardProducto 
+                            key={producto.Id_producto} 
+                            producto={producto} 
+                            onAgregarProductoVenta={handleAgregarProductoVenta} 
+                        />
                         ))}
                     </div>
                 </div>

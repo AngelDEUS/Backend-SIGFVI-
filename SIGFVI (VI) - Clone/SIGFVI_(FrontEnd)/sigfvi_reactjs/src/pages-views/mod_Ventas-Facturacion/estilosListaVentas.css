@@ -42,12 +42,12 @@ label {
 .form-group input[type="text"]::placeholder {
   color: rgb(155, 162, 168);
 }
-/* 
+
 .form-group input:disabled{
     border: 1px solid #e1e6eb;
     background-color: #f1f3f570;
     color: rgb(145, 161, 175);
-} */
+} 
 
 .form-group input[type="text"]:focus {
   outline: none;
@@ -88,4 +88,16 @@ label {
 }
 .cancelarActualizar:active{
     background-color: #83889150;
+}
+
+.nuevoP{
+  background-color: #4aa7ff;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  width: 190px;
+}
+
+
+.nuevoP:active{
+  background-color: #4aa7ff50;
 }

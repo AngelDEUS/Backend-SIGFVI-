@@ -1,0 +1,6 @@
+//Get
+GET http://localhost:3001/usuario/proveedores HTTP/1.1
+###
+
+GET http://localhost:3001/usuario/proveedor/2 HTTP/1.1
+###

@@ -1,10 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
-const Edit_user = ({isOpen, closeModal}) => {
+const Edit_user = ({closeModal, datos}) => {
 
-    if(!isOpen) return null ;
+    console.log('ESTE ES EL ID PASADO POR PARAMETRO',datos.id);
 
+    const [name1,setName1]=useState(datos.name1);
+    const [name2,setName2]=useState(datos.name2);
+    const [lastname1,setLastname1]=useState(datos.lastname1);
+    const [lastname2,setLastname2]=useState(datos.lastname2);
+    const [cel,setCel]=useState(datos.tel);
+    const [email,setEmail]=useState(datos.email);
+
+    const editarRegistro = async (x) =>{
+        try{
+            const response = await axios.put(`http://localhost:3002/actualizar/${x}`,{
+                name1:name1,
+                name2:name2,
+                lastname1:lastname1,
+                lastname2:lastname2,
+                cel:cel,
+                email:email,
+                contrasena:datos.contrasena
+            });
+            console.log(response.data);
+        }catch(err){
+            console.error('no se pudo hacer la peticion put  ',err);
+        }
+    }
+
+    const consulta=(function (){
+        datos.consulta();});
+
+        
     function Verificar_nombre1(){
         const Innombre1 = document.getElementById('name1').value;
         
@@ -213,6 +242,8 @@ const Edit_user = ({isOpen, closeModal}) => {
                 icon:'success',
                 text:'Datos Actualizados para: '+document.getElementById('name1').value,
             }).then(function(){
+                editarRegistro(datos.id);
+                consulta();
                 closeModal();
             })
             return true;
@@ -240,48 +271,49 @@ const Edit_user = ({isOpen, closeModal}) => {
             <form action="" className="datos-contenido">
                 <span>
                     <label for="name1">Primer Nombre</label>
-                    <input className='input-form' type="text" name="name1" id="name1" placeholder="Francisco" onBlur={Verificar_nombre1} />
+                    <input className='input-form' type="text" name="name1" id="name1"value={name1} onChange={(e) => {setName1(e.target.value)}} onBlur={Verificar_nombre1} />
                     <p id="wrongname1"></p>
                 </span>
                 <span>
                     <label for="name2">Segundo Nombre</label>
-                    <input className='input-form' type="text" name="name2" id="name2" placeholder="Arnulfo" onBlur={Verificar_nombre2} />
+                    <input className='input-form' type="text" name="name2" id="name2" value={name2} onChange={(e) => {setName2(e.target.value)}} onBlur={Verificar_nombre2} />
                     <p id="wrongname2"></p>
                 </span>
                 <span>
                     <label for="apell1">Primer Apellido</label>
-                    <input className='input-form' type="text" name="apell1" id="apell1" placeholder="Aristizabal" onBlur={Verificar_apell1} />
+                    <input className='input-form' type="text" name="apell1" id="apell1" value={lastname1} onChange={(e) => {setLastname1(e.target.value)}} onBlur={Verificar_apell1} />
                     <p id="wrongapell1"></p>
                 </span>
                 <span>
                     <label for="apell2">Segundo Apellido</label>
-                    <input className='input-form' type="text" name="apell2" id="apell2" placeholder="Rodriguez" onBlur={Verificar_apell2} />
+                    <input className='input-form' type="text" name="apell2" id="apell2" value={lastname2} onChange={(e) => {setLastname2(e.target.value)}} onBlur={Verificar_apell2} />
                     <p id="wrongapell2"></p>
                 </span>
                 <span>
                     <label for="tipoid">Tipo de Identificación</label>
-                    <select className='input-form' name="tipoid" id="tipoid" onBlur={Verificar_tipoid} placeholder='Cedula de Ciudadania'>
+                    <input readOnly className='input-form' type="text" name="tipoid" id="tipoid" value={datos.tipoId} onBlur={Verificar_tipoid} />
+                    {/* <select className='input-form' name="tipoid" id="tipoid" onBlur={Verificar_tipoid} value={tipoid}>
                         <option value="0">Seleccionar</option>
                         <option value="1">Cedula de Ciudadania</option>
                         <option value="2">Cedula Extranjera</option>
                         <option value="3">Pasaporte</option>
                         <option value="4">Tarjeta de identidad</option>
-                    </select>
+                    </select> */}
                     <p id="wrongtipoid"></p>
                 </span>
                 <span>
                     <label for="numid">Número de Identificación</label>
-                    <input className='input-form' type="text" name="numid" id="numid" placeholder="1425369874" onBlur={Verificar_id} />
+                    <input className='input-form' type="text" name="numid" id="numid" readOnly value={datos.id} onBlur={Verificar_id} />
                     <p id="wrongid"></p>
                 </span>
                 <span>
                     <label for="cel">Numero de Telefono</label>
-                    <input className='input-form' type="number" name="cel" id="cel" placeholder="3112547895" onBlur={Verificar_tel} />
+                    <input className='input-form' type="number" name="cel" id="cel" value={cel} onChange={(e) => {setCel(e.target.value)}} onBlur={Verificar_tel} />
                     <p id="wrongtel"></p>
                 </span>
                 <span>
                     <label for="cel">Correo electronico</label>
-                    <input className='input-form' type="email" name="email" id="email" placeholder="Fra.aris@gmail.com" onBlur={Verificar_email} />
+                    <input className='input-form' type="email" name="email" id="email"value={email} onChange={(e) => {setEmail(e.target.value)}} onBlur={Verificar_email} />
                     <p id="wrongemail"></p>
                 </span>
                 

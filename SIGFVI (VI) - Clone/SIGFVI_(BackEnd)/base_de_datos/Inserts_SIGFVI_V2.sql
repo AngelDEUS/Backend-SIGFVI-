@@ -6,26 +6,32 @@ USE SIGFVI_V2;
 
  -- #1 -- Estado
 INSERT INTO Estado(ID_Estado_PK, Nombre_Estado)
-	VALUES  (0,'Activo'),
-			(1,'Inactivo'),
-			(3,'Cancelado');
+	VALUES  (0,'Inactivo'),
+			(1,'Activo'),
+			(2,'Cancelado');
 
  -- #2 -- Tipo_Producto
- INSERT INTO Tipo_Producto(ID_Tipo_Producto_PK, Nombre_Tipo_Producto)
-	VALUES  (1,'Embotellado'),
-			(2,'Enlatado'),
-			(3,'Empaquetado'),
-			(4,'Encajado');
+INSERT INTO Tipo_Producto(ID_Tipo_Producto_PK, Nombre_Tipo_Producto)
+    VALUES  (1,'Botella'),
+            (2,'Lata'),
+            (3,'Paquete'),
+            (4,'Caja');
+ 
  
  -- #3 -- Producto
- INSERT INTO Producto(ID_Producto_PK, ID_Tipo_Producto_FK, Nombre_Producto, Cantida_Neto_producto, Precio_Proveedor, Precio_Venta, Fecha_Vencimiento, Foto_Producto, ID_Estado_FK)
-	VALUES  ('EMRC001',1,'Ron Caldas',750,40000,50000,'2023-12-08','PROYECTO SIGFVI (IV)\View\img\Imagenes_PROD\1',0);
- INSERT INTO Producto(ID_Producto_PK, ID_Tipo_Producto_FK, Nombre_Producto, Cantida_Neto_producto, Precio_Proveedor, Precio_Venta, Fecha_Vencimiento, Foto_Producto, ID_Estado_FK)
-	VALUES  ('ENPk001',2,'Poker',250,1600,2000,'2024-01-09','PROYECTO SIGFVI (IV)\View\img\Imagenes_PROD\2',0),
-			('EMCT001',3,'Cheese-Tris',75,1000,1500,'2023-10-01','PROYECTO SIGFVI (IV)\View\img\Imagenes_PROD\3',0),
-			('ENNL001',4,'Nectar 1L',1000,3000,38000,'2024-2-20','PROYECTO SIGFVI (IV)\View\img\Imagenes_PROD\4',0),
-			('ENFr002',4,'Fruper',200,800,1200,'2023-11-13','PROYECTO SIGFVI (IV)\View\img\Imagenes_PROD\5',1);
-            
+INSERT INTO Producto (ID_Producto_PK, ID_Tipo_Producto_FK, Nombre_Producto, Descripcion, Precio_Proveedor, Precio_Venta, Foto_Producto, ID_Estado_FK)
+ VALUES ('AGU-001', 1, 'Agua Mineral', '600 ml', 1000.00, 1500.00, 'url_agua_mineral.jpg', 0),
+        ('ARR-001', 2, 'Arroz', '5 kilos', 5000.00, 6000.00, 'url_arroz.jpg', 0),
+        ('POK-001', 3, 'Poker', '330 ml', 2500.00, 3000.00, 'url_cerveza.jpg', 0),
+        ('JUG-001', 1, 'Jugo de Naranja', '1 Litro', 3000.00, 4000.00, 'url_jugo_naranja.jpg', 0),
+        ('PAQ-001', 2, 'Paquete de Galletas', '30 gramos', 2000.00, 2500.00, 'url_galletas.jpg', 0),
+        ('REF-001', 3, 'Refresco en Lata', '330 ml', 1500.00, 2000.00, 'url_refresco_lata.jpg', 0),
+        ('ACE-001', 1, 'Aceite de Cocina', '1 Litro', 8000.00, 10000.00, 'url_aceite.jpg', 0),
+        ('PAQ-003', 2, 'Paquete de Pasta', '500 gramos', 4000.00, 5000.00, 'url_pasta.jpg', 0),
+        ('CER-001', 3, 'Cerveza Light', '330 ml', 3000.00, 3500.00, 'url_cerveza_light.jpg', 0),
+        ('BOT-001', 1, 'Botella de Vino', '1 litro', 25000.00, 30000.00, 'url_vino.jpg', 0);
+
+SELECT * FROM Producto;
  -- #4 -- Tipo_Cargo
 INSERT INTO Tipo_Cargo(ID_Tipo_Cargo_PK, Nombre_Tipo_cargo,Estado_ID_Estado_PK)
 	VALUES  (1,'Super-Administrador',0),
@@ -48,11 +54,11 @@ INSERT INTO Usuario(ID_Numero_Identificacion_PK,ID_Tipo_Identificacion_FKPK,Nomb
 			('10564454999999994',2,'Jean','Carlo','Beltran','Amaya','3155758594', 'jean.carl@gmail.com',hex(aes_encrypt('j123',"xd")),3,1);
  
  -- #7 -- Registro_Proveedor
- INSERT INTO Registro_Proveedor(ID_Registro_Proveedor_PK,Nombre_Empresa,Dia_Visita,Telefono_Contacto,Estado_ID_Estado_PK)
-	VALUES  (1, 'Babaria','Lunes - Miercoles','3144441157',0),
-			(2, 'Fritolay','Martes - Viernes','3228524525',0),
-			(3, 'Alpina','Jueves - Sabado','311444444',0),
-			(4, 'Margarita','Lunes - Miercoles','3114159755',1);
+ INSERT INTO Registro_Proveedor(Nombre_Empresa,Dia_Visita,Telefono_Contacto,Estado_ID_Estado_PK)
+	VALUES  ('Babaria','Lunes - Miercoles','3144441157',0),
+			('Fritolay','Martes - Viernes','3228524525',0),
+			('Alpina','Jueves - Sabado','311444444',0),
+			('Margarita','Lunes - Miercoles','3114159755',1);
  
  -- #8 -- Cuenta_Deudor
  INSERT INTO Cuenta_Deudor(Primer_Nombre,Segundo_Nombre,Primer_Apellido,Segundo_Apellido,Direccion_Deudor,Telefono_Deudor,ID_Estado_FK)
@@ -65,10 +71,17 @@ INSERT INTO Usuario(ID_Numero_Identificacion_PK,ID_Tipo_Identificacion_FKPK,Nomb
             ('Andrés','Felipe','López','Pérez','Avenida 23 #34-56','89012345',1);
 
  -- #9 -- Metodo_de_pago
- INSERT INTO Metodo_de_pago(ID_Metodo_Pago_PK,Nombre_Metodo)
-	VALUES  (1,'Efectivo'),
-			(2,'Nequi'),
-			(3,'Daviplata');
+ INSERT INTO Metodo_de_pago(Nombre_Metodo, Tipo_Metodo_Pago, Referencia, ID_Estado_FK)
+	VALUES  ('Efectivo','Fisico','',0),
+			('Nequi','Electronico','123-456-789-000',0),
+			('Daviplata','Electronico','123-000-456-789',0),
+			('Tarjeta','Electronico','123-456-000-789',1);
+SELECT * FROM Metodo_de_pago;
+
+SELECT * FROM producto WHERE Nombre_Producto LIKE '%%';
+SELECT * FROM Metodo_de_pago WHERE Nombre_Metodo LIKE '%Tarjeta%';
+
+
             
 -- #10 -- Saldo_Cuenta_Deudor
 INSERT INTO Saldo_Cuenta_Deudor(ID_Deudor_FK,Fecha_Cancelacion_Pedido,Total_Saldo_Deuda)
@@ -122,14 +135,16 @@ INSERT INTO Facturacion(Fecha_Factura,Hora_Factura,ID_Venta_Realizada_FK)
 			('2023-02-17','06:09:09',8);
 
 -- #14 -- Inventario
-INSERT INTO Inventario(Cantidad_Lote,Stock,ID_Estado_FK,ID_Producto_FK)
-	VALUES  (2,4,1,'EMCT001');
-INSERT INTO Inventario(Cantidad_Lote,Stock,ID_Estado_FK,ID_Producto_FK)
-	VALUES  (3,6,1,'EMRC001'),
-			(4,10,1,'ENFr002'),
-			(3,8,1,'ENNL001'),
-			(6,6,1,'ENPk001');
-SELECT * FROM producto;
+INSERT INTO Inventario (Stock, ID_Producto_FK)
+    VALUES ( 90, 'AGU-001'),
+            ( 40, 'ARR-001'),
+            ( 180, 'POK-001'),
+            ( 70, 'JUG-001'),
+            ( 180, 'POK-001'),
+            ( 80, 'ARR-001'),
+            ( 120, 'PAQ-001');
+    
+SELECT * FROM Inventario;
     
 -- #15 -- Tipo_Informe_Venta
 INSERT INTO Tipo_Informe_Venta(ID_Informe_Venta_PF,ID_Factura_FK)
@@ -156,19 +171,25 @@ INSERT INTO Salida_producto_Inventario(Descripcion_Salida,Fecha_Salida,Hora_Sali
 INSERT INTO Tipo_Informe_Inventario(ID_Informe_Inventario_PK,ID_Salida_producto_Inventario_FK,ID_Inventario_FK)
 	VALUES  (1,1,4),
 			(2,1,3);
+SELECT * FROM Tipo_Informe_Inventario;
 
 -- #18 -- Entrada_Producto
-INSERT INTO Entrada_Producto(ID_Entrada_Producto_PK,Fecha_Entrada_Producto,Hora_Entrada_Producto,ID_Producto_FK)
-	VALUES  (1,'2023-08-09','09:20:10','EMRC001'),
-			(2,'2023-08-09','09:23:00','ENPk001'),
-			(3,'2023-08-09','09:25:50','EMCT001'),
-			(4,'2023-08-10','09:30:35','ENFr002'),
-			(5,'2023-08-10','09:40:27','ENNL001');
+INSERT INTO Entrada_Producto(Fecha_Entrada_Producto,Hora_Entrada_Producto,ID_Inventario_FK)
+	VALUES  ('2023-08-09','09:20:10',2),
+			('2023-08-09','09:23:00',1),
+			('2023-08-09','09:25:50',2),
+			('2023-08-10','09:30:35',3),
+			('2023-08-10','09:40:27',4);
+
+select * from Entrada_Producto;
+select * from Producto;
+select * from Inventario;
     
 -- #19 -- Tipo_Informe_Empleado;
 INSERT INTO Tipo_Informe_Empleado(ID_Entrada_Producto_FK,ID_Salida_producto_Inventario_FK)
 	VALUES  (1,1),
 			(3,2);
+select * from Tipo_Informe_Empleado;
 
 -- #20 -- Detalle_Pedido;
 INSERT INTO Detalle_Pedido(Cantidad_Producto,SubTotal,Pedido_ID_Pedido_FK,ID_Inventario_FK)

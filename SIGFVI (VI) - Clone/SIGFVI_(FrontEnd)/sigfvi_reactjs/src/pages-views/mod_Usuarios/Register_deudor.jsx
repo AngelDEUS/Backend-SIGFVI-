@@ -1,12 +1,30 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 
-const Register_deudor = ({isOpen, closeModal, funcion}) => {
+const Register_deudor = ({isOpen, closeModal, reConsulta}) => {
+
+    const agregarRegistro = () =>{
+        axios.post("http://localhost:3003/createdeudor",{
+            "id": id,
+            "name1": name1,
+            "name2": name2,
+            "lastname1": lastname1,
+            "lastname2": lastname2,
+            "address": address,
+            "tel": tel,
+            "saldo":saldo
+        })
+    }
 
     const [id,setId] = useState('');
-    const [name,setName] = useState('');
+    const [name1,setName1] = useState('');
+    const [name2,setName2] = useState('');
+    const [lastname1,setLastname1] = useState('');
+    const [lastname2,setLastname2] = useState('');
     const [address,setAddress] = useState('');
     const [tel,setTel] = useState('');
+    const [saldo,setSaldo] = useState('');
     
     if(!isOpen) return null ;
 
@@ -31,26 +49,86 @@ const Register_deudor = ({isOpen, closeModal, funcion}) => {
         return con;
     }
     
-    function Verificar_name(){
-        const Inname = document.getElementById('name').value;
+    function Verificar_name1(){
+        const Inname = document.getElementById('name1').value;
     
         let con=true;
         let validacionlt=/^[A-Za-z]+$/;
     
         if(Inname.trim() === ""){
-            document.getElementById('wrongname').innerHTML='Este espacio no puede quedar en blanco';
+            document.getElementById('wrongname1').innerHTML='Este espacio no puede quedar en blanco';
             con=false;
             /*Innombre.focus();*/
         }else if(!validacionlt.test(Inname)){
-            document.getElementById('wrongname').innerHTML='Digitar solo letras';
+            document.getElementById('wrongname1').innerHTML='Digitar solo letras';
             con=false;
         }else{
-            document.getElementById('wrongname').innerHTML='';
+            document.getElementById('wrongname1').innerHTML='';
+        }
+        
+        return con;
+    }
+
+    function Verificar_name2(){
+        const Inname = document.getElementById('name2').value;
+    
+        let con=true;
+        let validacionlt=/^[A-Za-z]+$/;
+    
+        if(Inname.trim() === ""){
+            document.getElementById('wrongname2').innerHTML='Este espacio no puede quedar en blanco';
+            con=false;
+            /*Innombre.focus();*/
+        }else if(!validacionlt.test(Inname)){
+            document.getElementById('wrongname2').innerHTML='Digitar solo letras';
+            con=false;
+        }else{
+            document.getElementById('wrongname2').innerHTML='';
         }
         
         return con;
     }
     
+    function Verificar_lastname1(){
+        const Inname = document.getElementById('last1').value;
+    
+        let con=true;
+        let validacionlt=/^[A-Za-z]+$/;
+    
+        if(Inname.trim() === ""){
+            document.getElementById('wronglast1').innerHTML='Este espacio no puede quedar en blanco';
+            con=false;
+            /*Innombre.focus();*/
+        }else if(!validacionlt.test(Inname)){
+            document.getElementById('wronglast1').innerHTML='Digitar solo letras';
+            con=false;
+        }else{
+            document.getElementById('wronglast1').innerHTML='';
+        }
+        
+        return con;
+    }
+
+    function Verificar_lastname2(){
+        const Inname = document.getElementById('last2').value;
+    
+        let con=true;
+        let validacionlt=/^[A-Za-z]+$/;
+    
+        if(Inname.trim() === ""){
+            document.getElementById('wronglast2').innerHTML='Este espacio no puede quedar en blanco';
+            con=false;
+            /*Innombre.focus();*/
+        }else if(!validacionlt.test(Inname)){
+            document.getElementById('wronglast2').innerHTML='Digitar solo letras';
+            con=false;
+        }else{
+            document.getElementById('wronglast2').innerHTML='';
+        }
+        
+        return con;
+    }
+
     function Verificar_cel(){
         const Incel = document.getElementById('cel').value;
     
@@ -97,7 +175,22 @@ const Register_deudor = ({isOpen, closeModal, funcion}) => {
             console.log(con);
             /*Innombre.focus();*/
         }
-        if(!Verificar_name()){
+        if(!Verificar_name1()){
+            con=false;
+            console.log(con);
+            /*Innombre.focus();*/
+        }
+        if(!Verificar_name2()){
+            con=false;
+            console.log(con);
+            /*Innombre.focus();*/
+        }
+        if(!Verificar_lastname1()){
+            con=false;
+            console.log(con);
+            /*Innombre.focus();*/
+        }
+        if(!Verificar_lastname2()){
             con=false;
             console.log(con);
             /*Innombre.focus();*/
@@ -116,10 +209,12 @@ const Register_deudor = ({isOpen, closeModal, funcion}) => {
         if(con){
             Swal.fire({
                 icon:'success',
-                text:'Registro completado. Se ha registrado a: '+document.getElementById('name').value,
+                text:'Registro completado. Se ha registrado a: '+document.getElementById('name1').value,
             }).then(function(){
+                agregarRegistro();
+                reConsulta();
                 closeModal();
-                funcion(id,name,address,tel)
+                
             })
             return true;
             
@@ -152,9 +247,27 @@ const Register_deudor = ({isOpen, closeModal, funcion}) => {
                     </span>
                     <span>
                         <br/><br/>
-                        <label for="name">Nombre</label>
-                        <input className='input-form' type="text" name="name" id="name" placeholder="Nombre"  onBlur={Verificar_name} onChange={(e) => setName(e.target.value)} />
-                        <p id="wrongname"></p>
+                        <label for="name">Primer Nombre</label>
+                        <input className='input-form' type="text" name="name1" id="name1" placeholder="Nombre"  onBlur={Verificar_name1} onChange={(e) => setName1(e.target.value)} />
+                        <p id="wrongname1"></p>
+                    </span>
+                    <span>
+                        <br/><br/>
+                        <label for="name">Segundo Nombre</label>
+                        <input className='input-form' type="text" name="name2" id="name2" placeholder="Nombre"  onBlur={Verificar_name2} onChange={(e) => setName2(e.target.value)} />
+                        <p id="wrongname2"></p>
+                    </span>
+                    <span>
+                        <br/><br/>
+                        <label for="name">Primer apellido</label>
+                        <input className='input-form' type="text" name="last1" id="last1" placeholder="Nombre"  onBlur={Verificar_lastname1} onChange={(e) => setLastname1(e.target.value)} />
+                        <p id="wronglast1"></p>
+                    </span>
+                    <span>
+                        <br/><br/>
+                        <label for="name">Segundo apellido</label>
+                        <input className='input-form' type="text" name="last2" id="last2" placeholder="Nombre"  onBlur={Verificar_lastname2} onChange={(e) => setLastname2(e.target.value)} />
+                        <p id="wronglast2"></p>
                     </span>
                     <span>
                         <br/><br/>
@@ -166,6 +279,12 @@ const Register_deudor = ({isOpen, closeModal, funcion}) => {
                         <br/><br/>
                         <label for="frecuencia">Dirección</label>
                         <input className='input-form' type="text" name="Direccion" id="Direccion" placeholder="Dirección" onBlur={Verificar_addres} onChange={(e) => setAddress(e.target.value)}/>
+                        <p id="wrongaddres"></p>
+                    </span>
+                    <span>
+                        <br/><br/>
+                        <label for="saldo">Saldo inicial</label>
+                        <input className='input-form' type="text" name="saldo" id="saldo" placeholder="Dirección" onChange={(e) => setSaldo(e.target.value)}/>
                         <p id="wrongaddres"></p>
                     </span>
                     <span class="bloc">

@@ -1,34 +1,76 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Edit_deudor from './Edit_deudor'
 import Sumar_deudor from './Sumar_deudor';
 import Pagar_deudor from './Pagar_deudor';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 export const Tabla_deudor_item = (props) => {
     
-    const [editform , setEditform] = useState(false);
-    const [sumarform , setSumarform] = useState(false);
-    const [pagarform , setPagarform] = useState(false);
+    const [textoActivar,setTextoActivar]= useState('');
+    const [mostrarSumarform , setMostrarSumarform] = useState(false);
+    const [mostrarPagarform , setMostrarPagarform] = useState(false);
+    const [mostrarEditForm , setMostrarEditForm] = useState(false);
+    const [estado,setEstado] = useState(parseInt(props.idEstado));
 
-    function confirmDelete(){
-        Swal.fire({
-            icon:'warning',
-            title:'<h2 style="color:yellow">¿Desea eliminar este registro?</h2>',
-            background:'#252327',
-            confirmButtonColor:'#f2bb15',
-            confirmButtonText:`Eliminar`,
-            showCancelButton: true,
-            cancelButtonText:'Cancelar',
-            toast:true
-        }).then(response => {
-            if(response.isConfirmed){
-                delit();
-            }
-        })
+    const ponerTexto = () =>{
+        if(estado === 1){
+            setTextoActivar('Desactivar');
+        }else if(estado === 0){
+            setTextoActivar('Activar');
+        }
+    }
+
+    useEffect(() => {
+        ponerTexto();
+    },[]);
+
+    const handleMostrarEdit= () =>{            
+        setMostrarEditForm(!mostrarEditForm);          
     }
     
-    function delit(){
-        alert('sql a ejecutar')
+    const handleMostrarSumar = ()=>{
+        setMostrarSumarform(!mostrarSumarform);
+    }
+    const handleMostrarPagar = ()=>{
+        setMostrarPagarform(!mostrarPagarform);
+    }
+
+    function confirmDelete(val) {
+        Swal.fire({
+            icon: 'warning',
+            title: '<h2 style="color:yellow">¿Desea Cambiar el estado de este registro?</h2>',
+            background: '#252327',
+            confirmButtonColor: '#f2bb15',
+            confirmButtonText: textoActivar,
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar',
+            toast: true
+        }).then(async response => {
+            if (response.isConfirmed) {
+                if(estado===1 || estado==='1'){
+                    setEstado(0);
+                }else if(estado===0 || estado==='0'){
+                    setEstado(1);
+                }
+                try {
+                    await axios.put(`http://localhost:3003/cambiarestado/${val.id}`, {
+                        "state": estado
+                    }).then(()=>{
+                    Swal.fire({
+                        title: "Eliminado!",
+                        text: `los datos de ${val.name1}, se ha actualizado`,
+                        icon: "success"
+                    });
+                    console.log(estado);
+                    props.consulta();
+                    ponerTexto();
+                    });
+                } catch (error) {
+                    console.console.error('no s epudo cambiar de estado en la funcion confirmdelete', error);
+                }
+            }
+        });
     }
 
   return (
@@ -38,30 +80,31 @@ export const Tabla_deudor_item = (props) => {
             <h3>{props.id}</h3>
         </td>
         <td>
-            <h3>{props.name}</h3>
+            <h3>{props.name1+" "+props.lastname1}</h3>
         </td>
         <td>
-            <h3>{props.direccion}</h3>
+            <h3>{props.address}</h3>
         </td>
         <td>
-            <h3>{props.cel}</h3>
+            <h3>{props.tel}</h3>
         </td>
         <td>
-            <h2>${props.deuda}</h2>
+            <h2>${props.saldo}</h2>
         </td>
         <td>
             <h3>{props.state}</h3>
         </td>
         <td>
-            <button type="button" id="edit" name="edit" className="boton b1" onClick={()=> setEditform(true)} >Editar</button>
-            <button type="button"id="sumar" name="sumar" className="boton b1" onClick={()=> setSumarform(true)} >Sumar</button>
-            <button type="button" id="pay" name="pay" className="boton b4" onClick={()=> setPagarform(true)} >Pagar</button>
-            <button type="button" id="edit" name="edit" className="boton b2" onClick={confirmDelete}>Eliminar</button>
+            <button type="button" id="edit" name="edit" className="boton b1" onClick={handleMostrarEdit} >Editar</button>
+            <button type="button"id="sumar" name="sumar" className="boton b1" onClick={handleMostrarSumar} >Sumar</button>
+            <button type="button" id="pay" name="pay" className="boton b4" onClick={handleMostrarPagar} >Pagar</button>
+
+            <button type="button" id="edit" name="edit" className="boton b2" onClick={()=>{confirmDelete(props)}}>{textoActivar}</button>
         </td>
     </tr>
-    <Edit_deudor isOpen={editform} closeModal={()=> setEditform(false)} />
-    <Sumar_deudor isOpen={sumarform} closeModal={()=> setSumarform(false)} />
-    <Pagar_deudor isOpen={pagarform} closeModal={()=> setPagarform(false)} />
+    {mostrarEditForm && <Edit_deudor closeModal={handleMostrarEdit} datos={props}/>}
+    {mostrarSumarform && <Sumar_deudor  closeModal={handleMostrarSumar} datos={props} />}
+    {mostrarPagarform && <Pagar_deudor  closeModal={handleMostrarPagar} datos={props} />}
     </>
   )
 }

@@ -102,7 +102,7 @@
 .teush{
     display: flex;
     flex-direction: row-reverse;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 .form{
