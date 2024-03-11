@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Swal from "sweetalert2";
 import TituloyDesc from "../../components/Titles/TituloyDesc";
 import "./inputstyle.css";
@@ -10,13 +11,38 @@ const ReporteProducto = ({ closeModal, datos }) => {
 
   const [id, setID] = useState(datos.id || "");
   const [nombre, setNombre] = useState(datos.nombre || "");
-  const [tProducto, setTProducto] = useState(datos.tProducto
-    || "");
+  const [tProducto, setTProducto] = useState(datos.tProducto || "");
   const [descripcion, setDescripcion] = useState(datos.descripcion || "");
+  const [cantidadReporte, setCantidadReporte] = useState("");
 
-  console.log(id);
-  console.log(tProducto);
-  console.log(setDescripcion);
+  const handleGuardarCambios = async () => {
+    try {
+      const descripcionReporte = document.getElementById("dReporte").value;
+
+      // Validar que la cantidadReporte sea un número antes de enviar la solicitud
+      const cantidadReporteNum = parseInt(cantidadReporte);
+      if (isNaN(cantidadReporteNum) || cantidadReporteNum <= 0) {
+        throw new Error(
+          "La cantidad reportada debe ser un número mayor que cero."
+        );
+      }
+
+      await axios.post("http://localhost:3001/inventario/reportarProducto", {
+        ID_Producto_PK: id,
+        Descripcion_Salida: descripcionReporte,
+        Cantidad_Reportada: cantidadReporteNum, // Enviar la cantidad reportada al servidor
+        ID_Inventario_PK: datos.id_inventario,
+      });
+      closeModal();
+    } catch (error) {
+      console.error("Error al guardar cambios", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Hubo un problema al guardar los cambios. Verifica la cantidad reportada.",
+      });
+    }
+  };
 
   return (
     <div className="editarPedido register-container">
@@ -72,7 +98,7 @@ const ReporteProducto = ({ closeModal, datos }) => {
               <input
                 type="text"
                 name="descripcion"
-                id="cantiad"
+                id="descripcion"
                 readOnly
                 value={descripcion}
                 onChange={(e) => {
@@ -91,19 +117,26 @@ const ReporteProducto = ({ closeModal, datos }) => {
             </div>
             <div className="form-group">
               <label>Cantidad Reportada</label>
-              <input type="text" name="dReporte" id="dReporte" />
+              <input
+                type="text"
+                name="cantidadReporte"
+                id="cantidadReporte"
+                value={cantidadReporte}
+                onChange={(e) => setCantidadReporte(e.target.value)}
+              />
             </div>
           </div>
           <div className="form-btn">
             <button
-                type="submit"
-                name="submit"
-                id="submit"
-                className="btn_f limpiar btn-registro"
-              >
-                Guardar Cambios
-              </button>
-            </div>
+              type="submit"
+              name="submit"
+              id="submit"
+              className="btn_f limpiar btn-registro"
+              onClick={handleGuardarCambios}
+            >
+              Guardar Cambios
+            </button>
+          </div>
         </fieldset>
       </div>
     </div>

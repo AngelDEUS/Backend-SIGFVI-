@@ -80,6 +80,30 @@ fieldset {
     box-shadow: 0 0 0 0.2rem rgba(255, 123, 0, 0.25);
     color: rgb(78, 73, 73);
   }
+
+  .form-group select {
+    width: 250px;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    color: rgb(61, 55, 55);
+  }
+  .form-group select option::placeholder {
+    color: rgb(155, 162, 168);
+  }
+  
+  .form-group select:disabled{
+      border: 1px solid #e1e6eb;
+      background-color: #f1f3f570;
+      color: rgb(145, 161, 175);
+  } 
+  
+  .form-group select:focus {
+    outline: none;
+    border-color: #ffa880;
+    box-shadow: 0 0 0 0.2rem rgba(255, 123, 0, 0.25);
+    color: rgb(78, 73, 73);
+  }
   
   .divisorHr{
       background-color: rgba(141, 153, 175, 0.2);

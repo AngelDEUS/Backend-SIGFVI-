@@ -20,16 +20,16 @@ INSERT INTO Tipo_Producto(ID_Tipo_Producto_PK, Nombre_Tipo_Producto)
  
  -- #3 -- Producto
 INSERT INTO Producto (ID_Producto_PK, ID_Tipo_Producto_FK, Nombre_Producto, Descripcion, Precio_Proveedor, Precio_Venta, Foto_Producto, ID_Estado_FK)
- VALUES ('AGU-001', 1, 'Agua Mineral', '600 ml', 1000.00, 1500.00, 'url_agua_mineral.jpg', 0),
-        ('ARR-001', 2, 'Arroz', '5 kilos', 5000.00, 6000.00, 'url_arroz.jpg', 0),
-        ('POK-001', 3, 'Poker', '330 ml', 2500.00, 3000.00, 'url_cerveza.jpg', 0),
-        ('JUG-001', 1, 'Jugo de Naranja', '1 Litro', 3000.00, 4000.00, 'url_jugo_naranja.jpg', 0),
-        ('PAQ-001', 2, 'Paquete de Galletas', '30 gramos', 2000.00, 2500.00, 'url_galletas.jpg', 0),
-        ('REF-001', 3, 'Refresco en Lata', '330 ml', 1500.00, 2000.00, 'url_refresco_lata.jpg', 0),
-        ('ACE-001', 1, 'Aceite de Cocina', '1 Litro', 8000.00, 10000.00, 'url_aceite.jpg', 0),
-        ('PAQ-003', 2, 'Paquete de Pasta', '500 gramos', 4000.00, 5000.00, 'url_pasta.jpg', 0),
+ VALUES ('AGU-001', 1, 'Agua Mineral', '600 ml', 1000.00, 1500.00, 'url_agua_mineral.jpg', 1),
+        ('ARR-001', 2, 'Arroz', '5 kilos', 5000.00, 6000.00, 'url_arroz.jpg', 1),
+        ('POK-001', 3, 'Poker', '330 ml', 2500.00, 3000.00, 'url_cerveza.jpg', 1),
+        ('JUG-001', 1, 'Jugo de Naranja', '1 Litro', 3000.00, 4000.00, 'url_jugo_naranja.jpg', 1),
+        ('PAQ-001', 2, 'Paquete de Galletas', '30 gramos', 2000.00, 2500.00, 'url_galletas.jpg', 1),
+        ('REF-001', 3, 'Refresco en Lata', '330 ml', 1500.00, 2000.00, 'url_refresco_lata.jpg', 1),
+        ('ACE-001', 1, 'Aceite de Cocina', '1 Litro', 8000.00, 10000.00, 'url_aceite.jpg', 1),
+        ('PAQ-003', 2, 'Paquete de Pasta', '500 gramos', 4000.00, 5000.00, 'url_pasta.jpg', 1),
         ('CER-001', 3, 'Cerveza Light', '330 ml', 3000.00, 3500.00, 'url_cerveza_light.jpg', 0),
-        ('BOT-001', 1, 'Botella de Vino', '1 litro', 25000.00, 30000.00, 'url_vino.jpg', 0);
+        ('BOT-001', 1, 'Botella de Vino', '1 litro', 25000.00, 30000.00, 'url_vino.jpg', 1);
 
 SELECT * FROM Producto;
  -- #4 -- Tipo_Cargo

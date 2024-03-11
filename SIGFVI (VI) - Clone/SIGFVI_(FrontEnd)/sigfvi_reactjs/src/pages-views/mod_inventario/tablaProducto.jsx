@@ -168,12 +168,12 @@ const Tabla_Producto = () => {
                         key={dato.ID_Producto_PK}
                         id={dato.ID_Producto_PK}
                         nombre={dato.Nombre_Producto}
-                        tProducto={dato.ID_Tipo_Producto_FK}
+                        tProducto={dato.Tipo_Producto}
                         descripcion={dato.Descripcion}
                         precioCompra={dato.Precio_Proveedor}
                         precioVenta={dato.Precio_Venta}
                         foto={dato.Foto_Producto}
-                        estado={dato.ID_Estado_FK}
+                        estado={dato.Estado}
                         consulta={consulta}
                       />
                     ))}

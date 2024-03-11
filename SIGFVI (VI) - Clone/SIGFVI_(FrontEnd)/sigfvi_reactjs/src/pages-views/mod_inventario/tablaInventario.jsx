@@ -18,7 +18,11 @@ const Gestion_Inventario = () => {
   const handleSearch = () => {
     if (searchId.trim() !== "") {
       axios
+<<<<<<< HEAD
         .get(`http://localhost:3001/producto/BuscarDatoPorId/${searchId}`)
+=======
+        .get(`http://localhost:3001/BuscarDatoPorId/${searchId}`)
+>>>>>>> origin/mod_inventario_fs
         .then((response) => {
           setDatos(response.data.dato ? [response.data.dato] : []);
         })
@@ -31,7 +35,11 @@ const Gestion_Inventario = () => {
 
   const consulta = () => {
     axios
+<<<<<<< HEAD
       .get("http://localhost:3001/producto/Datos")
+=======
+      .get("http://localhost:3001/inventario/consultaInventario")
+>>>>>>> origin/mod_inventario_fs
       .then((response) => {
         console.log("Datos recibidos:", response.data.datos);
         setDatos(response.data.datos);
