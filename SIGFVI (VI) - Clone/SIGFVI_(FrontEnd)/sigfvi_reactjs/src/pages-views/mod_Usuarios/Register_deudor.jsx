@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 const Register_deudor = ({isOpen, closeModal, reConsulta}) => {
 
     const agregarRegistro = () =>{
-        axios.post("http://localhost:3003/createdeudor",{
+        axios.post("http://localhost:3001/usuario/createdeudor",{
             "id": id,
             "name1": name1,
             "name2": name2,

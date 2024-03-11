@@ -29,16 +29,18 @@ const obtenerProveedorPorId = async (req, res) => {
 
 
 const crearProveedor = async (req, res) => {
+    const { Nombre_Empresa, Dia_Visita, Telefono_Contacto, Estado_ID_Estado_PK } = req.body;
+
     try {
-        const { body } = req;
-        const [result] = await db.query('INSERT INTO Registro_Proveedor SET ?', [body]);
+        const createQuery = "INSERT INTO Registro_Proveedor(Nombre_Empresa, Dia_Visita, Telefono_Contacto, Estado_ID_Estado_PK) VALUES (?, ?, ?, 1)";
+        const [result] = await db.query(createQuery, [Nombre_Empresa, Dia_Visita, Telefono_Contacto, Estado_ID_Estado_PK]);
+
         res.json({ message: 'Proveedor creado correctamente', id: result.insertId });
     } catch (error) {
-        console.log(`Error: ${error}`);
+        console.error(`Error: ${error}`);
         res.status(500).json({ error: 'Error al crear el proveedor.' });
     }
 };
-
 
 const actualizarProveedor = async (req, res) => {
     try {

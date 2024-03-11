@@ -17,7 +17,7 @@ const Sumar_deudor = ( {closeModal,datos}) => {
     const sumarSaldo = async (id) =>{
         let adicion = (saldo + adicional)
         try {
-            const response = await axios.put(`http://localhost:3003/updatesaldo/${id}`,{
+            const response = await axios.put(`http://localhost:3001/usuario/updatesaldo/${id}`,{
                 saldo: adicion
             })
             console.log(response);

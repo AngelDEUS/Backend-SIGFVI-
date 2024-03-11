@@ -43,9 +43,10 @@ export const TablaAdminItem = (props) => {
                 }else if(estado===0 || estado==='0'){
                     setEstado(1);
                 }
+                
                 try {
                     //axios.delete(`http://localhost:3001/Delete/${val.id}`).then(()=>{
-                    await axios.put(`http://localhost:3003/cambioestadoadmin/${val.id}`, {
+                    await axios.put(`http://localhost:3001/usuario/cambioestadoadmin/${val.id}`, {
                         "state": estado
                     }).then(()=>{
                         Swal.fire({
@@ -56,7 +57,7 @@ export const TablaAdminItem = (props) => {
                         props.consulta();
                         ponerTexto();
                     })
-                    
+                                        
                 } catch (error) {
                     console.console.error('no s epudo cambiar de estado en la funcion confirmdelete', error);
                 }

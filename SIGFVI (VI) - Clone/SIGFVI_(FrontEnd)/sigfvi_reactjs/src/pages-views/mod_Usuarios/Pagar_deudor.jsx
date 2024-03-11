@@ -11,7 +11,7 @@ const Pagar_deudor = ({ closeModal, datos}) => {
     const restarSaldo = async (id) =>{
         let resta = (saldo - quitar)
         try {
-            const response = await axios.put(`http://localhost:3003/updatesaldo/${id}`,{
+            const response = await axios.put(`http://localhost:3001/usuario/updatesaldo/${id}`,{
                 saldo: resta
             })
             console.log(response);

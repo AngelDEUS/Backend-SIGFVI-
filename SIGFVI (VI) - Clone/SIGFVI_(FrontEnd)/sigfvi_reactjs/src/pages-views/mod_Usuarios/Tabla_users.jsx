@@ -10,7 +10,7 @@ function Tabla_users() {
 
   const [datos, setDatos] = useState([])
   const consulta = () => {
-    axios.get("http://localhost:3002/")
+    axios.get("http://localhost:3001/usuario/usuario_empleado")
         .then((response)=>{
           setDatos(response.data);
             //console.log(setDatos);
@@ -37,7 +37,7 @@ function Tabla_users() {
           <form className="form">
             <div className='buscar'>
               <input type="search" id="search" name="search" placeholder="buscar" className='barra-buscar' />
-              <button className='boton b1'>Buscar</button>
+              <button className='boton b7'>Buscar</button>
             </div>
             <div className='teush'>
               <button type="button" className="boton b4" id="lanzar-modal" name="agregar" onClick={()=> setRegisterform(true)}>Agregar</button>

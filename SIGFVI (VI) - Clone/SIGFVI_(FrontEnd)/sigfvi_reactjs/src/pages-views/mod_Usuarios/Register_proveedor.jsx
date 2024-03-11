@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 const RegisterProveedor = ({ isOpen, closeModal, reConsulta }) => {
 
   const agregarRegistro = () => {
-    axios.post('http://localhost:3005/crear', {
+    axios.post('http://localhost:3001/usuario/proveedor', {
       ID_Registro_Proveedor_PK : idProveedor,
       Nombre_Empresa: nombreEmpresa,
       Dia_Visita: diaVisita,

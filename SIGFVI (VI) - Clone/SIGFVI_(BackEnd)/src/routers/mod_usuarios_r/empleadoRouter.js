@@ -184,4 +184,6 @@ rutaUsuarios.put("/usuario_empleado/:id", usuarioController.actualizarUsuario);
  */
 rutaUsuarios.delete("/usuario_empleado/:id", usuarioController.eliminarUsuario);
 
+rutaUsuarios.put("/cambioestadoempleado/:id", usuarioController.cambioEstadoEmpleado);
+
 module.exports = rutaUsuarios;

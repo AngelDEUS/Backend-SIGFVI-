@@ -14,7 +14,7 @@ const Edit_deudor = ({closeModal, datos}) => {
     const editarRegistro = async (x) =>{
         try {
             console.log(datos.idEstado);
-            const response = await axios.put(`http://localhost:3003/updatedeudor/${x}`,{
+            const response = await axios.put(`http://localhost:3001/usuario/updatedeudor/${x}`,{
                 name1:name1,
                 name2:name2,
                 lastname1:lastname1,

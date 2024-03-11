@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 
 const EditAdmin = ({closeModal, datos}) => {
 
-    console.log('ESTE ES EL ID PASADO POR PARAMETRO',datos.id);
+    // console.log('ESTE ES EL ID PASADO POR PARAMETRO',datos.id);
 
     const [name1,setName1]=useState(datos.name1);
     const [name2,setName2]=useState(datos.name2);
@@ -17,7 +17,7 @@ const EditAdmin = ({closeModal, datos}) => {
 
     const editarRegistro = async (x) =>{
         try{
-            const response = await axios.put(`http://localhost:3003/Update/${x}`,{
+            const response = await axios.put(`http://localhost:3001/usuario/Update/${x}`,{
                 name1:name1,
                 name2:name2,
                 lastname1:lastname1,

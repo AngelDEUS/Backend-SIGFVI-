@@ -23,7 +23,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
       const formatoId = await generarId(idPre);
 
       const response = await axios.post(
-        "http://localhost:3001/AgregarProducto",
+        "http://localhost:3001/producto/AgregarProducto",
         {
           ID_Producto_PK: formatoId,
           Nombre_Producto: nombre,
@@ -47,7 +47,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
   const idDuplicado = async (id) => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/VerificarDuplicado/${id}`
+        `http://localhost:3001/producto/VerificarDuplicado/${id}`
       );
       return response.data.duplicate;
     } catch (error) {

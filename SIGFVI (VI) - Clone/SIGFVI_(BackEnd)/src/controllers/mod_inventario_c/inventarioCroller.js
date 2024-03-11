@@ -1,4 +1,4 @@
-const db = require("../../models/sigfviDBModelo");
+const db = require("../../models/sigfviDBModelo").promise();
 
 const consultaDatos = async (req, res) => {
     try {

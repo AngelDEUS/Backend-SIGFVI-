@@ -1,8 +1,6 @@
 /*
     * Controlador de las Consultas usadas en el módulo de ventas.
 */
-
-const mysql = require('mysql2');
 const db = require('../../models/sigfviDBModelo');
 
 const ObtenerProductosVenta = (req, res) => {
@@ -40,7 +38,7 @@ GROUP BY
 
 // Endpoint para buscar productos por nombre
 const BuscarProductoPorNombre = (req, res) => {
-    const { nombre } = req.params; // Usamos req.params en lugar de req.body
+    const { nombre } = req.params;
     console.log("\n---> Buscando productos por nombre...");
     db.query(
         `
@@ -119,7 +117,6 @@ const BuscarProductoPorID = (req, res) => {
         }
     );
 };
-
 
 module.exports = {
     ObtenerProductosVenta,

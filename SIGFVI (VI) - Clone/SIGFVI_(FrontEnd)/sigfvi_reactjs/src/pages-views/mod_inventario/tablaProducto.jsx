@@ -17,7 +17,7 @@ const Tabla_Producto = () => {
   const handleSearch = () => {
     if (searchId.trim() !== "") {
       axios
-        .get(`http://localhost:3001/BuscarDatoPorId/${searchId}`)
+        .get(`http://localhost:3001/producto/BuscarDatoPorId/${searchId}`)
         .then((response) => {
           setDatos(response.data.datos ? response.data.datos : []);
         })
@@ -31,7 +31,7 @@ const Tabla_Producto = () => {
 
   const consulta = () => {
     axios
-      .get("http://localhost:3001/Datos")
+      .get("http://localhost:3001/producto/Datos")
       .then((response) => {
         console.log("Datos recibidos:", response.data.datos);
         setDatos(response.data.datos);

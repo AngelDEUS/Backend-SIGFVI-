@@ -577,20 +577,25 @@
 
 /* --------------> Calcular suma prod */
 .tittleCalcProdSelectModal {
-    margin-right: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #8f919e;
+    width: 200px;
+    font-style: italic;
+    transition: all .25s ease;
+}.tittleCalcProdSelectModal:hover{
+    color: #5c5d68;
 }
 
 .bootomInputs {
-    justify-content: space-between;
+    display: block;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .candidadProd-Sum {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
@@ -602,7 +607,7 @@
 }
 
 .btnModalSelectProd {
-    margin: 0 20px;
+    margin: 0 25px;
     padding: 10px 15px;
     background-color: var(--Color-bg-buscar-02);
     border: 1px solid var(--Color-bg-separador-01);
@@ -619,4 +624,17 @@
 
 .btnModalSelectProd:active{
     opacity: 70%;
+}
+
+#mostrarSumatoriaSelect {
+    color: #717380;
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.accionesBtnsModal{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

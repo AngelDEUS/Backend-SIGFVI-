@@ -23,7 +23,7 @@ const VentasControl_Main = () => {
     //Modal De Producto Select
     const [isOpenModalProductoSelect, OpenModalProductoSelect, closeModalProductoSelect] = useModal(false); // Desestructuracion del Hook useModal
     const tittleModalProductoSelect = 'Datos del Producto';
-    const descModalProductoSelect = `Esta venta funciona para ver los datos del Producto y editar la cantidad de producto seleccionado en la venta.`;
+    const descModalProductoSelect = `Ver los datos del Producto y editar la cantidad de producto seleccionado en la venta.`;
 
 
     // Modal productos
@@ -170,39 +170,47 @@ const VentasControl_Main = () => {
                                 <div className='inputs-grup--product_select'>
                                     <span className='tittleProdSelect'>Tipo de Producto: </span>
                                     <span className='tittleProdSelectN' id='tipo_producto--select'>Cocacola
-                                        <span className='puntoModal'>.</span> </span>
+                                        <span className='puntoModal'>.</span>
+                                    </span>
                                 </div>
                                 <div className='inputs-grup--product_select'>
                                     <span className='tittleProdSelect'>Detalle del producto: </span>
                                     <span className='tittleProdSelectN' id='descripcion_producto--select'>Cocacola de 120 ml
-                                        <span className='puntoModal'>.</span> </span>
+                                        <span className='puntoModal'>.</span>
+                                    </span>
                                 </div>
                                 <div className='inputs-grup--product_select'>
                                     <span className='tittleProdSelect'>Precio de venta: </span>
-                                    <span className='tittleProdSelectN' id='descripcion_producto--select'>$ 20000
-                                        <span className='puntoModal'>.</span> </span>
+                                    <span className='tittleProdSelectN' id='descripcion_producto--select'>
+                                        <span className='puntoModal' style={{ marginRight: '5px' }}>$</span>
+                                        20000
+                                        <span className='puntoModal'>.</span>
+                                    </span>
                                 </div>
                                 <div className='inputs-grup--product_select'>
                                     <span className='tittleProdSelect'>Stock Total en el Inventario: </span>
                                     <span className='tittleProdSelectN' id='descripcion_producto--select'>20
-                                        <span className='puntoModal' style={{ marginLeft: '5px' }}>(unidades).</span> </span>
+                                        <span className='puntoModal' style={{ marginLeft: '5px' }}>(unidades).</span>
+                                    </span>
                                 </div>
                             </div>
                             <div className="divisorHr2"></div>
-                            <div className="inputs-grup bootomInputs">
-                                <div className="tittleCalcProdSelectModal">
-                                    <span>Agregar o quitar canditad del producto seleccionado:</span>
-                                </div>
+                            <div className="bootomInputs">
                                 <div className="candidadProd-Sum">
+                                    <div className="tittleCalcProdSelectModal">
+                                        <span>Agregar o quitar canditad del producto seleccionado:</span>
+                                    </div>
                                     <div className="buttonsCalcSelectProdModal">
                                         <button className='btnModalSelectProd' id='restarCantidad_ModalSelect'>-</button>
-                                        <span>1</span>
+                                        <span id='mostrarSumatoriaSelect'>1</span>
                                         <button className='btnModalSelectProd' id='sumarCantidad_ModalSelect'>+</button>
                                     </div>
                                 </div>
-                                <button className='btn_f actualizar' type="button" >Agregar Pedido</button>
-
-                                <button className='btn_f cancelarActualizar' type="button">Cancelar</button>
+                            <div className="divisorHr2"></div>
+                                <div className="accionesBtnsModal">
+                                    <button className='btn_f actualizar' type="button" id='actualizar--ModalSelect'>Actualizar</button>
+                                    <button className='btn_f cancelarActualizar' type="button" id='cancelar--ModalSelect'>Cancelar</button>
+                                </div>
                             </div>
                         </fieldset>
                     </div>

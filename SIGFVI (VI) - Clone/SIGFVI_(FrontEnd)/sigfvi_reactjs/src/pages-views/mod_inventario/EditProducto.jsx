@@ -13,7 +13,7 @@ const EditProducto = ({ closeModal, datos }) => {
   const editarRegistro = async (id) => {
     try {
       const response = await axios.put(
-        `http://localhost:3004/ActualizarProducto/${id}`,
+        `http://localhost:3001/producto/ActualizarProducto/${id}`,
         {
           Nombre_Producto: nombre,
           Descripcion: descripcion,
