@@ -186,9 +186,9 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                                         <div className='circle__sidemenu'></div>
                                         <span>Ventas Main</span>
                                     </Link></li>
-                                    <li ><Link to="/VentasFacturacion/ventas">
+                                    <li ><Link to="/VentasFacturacion/venta_pagar">
                                         <div className='circle__sidemenu'></div>
-                                        <span>Ventas Antiguo</span>
+                                        <span>Pagar Venta</span>
                                     </Link></li>
                                     <li ><Link to="/VentasFacturacion/tabs">
                                         <div className='circle__sidemenu'></div>

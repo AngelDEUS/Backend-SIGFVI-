@@ -225,7 +225,7 @@ CREATE TABLE
         Descripcion_Salida TEXT(400) NOT NULL COMMENT 'Campo con la descripcion detallada de la salida de un producto en el inventario',
         Fecha_Salida DATE NOT NULL COMMENT 'Campo con el ingreso de la fecha de la salida de un producto en el inventario.',
         Hora_Salida TIME NOT NULL COMMENT 'Campo con el ingreso de la hora de la salida de un producto en el inventario.',
-        ID_Inventario_FK SMALLINT(10) NOT NULL COMMENT 'Campo con la llave foranea del Inventario',
+        ID_Inventario_FK SMALLINT(10) COMMENT 'Campo con la llave foranea del Inventario',
         ID_Ident_Usu_FK VARCHAR(25) COMMENT 'Campo con la llave foranea del usuario',
         ID_Tipo_Ident_Usu_FKPK TINYINT COMMENT 'Campo con la llave compuesta con tipo de identificacion del usuario',
         PRIMARY KEY (
@@ -240,6 +240,9 @@ CREATE TABLE
             ID_Tipo_Identificacion_FKPK
         )
     );
+--
+-- DESCRIBE Salida_producto_Inventario;
+-- ALTER TABLE Salida_producto_Inventario MODIFY COLUMN ID_Inventario_FK SMALLINT(10) ;
 
 -- #17 Tipo_Informe_Inventario -------------->
 
