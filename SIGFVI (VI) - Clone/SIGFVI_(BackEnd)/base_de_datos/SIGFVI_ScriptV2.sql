@@ -74,7 +74,7 @@ CREATE TABLE
         Segundo_Apellido_Usuario VARCHAR(45) NULL DEFAULT NULL COMMENT 'Campo con el segundo apellido de usuario.',
         Numero_Contacto_Usuario VARCHAR(10) NOT NULL COMMENT 'Campo con el numero del contacto de un usuario de tipo cadena de texto.',
         Email_Usuario VARCHAR(45) NOT NULL COMMENT 'Campo con el correo electorinico del usuario.',
-        Password_Usuario VARCHAR(45) NOT NULL COMMENT 'Campo con la password de ingreso a el sistema del usuario.',
+        Password_Usuario TEXT NOT NULL COMMENT 'Campo con la password de ingreso a el sistema del usuario.',
         ID_Tipo_Cargo_FK TINYINT NOT NULL COMMENT 'Campo con el tipo del cargo asignado a el Usuario como llave foranea',
         ID_Estado_FK TINYINT NOT NULL COMMENT 'Campo para el estado actual del Usuario',
         PRIMARY KEY (
@@ -85,6 +85,10 @@ CREATE TABLE
         FOREIGN KEY (ID_Tipo_Cargo_FK) REFERENCES Tipo_Cargo (ID_Tipo_Cargo_PK),
         FOREIGN KEY (ID_Tipo_Identificacion_FKPK) REFERENCES Tipo_identificacion (ID_Tipo_Identificacion_PK)
     );
+
+-- ALTER TABLE Usuario MODIFY COLUMN Password_Usuario TEXT NOT NULL;
+-- DESCRIBE Usuario;
+SELECT * FROM Usuario;
 
 -- #7 Usuario -------------->
 
@@ -98,6 +102,7 @@ CREATE TABLE
         PRIMARY KEY (ID_Registro_Proveedor_PK),
         FOREIGN KEY (Estado_ID_Estado_PK) REFERENCES Estado (ID_Estado_PK)
     );
+
 
 -- ALTER TABLE Registro_Proveedor MODIFY COLUMN ID_Registro_Proveedor_PK INT AUTO_INCREMENT;
 -- #8 Cuenta_Deudor -------------->
@@ -326,5 +331,5 @@ CREATE TABLE
         FOREIGN KEY (ID_Producto_FKPK) REFERENCES Producto (ID_Producto_PK)
     );
     
-    
+-- DROP TABLE Registro_Proveedor_has_Producto;
     

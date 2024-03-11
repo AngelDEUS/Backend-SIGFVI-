@@ -13,7 +13,7 @@ SELECT
     Producto.ID_Producto_PK,
     Producto.Nombre_Producto,
     Tipo_Producto.Nombre_Tipo_Producto,
-    Producto.Descripcion_Producto,
+    Producto.Descripcion,
     Producto.Precio_Venta,
     SUM(Inventario.Stock) AS Stock_Total
 FROM 
@@ -26,9 +26,8 @@ GROUP BY
     Producto.ID_Producto_PK, 
     Producto.Nombre_Producto,
     Tipo_Producto.Nombre_Tipo_Producto,
-    Producto.Descripcion_Producto,
+    Producto.Descripcion,
     Producto.Precio_Venta;
-    
     
 
 -- Vista para los productos y el estock total por ID (por ID)
@@ -53,3 +52,51 @@ GROUP BY
 	Tipo_Producto.Nombre_Tipo_Producto,
 	Producto.Descripcion_Producto,
 	Producto.Precio_Venta;
+    
+
+-- -------------------------------------------->>>>>
+-- -----> Vista de los deudores [BUSQUEDA GENERAL].
+SELECT 
+	CD.ID_Deudor_PK AS 'ID',
+    CONCAT_WS('',CD.Primer_Nombre, '', CD.Segundo_Nombre) AS 'Nombres',
+    CONCAT_WS('',CD.Primer_Apellido, '', CD.Segundo_Apellido) AS 'Apellidos',
+    CD.Direccion_Deudor,
+    CD.Telefono_Deudor,
+    Estado.Nombre_Estado
+FROM   
+	Cuenta_Deudor CD
+JOIN 
+	Estado ON CD.ID_Estado_FK = ID_Estado_PK;
+
+-- -----> Vista de los deudores [BUSQUEDA POR NOMBRE].
+SELECT 
+	CD.ID_Deudor_PK AS 'ID',
+    CONCAT_WS('',CD.Primer_Nombre, '', CD.Segundo_Nombre) AS 'Nombres',
+    CONCAT_WS('',CD.Primer_Apellido, '', CD.Segundo_Apellido) AS 'Apellidos',
+    CD.Direccion_Deudor,
+    CD.Telefono_Deudor,
+    Estado.Nombre_Estado
+FROM   
+	Cuenta_Deudor CD
+JOIN 
+	Estado ON CD.ID_Estado_FK = ID_Estado_PK
+WHERE
+	ID_Deudor_PK = 3;
+
+-- -----> Vista de los deudores [BUSQUEDA POR ID].
+SELECT 
+	CD.ID_Deudor_PK AS 'ID',
+    CONCAT_WS('',CD.Primer_Nombre, '', CD.Segundo_Nombre) AS 'Nombres',
+    CONCAT_WS('',CD.Primer_Apellido, '', CD.Segundo_Apellido) AS 'Apellidos',
+    CD.Direccion_Deudor,
+    CD.Telefono_Deudor,
+    Estado.Nombre_Estado
+FROM Cuenta_Deudor CD
+JOIN 
+	Estado ON CD.ID_Estado_FK = ID_Estado_PK
+WHERE
+	CD.Primer_Nombre LIKE '%C%' OR CD.Primer_Apellido LIKE '%C%';
+    
+SELECT * FROM Cuenta_Deudor;
+
+

@@ -11,7 +11,7 @@ function Tabla_deudor() {
   const [datos, setDatos] = useState()
 
   const consulta = () => {
-    axios.get("http://localhost:3003/consdeudor")
+    axios.get("http://localhost:3001/usuario/consdeudor")
         .then((response)=>{
           setDatos(response.data);   
             //console.log(setDatos);
@@ -39,7 +39,7 @@ function Tabla_deudor() {
           <form className="form">
             <div className='buscar'>
               <input type="search" id="search" name="search" placeholder="buscar" className='barra-buscar' />
-              <button type='button' className='boton b1'>Buscar</button>
+              <button type='button' className='boton b7'>Buscar</button>
             </div>
             <div className='teush'>
             <button type="button" className="boton b4" id="lanzar-modal" name="agregar" onClick={()=> setRegisterform(true)}>Agregar</button>

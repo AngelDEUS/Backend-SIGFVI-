@@ -27,9 +27,9 @@ export const Tabla_Prod_item = (props) => {
     }).then((response) => {
       if (response.isConfirmed) {
         axios
-          .delete(`http://localhost:3001/BorrarInventario/${props.id}`)
+          .delete(`http://localhost:3001/producto/BorrarInventario/${props.id}`)
           .then(() => {
-            axios.delete(`http://localhost:3001/BorrarDato/${props.id}`)
+            axios.delete(`http://localhost:3001/producto/BorrarDato/${props.id}`)
               .then(() => {
                 console.log("Dato eliminado correctamente");
                 props.consulta();
