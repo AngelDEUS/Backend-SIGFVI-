@@ -12,8 +12,9 @@ import Inventario from '../pages-views/mod_inventario/mai_Inventario';
 import VentasMain from '../pages-views/mod_Ventas-Facturacion/Ventas/VentasControl_Main';
 import VentasFacturacion from '../pages-views/mod_Ventas-Facturacion/main_VentasFacturacion';
 import Ventas from '../pages-views/mod_Ventas-Facturacion/main_ventas';
-import Tabs_ventas from '../pages-views/mod_Ventas-Facturacion/Tabs/TabsMainGenerator'
+import Tabs_ventas from '../pages-views/mod_Ventas-Facturacion/Tabs/TabsMainGenerator';
 import Metodo_Pago  from "../pages-views/mod_Ventas-Facturacion/Metodos_Pago/main_Metodo_Pago";
+import Pago_Ventas  from "../pages-views/mod_Ventas-Facturacion/pago_calculo_pt2/PagoVenta";
 
 // import Informes from '../pages-views/mod_Informes/main_informes';
 import Ayuda from '../pages-views/Ayuda/MainAyuda';
@@ -54,6 +55,7 @@ export function MyRoutes() {
 
             <Route path='/VentasFacturacion/list' element={<VentasFacturacion />} />
             <Route path='/VentasFacturacion/ventas_main' element={<VentasMain />} />
+            <Route path='/VentasFacturacion/venta_pagar' element={<Pago_Ventas />} />
             <Route path='/VentasFacturacion/tabs' element={<Tabs_ventas/>} />
             <Route path='/VentasFacturacion/ventas' element={<Ventas />} />
             <Route path='/VentasFacturacion/metodo_pago' element={<Metodo_Pago />} />

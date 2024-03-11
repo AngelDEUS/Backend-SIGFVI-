@@ -1,17 +1,17 @@
 import React from 'react'
-import TituloyDescPagoVenta from '../../../../components/Titles/TituloyDesc';
+import TituloyDescPagoVenta from '../../../components/Titles/TituloyDesc';
 import './PagoVenta.css'
 
 /* Modal Para pagar Venta, escoger metodo de pago y proceder a facturacion. */
-const pagoVenta = () => {
+const PagoVenta = () => {
     const descipcionPagoVenta = 'En este panel puede realizar la busqueda de todos los productos, tanto las busquedas por nombre o por ID de producto.';
-    const tituloPagoVenta = 'Modal Busqueda de productos';
+    const tituloPagoVenta = 'Validar Pago';
 
     return (
         <div className='PagoVentaContainer'>
             <div className="header-PagoVentas">
                 <div>
-                    <TituloyDescPagoVenta titulo={descipcionPagoVenta} descripcion={tituloPagoVenta} />
+                    <TituloyDescPagoVenta titulo={tituloPagoVenta} descripcion={descipcionPagoVenta} />
                 </div>
             </div>
             <div className="cuerpoPagoVenta">
@@ -55,4 +55,4 @@ const pagoVenta = () => {
     )
 }
 
-export default pagoVenta;
+export default PagoVenta;
