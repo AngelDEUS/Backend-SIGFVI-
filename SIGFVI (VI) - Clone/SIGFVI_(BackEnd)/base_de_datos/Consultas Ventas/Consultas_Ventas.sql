@@ -100,3 +100,22 @@ WHERE
 SELECT * FROM Cuenta_Deudor;
 
 
+
+
+
+
+
+-- -------------
+select  u.ID_Numero_Identificacion_PK as id, 
+		ti.Nombre_Identificacion as tipoId,u.Nombre_Usuario,
+        u.Segundo_Nombre_Usuario,u.Apellido_Usuario,Segundo_Apellido_Usuario,u.Numero_Contacto_Usuario as telefono,
+        u.Email_Usuario,Password_Usuario as contrasena,tc.Nombre_Tipo_cargo as cargo,
+        ID_Estado_FK as estado
+        from usuario u 
+        inner join Tipo_Cargo tc
+        on tc.ID_Tipo_Cargo_PK = u.ID_Tipo_Cargo_FK
+        inner join Tipo_identificacion ti
+        on u.ID_Tipo_Identificacion_FKPK = ti.ID_Tipo_Identificacion_PK
+        where  u.ID_Tipo_Cargo_FK = 3;
+
+

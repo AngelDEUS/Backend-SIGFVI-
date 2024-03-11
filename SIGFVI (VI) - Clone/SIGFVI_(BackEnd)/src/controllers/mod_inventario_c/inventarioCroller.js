@@ -5,7 +5,7 @@ const consultaDatos = async (req, res) => {
       console.log("Obteniendo datos...");
 
       // Asegúrate de utilizar con.promise() para obtener una versión compatible con promesas
-      const [result] = await db.promise().query(`
+      const [result] = await db.query(`
           SELECT 
               P.ID_Producto_PK,
               P.Nombre_Producto,
@@ -38,10 +38,10 @@ const reportarProducto = async (req, res) => {
 
       // Obtener la fecha y hora actuales
       const fechaSalida = new Date().toISOString().split('T')[0];
-      const horaSalida = new Date().toLocaleTimeString();
+      const horaSalida = new Date().toLocaleTimeString().split('a')[0];;
 
       // Obtener el ID_Inventario_FK basándonos en el ID_Producto_FK
-      const [inventarioResult] = await db.promise().query(`
+      const [inventarioResult] = await db.query(`
           SELECT ID_Inventario_PK
           FROM Inventario
           WHERE ID_Producto_FK = ?;
@@ -54,13 +54,13 @@ const reportarProducto = async (req, res) => {
       const ID_Inventario_FK = inventarioResult[0].ID_Inventario_PK;
 
       // Insertar el reporte en la tabla Salida_producto_Inventario
-      await db.promise().query(`
+      await db.query(`
           INSERT INTO Salida_producto_Inventario (Descripcion_Salida, Fecha_Salida, Hora_Salida, ID_Inventario_FK)
           VALUES (?, ?, ?, ?);
       `, [Descripcion_Salida, fechaSalida, horaSalida, ID_Inventario_FK]);
 
       // Actualizar la cantidad en la tabla Inventario (restar la cantidad reportada)
-      await db.promise().query(`
+      await db.query(`
           UPDATE Inventario
           SET Stock = Stock - ?
           WHERE ID_Inventario_PK = ?;

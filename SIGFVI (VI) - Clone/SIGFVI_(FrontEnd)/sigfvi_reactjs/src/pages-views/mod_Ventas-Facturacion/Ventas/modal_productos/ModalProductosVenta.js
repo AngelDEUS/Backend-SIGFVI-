@@ -9,7 +9,6 @@ const ModalProductosVenta = ({ onAgregarProductos, onClose }) => {
     const descipcion = 'En este panel puede realizar la busqueda de todos los productos, tanto las busquedas por nombre o por ID de producto.'
     const tituloVentasControl = 'Modal Busqueda de productos'
 
-
     // Use states    
     const [modalAbierto, setModalAbierto] = useState(true);
     let [calcularCantProd, setCalcularCantProd] = useState(1);

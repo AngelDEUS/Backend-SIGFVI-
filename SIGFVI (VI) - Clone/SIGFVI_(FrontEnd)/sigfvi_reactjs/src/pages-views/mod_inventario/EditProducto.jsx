@@ -174,7 +174,7 @@ const EditProducto = ({ closeModal, datos }) => {
                 />
               </div>
               <div className="form-group">
-                <label>descripcion</label>
+                <label>Precio Compra</label>
                 <input
                   type="text"
                   name="precioCompra"

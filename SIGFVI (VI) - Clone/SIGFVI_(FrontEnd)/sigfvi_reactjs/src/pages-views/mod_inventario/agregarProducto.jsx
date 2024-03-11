@@ -274,7 +274,8 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
             </div>*/}
               <div className="form-group">
                 <label>Estado</label>
-                <select name="" id="">
+                <select name="" id="" 
+                  onChange={(e) => setEstado(e.target.value)}>
                   <option value="" hidden>Elegir Estado</option>
                   <option value="0">Inactivo</option>
                   <option value="1">Activo</option>
