@@ -33,6 +33,7 @@ const LoginMain = () => {
                 }).then(() => {
                     setUser(peticion.data)
                     navigate('/Dashboard');
+                    window.location.reload()
                     // if (result.isConfirmed) {
                     //     navigate('/layout')
                     // }
