@@ -35,6 +35,7 @@ import Tabla_users from '../pages-views/mod_Usuarios/Tabla_users';
 import Tabla_proveedores from '../pages-views/mod_Usuarios/Tabla_proveedores';
 import Tabla_deudor from '../pages-views/mod_Usuarios/Tabla_deudor';
 import TablaAdmins from '../pages-views/mod_Usuarios/Admins/TablaAdmin';
+import LayoutMain from '../pages-views/mainLayout';
 
 export function MyRoutes() {
     return (

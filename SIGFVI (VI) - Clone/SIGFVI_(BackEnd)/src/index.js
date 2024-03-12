@@ -52,7 +52,7 @@ app.use('/inventario', inventarioRouter);
 app.use('/usuario', empleadoRouter); // Empleados
 app.use('/usuario', proveedorRouter); // Proveedores
 app.use('/usuario', adminRouter); // Administradores
-app.use('/usuario', adminRouter); // Administradores
+// app.use('/read', adminRouter); // Administradores
 
 
 app.get("/", (req, res) => { // Mensajes de pagina principal.

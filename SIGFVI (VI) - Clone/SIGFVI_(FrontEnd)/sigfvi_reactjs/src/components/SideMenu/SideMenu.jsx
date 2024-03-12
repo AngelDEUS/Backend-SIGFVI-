@@ -45,7 +45,7 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'Aceptar',
                 }).then(() => {
-                    // navigate('/Login');
+                    navigate('/');
                     nada();
                 });
             }

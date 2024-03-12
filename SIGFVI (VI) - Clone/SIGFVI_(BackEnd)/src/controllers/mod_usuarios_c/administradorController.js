@@ -1,5 +1,6 @@
 const db = require("../../models/sigfviDBModelo").promise();
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
 
 const Get = async (req, res) => {
   try {
@@ -104,21 +105,34 @@ const autenticarUser = async(req,res)=>{
   const {idEntra,contrasenaEntra}=req.body;
   console.log(contrasenaEntra,'log1');
   try {
-      const [result] = await db.query('SELECT ID_Numero_Identificacion_PK as id,Password_Usuario as contrasena FROM Usuario WHERE ID_Numero_Identificacion_PK = ?', [idEntra]);
+      const [result] = await db.query('SELECT ID_Numero_Identificacion_PK as id,Password_Usuario as contrasena,ID_Tipo_Cargo_FK as rol FROM Usuario WHERE ID_Numero_Identificacion_PK = ?', [idEntra]);
+      // console.log(result[0].contrasena,'log2');
       const usuario = result[0].id;
 
       if (usuario === idEntra) {
           const passReal = result[0].contrasena;
+          const rol = result[0].rol;
           console.log(passReal,'log2');
           try {
               let ingreso = await bcrypt.compare(contrasenaEntra, passReal);
               console.log('el ingreso es → ',ingreso);
 
               if(ingreso){
-                res.json({message: "Ingreso exitoso C:"})
+                const accessToken= jwt.sign(
+                  {
+                    user: usuario,
+                    rol: rol
+                  },
+                  "ASHEEE",
+                  {
+                    expiresIn: "3m"
+                  })
+
+                res.json({message: "Ingreso exitoso C:",ingreso:true,user:usuario,rol:rol,accessToken:accessToken});
               }else{
-                res.json({message: "Credenciales incorrectas :/"})
+                res.json({message: "Credenciales incorrectas :/",ingreso:false});
               }
+              
 
           } catch (error) {
               console.log(`NT`,error);

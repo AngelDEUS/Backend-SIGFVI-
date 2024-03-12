@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import TituloyDesc from '../../components/Titles/TituloyDesc'
 import Modals from '../../components/modal/Modals';
 
 const main_Dashboard = () => {
-    const titulo = 'Dashbard';
+    const titulo = 'Dashboard';
     const descipcion = 'descipcisón del dashboard';
-
+    
+    
     return (
         <div>
             <div className='encabezado__titulos'>
