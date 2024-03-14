@@ -34,8 +34,8 @@ const LoginMain = () => {
                     confirmButtonText: 'Aceptar',
                 }).then((result) => {
                     if(result.isConfirmed){
-                        <Navigate to='/dashboard' />
-                        // window.location.reload()
+                        // <Navigate to='/dashboard' />
+                        window.location.reload()
                         // if (result.isConfirmed) {
                             //     navigate('/layout')
                             // }

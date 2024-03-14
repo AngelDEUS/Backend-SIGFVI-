@@ -68,7 +68,8 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                         localStorage.removeItem("usuario");
                     }
                 }).then(() => {
-                    <Navigate to='/' />
+                    // <Navigate to='/' />
+                    window.location.reload()
                 });
             }
         });
@@ -132,11 +133,12 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                     <div className="navegacion">
                         <ul>
                             <li>
-                                <Link to={usuario && (usuario.rol === 3) ? (
+                                {/* <Link to={usuario && (usuario.rol === 3) ? (
                                     "/dashboard"
                                 ) : usuario && (usuario.rol === 2) ? (
                                     "/home"
-                                ) : "/ayuda"}>
+                                ) : "/ayuda"}> */}
+                                <Link to="/dashboard">
                                     <div className='btnList'>
                                         <i className="bi bi-house-fill svg"></i>
                                     </div>

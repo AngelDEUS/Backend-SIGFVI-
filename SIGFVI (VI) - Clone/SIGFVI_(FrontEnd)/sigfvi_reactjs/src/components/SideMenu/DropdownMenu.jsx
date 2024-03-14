@@ -22,6 +22,7 @@ const DropdownMenu = () => {
                     confirmButtonText: 'Aceptar',
                 }).then(() => {
                     localStorage.removeItem("usuario");
+                    window.location.reload();
                 });
             }
         });
