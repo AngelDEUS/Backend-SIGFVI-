@@ -4,18 +4,10 @@ import './App.css';
 //import SideMenu from './components/SideMenu/SideMenu'; 
 import React, { useEffect, useState } from 'react';
 import LoginMain from './pages-views/Login/LoginMain';
-import Layout from './pages-views/mainLayout';
-import { BrowserRouter,Routes,Route, Navigate } from 'react-router-dom';
-import Main_Dashboard from './pages-views/Dashboard/main_Dashboard';
-import TablaAdmins from './pages-views/mod_Usuarios/Admins/TablaAdmin';
+import { BrowserRouter } from 'react-router-dom';
 import LayoutMain from './pages-views/mainLayout';
 
-import SideMenu from './components/SideMenu/SideMenu';
-import { ProtectedRoute } from './routers/RutaProtegida';
-import Tabla_users from './pages-views/mod_Usuarios/Tabla_users';
-import Tabla_proveedores from './pages-views/mod_Usuarios/Tabla_proveedores';
-import Tabla_deudor from './pages-views/mod_Usuarios/Tabla_deudor';
-import Vacio from './routers/Vacio';
+
 
 
 
