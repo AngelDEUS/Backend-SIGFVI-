@@ -223,6 +223,9 @@
     margin: 10px;
 }
 
+.hide{
+    display: none;
+}
 .sub-menu-options:hover li:hover .circle__sidemenu {
     border: 4px solid var(--Color-Sidebar-HF);
     background-color: var(--Color-Sidebar-Separator-01);

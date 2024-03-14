@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './LoginMain.css';
 import LogoImagenBG from '../../assets/Logo/LoginLogoBG_02.png';
-import {useNavigate} from 'react-router-dom';
+import {Navigate, useNavigate} from 'react-router-dom';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
@@ -24,20 +24,23 @@ const LoginMain = () => {
             console.log('esta es la respuesta del server → ',peticion.data);
 
             if(peticion.data.ingreso){
+                localStorage.setItem("usuario",JSON.stringify(peticion.data));
+                setUser(peticion.data); 
                 Swal.fire({
                     title: `¡Bienvenido!`,
                     icon: 'success',
                     showCancelButton: false,
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'Aceptar',
-                }).then(() => {
-                    setUser(peticion.data)
-                    navigate('/Dashboard');
-                    window.location.reload()
-                    // if (result.isConfirmed) {
-                    //     navigate('/layout')
-                    // }
-                });
+                }).then((result) => {
+                    if(result.isConfirmed){
+                        <Navigate to='/dashboard' />
+                        // window.location.reload()
+                        // if (result.isConfirmed) {
+                            //     navigate('/layout')
+                            // }
+                    }
+                    })
             }else {
                 Swal.fire({
                     title: 'Oops...',
