@@ -8,6 +8,7 @@ ______________________________________________________________________________
 =======> Ramas:
                            /main ¿ ("Rama BackUp")
                              /main_desarrollo ¿ ("Rama para implementar cambios")
+                                 /mod_login
                                  /mod_usuarios
                                  /mod_inventario_fs
                                  /mod_ventasyfacturacion
@@ -26,3 +27,5 @@ ______________________________________________________________________________
 =======> Integrantes:
 
 =======> Nota: Se hacen todos los merge de todas las ramas y se agrega en mod_inventario_fs agregar y editar productos.
+
+
