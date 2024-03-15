@@ -1,0 +1,9 @@
+/* Btns Pago Venta */
+.btn_pagoVenta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 10px 15px;
+    margin: 0px 20px;
+}

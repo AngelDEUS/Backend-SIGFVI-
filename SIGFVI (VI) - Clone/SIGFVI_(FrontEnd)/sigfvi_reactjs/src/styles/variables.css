@@ -31,12 +31,20 @@
     --Color-Sidebar-HF: #0b111f;
 
     --Color-Sidebar-btn-bg-01: #0a121f;
-    --Color-Sidebar-btn-bg-02: #010206;
+    --Color-Sidebar-btn-bg-02: #040505;
     --Color-Sidebar-btn-hover-01: #02050a;
 
     --Color-Sidebar-Separator-01: #28344b;
     --Color-Sidebar-Separator-02: #0b1321;
 
     --Color-Sidebar-nombre-pagina: #0b111f;
+
+
+    /* --color-scroll */    
+    --color-scroll-01: #ffaf46;
+    --color-scroll-02: rgba(192, 192, 192, 0.267);
+    --color-scroll-03-bg: #04070ed0;
+    --color-scroll-hover-01: #fc7c00;
+    --color-scroll-hover-02: rgba(241, 241, 241, 0.178);
 
 }

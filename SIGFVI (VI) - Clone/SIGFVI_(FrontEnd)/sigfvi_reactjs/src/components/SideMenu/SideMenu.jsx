@@ -55,6 +55,29 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
         window.location.reload();
     }
 
+    const preguntaVenta = () => {
+        const miRuta = "VentasFacturacion/ventas";
+        const miRutaFinal = "/";
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                });
+                return miRutaFinal = miRuta;
+            }
+        });
+    }
     return (
         <>
             <div className={`barra-lateral ${miniBarraLateral ? 'mini-barra-lateral' : ''}`} id="barraLateral">
@@ -67,12 +90,15 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                             id="LogoSideMenu"
                             onClick={toggleMiniBarraLateral}
                         />
-                        <span className=''>Tiendecita Alemana<highlight>.</highlight></span>
+                        <div className="textsTopMenu">
+                            <span className=''>Tiendecita Alemana</span>
+                            <span className='highlight'>.</span>
+                        </div>
                     </div>
                 </div>
                 <div className='rules'>
                     <div>
-                        <Link to='/VentasFacturacion/ventas'>
+                        <Link to='VentasFacturacion/ventas'>
                             <button className='boton'>
                                 <i className="bi bi-patch-plus-fill svg"></i>
                                 <span className=''>Nueva Venta</span>
@@ -103,6 +129,10 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                                     </div>
                                 </Link>
                                 <ul className={`sub-menu-options${showSubMenu === 'usuarios' ? ' active' : ''}`}>
+                                    <li><Link to="/GestionUsuarios/Admins/TablaAdmin">
+                                        <div className='circle__sidemenu'></div>
+                                        <span>Gerentes</span>
+                                    </Link></li>
                                     <li><Link to="/GestionUsuarios/TablaUsuarios">
                                         <div className='circle__sidemenu'></div>
                                         <span>Usuarios</span>
@@ -129,13 +159,13 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                                     </div>
                                 </Link>
                                 <ul className={`sub-menu-options${showSubMenu === 'inventario' ? ' active' : ''}`}>
-                                    <li><Link to="/Inventario/TablaInventario">
+                                    <li><Link to="/Inventario/Producto">
                                         <div className='circle__sidemenu'></div>
                                         <span>Gestion de Productos</span>
                                     </Link></li>
-                                    <li><Link to="/Inventario/Item2">
+                                    <li><Link to="/Inventario/GestionInventario">
                                         <div className='circle__sidemenu'></div>
-                                        <span>Item 2</span>
+                                        <span>Gestion Inventario</span>
                                     </Link></li>
                                 </ul>
                             </li>
@@ -152,13 +182,25 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
 
                                 </Link>
                                 <ul className={`sub-menu-options${showSubMenu === 'ventas' ? ' active' : ''}`}>
-                                    <li ><Link to="/VentasFacturacion/ventas">
+                                    <li ><Link to="/VentasFacturacion/ventas_main">
                                         <div className='circle__sidemenu'></div>
-                                        <span>Ventas</span>
+                                        <span>Ventas Main</span>
+                                    </Link></li>
+                                    <li ><Link to="/VentasFacturacion/venta_pagar">
+                                        <div className='circle__sidemenu'></div>
+                                        <span>Pagar Venta</span>
+                                    </Link></li>
+                                    <li ><Link to="/VentasFacturacion/tabs">
+                                        <div className='circle__sidemenu'></div>
+                                        <span>ver tabs</span>
                                     </Link></li>
                                     <li ><Link to="/VentasFacturacion/list">
                                         <div className='circle__sidemenu'></div>
                                         <span>Lista de ventas</span>
+                                    </Link></li>
+                                    <li ><Link to="/VentasFacturacion/metodo_pago">
+                                        <div className='circle__sidemenu'></div>
+                                        <span>Métodos de pago</span>
                                     </Link></li>
                                 </ul>
                             </li>

@@ -1,187 +1,117 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import TituloyDesc from "../../components/Titles/TituloyDesc";
-import useInventario from "./InventarioDates";
-import Modal from "react-modal"; //npm install --save react-modal
+import { Tabla_Stock_item } from "./tablainventarioitem";
+import { Link } from "react-router-dom";
 import "./Inventario.css";
 import "./AllStyle.css";
+import "./pruebastyle.css";
 
-const Tabla_Inventario = () => {
+const Gestion_Inventario = () => {
   const titulo = "Inventario";
-  const descipcion =
-    "En este panel es el encargado de gestionar los productos, elstock y notificaciones por estado";
+  const descripcion =
+    "En este panel es el encargado de gestionar las Cantidades de los Productos, ademas, el registro de entrada y salido de los productos.";
 
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [datos, setDatos] = useState([]);
+  const [searchId, setSearchId] = useState("");
 
-  const openModal = () => {
-    setModalIsOpen(true);
+  const handleSearch = () => {
+    if (searchId.trim() !== "") {
+      axios
+        .get(`http://localhost:3001/producto/BuscarDatoPorId/${searchId}`)
+        .then((response) => {
+          setDatos(response.data.dato ? [response.data.dato] : []);
+        })
+        .catch((error) => {
+          console.error("Error al buscar el dato:", error);
+        });
+    }
   };
 
-  const closeModal = () => {
-    setModalIsOpen(false);
+
+  const consulta = () => {
+    axios
+      .get("http://localhost:3001/producto/Datos")
+      .then((response) => {
+        console.log("Datos recibidos:", response.data.datos);
+        setDatos(response.data.datos);
+      })
+      .catch((error) => {
+        console.error("Error al obtener datos:", error);
+      });
   };
 
-  const { inventario, nuevoInventario, handleInputChange, agregarInventario, borrar } =
-    useInventario();
-
+  useEffect(() => {
+    console.log("Realizando solicitud...");
+    consulta();
+  }, []);
 
   return (
-    <div className="mod__inventario--s">
-      <div className="encabezado__titulos">
-        <TituloyDesc titulo={titulo} descripcion={descipcion} />
-      </div>
-      <div className="mod__inventario">
-        <div className="inventario">
-          <div className="subtitulo">
-            <h3>Inventario de Productos</h3>
-          </div>
-          <div className="valores">
-            <div>
-              <input
-                type="text"
-                className="buscar"
-                placeholder="Buscar en el inventario"
-              />
-            </div>
-            <div className="valor1">
-              <button onClick={openModal} className="boton_modal">
-                Agregar
-              </button>
-            </div>
-          </div>
+    <>
+      <div className="mod__inventario--s">
+        <div className="encabezado__titulos">
+          <TituloyDesc titulo={titulo} descripcion={descripcion} />
         </div>
-        <section className="table__body">
-          <table>
-            <thead>
-              <tr>
-                <th>Codigo de producto</th>
-                <th>Nombre del producto</th>
-                <th>Tipo de producto</th>
-                <th>Cantidad Neta de Producto</th>
-                <th>Cantidad de unidades</th>
-                <th>Precio de proveedor</th>
-                <th>Precio de Venta</th>
-                <th>Fecha de Caducidad</th>
-                <th>Nombre del proveedor</th>
-                <th>Borrar</th>
-              </tr>
-            </thead>
-            <tbody>
-              {inventario.map((inv) => {
-                return (
-                  <tr key={inv.id}>
-                    <td>{inv.codigo}</td>
-                    <td>{inv.nombre}</td>
-                    <td>{inv.tipo}</td>
-                    <td>{inv.cantidadNeta}</td>
-                    <td>{inv.lote}</td>
-                    <td>{inv.precioProve}</td>
-                    <td>{inv.precioVenta}</td>
-                    <td>{inv.fechaCaducidad}</td>
-                    <td>{inv.proveedor}</td>
-                    <td>
-                      <button className="botonBorrar" onClick={() => borrar(inv.codigo)}>Borrar</button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </section>
-      </div>
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="Agregar Producto"
-      >
-        <div class="mainModal">
-          <div class="mainTitulo">
-            <h1>Producto</h1>
-            <div className="MainBoton">
-              {" "}
-              <button onClick={closeModal} className="boton_modal2">
-                X
-              </button>
+        <div className="mod__inventario">
+          <div className="inventario">
+            <div className="subtitulo">
+              <h3 className="subtitulo__h3">Inventario de Productos</h3>
             </div>
           </div>
-          <form className="modalForm" onSubmit={agregarInventario}>
-            <div class="mainIzquierda">
-              <input
-                type="text"
-                placeholder="Nombre del Producto"
-                name="nombre"
-                value={nuevoInventario.nombre}
-                onChange={handleInputChange}
-              />
-              <input
-                type="text"
-                placeholder="Cantidad Neto"
-                name="cantidadNeta"
-                value={nuevoInventario.cantidadNeta}
-                onChange={handleInputChange}
-              />
-              <input
-                type="text"
-                placeholder="Precio de Compra"
-                name="precioProve"
-                value={nuevoInventario.precioProve}
-                onChange={handleInputChange}
-              />
-              <input
-                type="text"
-                placeholder="Empresa Proveedor"
-                name="proveedor"
-                value={nuevoInventario.proveedor}
-                onChange={handleInputChange}
-              />
-              <input
-                type="text"
-                placeholder="Fecha de Caducidad"
-                name="fechaCaducidad"
-                value={nuevoInventario.fechaCaducidad}
-                onChange={handleInputChange}
-              />
-
-            </div>
-            <div class="mainDerecha">
-              <input
-                type="text"
-                placeholder="Tipo de Producto"
-                name="tipo"
-                value={nuevoInventario.tipo}
-                onChange={handleInputChange}
-              />
-              <input
-                type="text"
-                placeholder="Codigo"
-                name="codigo"
-                value={nuevoInventario.codigo}
-                onChange={handleInputChange}
-              />
-              <input
-                type="text"
-                placeholder="Precio de Venta"
-                name="precioVenta"
-                value={nuevoInventario.precioVenta}
-                onChange={handleInputChange}
-              />
-              <input
-                type="text"
-                placeholder="Cantiad en Inidades"
-                name="lote"
-                value={nuevoInventario.lote}
-                onChange={handleInputChange}
-              />
-              <div className="MainBoton2">
-                <button className="botonForm" type="submit">
-                  Agregar
-                </button>
+          <div className="busqueda__prod">
+            <div className="buscar_productos">
+              <div className="right__b">
+                <div className="buscar">
+                  <i className="bi bi-search buscar_i"></i>
+                  <div className="sep_vertical_b"></div>
+                  <input
+                    type="text"
+                    placeholder="Buscar productos"
+                    id="buscarProducto"
+                  />
+                  <button className="btn_buscar">Buscar</button>
+                </div>
+                <div className="sep_vertical_b--outS"></div>
+              </div>
+              <div className="left__b">
+                <Link to="/Inventario/EntregaProducto">
+                  <button className="btn_f limpiar">entrega Productos</button>
+                </Link>
               </div>
             </div>
-          </form>
+          </div>
+          <section className="table__body">
+            <table>
+              <thead>
+                <tr>
+                  <th>Codigo</th>
+                  <th>Nombre del Producto</th>
+                  <th>Tipo Producto</th>
+                  <th>Descripcion</th>
+                  <th>Cantidad</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {!datos
+                  ? "Loading....."
+                  : datos.map((dato) => (
+                      <Tabla_Stock_item
+                        key={dato.ID_Producto_PK}
+                        id={dato.ID_Producto_PK}
+                        nombre={dato.Nombre_Producto}
+                        tProducto={dato.Nombre_Tipo_Producto}
+                        descripcion={dato.Descripcion}
+                        cantidad={dato.Stock}
+                      />
+                    ))}
+              </tbody>
+            </table>
+          </section>
         </div>
-      </Modal>
-    </div>
+      </div>
+    </>
   );
 };
 
-export default Tabla_Inventario;
+export default Gestion_Inventario;

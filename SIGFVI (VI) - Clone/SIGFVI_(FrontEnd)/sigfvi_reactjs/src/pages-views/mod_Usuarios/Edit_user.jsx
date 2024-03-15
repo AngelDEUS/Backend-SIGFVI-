@@ -13,22 +13,25 @@ const Edit_user = ({closeModal, datos}) => {
     const [cel,setCel]=useState(datos.tel);
     const [email,setEmail]=useState(datos.email);
 
-    const editarRegistro = async (x) =>{
-        try{
-            const response = await axios.put(`http://localhost:3001/actualizar/${x}`,{
-                name1:name1,
-                name2:name2,
-                lastname1:lastname1,
-                lastname2:lastname2,
-                cel:cel,
-                email:email,
-                contrasena:datos.contrasena
+    const editarRegistro = async (x) => {
+        try {
+            const response = await axios.put(`http://localhost:3001/usuario/usuario_empleado/${x}`, {
+                name1: name1,
+                name2: name2,
+                lastname1: lastname1,
+                lastname2: lastname2,
+                cel: cel,
+                email: email,
+                contrasena: datos.contrasena
             });
             console.log(response.data);
-        }catch(err){
-            console.error('no se pudo hacer la peticion put  ',err);
+            // Refresh the page after successful update
+            window.location.reload();
+        } catch (err) {
+            console.error('no se pudo hacer la peticion put  ', err);
         }
-    }
+    };
+    
 
     const consulta=(function (){
         datos.consulta();});

@@ -1,0 +1,446 @@
+.container-principal_MetodoPago {
+    display: flex;
+    margin-top: 20px;
+}
+
+.container-lista-metodo_pago {
+    position: relative;
+    width: 100%;
+    background-color: #ffffff7c;
+    margin-left: 30px;
+    border-radius: 20px;
+    border: 1px solid #bec0c5;
+    padding: 20px;
+}
+
+.cabecera-metodopago {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300px;
+    background-color: #bec0c5;
+    border-radius: 17px 0px 17px 0px / 17px 17px 17px 17px;
+    padding: 10px;
+}
+
+.title-metodopago {
+    color: #ffffff;
+}
+
+.subContainer-metodopagoCards {
+    margin-top: 65px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.subContainer-metodopago {
+    margin-top: 65px;
+}
+
+
+
+/* ----------- INPUTS -----> */
+.container-inputs-metodo_pago {
+    position: relative;
+    width: 1000px;
+    height: 100%;
+    background-color: #ffffff7c;
+    border-radius: 20px;
+    border: 1px solid #bec0c5;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.buttonsContainer {
+    margin-top: auto;
+}
+
+/* labels -->*/
+.label-Metod_Pago {
+    color: #afb8ca;
+    font-weight: 400;
+}
+
+/* inputs text -->*/
+.input-Metod_pago {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #eef2f8;
+    border-radius: 20px;
+    color: #626f88;
+    outline: none;
+    width: 350px;
+}
+
+.input-Metod_pago:read-only{
+    background-color: #acb1b852;
+}
+
+.input-Metod_pago::placeholder {
+    color: #afb8ca;
+}
+
+.input-grup_metodpago {
+    margin: 30px 20px;
+}
+
+/* DROPDOWN ------>*/
+.dropdown {
+    position: relative;
+    max-width: 200px;
+    margin-top: 10px;
+}
+
+.selected {
+    background-color: #eef2f8;
+    color: #afb8ca;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    border-radius: 0.5em;
+    transition: background-color 0.3s ease;
+}
+
+.selected:hover {
+    background-color: #dee4ec;
+    border-radius: 0.5em;
+}
+
+/*Clic selected --> */
+.selected-clicked {
+    border: 2px solid #26489a;
+    box-shadow: 0 0 0.8em #26489a;
+
+    border-radius: 0.5em;
+}
+
+/* Caret --> */
+.caret {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #afb8ca;
+    transition: transform 0.3s ease;
+}
+
+.caret-rotate {
+    /* Caret rotando--> */
+    transform: rotate(180deg);
+}
+
+/* MENU DOROPDOWN -----> */
+.menu_dropdown {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: #eef2f8;
+    border: 1px solid #eef2f8;
+    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 45px;
+    left: 0;
+    width: 200px;
+    opacity: 1;
+    visibility: visible;
+    /* Cambiamos la visibilidad a visible */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 10;
+    color: #afb8ca;
+
+    border-radius: 0.5em;
+}
+
+.menu_dropdown li {
+    padding: 0.5em 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 0.5em;
+}
+
+.menu_dropdown li:hover {
+    background-color: #dee4ec;
+    border-radius: 0.5em;
+}
+
+/* Cuando esta activo --> */
+.menu_dropdown li.active {
+    background-color: #dee4ec;
+}
+
+/* SubMenu abierto */
+.menu_dropdown-open {
+    opacity: 1;
+    visibility: visible;
+    border-radius: 0.5em;
+}
+
+/* BOTONES DE ACCIONES EN LOS INPUTS*/
+.opciones_metodo_pago {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.desactivarMetodoPago:disabled {
+    color: rgb(88, 92, 97);
+    background-color: #e0e5e6;
+    box-shadow: none;
+    transition: all 0.3s ease;
+    cursor: no-drop;
+    transition: all .3s ease;
+}
+
+
+.desactivarMetodoPago:hover:disabled {
+    background-color: #adb3b4;
+    box-shadow: none;
+}
+
+/* SEPARADOR HORIZONTAL */
+.separador-metod_pago {
+    margin: 20px 0;
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: #a2a1a650;
+}
+
+.separador-metod_pago--Card {
+    margin: 5px 0;
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: #a2a1a650;
+}
+
+/* -----------: CARDS :-------------> */
+.container_card-metodopago {
+    display: flex;
+    position: relative;
+    border-radius: 20px;
+    background-color: white;
+    margin: 20px;
+    color: #626f88;
+    font-size: 12px;
+    box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    width: 380px;
+}
+
+.container_card-metodopago:hover {
+    background-color: #eef2f870;
+    border: 1px solid #ffb9919a;
+    box-shadow: 0px 0px 15px -3px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.container_card-metodopago:active {
+    background-color: #ffffff94;
+    border: 1px solid #ffb991e3;
+}
+
+.selected-card {
+    border: 1px solid #ffb991e3;
+}
+
+/*Imagen y estado etiqueta*/
+.img_container_metodopago {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img_y_etiqueta--metodo_pago {
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
+
+/* imagen */
+.contenedor-img_metodpago {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 120px;
+    max-width: 120px;
+    min-height: 120px;
+    max-height: 120px;
+    border-radius: 50%;
+    background-color: #e1f1e5;
+}
+
+.img--metodpago {
+    display: flex;
+    padding: 5px;
+    min-width: 90px;
+    max-width: 90px;
+    padding: 15px;
+    object-fit: cover;
+}
+
+/*Tag estado*/
+.etiqueta-estado_medotopago {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.etiqueta-MP {
+    padding: 2px 10px;
+    border-radius: 30px;
+    background-color: #626f8848;
+    color: white;
+}
+
+/* CASOS DE IMAGEN METODO PAGO--->
+    imgClases = ['--otro__MP','--Efectivo__MP','--Nequi__MP','--Daviplata__MP','--Tarjeta__MP']
+*/
+/*METODO PAGO = [0] 'otro'*/
+.--otro__MP {
+    background-color: #eefaf1;
+}
+
+/*METODO PAGO = [1] 'Efectivo'*/
+.--Efectivo__MP {
+    background-color: #e1f9fb;
+}
+
+/*METODO PAGO = [2] 'Nequi'*/
+.--Nequi__MP {
+    background-color: #ebe1fb;
+}
+
+/*METODO PAGO = [3] 'Daviplata'*/
+.--Daviplata__MP {
+    background-color: #fbe1f5;
+}
+
+/*METODO PAGO = [4] 'Tarjeta'*/
+.--Tarjeta__MP {
+    background-color: #fbefe1;
+}
+
+/* CASOS DE ESTADO --->
+    estadoClases = ['estMD_None','estMD_Activo','estMD_Inactivo','estMD_Diferente']
+*/
+/*Estado = [0] 'none'*/
+.estMD_None {
+    box-shadow: 0px 0px 15px 0px #626f8848;
+}
+
+/*Estado = [1] 'Activo'*/
+.estMD_Activo {
+    background-color: #5edf8e;
+    box-shadow: 0px 0px 15px 0px #a1ffc3;
+}
+
+/*Estado = [2] 'Inactivo'*/
+.estMD_Inactivo {
+    background-color: #ff5c5c;
+    box-shadow: 0px 0px 15px 0px #ff9393;
+}
+
+/*Estado = [3] 'diferente'*/
+.estMD_Diferente {
+    background-color: #ffab5c;
+    box-shadow: 0px 0px 15px 0px #ffd993;
+}
+
+/*Descripcion*/
+.descripcion-metodo_pago {
+    width: 100%;
+    margin-left: 20px;
+    display: block;
+}
+
+.desc--metodopago,
+.desc_MP--Tittle,
+.desc_MP--Result {
+    display: block;
+}
+
+.desc_MP--Tittle {
+    font-weight: 600;
+}
+
+/*ID Card --->*/
+
+.contenedor--IDcard {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.idMetodoPago_S {
+    margin: 10px;
+}
+
+#idMetodoPago {
+    background-color: #faf5ee;
+    color: #df925e;
+    border: 1px solid #924e205e;
+    font-weight: 600;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+/*Card hover*/
+.card--_Main {
+    display: flex;
+    padding: 20px;
+}
+
+.card_Contenido-Hover {
+    position: absolute;
+    display: flex;
+    z-index: 100;
+    background-color: rgba(247, 251, 255, 0.90);
+    color: #626f88;
+    transition: all 0.3s ease;
+    font-size: 12px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    padding: 20px;
+    border: 1px solid #7378813a;
+    transition: all 1s ease;
+    opacity: 0;
+}
+
+.show-card_hover{
+    opacity: 1;
+}
+
+
+.card_Hover-Options{
+    display: flex;
+}
+
+.card-hover-subcontent{
+    display: block;
+    align-items: center;
+    justify-content: center;
+}
+
+.title-hover-card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+}
+.card_Hover-Options{
+    margin-top: 20px;
+}

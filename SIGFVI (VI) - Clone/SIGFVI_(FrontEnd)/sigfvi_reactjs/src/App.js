@@ -9,14 +9,10 @@ import Layout from './pages-views/mainLayout';
 
 
 function App() {
-  const [loggedInUser, setLoggedInUser] = useState(null);
 
-  const handleLogin = (userInfo) => {
-    setLoggedInUser(userInfo);
-  };
   return (
     <div className="App">
-      {loggedInUser ? (<Layout user={loggedInUser} />) : (<LoginMain onLogin={handleLogin} />)}
+      <Layout />
     </div>
   );
 }

@@ -1,7 +1,10 @@
 -- Active: 1695004089364@@127.0.0.1@3306@sigfvi_v2
+/* 
+**** 1: Se borraron campos de la tabla inventario
+*/
 
 CREATE DATABASE SIGFVI_V2;
-
+-- DROP DATABASE SIGFVI_V2;
 USE SIGFVI_V2;
 
 -- #1 Estado -------------->
@@ -29,10 +32,9 @@ CREATE TABLE
         ID_Producto_PK VARCHAR(15) NOT NULL COMMENT 'Campo como llave primaria de tipo varchar del producto.',
         ID_Tipo_Producto_FK TINYINT NOT NULL,
         Nombre_Producto VARCHAR(25) NOT NULL COMMENT 'Campo con el nombre del producto.',
-        Cantida_Neto_producto MEDIUMINT NOT NULL COMMENT 'Campo con la cantidad neta del producto segun el tipo de producto.',
+        Descripcion varchar(20) NOT NULL COMMENT 'Campo con una descripcion basica del producto.',
         Precio_Proveedor DECIMAL(11, 2) UNSIGNED NOT NULL COMMENT 'Campo con el precio inicial de compra a el proveedor.',
         Precio_Venta DECIMAL(11, 2) UNSIGNED NOT NULL COMMENT 'Campo con el precio de venta al cliente.',
-        Fecha_Vencimiento DATE NOT NULL COMMENT 'Campo con la fecha de vencimiento del producto.',
         Foto_Producto VARCHAR(255) NOT NULL COMMENT 'Campo en donde se almacena la url o direccion de alojamiento de la imagen.',
         ID_Estado_FK TINYINT NOT NULL COMMENT 'Campo de la llave foranea que viene desde la tabla Estado(ID_Estado_PK).',
         PRIMARY KEY (ID_Producto_PK),
@@ -72,7 +74,7 @@ CREATE TABLE
         Segundo_Apellido_Usuario VARCHAR(45) NULL DEFAULT NULL COMMENT 'Campo con el segundo apellido de usuario.',
         Numero_Contacto_Usuario VARCHAR(10) NOT NULL COMMENT 'Campo con el numero del contacto de un usuario de tipo cadena de texto.',
         Email_Usuario VARCHAR(45) NOT NULL COMMENT 'Campo con el correo electorinico del usuario.',
-        Password_Usuario VARCHAR(45) NOT NULL COMMENT 'Campo con la password de ingreso a el sistema del usuario.',
+        Password_Usuario TEXT NOT NULL COMMENT 'Campo con la password de ingreso a el sistema del usuario.',
         ID_Tipo_Cargo_FK TINYINT NOT NULL COMMENT 'Campo con el tipo del cargo asignado a el Usuario como llave foranea',
         ID_Estado_FK TINYINT NOT NULL COMMENT 'Campo para el estado actual del Usuario',
         PRIMARY KEY (
@@ -84,11 +86,15 @@ CREATE TABLE
         FOREIGN KEY (ID_Tipo_Identificacion_FKPK) REFERENCES Tipo_identificacion (ID_Tipo_Identificacion_PK)
     );
 
+-- ALTER TABLE Usuario MODIFY COLUMN Password_Usuario TEXT NOT NULL;
+-- DESCRIBE Usuario;
+SELECT * FROM Usuario;
+
 -- #7 Usuario -------------->
 
 CREATE TABLE
     Registro_Proveedor (
-        ID_Registro_Proveedor_PK SMALLINT(3) NOT NULL COMMENT 'Campo con el ID como identificador unico de cada Proveedor.',
+        ID_Registro_Proveedor_PK INT AUTO_INCREMENT COMMENT 'Campo con el ID como identificador unico de cada Proveedor auto incrementable de tipo entero.',
         Nombre_Empresa VARCHAR(45) NOT NULL COMMENT 'Campo con el nombre del Proveedor.',
         Dia_Visita VARCHAR(60) NOT NULL COMMENT 'Campo de tipo varchar para almacenar el dia o los dias de la visita del proveedor.',
         Telefono_Contacto VARCHAR(12) NOT NULL COMMENT 'Campo de tipo varchar con el numero telefonico del proveedor.',
@@ -97,6 +103,8 @@ CREATE TABLE
         FOREIGN KEY (Estado_ID_Estado_PK) REFERENCES Estado (ID_Estado_PK)
     );
 
+
+-- ALTER TABLE Registro_Proveedor MODIFY COLUMN ID_Registro_Proveedor_PK INT AUTO_INCREMENT;
 -- #8 Cuenta_Deudor -------------->
 
 CREATE TABLE
@@ -117,9 +125,13 @@ CREATE TABLE
 
 CREATE TABLE
     Metodo_de_pago (
-        ID_Metodo_Pago_PK TINYINT NOT NULL COMMENT 'Campo con la llave primaria del metodo de pago',
+        ID_Metodo_Pago_PK SMALLINT AUTO_INCREMENT NOT NULL COMMENT 'Campo con la llave primaria del metodo de pago',
         Nombre_Metodo VARCHAR(45) NOT NULL COMMENT 'Campo con el nombre del metodo de pago.',
-        PRIMARY KEY (ID_Metodo_Pago_PK)
+        Tipo_Metodo_Pago VARCHAR(45) NOT NULL COMMENT 'Campo con el nombre del tipo de metodo de pago.',
+        Referencia VARCHAR(45) COMMENT 'Campo con el nombre de la referencia del metodo de pago, puede estar vacio',
+        ID_Estado_FK TINYINT NOT NULL COMMENT 'Campo con la llave foranea de la tabla Estado para los metodos de pagos.',
+        PRIMARY KEY (ID_Metodo_Pago_PK),
+        FOREIGN KEY (Id_Estado_FK) REFERENCES Estado(ID_Estado_PK)
     );
 
 -- #10 Saldo_Cuenta_Deudor -------------->
@@ -139,7 +151,7 @@ CREATE TABLE
 CREATE TABLE
     Pedido (
         ID_Pedido_PK INT NOT NULL AUTO_INCREMENT COMMENT 'Campo con la llave primaria del pedido.',
-        ID_Metodo_Pago_FK TINYINT NOT NULL COMMENT 'Campo con el ID de la llave foranea del metodo de pago.',
+        ID_Metodo_Pago_FK SMALLINT NOT NULL COMMENT 'Campo con el ID de la llave foranea del metodo de pago.',
         Fecha_Pedido DATE NOT NULL COMMENT 'Campo con la fecha en la que crea el pedido.',
         Hora_Pedido TIME NOT NULL COMMENT 'Campo con la hora en la que se crea el pedido.',
         IVA TINYINT(30) NOT NULL COMMENT 'Campo en donde se calcula el total del IVA segun el total del pedido.',
@@ -188,13 +200,10 @@ SELECT * FROM Facturacion;
 
 CREATE TABLE
     Inventario (
-        ID_Inventario_PK SMALLINT(10) AUTO_INCREMENT NOT NULL COMMENT 'Campo que contiene la clave unica del registro del inventario autoincrementable.',
-        Cantidad_Lote SMALLINT(10) NOT NULL COMMENT 'Campo del numero de la cantidad de entrada del lote de un producto',
+        ID_Inventario_PK SMALLINT(10) AUTO_INCREMENT NOT NULL COMMENT 'Campo que contiene la clave única del registro del inventario autoincrementable.',
         Stock INT UNSIGNED NOT NULL COMMENT 'Campo que calcula y agrupa la cantidad del stock de productos registrados.',
-        ID_Estado_FK TINYINT NOT NULL COMMENT 'Campo en el que se asigna el ID del Estado actual del inventario',
-        ID_Producto_FK VARCHAR(15) NOT NULL COMMENT 'Campo con la llave foranea el ID del producto referenciado',
+        ID_Producto_FK VARCHAR(15) NOT NULL COMMENT 'Campo con la llave foránea el ID del producto referenciado.',
         PRIMARY KEY (ID_Inventario_PK),
-        FOREIGN KEY (ID_Estado_FK) REFERENCES Estado (ID_Estado_PK),
         FOREIGN KEY (ID_Producto_FK) REFERENCES Producto (ID_Producto_PK)
     );
 
@@ -216,9 +225,9 @@ CREATE TABLE
         Descripcion_Salida TEXT(400) NOT NULL COMMENT 'Campo con la descripcion detallada de la salida de un producto en el inventario',
         Fecha_Salida DATE NOT NULL COMMENT 'Campo con el ingreso de la fecha de la salida de un producto en el inventario.',
         Hora_Salida TIME NOT NULL COMMENT 'Campo con el ingreso de la hora de la salida de un producto en el inventario.',
-        ID_Inventario_FK SMALLINT(10) NOT NULL COMMENT 'Campo con la llave foranea del Inventario',
-        ID_Ident_Usu_FK VARCHAR(25) NOT NULL COMMENT 'Campo con la llave foranea del usuario',
-        ID_Tipo_Ident_Usu_FKPK TINYINT NOT NULL COMMENT 'Campo con la llave compuesta con tipo de identificacion del usuario',
+        ID_Inventario_FK SMALLINT(10) COMMENT 'Campo con la llave foranea del Inventario',
+        ID_Ident_Usu_FK VARCHAR(25) COMMENT 'Campo con la llave foranea del usuario',
+        ID_Tipo_Ident_Usu_FKPK TINYINT COMMENT 'Campo con la llave compuesta con tipo de identificacion del usuario',
         PRIMARY KEY (
             ID_Salida_producto_Inventario_PK
         ),
@@ -231,6 +240,9 @@ CREATE TABLE
             ID_Tipo_Identificacion_FKPK
         )
     );
+--
+-- DESCRIBE Salida_producto_Inventario;
+-- ALTER TABLE Salida_producto_Inventario MODIFY COLUMN ID_Inventario_FK SMALLINT(10) ;
 
 -- #17 Tipo_Informe_Inventario -------------->
 
@@ -252,17 +264,21 @@ CREATE TABLE
 
 CREATE TABLE
     Entrada_Producto (
-        ID_Entrada_Producto_PK INT NOT NULL COMMENT 'Campo con la llave primaria del ID de la entra del producto a el sistema',
+        ID_Entrada_Producto_PK INT AUTO_INCREMENT NOT NULL COMMENT 'Campo con la llave primaria del ID de la entra del producto a el sistema',
         Fecha_Entrada_Producto DATE NOT NULL COMMENT 'Campo que almacena la fecha de entrada de un producto en el sistema.',
         Hora_Entrada_Producto TIME NOT NULL COMMENT 'Campo que almacena la hora de entrada de un producto en el sistema.',
-        ID_Producto_FK VARCHAR(15) NOT NULL COMMENT 'Campo con la llave foranea del ID del producto asociado',
+        ID_Inventario_FK SMALLINT(10) NOT NULL COMMENT 'Campo con la llave foranea del ID del producto asociado',
         PRIMARY KEY (ID_Entrada_Producto_PK),
-        FOREIGN KEY (ID_Producto_FK) REFERENCES Producto (ID_Producto_PK)
+        FOREIGN KEY (ID_Inventario_FK) REFERENCES Inventario (ID_Inventario_PK)
     );
-
+    -- ALTER TABLE Entrada_Producto AUTO_INCREMENT=0;
+ --   DROP TABLE Tipo_Informe_Empleado;
+ --   DROP TABLE Entrada_Producto;
+    
+    SELECT * FROM Inventario;
+    DESCRIBE Inventario;
+    
 -- #19 Tipo_Informe_Empleado -------------->
-
--- drop table Tipo_Informe_Empleado;
 
 CREATE TABLE
     Tipo_Informe_Empleado (
@@ -318,5 +334,5 @@ CREATE TABLE
         FOREIGN KEY (ID_Producto_FKPK) REFERENCES Producto (ID_Producto_PK)
     );
     
-    
+-- DROP TABLE Registro_Proveedor_has_Producto;
     

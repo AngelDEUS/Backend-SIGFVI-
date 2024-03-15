@@ -7,16 +7,46 @@ import "./estilosListaVentas.css"
 import './Tabla.css';
 import './mod_ventas.css';
 
+// Modal
+import { useModal } from '../../hooks/modal/useModal.js';
+import Modal from '../../components/modal/Modal.jsx'
 
-const main_VentasFacturacion = () => {
+
+const Main_VentasFacturacion = () => {
+
+  // Modal de Actualizar
+  const [isOpenModal1, OpenModal1, closeModal1] = useModal(false); // Desestructuracion del Hook useModal
+  const tittleModal = 'Actualizar Pedido';
+  const descModal = `Esta venta funciona para actualizar los datos de un pedido, tenga en cuenta que no se puede editar el ID, además rectifique antes de actualizar por favor.
+  Siempre puede volver a actualizar, si así lo desee.`;
+
+  //Modal De Agregar
+  const [isOpenModalAgregar, OpenModalAgregar, closeModalAgregar] = useModal(false); // Desestructuracion del Hook useModal
+  const tittleModalAgregar = 'Agregar Pedido';
+  const descModalAgregar = `Esta venta funciona para agregar un nuevo pedido a la tabla, tenga en cuenta que no se puede agregar un ID que ya exista, además rectifique antes de agregar por favor.`;
 
   const titulo = 'Listado de ventas';
-  const descipcion = 'En este panel se mostrarán todas las ventas';
+  var fechaActual = new Date();
+  var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  var fechaFormateada = fechaActual.toLocaleDateString('es-ES', options);
+  const descipcion = `En este panel se mostrarán todos los pedidos registrados hasta la fecha (${fechaFormateada}).`;
 
   // -->
   const [pedidos, setPedidos] = useState([]);
   const [idPedido, setIdPedido] = useState('');
   const [pedidoEncontrado, setPedidoEncontrado] = useState(null);
+
+  // Para agragar mi Pedido.
+  const [agregarPedido, setAgregarPedido] = useState({
+    ID_Pedido_PK: '',
+    ID_Metodo_Pago_FK: '',
+    Fecha_Pedido: '',
+    Hora_Pedido: '',
+    IVA: '',
+    Total_Pedido: '',
+    ID_Estado_FK: '',
+    ID_Saldo_PK: ''
+  });
 
   // Para editar mi Pedido.
   const [editarPedido, setEditarPedido] = useState({
@@ -29,14 +59,12 @@ const main_VentasFacturacion = () => {
     ID_Estado_FK: '',
     ID_Saldo_PK: ''
   });
-
   useEffect(() => {
     /* 
         Llamar a la función de obtener pedidos al cargar el componente.
     */
     obtenerPedidos();
   }, []);
-
 
   const obtenerPedidos = () => {
     Axios.get("http://localhost:3001/pedidos")
@@ -55,6 +83,7 @@ const main_VentasFacturacion = () => {
     setIdPedido(event.target.value);
   };
 
+  // BUSCAR PEDIDOS:
   const buscarPedido = () => {
     if (idPedido) {
       Axios.get(`http://localhost:3001/pedido/${idPedido}`)
@@ -73,8 +102,48 @@ const main_VentasFacturacion = () => {
     }
   };
 
+  // CREAR PEDIDOS:
+  const agregarNuevoPedido = () => {
+    Axios.post('http://localhost:3001/pedido', agregarPedido)
+      .then(response => {
+        console.log('Pedido agregado correctamente:', response.data);
+        // Actualizar la lista de pedidos después de agregar uno nuevo
+        obtenerPedidos();
+        // Limpiar los campos del formulario
+        setAgregarPedido({
+          ID_Metodo_Pago_FK: '',
+          Fecha_Pedido: '',
+          Hora_Pedido: '',
+          IVA: '',
+          Total_Pedido: '',
+          ID_Estado_FK: '',
+          ID_Saldo_PK: ''
+        });
+        // Cerrar el modal de agregar pedido
+        closeModalAgregar();
+        Swal.fire({
+          icon: 'success',
+          title: 'Pedido agregado correctamente',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      })
+      .catch(error => {
+        console.error('Error al agregar pedido:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al agregar pedido',
+          text: 'Por favor, intenta de nuevo más tarde',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      });
+  };
+
+
 
   const editarPedidoHandler = (pedido) => {
+    OpenModal1(); // Abrimos el modal
     /* ---- Función para cargar los datos del pedido en los campos de edicion  ---*/
     setEditarPedido({
       ID_Pedido_PK: pedido.ID_Pedido_PK,
@@ -100,19 +169,49 @@ const main_VentasFacturacion = () => {
       ID_Estado_FK: '',
       ID_Saldo_PK: ''
     });
+    setAgregarPedido({
+      ID_Pedido_PK: '',
+      ID_Metodo_Pago_FK: '',
+      Fecha_Pedido: '',
+      Hora_Pedido: '',
+      IVA: '',
+      Total_Pedido: '',
+      ID_Estado_FK: '',
+      ID_Saldo_PK: ''
+    });
+    closeModal1();
+    closeModalAgregar();
   };
 
   // ACTUALIZAR PEDIDO: ----->
   const actualizarPedido = () => {
-    Axios.put(`http://localhost:3001/pedidoActualizar/${editarPedido.ID_Pedido_PK}`, editarPedido)
-      .then(() => {
-        console.log('Pedido actualizado correctamente');
-        obtenerPedidos(); // Actualizar lista de pedidos
-        limpiarCampos();
-      })
-      .catch((error) => {
-        console.error('Error al actualizar el pedido:', error);
-      });
+    const ID_Pedido_PK = editarPedido.ID_Pedido_PK;
+    Swal.fire({
+      title: "¿Estas seguro de Actualizar?",
+      text: "Recuerda, que siempre puedes cancelar la accion.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, Actualiza!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Actualizado con Exito.",
+          text: `Tu pedido con id: (${ID_Pedido_PK}), ha sido actualizado.`,
+          icon: "success"
+        });
+        Axios.put(`http://localhost:3001/pedidoActualizar/${editarPedido.ID_Pedido_PK}`, editarPedido)
+          .then(() => {
+            console.log('Pedido actualizado correctamente');
+            obtenerPedidos(); // Actualizar lista de pedidos
+            limpiarCampos();
+          })
+          .catch((error) => {
+            console.error('Error al actualizar el pedido:', error);
+          });
+      }
+    });
   };
 
   // ELIMINAR PEDIDO: ----->
@@ -154,68 +253,122 @@ const main_VentasFacturacion = () => {
   return (
     <div>
       <TituloyDesc titulo={titulo} descripcion={descipcion} />
-
-      <div className="editarPedido">
-        <div className="inputsGrup">
-          <fieldset>
-            <legend>Inputs a actualizar</legend>
-            <div className="inputs-grup">
-              <div className="form-group">
-                <label>ID</label>
-                <input type="text" id="input0" placeholder="Ingrese valor" disabled value={editarPedido.ID_Pedido_PK} 
-                onChange={(e) => setEditarPedido({ ...editarPedido, ID_Pedido_PK: e.target.value })}/>
+      {/* Modal para Ingresar un pedido */}
+      <Modal isOpen={isOpenModalAgregar} closeModal={closeModalAgregar} tittleModal={tittleModalAgregar} descModal={descModalAgregar}>
+        <div className="editarPedido">
+          <div className="inputsGrup">
+            <fieldset>
+              <legend>Entradas para agregar un pedido</legend>
+              <div className="inputs-grup">
+                <div className="form-group">
+                  <label>Id Metodo de Pago</label>
+                  <input type="text" placeholder="Ingrese el ID del método de pago" value={agregarPedido.ID_Metodo_Pago_FK} onChange={(e) => setAgregarPedido({ ...agregarPedido, ID_Metodo_Pago_FK: e.target.value })} />
+                </div>
+                <div className="form-group">
+                  <label>Fecha Pedido</label>
+                  <input type="text" placeholder="Ingrese la fecha del pedido" value={agregarPedido.Fecha_Pedido} onChange={(e) => setAgregarPedido({ ...agregarPedido, Fecha_Pedido: e.target.value })} />
+                </div>
+                <div className="form-group">
+                  <label>Hora Pedido</label>
+                  <input type="text" placeholder="Ingrese la hora del pedido" value={agregarPedido.Hora_Pedido} onChange={(e) => setAgregarPedido({ ...agregarPedido, Hora_Pedido: e.target.value })} />
+                </div>
               </div>
-              <div className="form-group">
-                <label>Id Metodo de Pago</label>
-                <input type="text" id="input1" placeholder="Ingrese valor" value={editarPedido.ID_Metodo_Pago_FK} 
-                onChange={(e) => setEditarPedido({ ...editarPedido, ID_Metodo_Pago_FK: e.target.value })}/>
+              <div className="inputs-grup">
+                <div className="form-group">
+                  <label>IVA</label>
+                  <input type="text" placeholder="Ingrese el valor del IVA" value={agregarPedido.IVA} onChange={(e) => setAgregarPedido({ ...agregarPedido, IVA: e.target.value })} />
+                </div>
+                <div className="form-group">
+                  <label>Total Pedido</label>
+                  <input type="text" placeholder="Ingrese el total del pedido" value={agregarPedido.Total_Pedido} onChange={(e) => setAgregarPedido({ ...agregarPedido, Total_Pedido: e.target.value })} />
+                </div>
+                <div className="form-group">
+                  <label>ID Estado</label>
+                  <input type="text" placeholder="Ingrese el ID del estado" value={agregarPedido.ID_Estado_FK} onChange={(e) => setAgregarPedido({ ...agregarPedido, ID_Estado_FK: e.target.value })} />
+                </div>
               </div>
-              <div className="form-group">
-                <label>Fecha Pedido</label>
-                <input type="text" id="input2" placeholder="Ingrese valor" value={editarPedido.Fecha_Pedido} 
-                onChange={(e) => setEditarPedido({ ...editarPedido, Fecha_Pedido: e.target.value })}/>
+              <div className="inputs-grup">
+                <div className="form-group">
+                  <label>ID Saldo deudor</label>
+                  <input type="text" placeholder="Ingrese el ID del saldo deudor" value={agregarPedido.ID_Saldo_PK} onChange={(e) => setAgregarPedido({ ...agregarPedido, ID_Saldo_PK: e.target.value })} />
+                </div>
               </div>
-              <div className="form-group">
-                <label>Hora Pedido</label>
-                <input type="text" id="input3" placeholder="Ingrese valor" value={editarPedido.Hora_Pedido} 
-                onChange={(e) => setEditarPedido({ ...editarPedido, Hora_Pedido: e.target.value })}/>
+              <div className="divisorHr2"></div>
+              <div className="inputs-grup">
+                <button className='btn_f actualizar' type="button" onClick={agregarNuevoPedido}>Agregar Pedido</button>
+                <button className='btn_f cancelarActualizar' type="button" onClick={limpiarCampos}>Cancelar</button>
               </div>
-            </div>
-
-            <div className="inputs-grup">
-              <div className="form-group">
-                <label>IVA</label>
-                <input type="text" id="input4" placeholder="Ingrese valor" value={editarPedido.IVA} 
-                onChange={(e) => setEditarPedido({ ...editarPedido, IVA: e.target.value })}/>
-              </div>
-              <div className="form-group">
-                <label>Total Pedido</label>
-                <input type="text" id="input5" placeholder="Ingrese valor" value={editarPedido.Total_Pedido} 
-                onChange={(e) => setEditarPedido({ ...editarPedido, Total_Pedido: e.target.value })}/>
-              </div>
-              <div className="form-group">
-                <label>ID Estado</label>
-                <input type="text" id="input6" placeholder="Ingrese valor" value={editarPedido.ID_Estado_FK}  
-                onChange={(e) => setEditarPedido({ ...editarPedido, ID_Estado_FK: e.target.value })}/>
-              </div>
-            </div>
-
-            <div className="inputs-grup">
-              <div className="form-group">
-                <label>ID Saldo deudor</label>
-                <input type="text" id="input7" placeholder="Ingrese valor" disabled value={editarPedido.ID_Saldo_PK}
-                onChange={(e) => setEditarPedido({ ...editarPedido, ID_Saldo_PK: e.target.value })}/>
-              </div>
-            </div>
-            <div className="divisorHr2"></div>
-            <div className="inputs-grup">
-              <button className='btn_f actualizar' type="button" onClick={actualizarPedido}>Actualizar</button>
-              <button className='btn_f cancelarActualizar' type="button" onClick={limpiarCampos}>Cancelar</button>
-            </div>
-          </fieldset>
+            </fieldset>
+          </div>
         </div>
-      </div>
-      <div className="divisorHr"></div>
+      </Modal>
+
+      {/* Se aplica el MODAL */}
+      <Modal isOpen={isOpenModal1} closeModal={closeModal1} tittleModal={tittleModal} descModal={descModal}>
+        <div className="editarPedido">
+          <div className="inputsGrup">
+            <fieldset>
+              <legend>Inputs a actualizar</legend>
+              <div className="inputs-grup">
+                <div className="form-group">
+                  <label>ID</label>
+                  <input type="text" id="input0" placeholder="Ingrese valor" disabled value={editarPedido.ID_Pedido_PK}
+                    onChange={(e) => setEditarPedido({ ...editarPedido, ID_Pedido_PK: e.target.value })} />
+                </div>
+                <div className="form-group">
+                  <label>Id Metodo de Pago</label>
+                  <input type="text" id="input1" placeholder="Ingrese valor" value={editarPedido.ID_Metodo_Pago_FK}
+                    onChange={(e) => setEditarPedido({ ...editarPedido, ID_Metodo_Pago_FK: e.target.value })} />
+                </div>
+                <div className="form-group">
+                  <label>Fecha Pedido</label>
+                  <input type="text" id="input2" placeholder="Ingrese valor" value={editarPedido.Fecha_Pedido}
+                    onChange={(e) => setEditarPedido({ ...editarPedido, Fecha_Pedido: e.target.value })} />
+                </div>
+                <div className="form-group">
+                  <label>Hora Pedido</label>
+                  <input type="text" id="input3" placeholder="Ingrese valor" value={editarPedido.Hora_Pedido}
+                    onChange={(e) => setEditarPedido({ ...editarPedido, Hora_Pedido: e.target.value })} />
+                </div>
+              </div>
+
+              <div className="inputs-grup">
+                <div className="form-group">
+                  <label>IVA</label>
+                  <input type="text" id="input4" placeholder="Ingrese valor" value={editarPedido.IVA}
+                    onChange={(e) => setEditarPedido({ ...editarPedido, IVA: e.target.value })} />
+                </div>
+                <div className="form-group">
+                  <label>Total Pedido</label>
+                  <input type="text" id="input5" placeholder="Ingrese valor" value={editarPedido.Total_Pedido}
+                    onChange={(e) => setEditarPedido({ ...editarPedido, Total_Pedido: e.target.value })} />
+                </div>
+                <div className="form-group">
+                  <label>ID Estado</label>
+                  <input type="text" id="input6" placeholder="Ingrese valor" value={editarPedido.ID_Estado_FK}
+                    onChange={(e) => setEditarPedido({ ...editarPedido, ID_Estado_FK: e.target.value })} />
+                </div>
+              </div>
+
+              <div className="inputs-grup">
+                <div className="form-group">
+                  <label>ID Saldo deudor</label>
+                  <input type="text" id="input7" placeholder="Ingrese valor" disabled value={editarPedido.ID_Saldo_PK}
+                    onChange={(e) => setEditarPedido({ ...editarPedido, ID_Saldo_PK: e.target.value })} />
+                </div>
+              </div>
+              <div className="divisorHr2"></div>
+              <div className="inputs-grup">
+                <button className='btn_f actualizar' type="button" onClick={actualizarPedido}>Actualizar</button>
+                <button className='btn_f cancelarActualizar' type="button" onClick={limpiarCampos}>Cancelar</button>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </Modal>
+      {/* Finaliza el MODAL */}
+
+      {/* <div className="divisorHr"></div> */}
       <div className="linstaVentas-Contenedor">
         <div className="lista">
           <div className="busqueda__prod-Light">
@@ -231,6 +384,7 @@ const main_VentasFacturacion = () => {
                 />
                 <button className='btn_buscar' onClick={buscarPedido}>Buscar</button>
               </div>
+              <button className='btn_f nuevoP' onClick={OpenModalAgregar}>Nuevo Pedido</button>
             </div>
           </div>
           <section className="table__body">
@@ -298,4 +452,4 @@ const main_VentasFacturacion = () => {
   )
 }
 
-export default main_VentasFacturacion;
+export default Main_VentasFacturacion;

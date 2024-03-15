@@ -1,41 +1,67 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Tabla.css';
 import Edit_user from './Edit_user';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
-
 export const Tabla_users_item = (props) => {
+  const [textoActivar, setTextoActivar] = useState('');
+  const [estado, setEstado] = useState(parseInt(props.idEstado));
+  const [mostrarEditForm, setMostrarEditForm] = useState(false);
 
-    const [mostrarEditForm , setMostrarEditForm] = useState(false);
+  useEffect(() => {
+    ponerTexto();
+  }, [estado]);
 
-    const handleMostrarEdit= () =>{            
-        setMostrarEditForm(!mostrarEditForm);          
+  const ponerTexto = () => {
+    setTextoActivar(estado === 1 ? 'Desactivar' : 'Activar');
+  };
+
+  const handleMostrarEdit = () => {
+    setMostrarEditForm(!mostrarEditForm);
+  };
+
+  const handleEditUser = async (editedData) => {
+    try {
+      await axios.put(`http://localhost:3001/usuario/editar/${props.id}`, editedData);
+
+      Swal.fire({
+        title: 'Actualizado!',
+        text: `Se editaron los datos del usuario ${props.name1}`,
+        icon: 'success',
+      });
+
+      // Actualizar solo los datos necesarios después de editar
+      props.consulta();
+
+    } catch (error) {
+      console.error('No se pudo editar el usuario en la función handleEditUser', error);
     }
+  };
 
-    function confirmDelete(val){
-        Swal.fire({
-            icon:'warning',
-            title:'<h2 style="color:yellow">¿Desea eliminar este registro?</h2>',
-            background:'#252327',
-            confirmButtonColor:'#f2bb15',
-            confirmButtonText:`Eliminar`,
-            showCancelButton: true,
-            cancelButtonText:'Cancelar',
-            toast:true
-        }).then(response => {
-            if(response.isConfirmed){
-                axios.delete(`http://localhost:3001/eliminar/${val.id}`).then(()=>{
-                    Swal.fire({
-                        title: "Eliminado!",
-                        text: `El empleado ${val.name}, se ha eliminado`,
-                        icon: "success"
-                      });
-                      props.consulta();
-                })
-            }
-        })
+  const confirmDelete = async (val) => {
+    const newEstado = estado === 1 ? 0 : 1;
+
+    try {
+      await axios.put(`http://localhost:3001/usuario/cambioestadoempleado/${val.id}`, {
+        state: newEstado,
+      });
+
+      setEstado(newEstado);
+
+      Swal.fire({
+        title: 'Actualizado!',
+        text: `Se cambió el estado del Gerente ${val.name1}`,
+        icon: 'success',
+      });
+
+      // Actualizar solo los datos necesarios después de cambiar el estado
+      props.consulta();
+
+    } catch (error) {
+      console.error('No se pudo cambiar de estado en la función confirmDelete', error);
     }
+  };
 
   return (
     <>
@@ -66,7 +92,17 @@ export const Tabla_users_item = (props) => {
         </td>
         <td>
             <button type="button" id="edit" name="edit" className="boton b1" onClick={handleMostrarEdit}>Editar</button>
-            <button type="button"id="delete" name="delete" className="boton b2" onClick={()=>{confirmDelete(props)}}>Borrar</button>
+            <button
+          type="button"
+          id="delete"
+          name="delete"
+          className="boton b2"
+          onClick={() => {
+            confirmDelete(props);
+          }}
+        >
+          {textoActivar}
+        </button>
         </td>
     </tr>
     {mostrarEditForm && <Edit_user closeModal={handleMostrarEdit} datos={props}/>}
