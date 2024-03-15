@@ -41,7 +41,7 @@ const GraficasProduc = () => {
             <YAxis />
             <Tooltip />
             {/* <Legend /> */}
-            <Bar dataKey="Stock" fill='#000000' />
+            <Bar dataKey="Stock" fill='#28344b' />
           </BarChart>
         </ResponsiveContainer>
       </div>
@@ -88,7 +88,7 @@ const GraficasMasVendido = () => {
               <YAxis />
               <Tooltip />
               {/* <Legend /> */}
-              <Bar dataKey="Cantidad_Vendida" fill='#000000' />
+              <Bar dataKey="Cantidad_Vendida" fill='#28344b' />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -130,7 +130,7 @@ const GraficasMasVendido = () => {
             <XAxis dataKey="Nombre" />
             <YAxis />
             <Tooltip />
-            <Bar dataKey="Stock" fill='#E74C3C' />
+            <Bar dataKey="Stock" fill='#fc7c00' />
           </BarChart>
         </ResponsiveContainer>
       </div>
