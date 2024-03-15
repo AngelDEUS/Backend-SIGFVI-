@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 
+<<<<<<< HEAD
 export const RegisterAdmin = ({ isOpen, closeModal, reConsulta }) => {
 
     const agregarRegistro = () => {
@@ -33,6 +34,25 @@ export const RegisterAdmin = ({ isOpen, closeModal, reConsulta }) => {
         });
     }
 
+=======
+
+export const RegisterAdmin = ({isOpen, closeModal,reConsulta}) => {
+    
+
+    const agregarRegistro = () =>{
+        axios.post("http://localhost:3001/usuario/Create",{
+            "id" : numid,
+            "tipoid" : tipoid,
+            "name1" : name1,
+            "name2" : name2,
+            "lastname1" : apell1,
+            "lastname2" :apell2,
+            "cel" : cel,
+            "email" : email,
+            "contrasena" :password,
+        })
+    }
+>>>>>>> origin/Login
    
     const [numid,setNumid] = useState('');
     const [tipoid,setTipoid] = useState('');

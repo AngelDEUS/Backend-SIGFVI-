@@ -1,10 +1,18 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
+<<<<<<< HEAD
 const Register_deudor = ({ isOpen, closeModal, reConsulta }) => {
     const agregarRegistro = () => {
         axios.post("http://localhost:3001/usuario/createdeudor", {
+=======
+const Register_deudor = ({isOpen, closeModal, reConsulta}) => {
+
+    const agregarRegistro = () =>{
+        axios.post("http://localhost:3001/usuario/createdeudor",{
+>>>>>>> origin/Login
             "id": id,
             "name1": name1,
             "name2": name2,
@@ -12,6 +20,7 @@ const Register_deudor = ({ isOpen, closeModal, reConsulta }) => {
             "lastname2": lastname2,
             "address": address,
             "tel": tel,
+<<<<<<< HEAD
             "saldo": saldo
         }).then(response => {
             reConsulta();
@@ -39,6 +48,22 @@ const Register_deudor = ({ isOpen, closeModal, reConsulta }) => {
     const [address, setAddress] = useState('');
     const [tel, setTel] = useState('');
     const [saldo, setSaldo] = useState('');
+=======
+            "saldo":saldo
+        })
+    }
+
+    const [id,setId] = useState('');
+    const [name1,setName1] = useState('');
+    const [name2,setName2] = useState('');
+    const [lastname1,setLastname1] = useState('');
+    const [lastname2,setLastname2] = useState('');
+    const [address,setAddress] = useState('');
+    const [tel,setTel] = useState('');
+    const [saldo,setSaldo] = useState('');
+    
+    if(!isOpen) return null ;
+>>>>>>> origin/Login
 
     if (!isOpen) return null;
 
@@ -188,6 +213,14 @@ const Register_deudor = ({ isOpen, closeModal, reConsulta }) => {
             console.log(con);
             /*Innombre.focus();*/
         }
+<<<<<<< HEAD
+=======
+        if(!Verificar_name1()){
+            con=false;
+            console.log(con);
+            /*Innombre.focus();*/
+        }
+>>>>>>> origin/Login
         if(!Verificar_name2()){
             con=false;
             console.log(con);
@@ -217,6 +250,7 @@ const Register_deudor = ({ isOpen, closeModal, reConsulta }) => {
         if (con) {
             // Si todas las condiciones son verdaderas, muestra la alerta de éxito y agrega el registro
             Swal.fire({
+<<<<<<< HEAD
                 icon: 'success',
                 text: 'Registro completado. Se ha registrado a: ' + name1,
             }).then(function () {
@@ -225,6 +259,19 @@ const Register_deudor = ({ isOpen, closeModal, reConsulta }) => {
             });
         } else {
             // Si alguna condición falla, muestra una alerta de advertencia
+=======
+                icon:'success',
+                text:'Registro completado. Se ha registrado a: '+document.getElementById('name1').value,
+            }).then(function(){
+                agregarRegistro();
+                reConsulta();
+                closeModal();
+                
+            })
+            return true;
+            
+        }else{
+>>>>>>> origin/Login
             Swal.fire({
                 icon: 'warning',
                 title: 'Rellene los campos del formulario para continuar',

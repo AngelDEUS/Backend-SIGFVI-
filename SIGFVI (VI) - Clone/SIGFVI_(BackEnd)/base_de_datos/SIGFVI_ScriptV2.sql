@@ -324,7 +324,7 @@ CREATE TABLE
 
 CREATE TABLE
     Registro_Proveedor_has_Producto (
-        ID_Registro_Proveedor_FKPK SMALLINT(3) NOT NULL COMMENT 'Campo con el ID del proveedor como relacion Identificable NtN',
+        ID_Registro_Proveedor_FKPK int NOT NULL COMMENT 'Campo con el ID del proveedor como relacion Identificable NtN',
         ID_Producto_FKPK VARCHAR(15) NOT NULL COMMENT 'Campo con el ID del Producto como relacion Identificable NtN',
         PRIMARY KEY (
             ID_Registro_Proveedor_FKPK,
@@ -334,5 +334,9 @@ CREATE TABLE
         FOREIGN KEY (ID_Producto_FKPK) REFERENCES Producto (ID_Producto_PK)
     );
     
+<<<<<<< HEAD
+=======
+describe  Registro_Proveedor;
+>>>>>>> origin/Login
 -- DROP TABLE Registro_Proveedor_has_Producto;
     

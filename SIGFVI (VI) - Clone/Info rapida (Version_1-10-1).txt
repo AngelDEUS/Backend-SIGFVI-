@@ -1,6 +1,6 @@
 +++++++++++++++++++++++++++++++++++*+++++++++++++++++++++++++++++++++++
 ========================/ Notas de la version (FrontEnd) \========================
-=======> Versión Actual: 1.10.0
+=======> Versión Actual: 1.10.1
 =======> Notas de la versión: Se actualiza a la version 1.10.0, esta version contiene la inplementacion del backend, 
 con la conexion a la base de datos V2, y la crud en frontend, el proyecto se actualiza a la version mas reciente y se cambian las ramas con terminacion, 
 fs (Full Stack), Haciendo referencia a la implementacion de la nueva version del proyecto SIGFVI.
@@ -9,9 +9,10 @@ ______________________________________________________________________________
                            /main ¿ ("Rama BackUp")
                              /main_desarrollo ¿ ("Rama para implementar cambios")
                                  /mod_usuarios
-                                 /mod_inventario
+                                 /mod_inventario_fs
                                  /mod_ventasyfacturacion
                                  /mod_informes
+<<<<<<< HEAD
                                  /mod_NewBackEnd_Santiago
 
 ______________________________________________________________________________
@@ -19,3 +20,9 @@ ______________________________________________________________________________
 
 
 =======> Nota:Se añadio la rama de newbacken_santiago que añade funciones al modulo de usuarios(empleados)
+=======
+                                 /new_Caracteristica_Juan
+______________________________________________________________________________
+=======> Integrantes:
+
+=======> Nota: Se hacen todos los merge de todas las ramas y se agrega en mod_inventario_fs agregar y editar productos.

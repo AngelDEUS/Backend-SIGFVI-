@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import LogoTiendecita from '../../assets/Logo/LogoMid_01.png';
 import imagenUsuario from '../../assets/Usuarios/Login-User-1.jpg';
@@ -12,6 +12,24 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
 
     const [showSubMenu, setShowSubMenu] = useState(null);
     const [rotateIcon, setRotateIcon] = useState(false);
+    const [usuario, setUsuario] = useState(null);
+    const [cargo, setCargo] = useState(null);
+
+    const traerDatos = async () => {
+        const datos = await JSON.parse(localStorage.getItem("usuario"));
+        setTimeout(()=>{if (datos && datos.rol === 1) {
+            setCargo("SuperAdmin")
+        } else if (datos.rol === 2) {
+            setCargo("Administrador")
+        } else if (datos.rol === 3) {
+            setCargo("Empleado")
+        }},2000)
+        setUsuario({
+            user: datos.name + ' ' + datos.lastname,
+            cargo: cargo,
+            rol:datos.rol
+        })
+    }
 
     const toggleSubMenu = (menu) => {
         setShowSubMenu((prevShowSubMenu) => (prevShowSubMenu === menu ? null : menu));
@@ -19,6 +37,7 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
     };
 
     useEffect(() => {
+        traerDatos();
         const spans = document.querySelectorAll('.barra-lateral span');
         spans.forEach(span => {
             span.classList.toggle('oculto', miniBarraLateral);
@@ -45,15 +64,19 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'Aceptar',
                 }).then(() => {
-                    // navigate('/Login');
-                    nada();
+                    if (result.isConfirmed) {
+                        localStorage.removeItem("usuario");
+                    }
+                }).then(() => {
+                    // <Navigate to='/' />
+                    window.location.reload()
                 });
             }
         });
     };
-    const nada = () => {
-        window.location.reload();
-    }
+    // const nada = () => {
+    //     window.location.reload();
+    // }
 
     const preguntaVenta = () => {
         const miRuta = "VentasFacturacion/ventas";
@@ -110,7 +133,12 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                     <div className="navegacion">
                         <ul>
                             <li>
-                                <Link to="/Dashboard">
+                                {/* <Link to={usuario && (usuario.rol === 3) ? (
+                                    "/dashboard"
+                                ) : usuario && (usuario.rol === 2) ? (
+                                    "/home"
+                                ) : "/ayuda"}> */}
+                                <Link to="/dashboard">
                                     <div className='btnList'>
                                         <i className="bi bi-house-fill svg"></i>
                                     </div>
@@ -129,6 +157,7 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                                     </div>
                                 </Link>
                                 <ul className={`sub-menu-options${showSubMenu === 'usuarios' ? ' active' : ''}`}>
+<<<<<<< HEAD
                                     <li><Link to="/GestionUsuarios/Admins/TablaAdmin">
                                         <div className='circle__sidemenu'></div>
                                         <span>Gerentes</span>
@@ -137,6 +166,20 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                                         <div className='circle__sidemenu'></div>
                                         <span>Usuarios</span>
                                     </Link></li>
+=======
+                                    <div className={usuario && usuario.rol === 2 ? '' : 'hide'}>
+                                        <li><Link to="/GestionUsuarios/Admins/TablaAdmin">
+                                        <div className={`circle__sidemenu`}></div>
+                                        <span>Gerentes</span>
+                                        </Link></li>
+                                    </div>
+                                    <div className={usuario && usuario.rol === 2 ? '' : 'hide'}>
+                                        <li><Link to="/GestionUsuarios/TablaUsuarios">
+                                            <div className='circle__sidemenu'></div>
+                                            <span>Usuarios</span>
+                                        </Link></li>
+                                    </div>
+>>>>>>> origin/Login
                                     <li><Link to="/GestionUsuarios/TablaProveedores">
                                         <div className='circle__sidemenu'></div>
                                         <span>Proveedores</span>
@@ -198,10 +241,19 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                                         <div className='circle__sidemenu'></div>
                                         <span>Lista de ventas</span>
                                     </Link></li>
+<<<<<<< HEAD
                                     <li ><Link to="/VentasFacturacion/metodo_pago">
                                         <div className='circle__sidemenu'></div>
                                         <span>Métodos de pago</span>
                                     </Link></li>
+=======
+                                    <div className={usuario && usuario.rol === 2 ? '' : 'hide'}>
+                                        <li ><Link to="/VentasFacturacion/metodo_pago">
+                                            <div className='circle__sidemenu'></div>
+                                            <span>Métodos de pago</span>
+                                        </Link></li>
+                                    </div>
+>>>>>>> origin/Login
                                 </ul>
                             </li>
 
@@ -252,10 +304,12 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                         <div className="usuario">
                             <img src={imagenUsuario} alt="imagen Usuario" />
                             <div className="info-usuario">
-                                <div className="nombre-email">
-                                    <span className='rol'>Administrador</span>
-                                    <span className='nombre'>Angel Ayala</span>
-                                </div>
+                                {usuario && (
+                                    <div className="nombre-email">
+                                        <span className='rol'>{usuario.cargo}</span>
+                                        <span className='nombre'>{usuario.user}</span>
+                                    </div>
+                                )}
                                 <i className="bi bi-chevron-right svg flechaUser"></i>
                             </div>
                         </div>

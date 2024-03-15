@@ -5,7 +5,11 @@ import "./Inventario.css";
 import "./AllStyle.css";
 import "./pruebastyle.css";
 
+<<<<<<< HEAD
 function entragaProducto() {
+=======
+function EntragaProducto() {
+>>>>>>> origin/Login
   const titulo = "Entrega de Productos";
   const descripcion =
     "En este panel es el encargado de gestionar las Cantidades Entrantes al Inventario.";
@@ -51,4 +55,8 @@ function entragaProducto() {
   )
 }
 
+<<<<<<< HEAD
 export default entragaProducto
+=======
+export default EntragaProducto
+>>>>>>> origin/Login
