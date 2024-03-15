@@ -4,64 +4,65 @@ import Edit_user from './Edit_user';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
+
 export const Tabla_users_item = (props) => {
-  const [textoActivar, setTextoActivar] = useState('');
-  const [estado, setEstado] = useState(parseInt(props.idEstado));
-  const [mostrarEditForm, setMostrarEditForm] = useState(false);
 
-  useEffect(() => {
-    ponerTexto();
-  }, [estado]);
+    const [textoActivar,setTextoActivar]= useState('');
+    const [estado,setEstado] = useState(parseInt(props.idEstado));
+    const [mostrarEditForm , setMostrarEditForm] = useState(false);
 
-  const ponerTexto = () => {
-    setTextoActivar(estado === 1 ? 'Desactivar' : 'Activar');
-  };
-
-  const handleMostrarEdit = () => {
-    setMostrarEditForm(!mostrarEditForm);
-  };
-
-  const handleEditUser = async (editedData) => {
-    try {
-      await axios.put(`http://localhost:3001/usuario/editar/${props.id}`, editedData);
-
-      Swal.fire({
-        title: 'Actualizado!',
-        text: `Se editaron los datos del usuario ${props.name1}`,
-        icon: 'success',
-      });
-
-      // Actualizar solo los datos necesarios después de editar
-      props.consulta();
-
-    } catch (error) {
-      console.error('No se pudo editar el usuario en la función handleEditUser', error);
+    const ponerTexto = () =>{
+        if(estado === 1){
+            setTextoActivar('Desactivar');
+        }else if(estado === 0){
+            setTextoActivar('Activar');
+        }
     }
-  };
 
-  const confirmDelete = async (val) => {
-    const newEstado = estado === 1 ? 0 : 1;
+    useEffect(() => {
+        ponerTexto();
+    },[]);
 
-    try {
-      await axios.put(`http://localhost:3001/usuario/cambioestadoempleado/${val.id}`, {
-        state: newEstado,
-      });
-
-      setEstado(newEstado);
-
-      Swal.fire({
-        title: 'Actualizado!',
-        text: `Se cambió el estado del Gerente ${val.name1}`,
-        icon: 'success',
-      });
-
-      // Actualizar solo los datos necesarios después de cambiar el estado
-      props.consulta();
-
-    } catch (error) {
-      console.error('No se pudo cambiar de estado en la función confirmDelete', error);
+    const handleMostrarEdit= () =>{            
+        setMostrarEditForm(!mostrarEditForm);          
     }
-  };
+
+    function confirmDelete(val){
+        Swal.fire({
+            icon:'warning',
+            title:'<h2 style="color:yellow">¿Desea Cambiar de estado este registro?</h2>',
+            background:'#252327',
+            confirmButtonColor:'#f2bb15',
+            confirmButtonText:textoActivar,
+            showCancelButton: true,
+            cancelButtonText:'Cancelar',
+            toast:true
+        }).then(async response => {
+            if(response.isConfirmed){
+                if(estado===1 || estado==='1'){
+                    setEstado(0);
+                }else if(estado===0 || estado==='0'){
+                    setEstado(1);
+                }
+                try {
+                    //axios.delete(`http://localhost:3001/eliminar/${val.id}`).then(()=>{
+                    await axios.put(`http://localhost:3001/usuario/cambioestadoempleado/${val.id}`, {
+                        "state": estado
+                    }).then(()=>{
+                        Swal.fire({
+                            title: "Actualizado!",
+                            text: `Se cambio el estado del Gerente ${val.name1}`,
+                            icon: "success"
+                          });
+                          props.consulta();
+                          ponerTexto();
+                    })
+                } catch (error) {
+                    console.error('no se pudo cambiar de estado en la funcion confirmdelete', error);
+                }
+            }
+        })
+    }
 
   return (
     <>
@@ -92,17 +93,7 @@ export const Tabla_users_item = (props) => {
         </td>
         <td>
             <button type="button" id="edit" name="edit" className="boton b1" onClick={handleMostrarEdit}>Editar</button>
-            <button
-          type="button"
-          id="delete"
-          name="delete"
-          className="boton b2"
-          onClick={() => {
-            confirmDelete(props);
-          }}
-        >
-          {textoActivar}
-        </button>
+            <button type="button"id="delete" name="delete" className="boton b2" onClick={()=>{confirmDelete(props)}}>{textoActivar}</button>
         </td>
     </tr>
     {mostrarEditForm && <Edit_user closeModal={handleMostrarEdit} datos={props}/>}

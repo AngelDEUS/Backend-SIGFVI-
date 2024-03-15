@@ -1,4 +1,5 @@
 const db = require("../../models/sigfviDBModelo").promise();
+const bcrypt = require('bcrypt');
 
 const obtenerUsuarios = async (req, res) => {
     try {
@@ -33,17 +34,20 @@ const obtenerUsuarioPorId = async (req, res) => {
 
 const crearUsuario = async (req, res) => {
     const { id,tipoid,name1,name2,lastname1,lastname2,cel,email,contrasena } = req.body;
-    try {
-        const consulta=`INSERT INTO Usuario(ID_Numero_Identificacion_PK,ID_Tipo_Identificacion_FKPK,Nombre_Usuario,Segundo_Nombre_Usuario,Apellido_Usuario,Segundo_Apellido_Usuario,Numero_Contacto_Usuario,Email_Usuario,Password_Usuario,ID_Tipo_Cargo_FK,ID_Estado_FK)    
-        values(?,?,?,?,?,?,?,?,hex(aes_encrypt(?,"xd")),3,1);`
 
-        await db.query(consulta,[id,tipoid,name1,name2,lastname1,lastname2,cel,email,contrasena])
-        
-        res.json({ message: 'Usuario creado correctamente', id });
-    } catch (error) {
-        console.log(`Error: ${error}`);
-        res.status(500).json({ error: 'Error al crear el usuario.' });
-    }
+  const salt = await bcrypt.genSalt(8)
+  const hashContra = await bcrypt.hash(contrasena,salt);
+
+  try {
+    const create = "INSERT INTO Usuario VALUES (?,?,?,?,?,?,?,?,?,3,1);";
+
+    await db.query(create, [id,tipoid,name1,name2,lastname1,lastname2,cel,email,hashContra]);
+
+    res.json({mensaje: "Datos agregados exitosamente c:"})
+
+  } catch (error) {
+    console.error('datos no ingresados :c',error);
+  }
 };
 
 const actualizarUsuario =async (req,res)=>{

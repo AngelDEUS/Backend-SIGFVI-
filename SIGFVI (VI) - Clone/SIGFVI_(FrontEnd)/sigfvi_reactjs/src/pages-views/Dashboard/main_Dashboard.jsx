@@ -1,24 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import TituloyDesc from '../../components/Titles/TituloyDesc'
-// import Modals from '../../components/modal/Modals';
-import { GraficasProduc, GraficasMasVendido, GraficaStockBajo } from '../Dashboard/Graficas';
-
-
+import Modals from '../../components/modal/Modals';
 
 const main_Dashboard = () => {
     const titulo = 'Dashboard';
-    const descipcion = 'En este apartado se observa las graficas de Administradores y Empleados';
-
+    const descipcion = 'descipcisón del dashboard';
+    
+    
     return (
         <div>
             <div className='encabezado__titulos'>
                 <TituloyDesc titulo={titulo} descripcion={descipcion} />
             </div>
             <div className='contenido-dashboard'>
-                {/* <Modals /> */}
-                <GraficasProduc/>
-                <GraficasMasVendido/>
-                <GraficaStockBajo/>
+                <Modals />
             </div>
         </div>
     )

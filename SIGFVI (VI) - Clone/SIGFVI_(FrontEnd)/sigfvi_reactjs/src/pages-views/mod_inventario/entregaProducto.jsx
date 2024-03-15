@@ -5,7 +5,7 @@ import "./Inventario.css";
 import "./AllStyle.css";
 import "./pruebastyle.css";
 
-function entragaProducto() {
+function EntragaProducto() {
   const titulo = "Entrega de Productos";
   const descripcion =
     "En este panel es el encargado de gestionar las Cantidades Entrantes al Inventario.";
@@ -51,4 +51,4 @@ function entragaProducto() {
   )
 }
 
-export default entragaProducto
+export default EntragaProducto

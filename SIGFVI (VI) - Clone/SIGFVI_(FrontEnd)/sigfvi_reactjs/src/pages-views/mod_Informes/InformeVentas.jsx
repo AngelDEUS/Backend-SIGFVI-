@@ -1,62 +1,136 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import {Link} from 'react-router-dom';
 import TituloyDesc from '../../components/Titles/TituloyDesc';
 
 const InformeVentas = () => {
-  const [productos, setProductos] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:3001/informe/informeVenta');
-        if (response.status === 200) {
-          setProductos(response.data.productos);
-        } else {
-          console.error('Error fetching data:', response.status);
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   return (
     <main className='contenedor_informe'>
       <TituloyDesc
         titulo='Informe de Ventas'
         descripcion='Este es el módulo encargado de realizar los <s>Informes de las ventas</s> para generar un reporte de las ventas que se hacen.'
       />
-      <hr />
+      <hr/>
 
       <h2 style={{ textAlign: 'center' }}>Informe de Ventas</h2>
-      <Link to='/Informes'>
-        <button className="bnt1">Volver</button>
-      </Link>
+      <Link to='/Informes'><button className="bnt1" >Volver</button></Link>
       <table>
         <thead>
           <tr>
-            <th style={{ textAlign: 'center' }}>ID Pedido</th>
-            <th>Método de Pago</th>
-            <th>Fecha Pedido</th>
-            <th>Hora Pedido</th>
-            <th>IVA</th>
-            <th>Total Pedido</th>
+            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
+            <th>Fecha</th>
+            <th>Producto:
+              <select>
+                <option value="0">Seleccione el producto</option>
+                <option value="1">Cerveza Aguila</option>
+                <option value="2">Gaseosa pequeña Coca Cola</option>
+                <option value="3">Doritos</option>
+                <option value="4">Papas Super Ricas</option>
+                <option value="5">Ron</option>
+                <option value="6">Aguardiente Antioqueño</option>
+              </select>
+            </th>
+            <th>Cantidad</th>
+            <th>Precio Unitario</th>
+            <th style={{ textAlign: 'center' }}>Total</th>
           </tr>
         </thead>
         <tbody>
-          {productos.map((pedido, index) => (
-            <tr key={index}>
-              <td>{pedido.ID_Pedido_PK}</td>
-              <td>{pedido.Nombre_Metodo_Pago}</td> {/* Mostrar el nombre del método de pago en lugar del ID */}
-              <td>{pedido.Fecha_Pedido}</td>
-              <td>{pedido.Hora_Pedido}</td>
-              <td>{pedido.IVA}</td>
-              <td>{pedido.Total_Pedido}</td>
-            </tr>
-          ))}
+          <tr>
+            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
+            <td>2023/06/01</td>
+            <td>Cerveza Aguila</td>
+            <td>3</td>
+            <td>$3.000</td>
+            <td style={{ textAlign: 'center' }}>$9.000</td>
+          </tr>
+          <tr>
+            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
+            <td>2023/05/08</td>
+            <td>Ron</td>
+            <td>5</td>
+            <td>$48.700</td>
+            <td style={{ textAlign: 'center' }}>$243.500</td>
+          </tr>
+          <tr>
+            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
+            <td>2023/06/28</td>
+            <td>Papas Super Ricas</td>
+            <td>2</td>
+            <td>$5.000</td>
+            <td style={{ textAlign: 'center' }}>$10.000</td>
+          </tr>
+          <tr>
+            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
+            <td>2023/06/01</td>
+            <td>Cerveza Aguila</td>
+            <td>3</td>
+            <td>$3.000</td>
+            <td style={{ textAlign: 'center' }}>$9.000</td>
+          </tr>
+          <tr>
+            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
+            <td>2023/05/08</td>
+            <td>Ron</td>
+            <td>5</td>
+            <td>$48.700</td>
+            <td style={{ textAlign: 'center' }}>$243.500</td>
+          </tr>
+          <tr>
+            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
+            <td>2023/06/28</td>
+            <td>Papas Super Ricas</td>
+            <td>2</td>
+            <td>$5.000</td>
+            <td style={{ textAlign: 'center' }}>$10.000</td>
+          </tr>
+          <tr>
+            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
+            <td>2023/06/01</td>
+            <td>Cerveza Aguila</td>
+            <td>3</td>
+            <td>$3.000</td>
+            <td style={{ textAlign: 'center' }}>$9.000</td>
+          </tr>
+          <tr>
+            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
+            <td>2023/05/08</td>
+            <td>Ron</td>
+            <td>5</td>
+            <td>$48.700</td>
+            <td style={{ textAlign: 'center' }}>$243.500</td>
+          </tr>
+          <tr>
+            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
+            <td>2023/06/28</td>
+            <td>Papas Super Ricas</td>
+            <td>2</td>
+            <td>$5.000</td>
+            <td style={{ textAlign: 'center' }}>$10.000</td>
+          </tr>
+          <tr>
+            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
+            <td>2023/06/01</td>
+            <td>Cerveza Aguila</td>
+            <td>3</td>
+            <td>$3.000</td>
+            <td style={{ textAlign: 'center' }}>$9.000</td>
+          </tr>
+          <tr>
+            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
+            <td>2023/05/08</td>
+            <td>Ron</td>
+            <td>5</td>
+            <td>$48.700</td>
+            <td style={{ textAlign: 'center' }}>$243.500</td>
+          </tr>
+          <tr>
+            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
+            <td>2023/06/28</td>
+            <td>Papas Super Ricas</td>
+            <td>2</td>
+            <td>$5.000</td>
+            <td style={{ textAlign: 'center' }}>$10.000</td>
+          </tr>
         </tbody>
       </table>
     </main>

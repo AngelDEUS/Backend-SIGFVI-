@@ -18,7 +18,7 @@ export const Tabla_proveedor_item = (props) => {
     }
     useEffect(() => {
         ponerTexto();
-    },[estado]);
+    },[]);
 
     const handleMostrarEdit= () =>{            
         setMostrarEditForm(!mostrarEditForm);          

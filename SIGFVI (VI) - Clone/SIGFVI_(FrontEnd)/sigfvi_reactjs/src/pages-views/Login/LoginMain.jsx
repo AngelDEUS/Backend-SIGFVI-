@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import './LoginMain.css';
 import LogoImagenBG from '../../assets/Logo/LoginLogoBG_02.png';
+import {Navigate, useNavigate} from 'react-router-dom';
+import Swal from 'sweetalert2';
+import axios from 'axios';
 
 const LoginMain = () => {
     const [username, setUsername] = useState('');
@@ -24,7 +27,7 @@ const LoginMain = () => {
                 localStorage.setItem("usuario",JSON.stringify(peticion.data));
                 setUser(peticion.data); 
                 Swal.fire({
-                    title: '¡Bienvenido!',
+                    title: `¡Bienvenido!`,
                     icon: 'success',
                     showCancelButton: false,
                     confirmButtonColor: '#3085d6',
@@ -79,13 +82,13 @@ const LoginMain = () => {
                         <span>Inicia sesión con tus </span>
                         <span className="highlight">credenciales.</span>
                     </div>
-                    <form className="login-form">
+                    <form className="login-form" onSubmit={verifcarUser}>
                         <div className="centered-container">
                             <div className="form-container">
                                 <div className="input-container">
                                     <div>
                                         <span className="highlight form-title">Nombre de Usuario</span>
-                                        <input type="text" placeholder="Ingrese su nombre de usuario" />
+                                        <input type="text" placeholder="Ingrese su ID" onChange={(e) => setUsername(e.target.value)} />
                                     </div>
                                     <svg className="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
                                         {/* Icono */}
@@ -94,7 +97,7 @@ const LoginMain = () => {
                                 <div className="input-container">
                                     <div>
                                         <span className="highlight form-title">Contraseña</span>
-                                        <input type="password" placeholder="Ingrese su contraseña" />
+                                        <input type="password" placeholder="Ingrese su contraseña" onChange={(e) => setPassword(e.target.value)} />
                                     </div>
                                     <svg className="svg" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
                                         {/* Icono */}
