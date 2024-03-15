@@ -1,16 +1,19 @@
+// Modal_Agregar_Deudor.jsx
+
 import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import '../../Ventas/modal_productos/miTablaModal.css'
-import './estilo_modala_gregar_deudor.css'
+import '../../Ventas/modal_productos/miTablaModal.css';
+import './estilo_modala_gregar_deudor.css';
 
 import TituloyDescAgregarDeudor from '../../../../components/Titles/TituloyDesc';
 
-const Modal_Agregar_Deudor = ({ onCloseModalDeudor }) => {
+const Modal_Agregar_Deudor = ({ onCloseModalDeudor, onAgregarDeudor }) => {
     const descipcionModalAgregarDeudor = 'En este panel puede agregar un deudor a la venta.';
     const tituloModalAgregarDeudor = 'Agregar Deudor a la venta';
 
     const [deudores, setDeudores] = useState([]);
+    const [deudorSeleccionado, setDeudorSeleccionado] = useState(null);
 
     // Enlistar mis deudores en la tabla
     useEffect(() => {
@@ -28,11 +31,21 @@ const Modal_Agregar_Deudor = ({ onCloseModalDeudor }) => {
     }, []);
 
     const agregarDeudor = (deudor) => {
-        setModalAbierto(false); // Cerrar el modal
-        setNombreDeudor(deudor.Nombres); // Actualizar el nombre del deudor en el contenedor
-        setDireccionDeudor(deudor.Direccion_Deudor); // Actualizar la dirección del deudor en el contenedor
+        Swal.fire('Deudor agregado', `Se ha agregado el deudor con ID ${deudor.ID}`, 'success');
+        setDeudorSeleccionado(deudor);
+        onAgregarDeudor(deudor); // Aquí se pasa el deudor seleccionado a la función onAgregarDeudor
     };
-    
+
+    const quitarDeudor = () => {
+        if (deudorSeleccionado) {
+            Swal.fire('Deudor quitado', `Se ha quitado el deudor con ID ${deudorSeleccionado.ID}`, 'success');
+            setDeudorSeleccionado(null);
+            onAgregarDeudor(null); // Aquí se pasa null a la función onAgregarDeudor
+        } else {
+            console.error('No hay deudor seleccionado para quitar');
+        }
+    };
+
 
     return (
         <div className='modal__wrapper'>
@@ -64,7 +77,7 @@ const Modal_Agregar_Deudor = ({ onCloseModalDeudor }) => {
                                     <td>{deudor.Nombre_Estado}</td>
                                     <td className='tdAcciones'>
                                         <div className="btn-grup">
-                                            <button className="btn_Modal--seleccionar" onClick={() => {/* Función para agregar deudor */ }}>Agregar</button>
+                                            <button className="btn_Modal--seleccionar" onClick={() => agregarDeudor(deudor)}>Agregar</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -77,8 +90,13 @@ const Modal_Agregar_Deudor = ({ onCloseModalDeudor }) => {
                         </tfoot>
                     </table>
                 </div>
+                <div className="divisorModalAgregarDeudor"></div>
                 <div className="footer--ModalAgregarDeudor">
-                    <button className='btn_f actualizar' type="button" >Actualizar/Agrear</button>
+                    <button className='btn_f actualizar' type="button" onClick={quitarDeudor}>Quitar deudor</button>
+                    <div className="deudorSeleccionado">
+                        <span> El deudor seleccionado es: </span>
+                        <span id='deudorSeleccionadoFooter'>{deudorSeleccionado ? deudorSeleccionado.Nombres : 'none'}</span>
+                    </div>
                     <button className='btn_f cancelarActualizar' type="button" onClick={onCloseModalDeudor}>Cancelar</button>
                 </div>
             </div>

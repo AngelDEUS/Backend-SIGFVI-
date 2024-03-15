@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 
 import TituloyDesc from '../../../components/Titles/TituloyDesc';
 import TabsMainGenerator from '../Tabs/TabsMainGenerator'
+import { useNavigate } from 'react-router-dom';
 
 //Cards
 import ProductCardMaker from '../Card_Maker/ProductCardMaker';
@@ -13,15 +14,26 @@ import ProductCardMaker from '../Card_Maker/ProductCardMaker';
 import ModalProductosVenta from './modal_productos/ModalProductosVenta'; // modal para productos
 import Modal_Agregar_Deudor from './mini_modal_deudor/Modal_Agregar_Deudor'; // modal para Deudores
 
-
 const VentasControl_Main = () => {
     const descipcion = 'En este panel puede realizar la gestión de ventas y facturación, la búsqueda de productos por nombre y código de producto están activas; Puede dar clic abrir lista para visualizar todos los productos.'
     const tituloVentasControl = 'Ventas y Facturación'
 
-
-
     // Modal productos
     const [modalAbierto, setModalAbierto] = useState(false);
+
+    /* Funcion para abrir mi modal para agregar Deudorres a la venta */
+    const [modalDeudorAbierto, setModalDeudorAbierto] = useState(false);
+    const [deudor, setDeudor] = useState({ nombre: '', telefono: '' });
+    // const [nombreDeudor, setNombreDeudor] = useState('');
+    // const [telefonoDeudor, setTelefonoDeudor] = useState('');
+
+    // Mis funciones para pasar a pagar la venta:
+    const [detalleVenta, setDetalleVenta] = useState({
+        productosSeleccionados: [],
+        totalIVA: 0,
+        subtotalSinIVA: 0,
+        totalFactura: 0
+    });
 
     const handleAbrirModal = () => {
         setModalAbierto(true);
@@ -74,13 +86,24 @@ const VentasControl_Main = () => {
     // UseEffect para controlar el renderizado de las cards
     useEffect(() => {
         // Actualizar las tarjetas de productos aquí
+        console.log('-> Se Actualiza el state(productosSeleccionados):', productosSeleccionados);
     }, [productosSeleccionados]);
+
+    useEffect(() => {
+        console.log('--> Se envia desde "VentasControlMain" este es el useEffect, la prueba del boton pagar (detalleVenta):', detalleVenta);
+    }, [detalleVenta]);
+
 
     /* SIN las Tabs Funciones */
 
     const handleToggleModal = () => {
         setModalAbierto(!modalAbierto);
-        console.log('(MainVentas_Comp) - Se abre/cierra el Modal');
+        //console.log('(MainVentas_Comp) - Se abre el Modal');
+    };
+
+    const handleCerrarModal = () => {
+        setModalAbierto(false);
+        //console.log(`(MainVentas_Comp) - Se cierra el Modal, cerrado.`);
     };
 
     const agregarProductosAlContenedor = (productos) => {
@@ -88,15 +111,6 @@ const VentasControl_Main = () => {
         console.log('(MainVentas_Comp) - Productos agregados al contenedor:', productos);
     };
 
-    const handleCerrarModal = () => {
-        setModalAbierto(false);
-        console.log(`(MainVentas_Comp) - Se cierra el Modal, cerrado.`);
-    };
-
-    /* Funcion para abrir mi modal para agregar Deudorres a la venta */
-    const [modalDeudorAbierto, setModalDeudorAbierto] = useState(false);
-    const [nombreDeudor, setNombreDeudor] = useState('');
-    const [direccionDeudor, setDireccionDeudor] = useState('');
 
     const handleAbrirModalDeudor = () => {
         setModalDeudorAbierto(true);
@@ -107,9 +121,29 @@ const VentasControl_Main = () => {
         setModalDeudorAbierto(false);
     };
 
-    const agregarDeudor = (deudorId) => {
-        console.log('Agregando deudor con ID:', deudorId);
+    /* // Agregar y quitar deudor viejo
+    const agregarDeudor = (deudor) => {
+        setNombreDeudor(deudor.Nombres);
+        setTelefonoDeudor(deudor.Telefono_Deudor);
+        console.log('Agregando deudor con ID:', deudor);
         setModalDeudorAbierto(false);
+    };
+
+    const quitarDeudor = () => {
+        setNombreDeudor('');
+        setTelefonoDeudor('');
+    };*/
+
+    const agregarDeudor = (deudor) => {
+        setDeudor({
+            nombre: deudor.Nombres,
+            telefono: deudor.Telefono_Deudor
+        });
+        setModalDeudorAbierto(false);
+    };
+    
+    const quitarDeudor = () => {
+        setDeudor({ nombre: '', telefono: '' });
     };
 
     /* Funciones para calcular la venta */
@@ -167,6 +201,76 @@ const VentasControl_Main = () => {
         );
     };
 
+
+
+
+    const navigate = useNavigate();
+
+    // console.log('------- Se envia desde Venta el detalle con: ', detalleVenta);
+
+    // Mi funcion para confirmar clic del boton pagar.
+    const handlePagarVenta = async () => {
+        if (productosSeleccionados.length === 0 || calcularTotalFactura() === 0) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Debe seleccionar al menos un producto para continuar al pago.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        } else {
+            const totalIVA = calcularTotalIVA();
+            const subtotalSinIVA = calcularSubtotalSinIVA();
+            const totalFactura = calcularTotalFactura();
+
+            const detalleVentaActualizado = {
+                productosSeleccionados: [...productosSeleccionados],
+                totalIVA,
+                subtotalSinIVA,
+                totalFactura,
+                deudor
+            };
+            
+            // Navegar al componente PagoVenta con el detalleVenta actualizado
+            navigate('/VentasFacturacion/venta_pagar', { state: { detalleVenta: detalleVentaActualizado } });
+            console.log('----> Se envia desde el boton pagar: ', { state: { detalleVenta: detalleVentaActualizado } });
+        }
+    };
+
+
+    const handlePagarVenta__fix = async () => {
+        if (productosSeleccionados.length === 0 || calcularTotalFactura() === 0) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Debe seleccionar al menos un producto para continuar al pago.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        } else {
+            const totalIVA = calcularTotalIVA();
+            const subtotalSinIVA = calcularSubtotalSinIVA();
+            const totalFactura = calcularTotalFactura();
+
+            // Actualiza el estado utilizando una función de callback
+            setDetalleVenta(prevDetalleVenta => ({
+                ...prevDetalleVenta,
+                productosSeleccionados: [...productosSeleccionados],
+                totalIVA,
+                subtotalSinIVA,
+                totalFactura
+            }));
+
+            // Esperar un breve período de tiempo antes de continuar con el pago
+            await new Promise(resolve => setTimeout(resolve, 500)); // Espera 500 milisegundos (0.5 segundos)
+
+            // Este console.log reflejará el valor actualizado de detalleVenta
+            console.log('---> Prueba al hacer clic al botón, se envía a pagar (detalleVenta):', detalleVenta);
+
+            // Continuar con la operación de pago aquí
+        }
+    }
+
+
+
     // Visual:
     // Triangulos generados para la factura
     const cantidadTriangulos = 25;
@@ -205,7 +309,7 @@ const VentasControl_Main = () => {
                             <button className="btn_f limpiar">Limpiar</button>
                         </div>
                         <div className='left__b'>
-                            <button className="btn_f nuevo">Consultar Deudores</button>
+                            <button className="btn_f nuevo" onClick={handleAbrirModalDeudor}>Consultar Deudores</button>
                             <div className='sep_vertical_b--outS'></div>
                             <button className="btn_f cancelar">Cancelar</button>
                         </div>
@@ -267,8 +371,8 @@ const VentasControl_Main = () => {
                                     </div>
                                     <div className="--sep_vertical"></div>
                                     <div className="text__container">
-                                        <p id='nombreDeudor'>{nombreDeudor}</p>
-                                        <p id='direccionDeudor'>{direccionDeudor}</p>
+                                        <p id='nombreDeudor'>{deudor.nombre}</p>
+                                        <p id='direccionDeudor'>{deudor.telefono}</p>
                                     </div>
                                 </div>
                             </div>
@@ -286,7 +390,7 @@ const VentasControl_Main = () => {
                                     </div>
                                 </div>
                             </div>
-                            <button className="pagar__factura">
+                            <button className="pagar__factura" onClick={handlePagarVenta}>
                                 <i className="bi bi-basket3"></i>
                                 <span className='titulo--pagar'>Pagar</span>
                             </button>
@@ -303,8 +407,11 @@ const VentasControl_Main = () => {
             {modalDeudorAbierto && (
                 <Modal_Agregar_Deudor
                     onCloseModalDeudor={() => setModalDeudorAbierto(false)}
-                    onAgregarDeudor={agregarDeudor} />
+                    onAgregarDeudor={agregarDeudor}
+                    quitarDeudor={quitarDeudor}
+                />
             )}
+
         </div>
 
     );

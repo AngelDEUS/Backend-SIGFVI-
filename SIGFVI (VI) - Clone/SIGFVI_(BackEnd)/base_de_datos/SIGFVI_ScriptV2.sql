@@ -135,19 +135,17 @@ CREATE TABLE
     );
 
 -- #10 Saldo_Cuenta_Deudor -------------->
-
 CREATE TABLE
     Saldo_Cuenta_Deudor (
         ID_Saldo_PK INT NOT NULL AUTO_INCREMENT COMMENT 'Campo con la llave primaria del ID del saldo de la cuenta del deudor auto incrementable.',
         ID_Deudor_FK INT NOT NULL COMMENT 'Campo con la llave foranea del ID de la cuenta del deudor asociada',
-        Fecha_Cancelacion_Pedido DATE NOT NULL COMMENT 'Campo con la fecha oportuna para realizar el pago de la deuda, conciliada entre el deudor y el gerente.',
+        -- Fecha_Cancelacion_Pedido DATE NOT NULL COMMENT 'Campo con la fecha oportuna para realizar el pago de la deuda, conciliada entre el deudor y el gerente.',
         Total_Saldo_Deuda INT NOT NULL COMMENT 'Campo en donde se suman todos los totales de los pedidos acumulados en la cuenta del deudor.',
         PRIMARY KEY (ID_Saldo_PK),
         FOREIGN KEY (ID_Deudor_FK) REFERENCES Cuenta_Deudor (ID_Deudor_PK)
     );
 
 -- #11 Pedido -------------->
-
 CREATE TABLE
     Pedido (
         ID_Pedido_PK INT NOT NULL AUTO_INCREMENT COMMENT 'Campo con la llave primaria del pedido.',

@@ -66,7 +66,9 @@ SELECT
 FROM   
 	Cuenta_Deudor CD
 JOIN 
-	Estado ON CD.ID_Estado_FK = ID_Estado_PK;
+	Estado ON CD.ID_Estado_FK = ID_Estado_PK
+WHERE 
+	CD.ID_Estado_FK = 1;
 
 -- -----> Vista de los deudores [BUSQUEDA POR NOMBRE].
 SELECT 
@@ -100,3 +102,17 @@ WHERE
 SELECT * FROM Cuenta_Deudor;
 
 
+-- ----------------------------> CONSULTAS PAGAR .
+-- -----> Consulta de los Metodos De pago con Estado Activo.
+SELECT * FROM Metodo_de_pago;
+SELECT 
+	MP.Nombre_Metodo,
+    MP.Referencia
+FROM 
+	Metodo_de_pago MP
+JOIN
+	Estado AS E ON MP.ID_Estado_FK = E.ID_Estado_PK
+WHERE
+	MP.ID_Estado_FK = 1;
+    
+-- UPDATE Metodo_de_pago SET ID_Estado_FK = 0 WHERE ID_Metodo_Pago_PK = 4;
