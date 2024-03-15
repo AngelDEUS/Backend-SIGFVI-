@@ -14,36 +14,30 @@ export const Tabla_Prod_item = (props) => {
 
 
 
-  const confirmDelete = () => {
-    Swal.fire({
-      icon: 'warning',
-      title: '<h2 style="color:yellow">¿Desea eliminar este registro?</h2>',
-      background: '#252327',
-      confirmButtonColor: '#f2bb15',
-      confirmButtonText: 'Eliminar',
-      showCancelButton: true,
-      cancelButtonText: 'Cancelar',
-      toast: true,
-    }).then((response) => {
-      if (response.isConfirmed) {
-        axios
-          .delete(`http://localhost:3001/producto/BorrarInventario/${props.id}`)
-          .then(() => {
-            axios.delete(`http://localhost:3001/producto/BorrarDato/${props.id}`)
-              .then(() => {
-                console.log("Dato eliminado correctamente");
-                props.consulta();
-              })
-              .catch((error) => {
-                console.error("Error al borrar el inventario:", error);
-              });
-          })
-          .catch((error) => {
-            console.error("Error al borrar el dato:", error);
-          });
-      }
-    });
-  };
+const confirmDelete = () => {
+  Swal.fire({
+    icon: 'warning',
+    title: '<h2 style="color:yellow">¿Desea eliminar este registro?</h2>',
+    background: '#252327',
+    confirmButtonColor: '#f2bb15',
+    confirmButtonText: 'Eliminar',
+    showCancelButton: true,
+    cancelButtonText: 'Cancelar',
+    toast: true,
+  }).then((response) => {
+    if (response.isConfirmed) {
+      axios
+        .delete(`http://localhost:3001/producto/BorrarDatos/${props.id}`)
+        .then(() => {
+          console.log("Dato eliminado correctamente");
+          props.consulta();
+        })
+        .catch((error) => {
+          console.error("Error al borrar el inventario:", error);
+        });
+    }
+  });
+};
 
   
     

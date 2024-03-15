@@ -4,5 +4,6 @@ const rutaDatosInventario = express.Router();
 
 rutaDatosInventario.get("/consultaInventario", inventario.consultaDatos);
 rutaDatosInventario.post("/reportarProducto", inventario.reportarProducto);
+rutaDatosInventario.post("/registrarEntrada", inventario.registrarEntradaProducto);
 
 module.exports = rutaDatosInventario;

@@ -29,18 +29,23 @@ const Datos = async (req, res) => {
   }
 };
 
-const BorrarDato = async (req, res) => {
-  const { id } = req.params; 
+const BorrarDatos = async (req, res) => {
+  const { id } = req.params;
   try {
-    const query = `DELETE FROM producto WHERE ID_Producto_PK = ?`;
-    await db.query(query, [id]);
-    res.json({ mensaje: "Dato eliminado exitosamente" });
+    await db.query(`DELETE FROM entrada_producto WHERE Producto_Inventario = ?`, [id]);
+
+    await db.query(`DELETE FROM salida_producto_inventario WHERE ID_Inventario_FK IN (SELECT ID_Inventario_PK FROM inventario WHERE ID_Producto_FK = ?)`, [id]);
+
+    await db.query(`DELETE FROM inventario WHERE ID_Producto_FK = ?`, [id]);
+
+    await db.query(`DELETE FROM producto WHERE ID_Producto_PK = ?`, [id]);
+
+    res.json({ mensaje: "Producto y registros asociados eliminados exitosamente" });
   } catch (error) {
-    console.error("No se pudo borrar el dato", error);
-    res.status(500).json({ error: "No se pudo borrar el dato" });
+    console.error("No se pudo borrar los datos", error);
+    res.status(500).json({ error: "No se pudo borrar los datos" });
   }
 };
-
 const BorrarInventario = async (req, res) => {
   const { id } = req.params;
   try {
@@ -156,7 +161,7 @@ const VerificarDuplicado = async (req, res) => {
 
 module.exports = {
   Datos,
-  BorrarDato,
+  BorrarDatos,
   BuscarDatoPorId,
   BorrarInventario,
   ActualizarProducto,

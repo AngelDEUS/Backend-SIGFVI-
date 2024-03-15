@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import TituloyDesc from "../../components/Titles/TituloyDesc";
 import "./inputstyle.css";
 
-const ReporteProducto = ({ closeModal, datos }) => {
+const ReporteProducto = ({ closeModal, datos, consulta }) => {
   const titulo = "Reporte de Producto";
   const descripciontext =
     "Se hace un reporte para saber la razon de su salidad del Stock";
@@ -33,6 +33,10 @@ const ReporteProducto = ({ closeModal, datos }) => {
         Cantidad_Reportada: cantidadReporteNum, // Enviar la cantidad reportada al servidor
         ID_Inventario_PK: datos.id_inventario,
       });
+
+      // Llamar a la función consulta() para actualizar la tabla
+      consulta();
+
       closeModal();
     } catch (error) {
       console.error("Error al guardar cambios", error);

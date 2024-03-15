@@ -9,9 +9,7 @@ export const Tabla_Stock_item = (props) => {
 
   const handleMostrarReporte= () =>{
     setMostrarReporte(!mostrarReporte);
-}
-
-
+  }
 
   return (
     <tr>
@@ -35,7 +33,7 @@ export const Tabla_Stock_item = (props) => {
           Reporte
         </button>
       </td>
-      {mostrarReporte && <ReporteProducto closeModal={handleMostrarReporte} datos={props}/>}
+      {mostrarReporte && <ReporteProducto closeModal={handleMostrarReporte} datos={props} consulta={props.consulta} />}
     </tr>
   );
 };

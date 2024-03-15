@@ -28,10 +28,9 @@ const Gestion_Inventario = () => {
     }
   };
 
-
   const consulta = () => {
     axios
-      .get("http://localhost:3001/inventario/consultaInventario ")
+      .get("http://localhost:3001/inventario/consultaInventario")
       .then((response) => {
         console.log("Datos recibidos:", response.data.datos);
         setDatos(response.data.datos);
@@ -68,14 +67,15 @@ const Gestion_Inventario = () => {
                     type="text"
                     placeholder="Buscar productos"
                     id="buscarProducto"
+                    onChange={(e) => setSearchId(e.target.value)}
                   />
-                  <button className="btn_buscar">Buscar</button>
+                  <button className="btn_buscar" onClick={handleSearch}>Buscar</button>
                 </div>
                 <div className="sep_vertical_b--outS"></div>
               </div>
-              <div className="left__b" style={{display: 'none'}}>
+              <div className="left__b">
                 <Link to="/Inventario/EntregaProducto">
-                  <button className="btn_f limpiar">entrega Productos</button>
+                  <button className="btn_f limpiar" >entrega Productos</button>
                 </Link>
               </div>
             </div>
@@ -103,6 +103,7 @@ const Gestion_Inventario = () => {
                         tProducto={dato.Nombre_Tipo_Producto}
                         descripcion={dato.Descripcion}
                         cantidad={dato.Stock}
+                        consulta={consulta} 
                       />
                     ))}
               </tbody>
