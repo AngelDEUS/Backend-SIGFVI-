@@ -47,11 +47,11 @@ INSERT INTO Tipo_Cargo(ID_Tipo_Cargo_PK, Nombre_Tipo_cargo,Estado_ID_Estado_PK)
  /*INSERT INTO Usuario(ID_Numero_Identificacion_PK,ID_Tipo_Identificacion_FKPK,Nombre_Usuario,Segundo_Nombre_Usuario,Apellido_Usuario,Segundo_Apellido_Usuario,Numero_Contacto_Usuario,Email_Usuario,Password_Usuario,ID_Tipo_Cargo_FK,ID_Estado_FK)
 	VALUES ('SW10053-1*',1,'SuperUser','-','_1','.','3153851945','empresa1@gmail.com','...***0000ñ',1,0);*/
 INSERT INTO Usuario(ID_Numero_Identificacion_PK,ID_Tipo_Identificacion_FKPK,Nombre_Usuario,Segundo_Nombre_Usuario,Apellido_Usuario,Segundo_Apellido_Usuario,Numero_Contacto_Usuario,Email_Usuario,Password_Usuario,ID_Tipo_Cargo_FK,ID_Estado_FK)    
-	VALUES ('SW10053-1*',1,'SuperUser','-','_1','.','3153851945','empresa1@gmail.com',hex(aes_encrypt('...***0000ñ',"xd")),1,0);
+	VALUES ('SW10053-1*',1,'SuperUser','-','_1','.','3153851945','empresa1@gmail.com','$2b$08$CVWjEaDJaTBEm8Vo4ARc7eU9m24sJ4MDon6s1OgqlBaNUjKd/TPPq',1,0); /*Admon123*/
   INSERT INTO Usuario 
-	VALUES 	('35684579',1,'Luz','Estela','Rodriguez','Linares','3124352560','lstlinares@hotmail.com',hex(aes_encrypt('Jesus01',"xd")),2,0),
-			('1006865674',1,'Fransico','Arnulfo','Aristizabal','Rodriguez','3194584239', 'Fra.Aris@gmail.com',hex(aes_encrypt('123456789',"xd")),3,0),
-			('10564454999999994',2,'Jean','Carlo','Beltran','Amaya','3155758594', 'jean.carl@gmail.com',hex(aes_encrypt('j123',"xd")),3,1);
+	VALUES 	('35684579',1,'Luz','Estela','Rodriguez','Linares','3124352560','lstlinares@hotmail.com','$2b$08$XJd1gI0V1vWXNXHjX.3XTOxt82mIQ8Te3qx8U.TiM9FujleeXGN0i',2,0), /*Jesus01*/
+			('1006865674',1,'Fransico','Arnulfo','Aristizabal','Rodriguez','3194584239', 'Fra.Aris@gmail.com','$2b$08$hEwWwvSGwMQwfsOBK/60VOf5mdNTguAHScAWCjhh3jq6PEoDg/XVq',3,0), /*0000*/
+			('10564454999999994',2,'Jean','Carlo','Beltran','Amaya','3155758594', 'jean.carl@gmail.com','$2b$08$hEwWwvSGwMQwfsOBK/60VOf5mdNTguAHScAWCjhh3jq6PEoDg/XVq',3,1); /*0000*/
  
  -- #7 -- Registro_Proveedor
  INSERT INTO Registro_Proveedor(Nombre_Empresa,Dia_Visita,Telefono_Contacto,Estado_ID_Estado_PK)
