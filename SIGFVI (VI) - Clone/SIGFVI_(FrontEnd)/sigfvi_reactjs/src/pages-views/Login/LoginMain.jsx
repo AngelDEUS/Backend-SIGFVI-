@@ -27,7 +27,7 @@ const LoginMain = () => {
                 localStorage.setItem("usuario",JSON.stringify(peticion.data));
                 setUser(peticion.data); 
                 Swal.fire({
-                    title: `¡Bienvenido!`,
+                    title: '¡Bienvenido!',
                     icon: 'success',
                     showCancelButton: false,
                     confirmButtonColor: '#3085d6',
@@ -88,7 +88,7 @@ const LoginMain = () => {
                                 <div className="input-container">
                                     <div>
                                         <span className="highlight form-title">Nombre de Usuario</span>
-                                        <input type="text" placeholder="Ingrese su nombre de usuario" />
+                                        <input type="text" placeholder="Ingrese su nombre de usuario" onChange={(e) => setUsername(e.target.value)} />
                                     </div>
                                     <svg className="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
                                         {/* Icono */}
@@ -97,7 +97,7 @@ const LoginMain = () => {
                                 <div className="input-container">
                                     <div>
                                         <span className="highlight form-title">Contraseña</span>
-                                        <input type="password" placeholder="Ingrese su contraseña" />
+                                        <input type="password" placeholder="Ingrese su contraseña" onChange={(e) => setPassword(e.target.value)} />
                                     </div>
                                     <svg className="svg" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
                                         {/* Icono */}
