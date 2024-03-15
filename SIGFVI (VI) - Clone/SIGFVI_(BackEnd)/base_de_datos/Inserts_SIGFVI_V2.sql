@@ -219,11 +219,16 @@ SELECT * FROM Saldo_Cuenta_Deudor;
 
 -- #22 -- Registro_Proveedor_has_Producto;
 INSERT INTO Registro_Proveedor_has_Producto(ID_Registro_Proveedor_FKPK, ID_Producto_FKPK)
-	VALUES  (1,'EMCT001'),
-			(2,'EMRC001'),
-			(3,'ENFr002'),
-			(4,'ENNL001');
+	VALUES  (1,'AGU-001'),
+			(2,'ARR-001'),
+			(3,'POK-001'),
+			(4,'JUG-001');
     
 SELECT * FROM registro_proveedor;
 SELECT * FROM producto;
+
+INSERT INTO Inventario (Stock, ID_Producto_FK)
+    VALUES ( 1, 'BOT-001');
+
+
 
