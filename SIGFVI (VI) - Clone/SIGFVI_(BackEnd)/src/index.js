@@ -22,11 +22,6 @@ const empleadoRouter = require('./routers/mod_usuarios_r/empleadoRouter.js');
 const proveedorRouter = require('./routers/mod_usuarios_r/proveedorRouter.js');
 const adminRouter = require('./routers/mod_usuarios_r/administradorRouter.js');
 
-<<<<<<< HEAD
-//Modulo de Informes
-const rutaInformes= require('./routers/mod_informes_r/informesRouter.js');
-=======
->>>>>>> origin/Login
 
 
 // - Uses
@@ -57,15 +52,8 @@ app.use('/inventario', inventarioRouter);
 app.use('/usuario', empleadoRouter); // Empleados
 app.use('/usuario', proveedorRouter); // Proveedores
 app.use('/usuario', adminRouter); // Administradores
-<<<<<<< HEAD
-app.use('/usuario', adminRouter); // Administradores
-
-//Modulo de Informes
-app.use('/informe', rutaInformes);
-=======
 // app.use('/read', adminRouter); // Administradores
 
->>>>>>> origin/Login
 
 app.get("/", (req, res) => { // Mensajes de pagina principal.
     res.send("¡Hola! Este es el servidor backend!");

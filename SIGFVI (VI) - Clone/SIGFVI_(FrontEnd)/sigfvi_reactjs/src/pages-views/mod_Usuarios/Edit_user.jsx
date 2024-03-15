@@ -13,7 +13,6 @@ const Edit_user = ({closeModal, datos}) => {
     const [cel,setCel]=useState(datos.tel);
     const [email,setEmail]=useState(datos.email);
 
-<<<<<<< HEAD
     const editarRegistro = async (x) => {
         try {
             const response = await axios.put(`http://localhost:3001/usuario/usuario_empleado/${x}`, {
@@ -24,18 +23,6 @@ const Edit_user = ({closeModal, datos}) => {
                 cel: cel,
                 email: email,
                 contrasena: datos.contrasena
-=======
-    const editarRegistro = async (x) =>{
-        try{
-            const response = await axios.put(`http://localhost:3001/usuario/usuario_empleado/${x}`,{
-                name1:name1,
-                name2:name2,
-                lastname1:lastname1,
-                lastname2:lastname2,
-                cel:cel,
-                email:email,
-                contrasena:datos.contrasena
->>>>>>> origin/Login
             });
             console.log(response.data);
             // Refresh the page after successful update

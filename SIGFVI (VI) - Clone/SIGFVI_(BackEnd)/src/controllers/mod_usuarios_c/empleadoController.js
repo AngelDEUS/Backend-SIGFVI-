@@ -1,8 +1,5 @@
 const db = require("../../models/sigfviDBModelo").promise();
-<<<<<<< HEAD
-=======
 const bcrypt = require('bcrypt');
->>>>>>> origin/Login
 
 const obtenerUsuarios = async (req, res) => {
     try {

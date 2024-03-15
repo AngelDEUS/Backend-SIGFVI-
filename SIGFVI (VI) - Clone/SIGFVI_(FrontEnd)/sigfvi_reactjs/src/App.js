@@ -13,12 +13,6 @@ import LayoutMain from './pages-views/mainLayout';
 
 function App() {
 
-<<<<<<< HEAD
-  return (
-    <div className="App">
-      <Layout />
-    </div>
-=======
   const [user,setUser] = useState(null);
 
   const hayUser =()=>{
@@ -63,7 +57,6 @@ function App() {
         
       </BrowserRouter>
     </div>    
->>>>>>> origin/Login
   );
 }
 

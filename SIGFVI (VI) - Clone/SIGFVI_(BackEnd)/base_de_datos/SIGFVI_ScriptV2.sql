@@ -334,9 +334,6 @@ CREATE TABLE
         FOREIGN KEY (ID_Producto_FKPK) REFERENCES Producto (ID_Producto_PK)
     );
     
-<<<<<<< HEAD
-=======
 describe  Registro_Proveedor;
->>>>>>> origin/Login
 -- DROP TABLE Registro_Proveedor_has_Producto;
     

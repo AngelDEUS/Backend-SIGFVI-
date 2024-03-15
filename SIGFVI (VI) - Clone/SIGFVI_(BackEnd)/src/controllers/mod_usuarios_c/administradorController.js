@@ -1,9 +1,6 @@
 const db = require("../../models/sigfviDBModelo").promise();
 const bcrypt = require('bcrypt');
-<<<<<<< HEAD
-=======
 const jwt = require('jsonwebtoken')
->>>>>>> origin/Login
 
 const Get = async (req, res) => {
   try {
@@ -108,35 +105,21 @@ const autenticarUser = async(req,res)=>{
   const {idEntra,contrasenaEntra}=req.body;
   console.log(contrasenaEntra,'log1');
   try {
-<<<<<<< HEAD
-      const [result] = await db.query('SELECT ID_Numero_Identificacion_PK as id,Password_Usuario as contrasena FROM Usuario WHERE ID_Numero_Identificacion_PK = ?', [idEntra]);
-=======
       const [result] = await db.query('SELECT ID_Numero_Identificacion_PK as id,Password_Usuario as contrasena,ID_Tipo_Cargo_FK as rol,Nombre_Usuario,Apellido_Usuario FROM Usuario WHERE ID_Numero_Identificacion_PK = ?', [idEntra]);
       // console.log(result[0].contrasena,'log2');
->>>>>>> origin/Login
       const usuario = result[0].id;
 
       if (usuario === idEntra) {
           const passReal = result[0].contrasena;
-<<<<<<< HEAD
-          console.log(passReal,'log2');
-=======
           const rol = result[0].rol;
           const name = result[0].Nombre_Usuario;
           const lastname = result[0].Apellido_Usuario;
           console.log(name+' '+lastname,'log2');
->>>>>>> origin/Login
           try {
               let ingreso = await bcrypt.compare(contrasenaEntra, passReal);
               console.log('el ingreso es → ',ingreso);
 
               if(ingreso){
-<<<<<<< HEAD
-                res.json({message: "Ingreso exitoso C:"})
-              }else{
-                res.json({message: "Credenciales incorrectas :/"})
-              }
-=======
                 const accessToken= jwt.sign(
                   {
                     user: usuario,
@@ -160,7 +143,6 @@ const autenticarUser = async(req,res)=>{
                 res.json({message: "Credenciales incorrectas :/",ingreso:false});
               }
               
->>>>>>> origin/Login
 
           } catch (error) {
               console.log(`NT`,error);

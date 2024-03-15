@@ -157,16 +157,6 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                                     </div>
                                 </Link>
                                 <ul className={`sub-menu-options${showSubMenu === 'usuarios' ? ' active' : ''}`}>
-<<<<<<< HEAD
-                                    <li><Link to="/GestionUsuarios/Admins/TablaAdmin">
-                                        <div className='circle__sidemenu'></div>
-                                        <span>Gerentes</span>
-                                    </Link></li>
-                                    <li><Link to="/GestionUsuarios/TablaUsuarios">
-                                        <div className='circle__sidemenu'></div>
-                                        <span>Usuarios</span>
-                                    </Link></li>
-=======
                                     <div className={usuario && usuario.rol === 2 ? '' : 'hide'}>
                                         <li><Link to="/GestionUsuarios/Admins/TablaAdmin">
                                         <div className={`circle__sidemenu`}></div>
@@ -179,7 +169,6 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                                             <span>Usuarios</span>
                                         </Link></li>
                                     </div>
->>>>>>> origin/Login
                                     <li><Link to="/GestionUsuarios/TablaProveedores">
                                         <div className='circle__sidemenu'></div>
                                         <span>Proveedores</span>
@@ -241,19 +230,12 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                                         <div className='circle__sidemenu'></div>
                                         <span>Lista de ventas</span>
                                     </Link></li>
-<<<<<<< HEAD
-                                    <li ><Link to="/VentasFacturacion/metodo_pago">
-                                        <div className='circle__sidemenu'></div>
-                                        <span>Métodos de pago</span>
-                                    </Link></li>
-=======
                                     <div className={usuario && usuario.rol === 2 ? '' : 'hide'}>
                                         <li ><Link to="/VentasFacturacion/metodo_pago">
                                             <div className='circle__sidemenu'></div>
                                             <span>Métodos de pago</span>
                                         </Link></li>
                                     </div>
->>>>>>> origin/Login
                                 </ul>
                             </li>
 

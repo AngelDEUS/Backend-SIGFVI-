@@ -9,7 +9,6 @@ export const Tabla_users_item = (props) => {
   const [estado, setEstado] = useState(parseInt(props.idEstado));
   const [mostrarEditForm, setMostrarEditForm] = useState(false);
 
-<<<<<<< HEAD
   useEffect(() => {
     ponerTexto();
   }, [estado]);
@@ -37,30 +36,9 @@ export const Tabla_users_item = (props) => {
 
     } catch (error) {
       console.error('No se pudo editar el usuario en la función handleEditUser', error);
-=======
-    const [textoActivar,setTextoActivar]= useState('');
-    const [estado,setEstado] = useState(parseInt(props.idEstado));
-    const [mostrarEditForm , setMostrarEditForm] = useState(false);
-
-    const ponerTexto = () =>{
-        if(estado === 1){
-            setTextoActivar('Desactivar');
-        }else if(estado === 0){
-            setTextoActivar('Activar');
-        }
-    }
-
-    useEffect(() => {
-        ponerTexto();
-    },[]);
-
-    const handleMostrarEdit= () =>{            
-        setMostrarEditForm(!mostrarEditForm);          
->>>>>>> origin/Login
     }
   };
 
-<<<<<<< HEAD
   const confirmDelete = async (val) => {
     const newEstado = estado === 1 ? 0 : 1;
 
@@ -82,43 +60,6 @@ export const Tabla_users_item = (props) => {
 
     } catch (error) {
       console.error('No se pudo cambiar de estado en la función confirmDelete', error);
-=======
-    function confirmDelete(val){
-        Swal.fire({
-            icon:'warning',
-            title:'<h2 style="color:yellow">¿Desea Cambiar de estado este registro?</h2>',
-            background:'#252327',
-            confirmButtonColor:'#f2bb15',
-            confirmButtonText:textoActivar,
-            showCancelButton: true,
-            cancelButtonText:'Cancelar',
-            toast:true
-        }).then(async response => {
-            if(response.isConfirmed){
-                if(estado===1 || estado==='1'){
-                    setEstado(0);
-                }else if(estado===0 || estado==='0'){
-                    setEstado(1);
-                }
-                try {
-                    //axios.delete(`http://localhost:3001/eliminar/${val.id}`).then(()=>{
-                    await axios.put(`http://localhost:3001/usuario/cambioestadoempleado/${val.id}`, {
-                        "state": estado
-                    }).then(()=>{
-                        Swal.fire({
-                            title: "Actualizado!",
-                            text: `Se cambio el estado del Gerente ${val.name1}`,
-                            icon: "success"
-                          });
-                          props.consulta();
-                          ponerTexto();
-                    })
-                } catch (error) {
-                    console.error('no se pudo cambiar de estado en la funcion confirmdelete', error);
-                }
-            }
-        })
->>>>>>> origin/Login
     }
   };
 
@@ -151,7 +92,6 @@ export const Tabla_users_item = (props) => {
         </td>
         <td>
             <button type="button" id="edit" name="edit" className="boton b1" onClick={handleMostrarEdit}>Editar</button>
-<<<<<<< HEAD
             <button
           type="button"
           id="delete"
@@ -163,9 +103,6 @@ export const Tabla_users_item = (props) => {
         >
           {textoActivar}
         </button>
-=======
-            <button type="button"id="delete" name="delete" className="boton b2" onClick={()=>{confirmDelete(props)}}>{textoActivar}</button>
->>>>>>> origin/Login
         </td>
     </tr>
     {mostrarEditForm && <Edit_user closeModal={handleMostrarEdit} datos={props}/>}

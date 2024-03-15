@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import './LoginMain.css';
 import LogoImagenBG from '../../assets/Logo/LoginLogoBG_02.png';
-<<<<<<< HEAD
-
-const LoginMain = () => {
- 
-=======
 import {Navigate, useNavigate} from 'react-router-dom';
 import Swal from 'sweetalert2';
 import axios from 'axios';
@@ -68,7 +63,6 @@ const LoginMain = () => {
             })
         }
     }
->>>>>>> origin/Login
     return (
         <div className="login__container">
             <div className="left-container">
@@ -88,11 +82,7 @@ const LoginMain = () => {
                         <span>Inicia sesión con tus </span>
                         <span className="highlight">credenciales.</span>
                     </div>
-<<<<<<< HEAD
-                    <form className="login-form">
-=======
                     <form className="login-form" onSubmit={verifcarUser}>
->>>>>>> origin/Login
                         <div className="centered-container">
                             <div className="form-container">
                                 <div className="input-container">
