@@ -2,9 +2,9 @@
 /* 
 **** 1: Se borraron campos de la tabla inventario
 */
-
+ -- DROP DATABASE SIGFVI_V2;
 CREATE DATABASE SIGFVI_V2;
--- DROP DATABASE SIGFVI_V2;
+
 USE SIGFVI_V2;
 
 -- #1 Estado -------------->
@@ -109,7 +109,7 @@ CREATE TABLE
 
 CREATE TABLE
     Cuenta_Deudor (
-        ID_Deudor_PK INT NOT NULL AUTO_INCREMENT COMMENT 'Campo con la llave primaria del deudor auto incrementable.',
+        ID_Deudor_PK VARCHAR(25) NOT NULL COMMENT 'Numero de identificacion del deudor.',
         Primer_Nombre VARCHAR(45) NOT NULL COMMENT 'Campo con el primer nombre de la cuenta del deudor.',
         Segundo_Nombre VARCHAR(45) NULL COMMENT 'Campo con el segundo nombre del deudor y puede estar vacio.',
         Primer_Apellido VARCHAR(45) NOT NULL COMMENT 'Campo con el primer apellido del deudor.',
@@ -120,7 +120,7 @@ CREATE TABLE
         PRIMARY KEY (ID_Deudor_PK),
         FOREIGN KEY (ID_Estado_FK) REFERENCES Estado (ID_Estado_PK)
     );
-
+select * from Cuenta_Deudor;
 -- #9 Metodo_de_pago -------------->
 
 CREATE TABLE
@@ -139,13 +139,13 @@ CREATE TABLE
 CREATE TABLE
     Saldo_Cuenta_Deudor (
         ID_Saldo_PK INT NOT NULL AUTO_INCREMENT COMMENT 'Campo con la llave primaria del ID del saldo de la cuenta del deudor auto incrementable.',
-        ID_Deudor_FK INT NOT NULL COMMENT 'Campo con la llave foranea del ID de la cuenta del deudor asociada',
+        ID_Deudor_FK VARCHAR(25) NOT NULL COMMENT 'Campo con la llave foranea del ID de la cuenta del deudor asociada',
         Fecha_Cancelacion_Pedido DATE NOT NULL COMMENT 'Campo con la fecha oportuna para realizar el pago de la deuda, conciliada entre el deudor y el gerente.',
         Total_Saldo_Deuda INT NOT NULL COMMENT 'Campo en donde se suman todos los totales de los pedidos acumulados en la cuenta del deudor.',
         PRIMARY KEY (ID_Saldo_PK),
         FOREIGN KEY (ID_Deudor_FK) REFERENCES Cuenta_Deudor (ID_Deudor_PK)
     );
-
+select * from Saldo_Cuenta_Deudor;
 -- #11 Pedido -------------->
 
 CREATE TABLE
@@ -206,7 +206,8 @@ CREATE TABLE
         PRIMARY KEY (ID_Inventario_PK),
         FOREIGN KEY (ID_Producto_FK) REFERENCES Producto (ID_Producto_PK)
     );
-
+select * from Producto;
+select * from Inventario;
 -- #15 Tipo_Informe_Venta -------------->
 
 CREATE TABLE
@@ -240,6 +241,7 @@ CREATE TABLE
             ID_Tipo_Identificacion_FKPK
         )
     );
+
 --
 -- DESCRIBE Salida_producto_Inventario;
 -- ALTER TABLE Salida_producto_Inventario MODIFY COLUMN ID_Inventario_FK SMALLINT(10) ;
@@ -324,7 +326,7 @@ CREATE TABLE
 
 CREATE TABLE
     Registro_Proveedor_has_Producto (
-        ID_Registro_Proveedor_FKPK int NOT NULL COMMENT 'Campo con el ID del proveedor como relacion Identificable NtN',
+        ID_Registro_Proveedor_FKPK SMALLINT(3) NOT NULL COMMENT 'Campo con el ID del proveedor como relacion Identificable NtN',
         ID_Producto_FKPK VARCHAR(15) NOT NULL COMMENT 'Campo con el ID del Producto como relacion Identificable NtN',
         PRIMARY KEY (
             ID_Registro_Proveedor_FKPK,
@@ -334,6 +336,5 @@ CREATE TABLE
         FOREIGN KEY (ID_Producto_FKPK) REFERENCES Producto (ID_Producto_PK)
     );
     
-describe  Registro_Proveedor;
 -- DROP TABLE Registro_Proveedor_has_Producto;
     

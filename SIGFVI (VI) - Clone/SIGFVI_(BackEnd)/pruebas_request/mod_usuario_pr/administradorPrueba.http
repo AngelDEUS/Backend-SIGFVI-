@@ -4,3 +4,4 @@ GET http://localhost:3001/usuario/read HTTP/1.1
 
 GET http://localhost:3001/usuario/consdeudor HTTP/1.1
 ###
+DELETE http://localhost:3001/usuario/deletedeudor/10 HTTP/1.1

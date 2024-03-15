@@ -21,15 +21,14 @@ const DropdownMenu = () => {
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'Aceptar',
                 }).then(() => {
-                    localStorage.removeItem("usuario");
-                    window.location.reload();
+                    nada();
                 });
             }
         });
     };
-    // const nada = () => {
-    //     window.location.reload();
-    // }
+    const nada = () => {
+        window.location.reload();
+    }
     return (
         <div>
             <ul className="DropdawnMenu">

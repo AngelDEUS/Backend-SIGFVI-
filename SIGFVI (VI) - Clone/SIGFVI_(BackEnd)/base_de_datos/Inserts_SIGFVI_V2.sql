@@ -61,14 +61,14 @@ INSERT INTO Usuario(ID_Numero_Identificacion_PK,ID_Tipo_Identificacion_FKPK,Nomb
 			('Margarita','Lunes - Miercoles','3114159755',1);
  
  -- #8 -- Cuenta_Deudor
- INSERT INTO Cuenta_Deudor(Primer_Nombre,Segundo_Nombre,Primer_Apellido,Segundo_Apellido,Direccion_Deudor,Telefono_Deudor,ID_Estado_FK)
-	VALUES  ('Omar','Ferney','Badillo','de la Cruz', 'Tv 7 #25-3L','3181475823',0),
-			('Camila','Valentina','Gómez','Pérez','Carrera 56 #89-34','23456789',0),
-            ('Juan','Carlos','Rodríguez','Sánchez','Calle 67 #12-45',' 45678901',0),
-            ('Oscar','Eduardo','Ramírez','Torres','Carrera 12 #23-45','56789012',1),
-            ('Valeria','Isabel','Castro','Ruiz','Calle 78 #56-12','67890123',0),
-            ('María','José','González','Vargas','Carrera 45 #67-89','78901234',1),
-            ('Andrés','Felipe','López','Pérez','Avenida 23 #34-56','89012345',1);
+ INSERT INTO Cuenta_Deudor(ID_Deudor_PK, Primer_Nombre,Segundo_Nombre,Primer_Apellido,Segundo_Apellido,Direccion_Deudor,Telefono_Deudor,ID_Estado_FK)
+	VALUES  ('111','Omar','Ferney','Badillo','de la Cruz', 'Tv 7 #25-3L','3181475823',0),
+			('222','Camila','Valentina','Gómez','Pérez','Carrera 56 #89-34','23456789',0),
+            ('333','Juan','Carlos','Rodríguez','Sánchez','Calle 67 #12-45',' 45678901',0),
+            ('444','Oscar','Eduardo','Ramírez','Torres','Carrera 12 #23-45','56789012',1),
+            ('555','Valeria','Isabel','Castro','Ruiz','Calle 78 #56-12','67890123',0),
+            ('666','María','José','González','Vargas','Carrera 45 #67-89','78901234',1),
+            ('777','Andrés','Felipe','López','Pérez','Avenida 23 #34-56','89012345',1);
 
  -- #9 -- Metodo_de_pago
  INSERT INTO Metodo_de_pago(Nombre_Metodo, Tipo_Metodo_Pago, Referencia, ID_Estado_FK)
@@ -85,14 +85,14 @@ SELECT * FROM Metodo_de_pago WHERE Nombre_Metodo LIKE '%Tarjeta%';
             
 -- #10 -- Saldo_Cuenta_Deudor
 INSERT INTO Saldo_Cuenta_Deudor(ID_Deudor_FK,Fecha_Cancelacion_Pedido,Total_Saldo_Deuda)
-	VALUES  (1,'2023-03-24',50000);
+	VALUES  ('111','2023-03-24',50000);
 INSERT INTO Saldo_Cuenta_Deudor(ID_Deudor_FK,Fecha_Cancelacion_Pedido,Total_Saldo_Deuda)
-	VALUES  (2,'2023-03-24',50000),
-			(3,'2023-08-01',20000),
-			(4,'2023-03-02',5000),
-			(5,'2023-09-13',40000),
-			(6,'2023-05-24',300000),
-			(7,'2023-02-17',28500);
+	VALUES  ('222','2023-03-24',50000),
+			('333','2023-08-01',20000),
+			('444','2023-03-02',5000),
+			('555','2023-09-13',40000),
+			('666','2023-05-24',300000),
+			('777','2023-02-17',28500);
             
 -- #11 -- Pedido
 INSERT INTO Pedido(ID_Metodo_Pago_FK,Fecha_Pedido,Hora_Pedido,IVA,Total_Pedido,ID_Estado_FK,ID_Saldo_PK)
@@ -145,6 +145,7 @@ INSERT INTO Inventario (Stock, ID_Producto_FK)
             ( 120, 'PAQ-001');
     
 SELECT * FROM Inventario;
+select * from Producto;
     
 -- #15 -- Tipo_Informe_Venta
 INSERT INTO Tipo_Informe_Venta(ID_Informe_Venta_PF,ID_Factura_FK)
@@ -218,12 +219,11 @@ SELECT * FROM Saldo_Cuenta_Deudor;
 
 -- #22 -- Registro_Proveedor_has_Producto;
 INSERT INTO Registro_Proveedor_has_Producto(ID_Registro_Proveedor_FKPK, ID_Producto_FKPK)
-	VALUES  (1,'ACE-001'),
-			(2,'CER-001'),
-			(3,'JUG-001'),
-			(4,'PAQ-003');
+	VALUES  (1,'EMCT001'),
+			(2,'EMRC001'),
+			(3,'ENFr002'),
+			(4,'ENNL001');
     
-select * from Registro_Proveedor_has_Producto;
 SELECT * FROM registro_proveedor;
 SELECT * FROM producto;
 

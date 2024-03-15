@@ -117,10 +117,6 @@ li {
 html {
   scroll-behavior: smooth;
 }
-.inicio__p{
-  position: fixed;
-  
-}
 
 /* Desactivamos estilos por defecto de las principales etiquetas de texto */
 h1,
