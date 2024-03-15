@@ -12,7 +12,7 @@ POST http://localhost:3001/usuario/Create HTTP/1.1
 Content-Type: application/json
 
 {
-    "id":1239,
+    "id":15235,
     "tipoid":2,
     "name1":"juanchis",
     "name2":"Dieguis",
@@ -20,7 +20,7 @@ Content-Type: application/json
     "lastname2":"Chinauta",
     "cel":"321478962",
     "email":"juanchis@gmail.com",
-    "contrasena":"juandiego123"
+    "contrasena":"Admon123"
 }
 
 
@@ -31,13 +31,17 @@ POST http://localhost:3001/usuario/usuario_empleado HTTP/1.1
 Content-Type: application/json
 
 {
-    "id":1239,
+    "id":85587,
     "tipoid":2,
-    "name1":"juanchis",
-    "name2":"Dieguis",
-    "lastname1":"Gonzalez",
-    "lastname2":"Chinauta",
+    "name1":"Empleado",
+    "name2":"uno",
+    "lastname1":"uno",
+    "lastname2":"uno",
     "cel":"321478962",
-    "email":"juanchis@gmail.com",
-    "contrasena":"juandiego123"
+    "email":"his@gmail.com",
+    "contrasena":"Admon123"
 }
+
+
+###
+DELETE http://localhost:3001/usuario/usuario_empleado/85587 HTTP/1.1
