@@ -256,23 +256,28 @@
   flex-direction: row;
   margin: none;
 }
+.entregabtn input[type="number"]::-webkit-inner-spin-button, 
+.entregabtn input[type="number"]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+}
 
- .entregabtn input[type="number"] {
+.entregabtn input[type="number"] {
   width: 60px;
   padding-right: 10px;
   border: 1px solid #ced4da;
   border-radius: 5px;
   color: rgb(61, 55, 55);
 }
+
 .entregabtn input[type="number"]::placeholder {
   color: rgb(155, 162, 168);
 }
 
-.entregabtn input:disabled{
-    border: 1px solid #e1e6eb;
-    background-color: #f1f3f570;
-    color: rgb(145, 161, 175);
-} 
+.entregabtn input:disabled {
+  border: 1px solid #e1e6eb;
+  background-color: #f1f3f570;
+  color: rgb(145, 161, 175);
+}
 
 .entregabtn input[type="number"]:focus {
   outline: none;
@@ -280,7 +285,9 @@
   box-shadow: 0 0 0 0.2rem #5cb0ff;
   color: rgb(78, 73, 73);
 }
-.entregaBoton{
+
+.entregaBoton {
   margin: none;
   border-radius: 0%;
 }
+
