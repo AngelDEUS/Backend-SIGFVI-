@@ -5,6 +5,8 @@ import "./inputstyle.css";
 export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
   const nuevoProducto = async () => {
     try {
+      const descripcionCompleta = `${descripcion} ${medida}`;
+
       const generarId = async (pre) => {
         let num = 1;
         let formatoId = `${pre}-${num.toString().padStart(3, "0")}`;
@@ -27,7 +29,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
           ID_Producto_PK: formatoId,
           Nombre_Producto: nombre,
           ID_Tipo_Producto_FK: tProducto,
-          Descripcion: descripcion,
+          Descripcion: descripcionCompleta,
           Precio_Proveedor: precioCompra,
           Precio_Venta: precioVenta,
           Foto_Producto: foto,
@@ -59,6 +61,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
   const [nombre, setNombre] = useState("");
   const [tProducto, setTproducto] = useState("");
   const [descripcion, setDescripcion] = useState("");
+  const [medida, setMedida] = useState("");
   const [precioCompra, setPrecioCompra] = useState("");
   const [precioVenta, setPrecioVenta] = useState("");
   const [foto, setFoto] = useState("");
@@ -104,18 +107,34 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
             </div>
             <div className="form-group">
               <label>Descripcion</label>
-              <input
-                type="text"
-                name="descripcion"
-                id="descripcion"
-                placeholder="Ingrese valor"
-                onChange={(e) => setDescripcion(e.target.value)}
-              />
+              <div className="descripcion-form">
+                <input
+                  type="number"
+                  name="descripcion"
+                  id="descripcion"
+                  className="inputDesc"
+                  placeholder="Ingrese valor"
+                  onChange={(e) => setDescripcion(e.target.value)}
+                />
+                <select
+                  name="medida"
+                  id="medida"
+                  onChange={(e) => setMedida(e.target.value)}
+                >
+                  <option value="" hidden>
+                    Medida
+                  </option>
+                  <option value="Gramos">Gramos</option>
+                  <option value="Litro(s)">Litro(s)</option>
+                  <option value="Mililitros">Mililitros</option>
+                  <option value="Unidades">Unidades</option>
+                </select>
+              </div>
             </div>
             <div className="form-group">
               <label>Precio de Compra</label>
               <input
-                type="text"
+                type="number"
                 name="precioCompra"
                 id="precioCompra"
                 placeholder="Ingrese valor"
@@ -125,7 +144,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
             <div className="form-group">
               <label>Precio de Venta</label>
               <input
-                type="text"
+                type="number"
                 name="precioVenta"
                 id="precioVenta"
                 placeholder="Ingrese valor"

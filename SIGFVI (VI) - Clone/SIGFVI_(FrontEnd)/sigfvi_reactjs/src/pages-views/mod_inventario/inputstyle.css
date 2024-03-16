@@ -32,6 +32,28 @@ fieldset {
   }
   
   /* Estilos para los input */
+  
+
+.form-group  input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+.form-group input[type="number"] {
+  width: 250px;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  color: rgb(61, 55, 55);
+}
+.form-group input[type="number"]::placeholder {
+  color: rgb(155, 162, 168);
+}
+
+
+
+
   .form-group input[type="text"] {
     width: 250px;
     padding: 10px;
@@ -163,4 +185,34 @@ fieldset {
   }
   .btn-registro{
     color: black;
+  }
+
+  .descripcion-form{
+    display: flex;
+    flex-direction: row;
+  }
+  .descripcion-form input[type="number"]{
+    width: 150px;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    color: rgb(61, 55, 55);
+  }
+
+
+
+.descripcion-form  input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+  .descripcion-form select{
+    width: 100px;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    color: rgb(61, 55, 55);
+  }
+  .inputDes{
+    width: 80px;
   }

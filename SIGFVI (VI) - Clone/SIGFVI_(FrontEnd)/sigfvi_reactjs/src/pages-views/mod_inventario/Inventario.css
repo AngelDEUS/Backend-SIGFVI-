@@ -265,6 +265,10 @@
   flex-direction: row;
   margin: none;
 }
+.entregabtn input[type="number"]::-webkit-inner-spin-button, 
+.entregabtn input[type="number"]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+}
 
 .entregabtn input[type="number"] {
   width: 60px;
@@ -274,7 +278,6 @@
   color: rgb(61, 55, 55);
 
 }
-
 
 .entregabtn input[type="number"]::placeholder {
   color: rgb(155, 162, 168);

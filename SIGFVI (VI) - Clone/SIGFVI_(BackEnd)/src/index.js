@@ -6,7 +6,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const {swaggerJSDOCs} = require('./configuration_swagger/swagger_General');
+//const swaggerDos = require('./swagger-jsdoc');
 
 // ---> Modulos de Ventas y Facturación:
 const pedidosRouter = require('./routers/mod_ventas_facturacion_r/pedidosRouter');
@@ -75,7 +75,7 @@ app.get("/", (req, res) => { // Mensajes de pagina principal.
 
 // - Listen del puerto.
 app.listen(PORT, ()=>{
-    swaggerJSDOCs(app, 3001);
+    //swaggerJSDOCs(app, 3001);
     console.log(`\n\n     El servidor funcionando en el puerto: \x1b[33m[${PORT}]\x1b[33m.`);
-    console.log(`\n     Local:                  http://localhost:${PORT}\x1b[0m\n\n`);
+    console.log(`\n     Local:                  http://localhost:${PORT}\x1b[0m\n`);
 });
