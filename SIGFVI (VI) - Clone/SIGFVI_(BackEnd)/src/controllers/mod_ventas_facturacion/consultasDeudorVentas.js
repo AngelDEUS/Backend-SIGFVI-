@@ -4,7 +4,7 @@
 const db = require('../../models/sigfviDBModelo').promise();
 
 
-// Consultar todos los deudores en la venta.
+// Consultar todos los deudores en la venta SI su estado es Activo.
 const getAllDeudoresVentas = async (req, res) => {
     try {
         console.log("Obteniendo datos de todos los deudores en la venta...");
@@ -19,7 +19,9 @@ const getAllDeudoresVentas = async (req, res) => {
         FROM   
             Cuenta_Deudor CD
         JOIN 
-            Estado ON CD.ID_Estado_FK = ID_Estado_PK; `;
+            Estado ON CD.ID_Estado_FK = ID_Estado_PK
+        WHERE 
+            CD.ID_Estado_FK = 1;`;
 
         const [result] = await db.query(query);
         console.log("\nEnviando respuesta...");
@@ -94,6 +96,8 @@ const getNombreDeudoresVentas = (req, res) => {
         }
     );
 };
+
+
 
 module.exports = {
     getAllDeudoresVentas,

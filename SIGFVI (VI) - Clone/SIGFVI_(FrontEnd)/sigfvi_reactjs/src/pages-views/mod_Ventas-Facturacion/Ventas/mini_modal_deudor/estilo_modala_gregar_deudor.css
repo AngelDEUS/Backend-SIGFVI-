@@ -1,0 +1,75 @@
+.modal__wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal__agregar-deudor {
+    position: relative;
+    z-index: 9999;
+    background-color: white;
+    padding: 20px;
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.modal__agregar-deudor__content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.modal__agregar-deudor__header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.modal__agregar-deudor__footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.modal__agregar-deudor__footer button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal__agregar-deudor__footer button:hover {
+    background-color: #0056b3;
+}
+
+.divisorModalAgregarDeudor{
+    width: 100%;
+    height: 1px;
+    background-color: #bbc0c4;
+    margin: 20px 0;
+}
+
+.footer--ModalAgregarDeudor{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.deudorSeleccionado{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    color: #616368;
+}
+#deudorSeleccionadoFooter{
+    color: #fe9a1a;
+    margin-left: 5px;
+}

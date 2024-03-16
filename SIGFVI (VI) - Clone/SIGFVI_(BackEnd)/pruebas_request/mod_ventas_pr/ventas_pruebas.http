@@ -1,0 +1,31 @@
+//Get
+GET http://localhost:3001 HTTP/1.1
+
+###
+
+// Crear Venta:
+POST http://localhost:3001/pagoventa/crearventa HTTP/1.1
+Content-Type: application/json 
+
+{
+    "ID_Metodo_Pago_FK": 1,
+    "IVA": 19,
+    "SubTotal_Venta": 10000,
+    "Total_Pedido": 11900,
+    "ID_Saldo_PK": 1,
+    "ID_Estado_FK": 1
+}
+
+###
+
+//Crear DetalleVenta:
+POST http://localhost:3001/pagoventa/creardetalleventa HTTP/1.1
+Content-Type: application/json 
+
+{
+    "ID_Venta_FK": 1,
+    "Cantidad_Producto": 2,
+    "SubTotal_detalle": 2000,
+    "ID_Inventario_FK": 1
+}
+###

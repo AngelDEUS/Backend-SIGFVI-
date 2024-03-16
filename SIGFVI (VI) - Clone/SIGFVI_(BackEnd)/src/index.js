@@ -12,6 +12,7 @@ const cors = require('cors');
 const pedidosRouter = require('./routers/mod_ventas_facturacion_r/pedidosRouter');
 const metodoPagoRouter = require('./routers/mod_ventas_facturacion_r/metodoPagoRouter');
 const routerConsultas = require('./routers/mod_ventas_facturacion_r/consulatasImportRouter.js')
+const pagarVentaRouter = require('./routers/mod_ventas_facturacion_r/pagarVentaRouter.js');
 
 // --> Modúlo de Productos e Inventario
 const inventarioRouter = require('./routers/mod_inventario_r/inventarioRouter.js');
@@ -42,6 +43,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Modulo de ventas y facturacion.
 app.use('/', pedidosRouter); 
 app.use('/', metodoPagoRouter);
+app.use('/pagoventa', pagarVentaRouter);
 app.use('/vyf', routerConsultas);
 
 // Modulo de productos en inventario.
@@ -51,6 +53,7 @@ app.use('/inventario', inventarioRouter);
 // Modulo de Usuario.
 app.use('/usuario', empleadoRouter); // Empleados
 app.use('/usuario', proveedorRouter); // Proveedores
+app.use('/usuario', adminRouter); // Administradores
 app.use('/usuario', adminRouter); // Administradores
 
 

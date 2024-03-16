@@ -5,29 +5,35 @@ import Swal from 'sweetalert2';
 
 import TituloyDesc from '../../../components/Titles/TituloyDesc';
 import TabsMainGenerator from '../Tabs/TabsMainGenerator'
+import { useNavigate } from 'react-router-dom';
 
 //Cards
 import ProductCardMaker from '../Card_Maker/ProductCardMaker';
 
 // Modales
-import ModalProductosVenta from './modal_productos/ModalProductosVenta'; // modal par aproductos
-// ModalComponent
-import { useModal } from '../../../hooks/modal/useModal.js';
-import ModalComponent from '../../../components/modal/Modal.jsx'
-
+import ModalProductosVenta from './modal_productos/ModalProductosVenta'; // modal para productos
+import Modal_Agregar_Deudor from './mini_modal_deudor/Modal_Agregar_Deudor'; // modal para Deudores
 
 const VentasControl_Main = () => {
     const descipcion = 'En este panel puede realizar la gestión de ventas y facturación, la búsqueda de productos por nombre y código de producto están activas; Puede dar clic abrir lista para visualizar todos los productos.'
     const tituloVentasControl = 'Ventas y Facturación'
 
-    //Modal De Producto Select
-    const [isOpenModalProductoSelect, OpenModalProductoSelect, closeModalProductoSelect] = useModal(false); // Desestructuracion del Hook useModal
-    const tittleModalProductoSelect = 'Datos del Producto';
-    const descModalProductoSelect = `Ver los datos del Producto y editar la cantidad de producto seleccionado en la venta.`;
-
-
     // Modal productos
     const [modalAbierto, setModalAbierto] = useState(false);
+
+    /* Funcion para abrir mi modal para agregar Deudorres a la venta */
+    const [modalDeudorAbierto, setModalDeudorAbierto] = useState(false);
+    const [deudor, setDeudor] = useState({ nombre: '', telefono: '' });
+    // const [nombreDeudor, setNombreDeudor] = useState('');
+    // const [telefonoDeudor, setTelefonoDeudor] = useState('');
+
+    // Mis funciones para pasar a pagar la venta:
+    const [detalleVenta, setDetalleVenta] = useState({
+        productosSeleccionados: [],
+        totalIVA: 0,
+        subtotalSinIVA: 0,
+        totalFactura: 0
+    });
 
     const handleAbrirModal = () => {
         setModalAbierto(true);
@@ -80,13 +86,24 @@ const VentasControl_Main = () => {
     // UseEffect para controlar el renderizado de las cards
     useEffect(() => {
         // Actualizar las tarjetas de productos aquí
+        console.log('-> Se Actualiza el state(productosSeleccionados):', productosSeleccionados);
     }, [productosSeleccionados]);
+
+    useEffect(() => {
+        console.log('--> Se envia desde "VentasControlMain" este es el useEffect, la prueba del boton pagar (detalleVenta):', detalleVenta);
+    }, [detalleVenta]);
+
 
     /* SIN las Tabs Funciones */
 
     const handleToggleModal = () => {
         setModalAbierto(!modalAbierto);
-        console.log('(MainVentas_Comp) - Se abre/cierra el Modal');
+        //console.log('(MainVentas_Comp) - Se abre el Modal');
+    };
+
+    const handleCerrarModal = () => {
+        setModalAbierto(false);
+        //console.log(`(MainVentas_Comp) - Se cierra el Modal, cerrado.`);
     };
 
     const agregarProductosAlContenedor = (productos) => {
@@ -94,11 +111,40 @@ const VentasControl_Main = () => {
         console.log('(MainVentas_Comp) - Productos agregados al contenedor:', productos);
     };
 
-    const handleCerrarModal = () => {
-        setModalAbierto(false);
-        console.log(`(MainVentas_Comp) - Se cierra el Modal, cerrado.`);
+
+    const handleAbrirModalDeudor = () => {
+        setModalDeudorAbierto(true);
     };
 
+    // Función para cerrar el modal de deudores
+    const handleCerrarModalDeudor = () => {
+        setModalDeudorAbierto(false);
+    };
+
+    /* // Agregar y quitar deudor viejo
+    const agregarDeudor = (deudor) => {
+        setNombreDeudor(deudor.Nombres);
+        setTelefonoDeudor(deudor.Telefono_Deudor);
+        console.log('Agregando deudor con ID:', deudor);
+        setModalDeudorAbierto(false);
+    };
+
+    const quitarDeudor = () => {
+        setNombreDeudor('');
+        setTelefonoDeudor('');
+    };*/
+
+    const agregarDeudor = (deudor) => {
+        setDeudor({
+            nombre: deudor.Nombres,
+            telefono: deudor.Telefono_Deudor
+        });
+        setModalDeudorAbierto(false);
+    };
+    
+    const quitarDeudor = () => {
+        setDeudor({ nombre: '', telefono: '' });
+    };
 
     /* Funciones para calcular la venta */
     // Función para calcular el total del IVA
@@ -139,11 +185,90 @@ const VentasControl_Main = () => {
         return subtotalSinIVA + totalIVA;
     };
 
+    //Función para actualizar la cantidad de producto.
+    const updateProduct = (productId, newQuantity) => {
+        setProductosSeleccionados((prevProducts) =>
+            prevProducts.map((product) =>
+                product.ID_Producto_PK === productId ? { ...product, cantidad: newQuantity } : product
+            )
+        );
+    };
 
-    const abrirModalProductoSelect = () => {
-        OpenModalProductoSelect();
-        //
+    //Función para quitar el producto de la venta.
+    const quitarProducto = (productId) => {
+        setProductosSeleccionados((prevProducts) =>
+            prevProducts.filter((product) => product.ID_Producto_PK !== productId)
+        );
+    };
+
+
+
+
+    const navigate = useNavigate();
+
+    // console.log('------- Se envia desde Venta el detalle con: ', detalleVenta);
+
+    // Mi funcion para confirmar clic del boton pagar.
+    const handlePagarVenta = async () => {
+        if (productosSeleccionados.length === 0 || calcularTotalFactura() === 0) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Debe seleccionar al menos un producto para continuar al pago.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        } else {
+            const totalIVA = calcularTotalIVA();
+            const subtotalSinIVA = calcularSubtotalSinIVA();
+            const totalFactura = calcularTotalFactura();
+
+            const detalleVentaActualizado = {
+                productosSeleccionados: [...productosSeleccionados],
+                totalIVA,
+                subtotalSinIVA,
+                totalFactura,
+                deudor
+            };
+            
+            // Navegar al componente PagoVenta con el detalleVenta actualizado
+            navigate('/VentasFacturacion/venta_pagar', { state: { detalleVenta: detalleVentaActualizado } });
+            console.log('----> Se envia desde el boton pagar: ', { state: { detalleVenta: detalleVentaActualizado } });
+        }
+    };
+
+
+    const handlePagarVenta__fix = async () => {
+        if (productosSeleccionados.length === 0 || calcularTotalFactura() === 0) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Debe seleccionar al menos un producto para continuar al pago.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        } else {
+            const totalIVA = calcularTotalIVA();
+            const subtotalSinIVA = calcularSubtotalSinIVA();
+            const totalFactura = calcularTotalFactura();
+
+            // Actualiza el estado utilizando una función de callback
+            setDetalleVenta(prevDetalleVenta => ({
+                ...prevDetalleVenta,
+                productosSeleccionados: [...productosSeleccionados],
+                totalIVA,
+                subtotalSinIVA,
+                totalFactura
+            }));
+
+            // Esperar un breve período de tiempo antes de continuar con el pago
+            await new Promise(resolve => setTimeout(resolve, 500)); // Espera 500 milisegundos (0.5 segundos)
+
+            // Este console.log reflejará el valor actualizado de detalleVenta
+            console.log('---> Prueba al hacer clic al botón, se envía a pagar (detalleVenta):', detalleVenta);
+
+            // Continuar con la operación de pago aquí
+        }
     }
+
 
 
     // Visual:
@@ -155,67 +280,6 @@ const VentasControl_Main = () => {
 
     return (
         <div>
-            <ModalComponent isOpen={isOpenModalProductoSelect} closeModal={closeModalProductoSelect} tittleModal={tittleModalProductoSelect} descModal={descModalProductoSelect}>
-                <div className="editarPedido">
-                    <div className="inputsGrup">
-                        <fieldset>
-                            <legend>Datos del producto seleccionado</legend>
-                            <div className="productSelect-Container">
-                                <span className='tittleProdSelect' id='codigo_producto--select'>#CH1-003</span>
-                                <div className='inputs-grup--product_select'>
-                                    <span className='tittleProdSelect'>Nombre producto: </span>
-                                    <span className='tittleProdSelectN' id='nombre_producto--select'>Cocacola
-                                        <span className='puntoModal'>.</span> </span>
-                                </div>
-                                <div className='inputs-grup--product_select'>
-                                    <span className='tittleProdSelect'>Tipo de Producto: </span>
-                                    <span className='tittleProdSelectN' id='tipo_producto--select'>Cocacola
-                                        <span className='puntoModal'>.</span>
-                                    </span>
-                                </div>
-                                <div className='inputs-grup--product_select'>
-                                    <span className='tittleProdSelect'>Detalle del producto: </span>
-                                    <span className='tittleProdSelectN' id='descripcion_producto--select'>Cocacola de 120 ml
-                                        <span className='puntoModal'>.</span>
-                                    </span>
-                                </div>
-                                <div className='inputs-grup--product_select'>
-                                    <span className='tittleProdSelect'>Precio de venta: </span>
-                                    <span className='tittleProdSelectN' id='descripcion_producto--select'>
-                                        <span className='puntoModal' style={{ marginRight: '5px' }}>$</span>
-                                        20000
-                                        <span className='puntoModal'>.</span>
-                                    </span>
-                                </div>
-                                <div className='inputs-grup--product_select'>
-                                    <span className='tittleProdSelect'>Stock Total en el Inventario: </span>
-                                    <span className='tittleProdSelectN' id='descripcion_producto--select'>20
-                                        <span className='puntoModal' style={{ marginLeft: '5px' }}>(unidades).</span>
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="divisorHr2"></div>
-                            <div className="bootomInputs">
-                                <div className="candidadProd-Sum">
-                                    <div className="tittleCalcProdSelectModal">
-                                        <span>Agregar o quitar canditad del producto seleccionado:</span>
-                                    </div>
-                                    <div className="buttonsCalcSelectProdModal">
-                                        <button className='btnModalSelectProd' id='restarCantidad_ModalSelect'>-</button>
-                                        <span id='mostrarSumatoriaSelect'>1</span>
-                                        <button className='btnModalSelectProd' id='sumarCantidad_ModalSelect'>+</button>
-                                    </div>
-                                </div>
-                            <div className="divisorHr2"></div>
-                                <div className="accionesBtnsModal">
-                                    <button className='btn_f actualizar' type="button" id='actualizar--ModalSelect'>Actualizar</button>
-                                    <button className='btn_f cancelarActualizar' type="button" id='cancelar--ModalSelect'>Cancelar</button>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </div>
-                </div>
-            </ModalComponent>
             <div>
                 <TituloyDesc titulo={tituloVentasControl} descripcion={descipcion} />
             </div>
@@ -245,7 +309,7 @@ const VentasControl_Main = () => {
                             <button className="btn_f limpiar">Limpiar</button>
                         </div>
                         <div className='left__b'>
-                            <button className="btn_f nuevo" onClick={abrirModalProductoSelect}>Consultar Deudores</button>
+                            <button className="btn_f nuevo" onClick={handleAbrirModalDeudor}>Consultar Deudores</button>
                             <div className='sep_vertical_b--outS'></div>
                             <button className="btn_f cancelar">Cancelar</button>
                         </div>
@@ -256,7 +320,7 @@ const VentasControl_Main = () => {
                         <div className="ticket-provicional">
                             <div className='ticket-p_top'></div>
                             <div className='ticket-p_contenido'>
-                                <ProductCardMaker products={productosSeleccionados} />
+                                <ProductCardMaker products={productosSeleccionados} updateProduct={updateProduct} quitarProducto={quitarProducto} />
                             </div>
                             <div className='ticket-p_footer'></div>
                         </div>
@@ -299,7 +363,7 @@ const VentasControl_Main = () => {
                 <div className="container__resumen">
                     <div className="resumen__venta">
                         <div className='resumen--left'>
-                            <div className='agregar__deudor'>
+                            <div className='agregar__deudor' id='agregarDeudorControl' onClick={handleAbrirModalDeudor}>
                                 <h2 className='tiitle__a-deudor'>Agregar Deudor</h2>
                                 <div className='info__deudor'>
                                     <div className="imagen__container">
@@ -307,8 +371,8 @@ const VentasControl_Main = () => {
                                     </div>
                                     <div className="--sep_vertical"></div>
                                     <div className="text__container">
-                                        <p>Nombre:</p>
-                                        <p>Correo:</p>
+                                        <p id='nombreDeudor'>{deudor.nombre}</p>
+                                        <p id='direccionDeudor'>{deudor.telefono}</p>
                                     </div>
                                 </div>
                             </div>
@@ -326,7 +390,7 @@ const VentasControl_Main = () => {
                                     </div>
                                 </div>
                             </div>
-                            <button className="pagar__factura">
+                            <button className="pagar__factura" onClick={handlePagarVenta}>
                                 <i className="bi bi-basket3"></i>
                                 <span className='titulo--pagar'>Pagar</span>
                             </button>
@@ -340,7 +404,16 @@ const VentasControl_Main = () => {
                     </div>
                 </div>
             </div>
+            {modalDeudorAbierto && (
+                <Modal_Agregar_Deudor
+                    onCloseModalDeudor={() => setModalDeudorAbierto(false)}
+                    onAgregarDeudor={agregarDeudor}
+                    quitarDeudor={quitarDeudor}
+                />
+            )}
+
         </div>
+
     );
 }
 

@@ -1,0 +1,487 @@
+/* ---------- CONTENT */
+.cuerpoPagoVenta {
+    display: flex;
+    width: 100%;
+}
+
+.spanStrong{
+    font-weight: 600;
+    color: #ff9100;
+}
+
+/* -----> RIGHT ---- */
+.rightPagoOptions--PagoVentas {
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    border-radius: 15px;
+    /* background-color: #f6f6f6; */
+    padding: 20px;
+}
+
+.tituloPagoVenta {
+    color: rgb(115, 114, 121);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-weight: 600px;
+    font-size: 18px;
+}
+
+.listaMetodoPago--Cards {
+    background-color: #e5e5e7;
+    padding: 20px;
+    border-radius: 15px;
+    height: 450px;
+}
+
+.containerSelectMetodoPago {
+    background-color: rgb(255, 255, 255);
+    border-radius: 15px;
+    border: 1px solid #78777d59;
+    cursor: pointer;
+    transition: all .3s ease;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.containerSelectMetodoPago:hover {
+    border: 1px solid #ff9c20;
+}
+
+.--SelecteMP_Container{
+    border: 1px solid #ff9c20;
+}
+
+/* -----> LEFT ---- */
+.leftPagoOptions--PagoVentas {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 65%;
+    border-radius: 15px;
+    padding: 20px;
+    position: relative;
+}
+
+.headerLeftPagoOptions{
+    position: relative;
+}
+
+/* ----> Calculo de la venta */
+.calculoPorEfectivo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 250px;
+    border-radius: 30px;
+    border: 1px solid rgba(162, 161, 166, 0.314);
+    border-style: dashed;
+    border-width: 2px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    position: absolute;
+    top: 0;
+    z-index: 20;
+    transition: all .3s ease;
+    opacity: 100%;
+}
+
+.quitarHeader--ClicMP{
+    opacity: 0%;
+    display: none;
+}
+
+
+.calculoPorEfectivo:hover {
+    background-color: rgb(236, 236, 236)
+}
+
+/* Titulo ----> */
+.totalVentaAPagar {
+    margin: 20px;
+    color: #fe9a1a;
+    font-size: 80pt;
+    font-weight: 500;
+}
+
+.subtitulo--VentaApagar {
+    margin-top: 35px;
+    text-align: center;
+    color: rgb(162, 161, 166);
+}
+
+/* SUB Opciones PAGO*/
+.subOpciones--PagoVentas {
+    display: flex;
+}
+
+/* Clculadora --------> */
+.Calculadora_PagoVentas {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    background-color: #e5e5e7;
+    padding: 10px;
+    width: 340px;
+    margin-right: 20px;
+}
+
+
+.cajabtn--Calculadora {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    background-color: #ffffff;
+    padding: 10px;
+    margin: 5px;
+    color: #918f94;
+    border-radius: 15px;
+    border: 1px solid #918f94;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .3s ease, opacity .2s ease;
+}
+
+.cajabtn--Calculadora:hover {
+    background-color: #fe9a1a;
+    color: white;
+    border: 1px solid #ce7500;
+}
+
+.cajabtn--Calculadora:active {
+    opacity: 50%;
+}
+
+/* --- agregarymostarDeudor_Empleado --> */
+.agregarymostarDeudor_Empleado {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-Pago__Deudor {
+    display: flex;
+    align-items: center;
+    border-radius: 50px;
+    background-color: #e5e5e7;
+    padding: 12px;
+    margin-bottom: 20px;
+    color: #918f94;
+    width: 350px;
+    border: 1px solid #e5e5e7;
+    transition: all .5s ease;
+    cursor: pointer;
+}
+
+.info-Pago__Deudor:hover {
+    border: 1px solid #fe9a1a;
+}
+
+.iconoinfo--Pagar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    padding: 20px;
+    border: 1px solid #918f94;
+    width: 80px;
+    height: 80px;
+    margin-right: 20px;
+    background-color: white;
+}
+
+.datosPagar--Empleado,
+.datosPagar--Deudor {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Asignar Comprobante Pago */
+.contentAsignarComprobante {
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    background-color: #e5e5e7;
+    height: 120px;
+    padding: 20px;
+}
+
+.subirCapturaOcomprobante {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    height: 80px;
+    width: 100%;
+    border-radius: 15px;
+    transition: all .3s ease;
+    border: 1px solid #ffffff;
+    cursor: pointer;
+}
+
+.subirCapturaOcomprobante:hover {
+    border: 1px solid #fe9a1a;
+}
+
+.bolita_imgProd--Comprobante {
+    background-color: #fe9a1a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #ff9c20;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    font-size: 30px;
+    margin-left: 10px;
+}
+
+.textComprobantePago {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.tittleComprobantePago {
+    color: #ff9c20;
+    font-size: 13px;
+}
+
+.sub-tittleComprobantePago {
+    color: #918f94;
+}
+
+
+.sub-tittle_Prod--Selected{
+    width: auto;
+}
+
+/* - ----- ---- ----- */
+
+.slectedMP_Venta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: #c8c6cf;
+    color: #ffffff;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all .35s ease;
+    border: 5px solid #a8a7ad;
+}
+
+.--SelectedMP {
+    border: 5px solid #c8c6cf;
+    background-color: #ffffff;
+}
+
+/* Cuando se le de clic al metodo de Pago de Efectivo ----------> */
+.calculoPorEfectivo--MPEfectivo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 250px;
+    border-radius: 30px;
+    border: 2px solid rgba(162, 161, 166, 0.314);
+    cursor: pointer;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.miniSeparador--MPEfectivo{
+    width: 2px;
+    height: 20px;
+    background-color: rgba(146, 145, 153, 0.425);
+    z-index: 10;
+}
+
+.miniSeparador--MPEfectivo2{
+    width: 2px;
+    height: 20px;
+    background-color: rgba(255, 255, 255);
+    z-index: 10;
+}
+
+.tablaCancelarYCalcular {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.totalesYcalculo--Titulos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #78777d;
+    width: 100%;
+    
+}
+
+.totalesYcalculo--Calcular {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #78777d;
+    width: 100%;
+    background-color: #e5e5e7;
+}
+
+.inputTitulo{
+    display: flex;    
+    padding: 10px;
+    width: 120px;
+    margin: 0px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;  
+}
+.inputMostrar--Calcular {
+    display: flex;
+    padding: 10px;
+    width: 120px;
+    margin: 0px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;  
+}
+.inputMostrar--Calcular--entradaSelected{
+    background-color: #fe9a1a;
+    border-radius: 5px;
+    color: white;
+    width: 140px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+}
+
+.pesosSignoLeft{
+    margin-left: 5px;
+}
+#entradaSelected {
+    width: 100px;
+    height: 40px;
+    outline: none;
+    padding: 0 5px;
+}
+
+.mostrarResultado--MPEfectivo{
+    margin: 30px 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.totalCalculado--MPEfectivo{
+    color: #88878d;
+    font-size: 40px;
+}
+
+/* ---------- FOOTER --------------> */
+.footer-Options--PagoVentas {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    display: flex;
+    color: rgb(177, 176, 185);
+}
+
+.dividerPagoVenta {
+    width: 100%;
+    height: 1px;
+    background-color: rgba(162, 161, 166, 0.314);
+    margin: 20px 0;
+}
+
+.dividerPagoventa--Vertical {
+    width: 1px;
+    height: auto;
+    background-color: rgba(162, 161, 166, 0.314);
+    margin: 0 20px;
+}
+
+/* Btns Pago Venta */
+.btns--PagoVenta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.btn_pagoVenta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(255, 255, 255);
+    padding: 10px 15px;
+    border-radius: 30px;
+    font-size: 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.cancelarPagoVenta {
+    background-color: rgba(162, 161, 166, 0.484);
+}
+
+.ValidarPagoVenta {
+    background-color: #fe9a1a;
+}
+
+/* ------------ No Pago Venta ----------- */
+.containerNoData--PagoVenta{
+    width: 100%;
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.subcontainerNoData--PagoVenta{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    border: 1px solid #93919941;
+    border-style: dashed;
+    border-width: 2px;
+}
+
+.mensajeNo--pagoVenta{
+    color: #939199;
+    font-size: 40px;
+    display: flex;
+}
+.underNoData--PagoVenta{
+    display: flex;
+    color: #b7b4c0;
+    /* font-style: italic; */
+    text-decoration: underline;
+    transition: all .3s ease;
+    margin-left: 7px;
+}
+
+.underNoData--PagoVenta:hover{
+    color: #fe9a1a;
+    margin-left: 12px;
+}
+
+.puntitoNoData{
+    color: #fe9a1a;
+}
