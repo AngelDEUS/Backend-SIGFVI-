@@ -67,234 +67,104 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
   if (!isOpen) return null;
 
   return (
-    {
-      /*
-    <div className="register-container">
-      <div className="fondo-register">
+    <div className="editarPedido register-container">
+      <div className="inputsGrup fondo-register">
         <div>
           <p onClick={closeModal}>X</p>
         </div>
-        <div class="container__Main-register">
-          <div class="titulo">
-            <h1 className="main-title">Registar Producto</h1>
-          </div>
-          <form className="datos-contenido">
-            <span>
-              <label for="nombre">Nombre producto</label>
+        <fieldset>
+          <legend>Agregar Producto</legend>
+          <div className="inputs-grup">
+            <div className="form-group">
+              <label>Nombre Producto</label>
               <input
-                className="input-form"
                 type="text"
                 name="nombre"
                 id="nombre"
-                placeholder="Nombre Producto"
+                placeholder="Ingrese valor"
                 onChange={(e) => setNombre(e.target.value)}
               />
-            </span>
-            <span>
-              <label for="tProducto">Tipo Producto</label>
-              <input
-                className="input-form"
+            </div>
+            <div className="form-group">
+              <label>Tipo de Producto</label>
+              <select
+                name=""
+                id=""
                 type="text"
-                name="tProducto"
-                id="tProducto"
-                placeholder="Tipo Producto"
                 onChange={(e) => setTproducto(e.target.value)}
-              />
-            </span>
-            <span>
-              <label for="descripcion">Descripcion</label>
+              >
+                <option value="" hidden>
+                  Elegir Tipo de producto
+                </option>
+                <option value="1">Botella</option>
+                <option value="2">Lata</option>
+                <option value="3">Paquete</option>
+                <option value="4">Caja</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <label>Descripcion</label>
               <input
-                className="input-form"
                 type="text"
                 name="descripcion"
                 id="descripcion"
-                placeholder="Descripcion"
+                placeholder="Ingrese valor"
                 onChange={(e) => setDescripcion(e.target.value)}
               />
-            </span>
-            <span>
-              <label for="precioCompra">Precio Compra</label>
+            </div>
+            <div className="form-group">
+              <label>Precio de Compra</label>
               <input
-                className="input-form"
                 type="text"
                 name="precioCompra"
                 id="precioCompra"
-                placeholder="precio Compra"
-                onChange={(e) => setprecioCompra(e.target.value)}
+                placeholder="Ingrese valor"
+                onChange={(e) => setPrecioCompra(e.target.value)}
               />
-            </span>
-
-            <span>
-              <label for="precioVenta">Precio Venta</label>
+            </div>
+            <div className="form-group">
+              <label>Precio de Venta</label>
               <input
-                className="input-form"
                 type="text"
                 name="precioVenta"
                 id="precioVenta"
-                placeholder="precio Venta"
+                placeholder="Ingrese valor"
                 onChange={(e) => setPrecioVenta(e.target.value)}
               />
-            </span>
-
-            <span>
-              <label for="foto">Foto</label>
+            </div>
+            <div className="form-group">
+              <label>Foto</label>
               <input
-                className="input-form"
                 type="text"
                 name="foto"
                 id="foto"
-                placeholder="foto"
+                placeholder="Ingrese valor"
                 onChange={(e) => setFoto(e.target.value)}
               />
-            </span>
-
-            <span>
-              <label for="estado">Estado</label>
-              <input
-                className="input-form"
-                type="number"
-                name="estado"
-                id="estado"
-                placeholder="estado"
-                onChange={(e) => setEstado(e.target.value)}
-              />
-            </span>
-            <span class="bloc">
-              <br />
-              <input
-                type="button"
-                value="Registar"
-                class="boton b4"
-                name="submit"
-                id="submit"
-                onClick={nuevoProducto}
-              />
-            </span>
-          </form>
-        </div>
+            </div>
+            <div className="form-group">
+              <label>Estado</label>
+              <select name="" id="" onChange={(e) => setEstado(e.target.value)}>
+                <option value="" hidden>
+                  Elegir Estado
+                </option>
+                <option value="0">Inactivo</option>
+                <option value="1">Activo</option>
+              </select>
+            </div>
+          </div>
+          <div className="form-btn">
+            <button
+              name="submit"
+              id="submit"
+              onClick={nuevoProducto}
+              className="btn_f limpiar btn-registro"
+            >
+              Registar
+            </button>
+          </div>
+        </fieldset>
       </div>
     </div>
-    */
-    },
-    (
-      <div className="editarPedido register-container">
-        <div className="inputsGrup fondo-register">
-          <div>
-            <p onClick={closeModal}>X</p>
-          </div>
-          <fieldset>
-            <legend>Agregar Producto</legend>
-            <div className="inputs-grup">
-              <div className="form-group">
-                <label>Nombre Producto</label>
-                <input
-                  type="text"
-                  name="nombre"
-                  id="nombre"
-                  placeholder="Ingrese valor"
-                  onChange={(e) => setNombre(e.target.value)}
-                />
-              </div>
-              {/* <div className="form-group">
-                <label>Tipo de Producto</label>
-                <input
-                  type="text"
-                  name="tProducto"
-                  id="tProducto"
-                  placeholder="Ingrese valor"
-                  onChange={(e) => setTproducto(e.target.value)}
-                />
-              </div>*/}
-              <div className="form-group">
-                <label>Tipo de Producto</label>
-                <select
-                  name=""
-                  id=""
-                  type="text"
-                  onChange={(e) => setTproducto(e.target.value)}
-                >
-                  <option value="" hidden>
-                    Elegir Tipo de producto
-                  </option>
-                  <option value="1">Botella</option>
-                  <option value="2">Lata</option>
-                  <option value="3">Paquete</option>
-                  <option value="4">Caja</option>
-                </select>
-              </div>
-              <div className="form-group">
-                <label>Descripcion</label>
-                <input
-                  type="text"
-                  name="descripcion"
-                  id="descripcion"
-                  placeholder="Ingrese valor"
-                  onChange={(e) => setDescripcion(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <label>Precio de Compra</label>
-                <input
-                  type="text"
-                  name="precioCompra"
-                  id="precioCompra"
-                  placeholder="Ingrese valor"
-                  onChange={(e) => setPrecioCompra(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <label>Precio de Venta</label>
-                <input
-                  type="text"
-                  name="precioVenta"
-                  id="precioVenta"
-                  placeholder="Ingrese valor"
-                  onChange={(e) => setPrecioVenta(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <label>Foto</label>
-                <input
-                  type="text"
-                  name="foto"
-                  id="foto"
-                  placeholder="Ingrese valor"
-                  onChange={(e) => setFoto(e.target.value)}
-                />
-              </div>
-              {/* <div className="form-group">
-                <label>Estado</label>
-                <input
-                  type="text"
-                  name="estado"
-                  id="estado"
-                  placeholder="Ingrese valor"
-                  onChange={(e) => setEstado(e.target.value)}
-                />
-            </div>*/}
-              <div className="form-group">
-                <label>Estado</label>
-                <select name="" id="" 
-                  onChange={(e) => setEstado(e.target.value)}>
-                  <option value="" hidden>Elegir Estado</option>
-                  <option value="0">Inactivo</option>
-                  <option value="1">Activo</option>
-                </select>
-              </div>
-            </div>
-            <div className="form-btn">
-              <button
-                name="submit"
-                id="submit"
-                onClick={nuevoProducto}
-                className="btn_f limpiar btn-registro"
-              >
-                Registar
-              </button>
-            </div>
-          </fieldset>
-        </div>
-      </div>
-    )
   );
 };
