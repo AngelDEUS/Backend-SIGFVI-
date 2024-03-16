@@ -47,11 +47,11 @@ INSERT INTO Tipo_Cargo(ID_Tipo_Cargo_PK, Nombre_Tipo_cargo,Estado_ID_Estado_PK)
  /*INSERT INTO Usuario(ID_Numero_Identificacion_PK,ID_Tipo_Identificacion_FKPK,Nombre_Usuario,Segundo_Nombre_Usuario,Apellido_Usuario,Segundo_Apellido_Usuario,Numero_Contacto_Usuario,Email_Usuario,Password_Usuario,ID_Tipo_Cargo_FK,ID_Estado_FK)
 	VALUES ('SW10053-1*',1,'SuperUser','-','_1','.','3153851945','empresa1@gmail.com','...***0000ñ',1,0);*/
 INSERT INTO Usuario(ID_Numero_Identificacion_PK,ID_Tipo_Identificacion_FKPK,Nombre_Usuario,Segundo_Nombre_Usuario,Apellido_Usuario,Segundo_Apellido_Usuario,Numero_Contacto_Usuario,Email_Usuario,Password_Usuario,ID_Tipo_Cargo_FK,ID_Estado_FK)    
-	VALUES ('SW10053-1*',1,'SuperUser','-','_1','.','3153851945','empresa1@gmail.com',hex(aes_encrypt('...***0000ñ',"xd")),1,0);
+	VALUES ('SW10053-1*',1,'SuperUser','-','_1','.','3153851945','empresa1@gmail.com','$2b$08$CVWjEaDJaTBEm8Vo4ARc7eU9m24sJ4MDon6s1OgqlBaNUjKd/TPPq',1,0); /*Admon123*/
   INSERT INTO Usuario 
-	VALUES 	('35684579',1,'Luz','Estela','Rodriguez','Linares','3124352560','lstlinares@hotmail.com',hex(aes_encrypt('Jesus01',"xd")),2,0),
-			('1006865674',1,'Fransico','Arnulfo','Aristizabal','Rodriguez','3194584239', 'Fra.Aris@gmail.com',hex(aes_encrypt('123456789',"xd")),3,0),
-			('10564454999999994',2,'Jean','Carlo','Beltran','Amaya','3155758594', 'jean.carl@gmail.com',hex(aes_encrypt('j123',"xd")),3,1);
+	VALUES 	('35684579',1,'Luz','Estela','Rodriguez','Linares','3124352560','lstlinares@hotmail.com','$2b$08$XJd1gI0V1vWXNXHjX.3XTOxt82mIQ8Te3qx8U.TiM9FujleeXGN0i',2,0), /*Jesus01*/
+			('1006865674',1,'Fransico','Arnulfo','Aristizabal','Rodriguez','3194584239', 'Fra.Aris@gmail.com','$2b$08$hEwWwvSGwMQwfsOBK/60VOf5mdNTguAHScAWCjhh3jq6PEoDg/XVq',3,0), /*0000*/
+			('10564454999999994',2,'Jean','Carlo','Beltran','Amaya','3155758594', 'jean.carl@gmail.com','$2b$08$hEwWwvSGwMQwfsOBK/60VOf5mdNTguAHScAWCjhh3jq6PEoDg/XVq',3,1); /*0000*/
  
  -- #7 -- Registro_Proveedor
  INSERT INTO Registro_Proveedor(Nombre_Empresa,Dia_Visita,Telefono_Contacto,Estado_ID_Estado_PK)
@@ -61,14 +61,14 @@ INSERT INTO Usuario(ID_Numero_Identificacion_PK,ID_Tipo_Identificacion_FKPK,Nomb
 			('Margarita','Lunes - Miercoles','3114159755',1);
  
  -- #8 -- Cuenta_Deudor
- INSERT INTO Cuenta_Deudor(Primer_Nombre,Segundo_Nombre,Primer_Apellido,Segundo_Apellido,Direccion_Deudor,Telefono_Deudor,ID_Estado_FK)
-	VALUES  ('Omar','Ferney','Badillo','de la Cruz', 'Tv 7 #25-3L','3181475823',0),
-			('Camila','Valentina','Gómez','Pérez','Carrera 56 #89-34','23456789',0),
-            ('Juan','Carlos','Rodríguez','Sánchez','Calle 67 #12-45',' 45678901',0),
-            ('Oscar','Eduardo','Ramírez','Torres','Carrera 12 #23-45','56789012',1),
-            ('Valeria','Isabel','Castro','Ruiz','Calle 78 #56-12','67890123',0),
-            ('María','José','González','Vargas','Carrera 45 #67-89','78901234',1),
-            ('Andrés','Felipe','López','Pérez','Avenida 23 #34-56','89012345',1);
+ INSERT INTO Cuenta_Deudor(ID_Deudor_PK, Primer_Nombre,Segundo_Nombre,Primer_Apellido,Segundo_Apellido,Direccion_Deudor,Telefono_Deudor,ID_Estado_FK)
+	VALUES  ('111','Omar','Ferney','Badillo','de la Cruz', 'Tv 7 #25-3L','3181475823',0),
+			('222','Camila','Valentina','Gómez','Pérez','Carrera 56 #89-34','23456789',0),
+            ('333','Juan','Carlos','Rodríguez','Sánchez','Calle 67 #12-45',' 45678901',0),
+            ('444','Oscar','Eduardo','Ramírez','Torres','Carrera 12 #23-45','56789012',1),
+            ('555','Valeria','Isabel','Castro','Ruiz','Calle 78 #56-12','67890123',0),
+            ('666','María','José','González','Vargas','Carrera 45 #67-89','78901234',1),
+            ('777','Andrés','Felipe','López','Pérez','Avenida 23 #34-56','89012345',1);
 
  -- #9 -- Metodo_de_pago
  INSERT INTO Metodo_de_pago(Nombre_Metodo, Tipo_Metodo_Pago, Referencia, ID_Estado_FK)
@@ -85,14 +85,14 @@ SELECT * FROM Metodo_de_pago WHERE Nombre_Metodo LIKE '%Tarjeta%';
             
 -- #10 -- Saldo_Cuenta_Deudor
 INSERT INTO Saldo_Cuenta_Deudor(ID_Deudor_FK,Fecha_Cancelacion_Pedido,Total_Saldo_Deuda)
-	VALUES  (1,'2023-03-24',50000);
+	VALUES  ('111','2023-03-24',50000);
 INSERT INTO Saldo_Cuenta_Deudor(ID_Deudor_FK,Fecha_Cancelacion_Pedido,Total_Saldo_Deuda)
-	VALUES  (2,'2023-03-24',50000),
-			(3,'2023-08-01',20000),
-			(4,'2023-03-02',5000),
-			(5,'2023-09-13',40000),
-			(6,'2023-05-24',300000),
-			(7,'2023-02-17',28500);
+	VALUES  ('222','2023-03-24',50000),
+			('333','2023-08-01',20000),
+			('444','2023-03-02',5000),
+			('555','2023-09-13',40000),
+			('666','2023-05-24',300000),
+			('777','2023-02-17',28500);
             
 -- #11 -- Pedido
 INSERT INTO Pedido(ID_Metodo_Pago_FK,Fecha_Pedido,Hora_Pedido,IVA,Total_Pedido,ID_Estado_FK,ID_Saldo_PK)
@@ -145,6 +145,7 @@ select * from inventario;
 delete from inventario;
     
 SELECT * FROM Inventario;
+select * from Producto;
     
 -- #15 -- Tipo_Informe_Venta
 INSERT INTO Tipo_Informe_Venta(ID_Informe_Venta_PF,ID_Factura_FK)
