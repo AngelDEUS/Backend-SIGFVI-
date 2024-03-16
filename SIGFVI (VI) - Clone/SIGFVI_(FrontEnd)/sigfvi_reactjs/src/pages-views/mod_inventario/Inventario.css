@@ -76,11 +76,6 @@
   width: 800px;
 }
 
-.mainIzquierda {}
-
-.mainDerecha {}
-
-.MainBoton2 {}
 
 .mainModal input {
   padding: 5px;
@@ -233,5 +228,26 @@
   font-size: 15px;
   text-transform: capitalize;
   margin-left: 10px;
+}
+
+.conteiner_body2 {
+  display: grid; 
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr; 
+  grid-template-rows: 1fr 1fr 50px; 
+  gap: 0px 0px; 
+  grid-template-areas: 
+    "table__body table__body table__body contador_body contador_body"
+    "table__body table__body table__body contador_body contador_body"
+    ". . . . boton_table"; 
+}
+.table__body { grid-area: table__body; }
+.contador_body { grid-area: contador_body; }
+.boton_table { grid-area: boton_table; }
+
+
+.contador_body{
+  height: 600px;
+  margin-left: 100px;
+  margin-right: 100px;
 }
 

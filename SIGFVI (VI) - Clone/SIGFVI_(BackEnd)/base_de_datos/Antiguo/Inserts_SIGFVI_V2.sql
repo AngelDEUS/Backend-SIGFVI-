@@ -133,16 +133,16 @@ INSERT INTO Facturacion(Fecha_Factura,Hora_Factura,ID_Venta_Realizada_FK)
 			('2023-09-14','16:32:20',6),
 			('2023-05-25','13:57:10',7),
 			('2023-02-17','06:09:09',8);
-
+            
 -- #14 -- Inventario
 INSERT INTO Inventario (Stock, ID_Producto_FK)
     VALUES ( 90, 'AGU-001'),
             ( 40, 'ARR-001'),
-            ( 180, 'POK-001'),
             ( 70, 'JUG-001'),
             ( 180, 'POK-001'),
-            ( 80, 'ARR-001'),
             ( 120, 'PAQ-001');
+select * from inventario;
+delete from inventario;
     
 SELECT * FROM Inventario;
     

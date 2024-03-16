@@ -4,7 +4,6 @@ const consultaDatos = async (req, res) => {
   try {
       console.log("Obteniendo datos...");
 
-      // Asegúrate de utilizar con.promise() para obtener una versión compatible con promesas
       const [result] = await db.query(`
           SELECT 
               P.ID_Producto_PK,
@@ -33,49 +32,84 @@ const consultaDatos = async (req, res) => {
 };
 
 const reportarProducto = async (req, res) => {
-  try {
-      const { ID_Producto_PK, Descripcion_Salida, Cantidad_Reportada } = req.body;
+    try {
+        const { ID_Producto_PK, Descripcion_Salida, Cantidad_Reportada } = req.body;
+  
+        const fechaSalida = new Date().toISOString().split('T')[0];
+        const horaSalida = new Date().toLocaleTimeString().split('a')[0];
+  
+        const [inventarioResult] = await db.query(`
+            SELECT ID_Inventario_PK
+            FROM Inventario
+            WHERE ID_Producto_FK = ?;
+        `, [ID_Producto_PK]);
+  
+        if (inventarioResult.length === 0) {
+            throw new Error("No se encontró el inventario para el producto especificado.");
+        }
+  
+        const ID_Inventario_FK = inventarioResult[0].ID_Inventario_PK;
+  
+        await db.query(`
+            INSERT INTO Salida_producto_Inventario (Descripcion_Salida, Cantidad_Salida, Fecha_Salida, Hora_Salida, ID_Inventario_FK)
+            VALUES (?, ?, ?, ?, ?);
+        `, [Descripcion_Salida, Cantidad_Reportada, fechaSalida, horaSalida, ID_Inventario_FK]);
+  
+        await db.query(`
+            UPDATE Inventario
+            SET Stock = Stock - ?
+            WHERE ID_Inventario_PK = ?;
+        `, [Cantidad_Reportada, ID_Inventario_FK]);
+  
+        res.json({ mensaje: "Reporte realizado exitosamente." });
+    } catch (error) {
+        console.error("Error al realizar el reporte", error);
+        res.status(500).json({ error: "Error al realizar el reporte." });
+    }
+  };
 
-      // Obtener la fecha y hora actuales
-      const fechaSalida = new Date().toISOString().split('T')[0];
-      const horaSalida = new Date().toLocaleTimeString().split('a')[0];;
-
-      // Obtener el ID_Inventario_FK basándonos en el ID_Producto_FK
-      const [inventarioResult] = await db.query(`
+const registrarEntradaProducto = async (req, res) => {
+    try {
+      const { productos, proveedorId } = req.body;
+      const fechaEntrada = new Date().toISOString().split('T')[0];
+      const horaEntrada = new Date().toLocaleTimeString().split(' ')[0];
+  
+      for (const producto of productos) {
+        const [inventarioResult] = await db.query(`
           SELECT ID_Inventario_PK
           FROM Inventario
           WHERE ID_Producto_FK = ?;
-      `, [ID_Producto_PK]);
+        `, [producto.id]);
+  
+        if (inventarioResult.length > 0) {
+          await db.query(`
+            UPDATE Inventario
+            SET Stock = Stock + ?
+            WHERE ID_Producto_FK = ?;
+          `, [producto.cantidad, producto.id]);
+        } else {
+          await db.query(`
+            INSERT INTO Inventario (Stock, ID_Producto_FK)
+            VALUES (?, ?);
+          `, [producto.cantidad, producto.id]);
+        }
 
-      if (inventarioResult.length === 0) {
-          throw new Error("No se encontró el inventario para el producto especificado.");
+        await db.query(`
+          INSERT INTO Entrada_Producto (Cantidad_Entrada, Fecha_Entrada_Producto, Hora_Entrada_Producto, ID_Registro_Proveedor_Fk, Producto_Inventario)
+          VALUES (?, ?, ?, ?, ?);
+        `, [producto.cantidad, fechaEntrada, horaEntrada, proveedorId, producto.id]);
       }
-
-      const ID_Inventario_FK = inventarioResult[0].ID_Inventario_PK;
-
-      // Insertar el reporte en la tabla Salida_producto_Inventario
-      await db.query(`
-          INSERT INTO Salida_producto_Inventario (Descripcion_Salida, Fecha_Salida, Hora_Salida, ID_Inventario_FK)
-          VALUES (?, ?, ?, ?);
-      `, [Descripcion_Salida, fechaSalida, horaSalida, ID_Inventario_FK]);
-
-      // Actualizar la cantidad en la tabla Inventario (restar la cantidad reportada)
-      await db.query(`
-          UPDATE Inventario
-          SET Stock = Stock - ?
-          WHERE ID_Inventario_PK = ?;
-      `, [Cantidad_Reportada, ID_Inventario_FK]);
-
-      res.json({ mensaje: "Reporte realizado exitosamente." });
-  } catch (error) {
-      console.error("Error al realizar el reporte", error);
-      res.status(500).json({ error: "Error al realizar el reporte." });
-  }
-};
-
-
+  
+      res.json({ mensaje: "Productos ingresados exitosamente." });
+    } catch (error) {
+      console.error("Error al ingresar los productos", error);
+      res.status(500).json({ error: "Error al ingresar los productos." });
+    }
+  };
+  
 
 module.exports = {
     consultaDatos,
     reportarProducto,
+    registrarEntradaProducto,
   }

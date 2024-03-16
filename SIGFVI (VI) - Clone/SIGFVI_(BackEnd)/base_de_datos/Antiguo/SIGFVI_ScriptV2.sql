@@ -102,7 +102,7 @@ CREATE TABLE
         PRIMARY KEY (ID_Registro_Proveedor_PK),
         FOREIGN KEY (Estado_ID_Estado_PK) REFERENCES Estado (ID_Estado_PK)
     );
-
+select * from Registro_Proveedor;
 
 -- ALTER TABLE Registro_Proveedor MODIFY COLUMN ID_Registro_Proveedor_PK INT AUTO_INCREMENT;
 -- #8 Cuenta_Deudor -------------->
@@ -221,6 +221,7 @@ CREATE TABLE
     Salida_producto_Inventario (
         ID_Salida_producto_Inventario_PK INT NOT NULL AUTO_INCREMENT COMMENT 'Campo con la llave primaria del ID de la salida de un producto en el inventario autoincrementable.',
         Descripcion_Salida TEXT(400) NOT NULL COMMENT 'Campo con la descripcion detallada de la salida de un producto en el inventario',
+        Cantidad_Salida INT UNSIGNED NOT NULL COMMENT 'Campo Con la cantidad de salida del producto',
         Fecha_Salida DATE NOT NULL COMMENT 'Campo con el ingreso de la fecha de la salida de un producto en el inventario.',
         Hora_Salida TIME NOT NULL COMMENT 'Campo con el ingreso de la hora de la salida de un producto en el inventario.',
         ID_Inventario_FK SMALLINT(10) COMMENT 'Campo con la llave foranea del Inventario',
@@ -263,11 +264,14 @@ CREATE TABLE
 CREATE TABLE
     Entrada_Producto (
         ID_Entrada_Producto_PK INT AUTO_INCREMENT NOT NULL COMMENT 'Campo con la llave primaria del ID de la entra del producto a el sistema',
+        Cantidad_Entrada INT UNSIGNED NOT NULL COMMENT 'Campo Con la cantidad que ingresa al sistema del producto',
         Fecha_Entrada_Producto DATE NOT NULL COMMENT 'Campo que almacena la fecha de entrada de un producto en el sistema.',
         Hora_Entrada_Producto TIME NOT NULL COMMENT 'Campo que almacena la hora de entrada de un producto en el sistema.',
-        ID_Inventario_FK SMALLINT(10) NOT NULL COMMENT 'Campo con la llave foranea del ID del producto asociado',
+        ID_Registro_Proveedor_Fk INT NOT NULL,
+        Producto_Inventario VARCHAR(15) NOT NULL COMMENT 'Campo con la llave foranea del ID del producto asociado',
         PRIMARY KEY (ID_Entrada_Producto_PK),
-        FOREIGN KEY (ID_Inventario_FK) REFERENCES Inventario (ID_Inventario_PK)
+        FOREIGN KEY (ID_Registro_Proveedor_Fk) REFERENCES registro_proveedor (ID_Registro_Proveedor_PK),
+        FOREIGN KEY (Producto_Inventario) REFERENCES Inventario (ID_Producto_FK)
     );
     -- ALTER TABLE Entrada_Producto AUTO_INCREMENT=0;
  --   DROP TABLE Tipo_Informe_Empleado;

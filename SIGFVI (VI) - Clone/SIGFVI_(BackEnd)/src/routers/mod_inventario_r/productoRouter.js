@@ -3,7 +3,7 @@ const productosController = require("../../controllers/mod_inventario_c/producto
 const rutaDatos = express.Router();
 
 rutaDatos.get("/Datos", productosController.Datos);
-rutaDatos.delete("/BorrarDato/:id", productosController.BorrarDato);
+rutaDatos.delete("/BorrarDatos/:id", productosController.BorrarDatos);
 rutaDatos.delete("/BorrarInventario/:id", productosController.BorrarInventario);
 rutaDatos.get("/BuscarDatoPorId/:id", productosController.BuscarDatoPorId);
 rutaDatos.put("/ActualizarProducto/:id", productosController.ActualizarProducto);
