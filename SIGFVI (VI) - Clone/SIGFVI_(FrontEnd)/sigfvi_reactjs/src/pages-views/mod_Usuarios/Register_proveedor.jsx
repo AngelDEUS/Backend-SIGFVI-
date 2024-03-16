@@ -8,6 +8,8 @@ const RegisterProveedor = ({ isOpen, closeModal, reConsulta }) => {
   const [diaVisita, setDiaVisita] = useState('');
   const [telefonoContacto, setTelefonoContacto] = useState('');
 
+  /*MODIFICADO*/
+
   if (!isOpen) return null;
 
   const agregarRegistro = () => {

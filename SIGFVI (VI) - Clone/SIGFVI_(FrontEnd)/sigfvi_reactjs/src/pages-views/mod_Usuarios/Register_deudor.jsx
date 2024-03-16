@@ -57,13 +57,13 @@ const Register_deudor = ({isOpen, closeModal, reConsulta}) => {
                         icon: 'error',
                         text: 'El ID del usuario ya existe.'
                     });
-                    document.getElementById('idp').style.borderColor = 'red'; // Cambiar el color del borde a rojo
-                    document.getElementById('idAvailabilityMessage').innerText = 'El ID del usuario ya existe.'; // Mostrar mensaje de disponibilidad debajo del campo
-                    document.getElementById('submit').disabled = true; // Deshabilitar el botón de registro
+                    document.getElementById('idp').style.borderColor = 'red'; 
+                    document.getElementById('idAvailabilityMessage').innerText = 'El ID del usuario ya existe.'; 
+                    document.getElementById('submit').disabled = true; 
                 } else {
-                    document.getElementById('idp').style.borderColor = ''; // Restaurar el color del borde por defecto
-                    document.getElementById('idAvailabilityMessage').innerText = ''; // Limpiar el mensaje de disponibilidad
-                    document.getElementById('submit').disabled = false; // Habilitar el botón de registro si el ID no existe
+                    document.getElementById('idp').style.borderColor = '';
+                    document.getElementById('idAvailabilityMessage').innerText = ''; 
+                    document.getElementById('submit').disabled = false; 
                 }
             })
             .catch(error => {
