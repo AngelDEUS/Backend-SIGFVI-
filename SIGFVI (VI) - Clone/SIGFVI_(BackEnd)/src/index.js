@@ -13,6 +13,7 @@ const pedidosRouter = require('./routers/mod_ventas_facturacion_r/pedidosRouter'
 const metodoPagoRouter = require('./routers/mod_ventas_facturacion_r/metodoPagoRouter');
 const routerConsultas = require('./routers/mod_ventas_facturacion_r/consulatasImportRouter.js')
 const pagarVentaRouter = require('./routers/mod_ventas_facturacion_r/pagarVentaRouter.js');
+const routerFactura = require('./routers/mod_ventas_facturacion_r/facturacionRouter.js');
 
 // --> Modúlo de Productos e Inventario
 const inventarioRouter = require('./routers/mod_inventario_r/inventarioRouter.js');
@@ -44,6 +45,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', pedidosRouter); 
 app.use('/', metodoPagoRouter);
 app.use('/pagoventa', pagarVentaRouter);
+app.use('/facturacion', routerFactura);
 app.use('/vyf', routerConsultas);
 
 // Modulo de productos en inventario.
