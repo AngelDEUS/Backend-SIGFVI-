@@ -1,55 +1,60 @@
 .contenido-dashboard {
-    position: relative;
-    width: 100%;
-    height: 1000px; 
-    margin: 5px; 
-  }
-  
-  .Graficaproductos {
-    position: absolute;
-    margin: 0; 
-    top: 0%;
-    left: 5%;
-    width: 90%;
-    height: 500px; 
-    background-color: #f8f8f8;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 50px;
-  }
-  .GraficasMasVendido{
-    position: absolute;
-    margin: 0;
-    top: 52%;
-    left: 5%;
-    width: 40%;
-    height: 400px;
-    background-color: #f8f8f8;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-  }
-  .GraficaStockBajo {
-    position: absolute;
-    margin: 0;
-    top: 52%;
-    left: 50%;
-    width: 40%;
-    height: 400px;
-    background-color: #f8f8f8;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
+  position: relative;
+  width: 100%;
+  height: 1000px;
+  margin: 5px;
+}
+
+.Graficaproductos {
+  position: absolute;
+  margin: 0;
+  top: 0%;
+  left: 5%;
+  width: 90%;
+  height: 500px;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd; 
+  border-radius: 8px;
+  padding: 50px;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5);
+}
+
+.GraficasMasVendido {
+  position: absolute;
+  margin: 0;
+  top: 56%;
+  left: 5%;
+  width: 45%;
+  height: 410px;
+  background-color: #f0f0f0; 
+  border: 1px solid #ddd; 
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5); 
 }
 
 
-  .graficoTitulo {
-    font-size: 2em;
-    color: #000000;
-    text-transform: uppercase;
-    border-bottom: 2px solid #B71C1C;
-    padding-bottom: 5px;
-    margin-bottom: 20px;
-  }
-  
- 
+.GraficaStockBajo {
+  position: absolute;
+  margin: 0;
+  top: 56%;
+  left: 55%;
+  width: 40%;
+  height: 400px;
+  background-color: #f0f0f0; 
+  border: 1px solid #ddd; 
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5); 
+}
+
+
+.graficoTitulo {
+  font-size: 2em;
+  color: #000000;
+  text-transform: uppercase;
+  border-bottom: 2px solid #B71C1C;
+  padding-bottom: 5px;
+  margin-bottom: 20px;
+}
+

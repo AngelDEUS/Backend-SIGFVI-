@@ -1,13 +1,13 @@
 import React from 'react'
-import TituloyDesc from '../../components/Titles/TituloyDesc'
 // import Modals from '../../components/modal/Modals';
+import TituloyDesc from '../../components/Titles/TituloyDesc'
 import { GraficasProduc, GraficasMasVendido, GraficaStockBajo } from '../Dashboard/Graficas';
 
 
 
 const main_Dashboard = () => {
     const titulo = 'Dashboard';
-    const descipcion = 'En este apartado se observa las graficas de Administradores y Empleados';
+    const descipcion = 'En este apartado se observa las graficas de los productos en stock, los más vendidos y con stock bajo.';
 
     return (
         <div>
@@ -19,6 +19,10 @@ const main_Dashboard = () => {
                 <GraficasProduc/>
                 <GraficasMasVendido/>
                 <GraficaStockBajo/>
+                
+                {/* <p className='textodes1'>En esta grafica se puede observar los productos que más ventas han tenido.</p>
+                <p className='textodes2'>En esta grafica se puede observar los productos con el menor stock</p> */}
+
             </div>
         </div>
     )
