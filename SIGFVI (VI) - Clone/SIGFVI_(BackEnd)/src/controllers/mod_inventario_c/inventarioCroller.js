@@ -35,7 +35,7 @@ const reportarProducto = async (req, res) => {
     try {
         const { ID_Producto_PK, Descripcion_Salida, Cantidad_Reportada } = req.body;
   
-        const fechaSalida = new Date().toISOString().split(' ')[0];
+        const fechaSalida = new Date().toISOString().split('T')[0];
         const horaSalida = new Date().toLocaleTimeString().split(' ')[0];
   
         const [inventarioResult] = await db.query(`
@@ -71,7 +71,7 @@ const reportarProducto = async (req, res) => {
 const registrarEntradaProducto = async (req, res) => {
     try {
       const { productos, proveedorId } = req.body;
-      const fechaEntrada = new Date().toISOString().split(' ')[0];
+      const fechaEntrada = new Date().toISOString().split('T')[0];
       const horaEntrada = new Date().toLocaleTimeString().split(' ')[0];
   
       for (const producto of productos) {

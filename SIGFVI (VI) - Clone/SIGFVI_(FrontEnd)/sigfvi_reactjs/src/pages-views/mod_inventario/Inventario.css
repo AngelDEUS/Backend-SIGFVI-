@@ -216,14 +216,14 @@
   box-shadow: 0px 0px 40px 10px var(--Color-btn-04-cancela);
 }
 
-.botones_arriba{
+.botones_arriba {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
 
-.subtitulo__h3{
+.subtitulo__h3 {
   color: #3503ff;
   font-size: 15px;
   text-transform: capitalize;
@@ -231,48 +231,66 @@
 }
 
 .conteiner_body2 {
-  display: grid; 
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr; 
-  grid-template-rows: 1fr 1fr 50px; 
-  gap: 0px 0px; 
-  grid-template-areas: 
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 50px;
+  gap: 0px 0px;
+  grid-template-areas:
     "table__body table__body table__body contador_body contador_body"
     "table__body table__body table__body contador_body contador_body"
-    ". . . . boton_table"; 
+    ". . . . boton_table";
 }
-.table__body { grid-area: table__body; }
-.contador_body { grid-area: contador_body; }
-.boton_table { grid-area: boton_table; }
+
+.table__body {
+  grid-area: table__body;
+}
+
+.contador_body {
+  grid-area: contador_body;
+}
+
+.boton_table {
+  grid-area: boton_table;
+}
 
 
-.contador_body{
+.contador_body {
   height: 600px;
   margin-left: 100px;
   margin-right: 100px;
 }
 
-.entregabtn{
+.entregabtn {
   display: flex;
   flex-direction: row;
   margin: none;
 }
 
- .entregabtn input[type="number"] {
+.entregabtn input[type="number"] {
   width: 60px;
   padding-right: 10px;
   border: 1px solid #ced4da;
   border-radius: 5px;
   color: rgb(61, 55, 55);
+
 }
+
+
 .entregabtn input[type="number"]::placeholder {
   color: rgb(155, 162, 168);
 }
 
-.entregabtn input:disabled{
-    border: 1px solid #e1e6eb;
-    background-color: #f1f3f570;
-    color: rgb(145, 161, 175);
-} 
+.entregabtn input:disabled {
+  border: 1px solid #e1e6eb;
+  background-color: #f1f3f570;
+  color: rgb(145, 161, 175);
+}
+
+.entregabtn input[type=number]::-webkit-inner-spin-button,
+.entregabtn input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
 .entregabtn input[type="number"]:focus {
   outline: none;
@@ -280,7 +298,8 @@
   box-shadow: 0 0 0 0.2rem #5cb0ff;
   color: rgb(78, 73, 73);
 }
-.entregaBoton{
+
+.entregaBoton {
   margin: none;
   border-radius: 0%;
 }

@@ -87,7 +87,7 @@ const BuscarProductoPorID = (req, res) => {
             Producto.ID_Producto_PK,
             Producto.Nombre_Producto,
             Tipo_Producto.Nombre_Tipo_Producto,
-            Producto.Descripcion_Producto,
+            Producto.Descripcion,
             Producto.Precio_Venta,
             SUM(Inventario.Stock) AS Stock_Total
         FROM 
@@ -102,7 +102,7 @@ const BuscarProductoPorID = (req, res) => {
             Producto.ID_Producto_PK, 
             Producto.Nombre_Producto,
             Tipo_Producto.Nombre_Tipo_Producto,
-            Producto.Descripcion_Producto,
+            Producto.Descripcion,
             Producto.Precio_Venta
         `,
         [id],
