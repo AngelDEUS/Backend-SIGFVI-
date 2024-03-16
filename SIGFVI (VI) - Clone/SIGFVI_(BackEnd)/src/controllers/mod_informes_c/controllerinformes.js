@@ -2,23 +2,23 @@ const db = require("../../models/sigfviDBModelo");
 
 const consultaDeudor = (req, res) => {
     const query = `SELECT 
-    cd.ID_Deudor_PK AS id,
-    cd.Primer_Nombre,
-    cd.Segundo_Nombre,
-    cd.Primer_Apellido,
-    cd.Segundo_Apellido,
-    e.Nombre_Estado AS estado,
-    cd.ID_Estado_FK,
-    scd.Total_Saldo_Deuda AS saldo,
-    scd.Fecha_Cancelacion_Pedido
-FROM 
-    Cuenta_Deudor cd
-INNER JOIN 
-    Saldo_Cuenta_Deudor scd ON cd.ID_Deudor_PK = scd.ID_Deudor_FK
-INNER JOIN 
-    Estado e ON cd.ID_Estado_FK = e.ID_Estado_PK
-ORDER BY 
-    cd.ID_Deudor_PK ASC;
+        cd.ID_Deudor_PK AS id,
+        cd.Primer_Nombre,
+        cd.Segundo_Nombre,
+        cd.Primer_Apellido,
+        cd.Segundo_Apellido,
+        e.Nombre_Estado AS estado,
+        cd.ID_Estado_FK,
+        scd.Total_Saldo_Deuda AS saldo,
+        scd.Fecha_Cancelacion_Pedido
+    FROM 
+        Cuenta_Deudor cd
+    INNER JOIN 
+        Saldo_Cuenta_Deudor scd ON cd.ID_Deudor_PK = scd.ID_Deudor_FK
+    INNER JOIN 
+        Estado e ON cd.ID_Estado_FK = e.ID_Estado_PK
+    ORDER BY 
+        cd.ID_Deudor_PK ASC;
     `;
 
     db.query(query, (error, result) => {
@@ -99,25 +99,24 @@ const consultaDatos = (req, res) => {
 const ObtenerProductosVenta = (req, res) => {
     db.query(`
     SELECT 
-    p.ID_Pedido_PK, 
+    v.ID_Venta_PK, 
     m.Nombre_Metodo AS Nombre_Metodo_Pago,
-    p.Fecha_Pedido, 
-    p.Hora_Pedido, 
-    p.IVA, 
-    p.Total_Pedido, 
-    p.ID_Estado_FK, 
-    p.ID_Saldo_PK 
+    v.IVA, 
+    v.Total_Pedido, 
+    v.ID_Estado_FK, 
+    v.ID_Saldo_PK 
 FROM 
-    Pedido p
-INNER JOIN Metodo_de_pago m ON p.ID_Metodo_Pago_FK = m.ID_Metodo_Pago_PK;`, (err, result) => {
+    Venta v
+INNER JOIN Metodo_de_pago m ON v.ID_Metodo_Pago_FK = m.ID_Metodo_Pago_PK;`, (err, result) => {
         if (err) {
             console.error("Error al obtener datos de productos", err);
             res.status(500).json({ error: "No se pudieron obtener los datos de productos" });
         } else {
-            res.json({ productos: result });
+            res.json({ ventas: result });
         }
     });
 };
+
 
 module.exports = {
     consultaDeudor,

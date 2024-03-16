@@ -1,8 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
 import TituloyDesc from '../../components/Titles/TituloyDesc';
 
 const InformeVentas = () => {
+  const [productos, setProductos] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/informes/informeVenta');
+        if (response.status === 200) {
+          setProductos(response.data.ventas); // Aquí cambiamos productos por ventas
+        } else {
+          console.error('Error fetching data:', response.status);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <main className='contenedor_informe'>
       <TituloyDesc
@@ -16,121 +36,21 @@ const InformeVentas = () => {
       <table>
         <thead>
           <tr>
-            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
-            <th>Fecha</th>
-            <th>Producto:
-              <select>
-                <option value="0">Seleccione el producto</option>
-                <option value="1">Cerveza Aguila</option>
-                <option value="2">Gaseosa pequeña Coca Cola</option>
-                <option value="3">Doritos</option>
-                <option value="4">Papas Super Ricas</option>
-                <option value="5">Ron</option>
-                <option value="6">Aguardiente Antioqueño</option>
-              </select>
-            </th>
-            <th>Cantidad</th>
-            <th>Precio Unitario</th>
-            <th style={{ textAlign: 'center' }}>Total</th>
+            <th style={{ textAlign: 'center' }}>ID Venta</th> {/* Cambiado de ID Pedido a ID Venta */}
+            <th>Método de Pago</th>
+            <th>IVA</th>
+            <th>Total Pedido</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
-            <td>2023/06/01</td>
-            <td>Cerveza Aguila</td>
-            <td>3</td>
-            <td>$3.000</td>
-            <td style={{ textAlign: 'center' }}>$9.000</td>
-          </tr>
-          <tr>
-            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
-            <td>2023/05/08</td>
-            <td>Ron</td>
-            <td>5</td>
-            <td>$48.700</td>
-            <td style={{ textAlign: 'center' }}>$243.500</td>
-          </tr>
-          <tr>
-            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
-            <td>2023/06/28</td>
-            <td>Papas Super Ricas</td>
-            <td>2</td>
-            <td>$5.000</td>
-            <td style={{ textAlign: 'center' }}>$10.000</td>
-          </tr>
-          <tr>
-            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
-            <td>2023/06/01</td>
-            <td>Cerveza Aguila</td>
-            <td>3</td>
-            <td>$3.000</td>
-            <td style={{ textAlign: 'center' }}>$9.000</td>
-          </tr>
-          <tr>
-            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
-            <td>2023/05/08</td>
-            <td>Ron</td>
-            <td>5</td>
-            <td>$48.700</td>
-            <td style={{ textAlign: 'center' }}>$243.500</td>
-          </tr>
-          <tr>
-            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
-            <td>2023/06/28</td>
-            <td>Papas Super Ricas</td>
-            <td>2</td>
-            <td>$5.000</td>
-            <td style={{ textAlign: 'center' }}>$10.000</td>
-          </tr>
-          <tr>
-            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
-            <td>2023/06/01</td>
-            <td>Cerveza Aguila</td>
-            <td>3</td>
-            <td>$3.000</td>
-            <td style={{ textAlign: 'center' }}>$9.000</td>
-          </tr>
-          <tr>
-            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
-            <td>2023/05/08</td>
-            <td>Ron</td>
-            <td>5</td>
-            <td>$48.700</td>
-            <td style={{ textAlign: 'center' }}>$243.500</td>
-          </tr>
-          <tr>
-            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
-            <td>2023/06/28</td>
-            <td>Papas Super Ricas</td>
-            <td>2</td>
-            <td>$5.000</td>
-            <td style={{ textAlign: 'center' }}>$10.000</td>
-          </tr>
-          <tr>
-            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
-            <td>2023/06/01</td>
-            <td>Cerveza Aguila</td>
-            <td>3</td>
-            <td>$3.000</td>
-            <td style={{ textAlign: 'center' }}>$9.000</td>
-          </tr>
-          <tr>
-            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
-            <td>2023/05/08</td>
-            <td>Ron</td>
-            <td>5</td>
-            <td>$48.700</td>
-            <td style={{ textAlign: 'center' }}>$243.500</td>
-          </tr>
-          <tr>
-            <th style={{ textAlign: 'center' }}><input type="checkbox" /></th>
-            <td>2023/06/28</td>
-            <td>Papas Super Ricas</td>
-            <td>2</td>
-            <td>$5.000</td>
-            <td style={{ textAlign: 'center' }}>$10.000</td>
-          </tr>
+          {productos.map((venta, index) => ( // Cambiado de pedido a venta
+            <tr key={index}>
+              <td>{venta.ID_Venta_PK}</td> {/* Cambiado de ID_Pedido_PK a ID_Venta_PK */}
+              <td>{venta.Nombre_Metodo_Pago}</td> {/* Mantenido Nombre_Metodo_Pago */}
+              <td>{venta.IVA}</td> {/* Mantenido IVA */}
+              <td>{venta.Total_Pedido}</td> {/* Mantenido Total_Pedido */}
+            </tr>
+          ))}
         </tbody>
       </table>
     </main>

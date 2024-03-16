@@ -1,9 +1,25 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import {Link} from 'react-router-dom';
+import axios from 'axios';
 import TituloyDesc from '../../components/Titles/TituloyDesc';
 
 
 function InformeDeudores() {
+  const [deudores, setDeudores] = useState([]);
+
+  useEffect(() => {
+    const obtenerDatosDeudores = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/informes/informeDeudor');
+        setDeudores(response.data);
+      } catch (error) {
+        console.error('Error al obtener los deudores:', error);
+      }
+    };
+
+    obtenerDatosDeudores();
+  }, []);
+
   return (
     <main className='contenedor_informe'>
       <TituloyDesc

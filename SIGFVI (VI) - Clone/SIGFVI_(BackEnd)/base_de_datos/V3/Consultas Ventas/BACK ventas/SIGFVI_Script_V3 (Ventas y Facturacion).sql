@@ -339,6 +339,11 @@ CREATE TABLE
         FOREIGN KEY (ID_Producto_FKPK) REFERENCES Producto (ID_Producto_PK)
     );
     
+<<<<<<< HEAD:SIGFVI (VI) - Clone/SIGFVI_(BackEnd)/base_de_datos/V3/Consultas Ventas/BACK ventas/SIGFVI_Script_V3 (Ventas y Facturacion).sql
 -- DROP TABLE Registro_Proveedor_has_Producto;
 -- DESCRIBE Registro_Proveedor;
     
+=======
+describe  Registro_Proveedor;
+-- DROP TABLE Registro_Proveedor_has_Producto;
+>>>>>>> 13130f6f007090a1746768c6b52e9cc71e6a019c:SIGFVI (VI) - Clone/SIGFVI_(BackEnd)/base_de_datos/SIGFVI_ScriptV2.sql
