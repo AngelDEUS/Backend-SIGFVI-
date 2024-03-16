@@ -194,25 +194,9 @@ CREATE TABLE
         FOREIGN KEY (ID_Venta_FK) REFERENCES Venta (ID_Venta_PK),
         FOREIGN KEY (ID_Inventario_FK) REFERENCES Inventario (ID_Inventario_PK)
     );
+SELECT * FROM Venta;
 SELECT * FROM Detalle_Venta;
--- ------------------------------------------------------------------------------------------------------------------------------------------------------------->
-
--- #12 Venta_Realizada -------------->
-/*
-CREATE TABLE
-    Venta_Realizada (
-        ID_Venta_Realizada_PK INT NOT NULL AUTO_INCREMENT COMMENT 'Campo con la llave primaria de la venta realizada despues del pedido.',
-        ID_Saldo_Cuenta_Deudor_FK INT NOT NULL COMMENT 'Campo con la llave foranea del ID del saldo de la cuenta del deudor referenciado.',
-        ID_Pedido_FK INT NOT NULL COMMENT 'Campo con la llave foranea del pepido referenciado.',
-        PRIMARY KEY (ID_Venta_Realizada_PK),
-        FOREIGN KEY (ID_Saldo_Cuenta_Deudor_FK) REFERENCES Saldo_Cuenta_Deudor (ID_Saldo_PK),
-        FOREIGN KEY (ID_Pedido_FK) REFERENCES Pedido (ID_Pedido_PK)
-);
-*/
-
-
 -- #14 Facturacion 
--- ------------------------------------------------------------------------------------------------------------------------------------------------------------->
 
 CREATE TABLE
     Facturacion (
@@ -223,7 +207,6 @@ CREATE TABLE
         PRIMARY KEY (ID_Factura_PK),
         FOREIGN KEY (ID_Venta_Realizada_FK) REFERENCES Venta(ID_Venta_PK)
     );
-SELECT * FROM Facturacion;
 
 
 -- #15 Detalle_Factura -------------->
@@ -238,6 +221,8 @@ CREATE TABLE Detalle_Facturacion (
     FOREIGN KEY (ID_Factura_FK) REFERENCES Facturacion(ID_Factura_PK),
     FOREIGN KEY (ID_Detalle_Venta_FK) REFERENCES Detalle_Venta(ID_Detalle_Venta_PK)
 );
+SELECT * FROM Facturacion;
+SELECT * FROM Detalle_Facturacion;
 -- ------------------------------------------------------------------------------------------------------------------------------------------------------------->
 
 -- #15 Tipo_Informe_Venta -------------->

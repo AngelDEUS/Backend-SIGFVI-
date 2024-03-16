@@ -1,0 +1,27 @@
+//Get
+GET http://localhost:3001 HTTP/1.1
+
+###
+
+// Crear Factura:
+POST http://localhost:3001/crearfactura HTTP/1.1
+Content-Type: application/json
+
+{
+    "Fecha_Factura": "2024-03-15",
+    "Hora_Factura": "12:30:00",
+    "ID_Venta_Realizada_FK": 8
+}
+
+###
+
+// Crear DetalleFactura:
+POST http://localhost:3001/creardetallefactura HTTP/1.1
+Content-Type: application/json
+
+{
+    "Cantidad_Producto": 2,
+    "SubTotal": 2000,
+    "ID_Factura_FK": 1,
+    "ID_Detalle_Venta_FK": 1
+}
