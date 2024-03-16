@@ -27,19 +27,19 @@ const getProductoStock = async (req, res) => {
     try {
         const consulta = `
             SELECT 
-                P.ID_Producto_PK AS ID_Producto,
-                P.Nombre_Producto AS Nombre,
-                SUM(DP.Cantidad_Producto) AS Cantidad_Vendida
-            FROM
-                Detalle_Pedido DP
-            INNER JOIN
-                Inventario I ON DP.ID_Inventario_FK = I.ID_Inventario_PK
-            INNER JOIN
-                Producto P ON I.ID_Producto_FK = P.ID_Producto_PK
-            GROUP BY
-                P.ID_Producto_PK
-            ORDER BY
-                SUM(DP.Cantidad_Producto) DESC;
+            P.ID_Producto_PK AS ID_Producto,
+            P.Nombre_Producto AS Nombre,
+            SUM(DV.Cantidad_Producto) AS Cantidad_Vendida
+        FROM
+            Detalle_Venta DV
+                INNER JOIN
+            Inventario I ON DV.ID_Inventario_FK = I.ID_Inventario_PK
+                INNER JOIN
+            Producto P ON I.ID_Producto_FK = P.ID_Producto_PK
+        GROUP BY
+            P.ID_Producto_PK , P.Nombre_Producto
+        ORDER BY
+            SUM(DV.Cantidad_Producto) DESC;
         `;
         
         const [resultados] = await db.query(consulta);
