@@ -427,19 +427,34 @@
     align-items: center;
     justify-content: center;
     color: rgb(255, 255, 255);
-    padding: 10px 15px;
+    padding: 10px 30px;
     border-radius: 30px;
     font-size: 20px;
     font-weight: 500;
     text-transform: uppercase;
+    cursor: pointer;
 }
 
 .cancelarPagoVenta {
     background-color: rgba(162, 161, 166, 0.484);
+    transition: all .3s ease;
+}
+.cancelarPagoVenta:hover {
+    background-color: rgba(116, 111, 134, 0.484);
+}
+.cancelarPagoVenta:active {
+    opacity: 50%;
 }
 
 .ValidarPagoVenta {
     background-color: #fe9a1a;
+    transition: all .3s ease;
+}
+.ValidarPagoVenta:hover {
+    background-color: #f07511;
+}
+.ValidarPagoVenta:active {
+    opacity: 50%;
 }
 
 /* ------------ No Pago Venta ----------- */

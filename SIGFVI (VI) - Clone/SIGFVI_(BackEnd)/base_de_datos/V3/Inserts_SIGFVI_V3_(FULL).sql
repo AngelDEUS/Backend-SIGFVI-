@@ -11,7 +11,7 @@ INSERT INTO Estado(ID_Estado_PK, Nombre_Estado)
 			(1,'Activo'),
 			(2,'Cancelado'),
 			(3,'Asignado A Deudor');
-
+            
  -- #2 -- Tipo_Producto
 INSERT INTO Tipo_Producto(ID_Tipo_Producto_PK, Nombre_Tipo_Producto)
     VALUES  (1,'Botella'),
@@ -118,6 +118,7 @@ INSERT INTO Metodo_de_pago(Nombre_Metodo, Tipo_Metodo_Pago, Referencia, ID_Estad
 			('Nequi','Electronico','123-456-789-000',1),
 			('Daviplata','Electronico','123-000-456-789',1),
 			('Tarjeta','Electronico','123-456-000-789',0);   
+-- SELECT * FROM Metodo_de_pago;  
             
 -- # 14 -- Venta
 INSERT INTO Venta (ID_Metodo_Pago_FK, IVA, SubTotal_Venta, Total_Pedido, ID_Saldo_PK, ID_Estado_FK)
@@ -128,6 +129,8 @@ VALUES (1, 19, 10000, 11900, 1, 1),
        (2, 19, 3000, 3570, NULL, 1),
        (3, 19, 4500, 5355, 4, 1),
        (1, 19, 8000, 9520, 5, 1);
+
+SELECT * FROM Venta;
 
 -- # 15 -- Detalle_Venta
 INSERT INTO Detalle_Venta (ID_Venta_FK, Cantidad_Producto, SubTotal_detalle, ID_Inventario_FK)
@@ -140,6 +143,8 @@ VALUES (1, 2, 2000, 1),
        (6, 3, 3000, 7),
        (7, 2, 4000, 7);
        
+SELECT * FROM Detalle_Venta;
+
 -- # 16 -- Facturacion
 INSERT INTO Facturacion (Fecha_Factura, Hora_Factura, ID_Venta_Realizada_FK)
 VALUES ('2024-03-15', '12:30:00', 1),

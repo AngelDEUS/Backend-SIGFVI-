@@ -3,6 +3,8 @@ import './PagoVenta.css'
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useLocation } from 'react-router-dom';
+import Swal from 'sweetalert2';
+
 
 /* Modal Para pagar Venta, escoger metodo de pago y proceder a facturacion. */
 const PagoVenta = () => {
@@ -54,11 +56,13 @@ const PagoVenta = () => {
     // console.log('Esto tiene mi detalleventa (estoy en PagoVenta): ', detalleVenta);
 
     const handleMetodoPagoClick = (metodo) => {
-        setSelectedMethodId(selectedMethodId === metodo.ID ? null : metodo.ID);
-        setSelectedMethodName(metodo.Nombre_Metodo);
-        console.log('Metodo de pago seleccionado: ', metodo);
-        setMetodoPagoSeleccionado(true);
+        setSelectedMethodId(selectedMethodId === metodo.ID_Metodo_Pago_PK ? null : metodo.ID_Metodo_Pago_PK);
+        setSelectedMethodName(selectedMethodId === metodo.ID_Metodo_Pago_PK ? '' : metodo.Nombre_Metodo);
+        console.log('Metodo de pago seleccionado (Nombre_Metodo): ', metodo.Nombre_Metodo);
+        console.log('Metodo de pago seleccionado (ID): ', metodo.ID_Metodo_Pago_PK);
+        setMetodoPagoSeleccionado(selectedMethodId === metodo.ID_Metodo_Pago_PK ? false : true);
     };
+
 
 
     const formatNumber = (number) => {
@@ -84,7 +88,134 @@ const PagoVenta = () => {
             return;
         }
     };
-    
+
+    const handleRegistrarVenta = () => {
+        // if (!selectedMethodId) {
+        //     Swal.fire('Error', 'Por favor selecciona un método de pago.', 'error');
+        //     return;
+        // }
+
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: '¿Quieres registrar la venta?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Sí',
+            cancelButtonText: 'No',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Registrando venta...',
+                    text: 'Por favor espera un momento.',
+                    icon: 'info',
+                    showConfirmButton: false,
+                    timer: 2000, // Tiempo en milisegundos (en este caso, 2 segundos)
+                });
+
+                // Aquí llamas a tu función para registrar la venta
+                registrarVenta();
+            }
+        });
+    };
+
+
+    console.log('Esto tiene el detalle: ', detalleVenta);
+
+    // console.log(`Mensaje con la venta: 
+    //         ID_Metodo_Pago_FK: ${selectedMethodId},
+    //         IVA: ${detalleVenta.IVA},
+    //         SubTotal_Venta: ${detalleVenta.subtotal},
+    //         Total_Pedido: ${detalleVenta.total},
+    //         ID_Saldo_PK: ${null},
+    //         ID_Estado_FK: ${1},`);
+
+    const consultarUltimoIDVenta = async () => {
+        try {
+            const response = await axios.get('http://localhost:3001/pagoventa/ultimoidventa');
+            const { ultimo_id_venta } = response.data;
+            console.log('Último ID de venta:', ultimo_id_venta);
+            return ultimo_id_venta;
+        } catch (error) {
+            console.error('Error al consultar el último ID de venta:', error);
+            return null;
+        }
+    };
+
+
+    const { ultimo_id_venta } = consultarUltimoIDVenta();
+    console.log('Último ID de venta:', ultimo_id_venta);
+
+
+    const { totalIVA, subtotalSinIVA, totalFactura, deudor } = detalleVenta;
+    const { productosSeleccionados } = detalleVenta;
+
+    if (productosSeleccionados && productosSeleccionados.length > 0) {
+        productosSeleccionados.forEach((producto) => {
+            console.log(`Producto seleccionado: 
+                Cantidad: ${producto.cantidad},
+                SubTotal_detalle: ${producto.Precio_Venta * producto.cantidad},
+                ID_Inventario_FK: ${producto.ID_Producto_PK}`);
+        });
+    } else {
+        console.log('No hay productos seleccionados.');
+    }
+
+    const registrarVenta = async () => {
+        try {
+            // Registra la nueva venta
+            const ventaResponse = await axios.post('http://localhost:3001/pagoventa/crearventa', {
+                ID_Metodo_Pago_FK: selectedMethodId,
+                IVA: totalIVA,
+                SubTotal_Venta: subtotalSinIVA,
+                Total_Pedido: totalFactura,
+                ID_Saldo_PK: null,
+                ID_Estado_FK: 1,
+            });
+
+            // // Obtén el ID de la venta creada
+            //const ventaId = ventaResponse.data.ID_Venta;
+            //console.log('ID de la nueva venta:', ventaId);
+
+            // if (!ventaId) {
+            //     throw new Error('No se pudo obtener el ID de la venta creada.');
+            // }
+
+            // Consulta el último ID de venta
+            const ultimoID = await consultarUltimoIDVenta();
+            console.log('Último ID de venta:', ultimoID);
+
+            // Asocia los detalles de venta con el ID de la nueva venta
+            for (const producto of productosSeleccionados) {
+                if (!producto.Cantidad_Producto || isNaN(producto.Cantidad_Producto)) {
+                    console.error('Error: Cantidad de producto no válida:', producto.Cantidad_Producto);
+                    continue; // O maneja el error de otra manera según tu lógica
+                }
+            
+                await axios.post('http://localhost:3001/pagoventa/creardetalleventa', {
+                    ID_Venta_FK: ultimo_id_venta,
+                    Cantidad_Producto: producto.Cantidad_Producto,
+                    SubTotal_detalle: producto.Precio_Venta * producto.Cantidad_Producto,
+                    ID_Inventario_FK: producto.ID_Producto_PK,
+                });
+            
+                console.log(`Se inserta detalle de venta:
+                    ID_Venta_FK: ${ultimoID},
+                    Cantidad_Producto: ${producto.Cantidad_Producto},
+                    SubTotal_detalle: ${producto.Precio_Venta * producto.Cantidad_Producto},
+                    ID_Inventario_FK: ${producto.ID_Producto_PK}`);
+            }
+            
+
+            // Mostrar mensaje de éxito
+            Swal.fire('¡Venta registrada!', 'La venta se ha registrado correctamente.', 'success');
+        } catch (error) {
+            // Mostrar mensaje de error
+            Swal.fire('Error', 'No se pudo registrar la venta.', 'error');
+        }
+    };
+
+
+
 
     return (
         <div className='PagoVentaContainer'>
@@ -175,31 +306,34 @@ const PagoVenta = () => {
                             </div>
                         </div>
                         <div className="agregarymostarDeudor_Empleado">
-                            <div className="tituloPagoVenta">
-                                <span style={{ marginRight: '5px' }}>Escoger Deudor</span>
-                                <i className="bi bi-caret-down-fill"></i>
-                            </div>
-                            <div className="info-Pago__Deudor">
-                                <div className="iconoinfo--Pagar">
-                                    <i className="bi bi-star-fill"></i>
+                            <div className="deudorContenNN" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                                <div className="tituloPagoVenta">
+                                    <span style={{ marginRight: '5px' }}>Escoger Deudor</span>
+                                    <i className="bi bi-caret-down-fill"></i>
                                 </div>
-                                <div className="datosPagar--Deudor">
-                                    <span className='tittleNombre--Deudor_pago' id='nombre_DeudorVenta'><span className='spanStrong'>Nombre:</span> {detalleVenta.deudor.nombre}</span>
-                                    <span className='tittleNombre--Deudor_pago' id='telefono_DeudorVenta'><span className='spanStrong'>Celular:</span> {detalleVenta.deudor.telefono}</span>
+                                <div className="info-Pago__Deudor">
+                                    <div className="iconoinfo--Pagar">
+                                        <i className="bi bi-star-fill"></i>
+                                    </div>
+                                    <div className="datosPagar--Deudor">
+                                        <span className='tittleNombre--Deudor_pago' id='nombre_DeudorVenta'><span className='spanStrong'>Nombre:</span> {detalleVenta.deudor.nombre}</span>
+                                        <span className='tittleNombre--Deudor_pago' id='telefono_DeudorVenta'><span className='spanStrong'>Celular:</span> {detalleVenta.deudor.telefono}</span>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div className="tituloPagoVenta">
-                                <span style={{ marginRight: '5px' }}>Empleado Activo</span>
-                                <i className="bi bi-caret-down-fill"></i>
-                            </div>
-                            <div className="info-Pago__Deudor">
-                                <div className="iconoinfo--Pagar">
-                                    <i className="bi bi-person-circle"></i>
+                            <div style={{ display: 'none' }}>
+                                <div className="tituloPagoVenta">
+                                    <span style={{ marginRight: '5px' }}>Empleado Activo</span>
+                                    <i className="bi bi-caret-down-fill"></i>
                                 </div>
-                                <div className="datosPagar--Empleado">
-                                    <span className='tittleNombre--Deudor_pago' id='id_EmpleadoVenta'>#ID Empleado</span>
-                                    <span className='tittleNombre--Deudor_pago' id='nombre_EmpleadoVenta'>Nombre Empleado</span>
+                                <div className="info-Pago__Deudor">
+                                    <div className="iconoinfo--Pagar">
+                                        <i className="bi bi-person-circle"></i>
+                                    </div>
+                                    <div className="datosPagar--Empleado">
+                                        <span className='tittleNombre--Deudor_pago' id='id_EmpleadoVenta'>#ID Empleado</span>
+                                        <span className='tittleNombre--Deudor_pago' id='nombre_EmpleadoVenta'>Nombre Empleado</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -235,7 +369,7 @@ const PagoVenta = () => {
                         ))}
 
                     </div>
-                    <div className="asignarComprobantePago" style={{ marginTop: '20px' }}>
+                    <div className="asignarComprobantePago" style={{ marginTop: '20px', display: 'none' }}>
                         <div className="tituloPagoVenta">
                             <span style={{ marginRight: '5px' }}>Comprobante de Pago</span>
                             <i className="bi bi-caret-down-fill"></i>
@@ -262,7 +396,7 @@ const PagoVenta = () => {
                         <i className="bi bi-chevron-double-left"></i>
                         Volver
                     </button>
-                    <button className="btn_pagoVenta ValidarPagoVenta">
+                    <button className="btn_pagoVenta ValidarPagoVenta" onClick={handleRegistrarVenta}>
                         Registrar Venta
                         <i className="bi bi-chevron-double-right"></i>
                         <i className="bi bi-chevron-double-right"></i>

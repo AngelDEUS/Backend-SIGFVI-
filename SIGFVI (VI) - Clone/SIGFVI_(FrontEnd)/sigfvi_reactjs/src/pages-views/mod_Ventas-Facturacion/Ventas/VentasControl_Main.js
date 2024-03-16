@@ -218,23 +218,43 @@ const VentasControl_Main = () => {
                 confirmButtonText: 'OK'
             });
         } else {
-            const totalIVA = calcularTotalIVA();
-            const subtotalSinIVA = calcularSubtotalSinIVA();
-            const totalFactura = calcularTotalFactura();
-
-            const detalleVentaActualizado = {
-                productosSeleccionados: [...productosSeleccionados],
-                totalIVA,
-                subtotalSinIVA,
-                totalFactura,
-                deudor
-            };
-            
-            // Navegar al componente PagoVenta con el detalleVenta actualizado
-            navigate('/VentasFacturacion/venta_pagar', { state: { detalleVenta: detalleVentaActualizado } });
-            console.log('----> Se envia desde el boton pagar: ', { state: { detalleVenta: detalleVentaActualizado } });
+            Swal.fire({
+                title: "¿Estas seguro, de ir al pago?",
+                text: "Si deseas continuar con el pago de esta venta da clic Continuar.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#fc7c02",
+                cancelButtonColor: "#ff363c",
+                confirmButtonText: "Continuar",
+                cancelButtonText: "Cancelar",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const totalIVA = calcularTotalIVA();
+                    const subtotalSinIVA = calcularSubtotalSinIVA();
+                    const totalFactura = calcularTotalFactura();
+    
+                    const detalleVentaActualizado = {
+                        productosSeleccionados: [...productosSeleccionados],
+                        totalIVA,
+                        subtotalSinIVA,
+                        totalFactura,
+                        deudor
+                    };
+    
+                    // Navegar al componente PagoVenta con el detalleVenta actualizado
+                    navigate('/VentasFacturacion/venta_pagar', { state: { detalleVenta: detalleVentaActualizado } });
+                    console.log('----> Se envia desde el boton pagar: ', { state: { detalleVenta: detalleVentaActualizado } });
+    
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+                }
+            });
         }
     };
+    
 
 
     const handlePagarVenta__fix = async () => {

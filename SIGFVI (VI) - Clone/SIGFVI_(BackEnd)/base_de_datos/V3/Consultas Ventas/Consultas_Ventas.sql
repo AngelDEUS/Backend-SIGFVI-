@@ -2,7 +2,7 @@
 **** Consultas Ventas -------> SIGFVI_V2
 */
 
-USE SIGFVI_V2;
+USE SIGFVI_V3;
 
 
 -- Vista para los productos y el estock total por ID (todos los resultado)
@@ -35,7 +35,7 @@ SELECT
 	Producto.ID_Producto_PK,
 	Producto.Nombre_Producto,
 	Tipo_Producto.Nombre_Tipo_Producto,
-	Producto.Descripcion_Producto,
+	Producto.Descripcion,
 	Producto.Precio_Venta,
 	SUM(Inventario.Stock) AS Stock_Total
 FROM 
@@ -45,12 +45,12 @@ JOIN
 JOIN
 	Tipo_Producto ON Producto.ID_Tipo_Producto_FK = Tipo_Producto.ID_Tipo_Producto_PK
 WHERE
-	Producto.ID_Producto_PK = ?
+	Producto.ID_Producto_PK = 'AGU-001'
 GROUP BY 
 	Producto.ID_Producto_PK, 
 	Producto.Nombre_Producto,
 	Tipo_Producto.Nombre_Tipo_Producto,
-	Producto.Descripcion_Producto,
+	Producto.Descripcion,
 	Producto.Precio_Venta;
     
 
@@ -102,12 +102,6 @@ WHERE
 SELECT * FROM Cuenta_Deudor;
 
 
-<<<<<<< HEAD:SIGFVI (VI) - Clone/SIGFVI_(BackEnd)/base_de_datos/Consultas Ventas/Consultas_Ventas.sql
-
-
-
-
-
 -- -------------
 select  u.ID_Numero_Identificacion_PK as id, 
 		ti.Nombre_Identificacion as tipoId,u.Nombre_Usuario,
@@ -122,7 +116,6 @@ select  u.ID_Numero_Identificacion_PK as id,
         where  u.ID_Tipo_Cargo_FK = 3;
 
 
-=======
 -- ----------------------------> CONSULTAS PAGAR .
 -- -----> Consulta de los Metodos De pago con Estado Activo.
 SELECT * FROM Metodo_de_pago;
@@ -137,4 +130,3 @@ WHERE
 	MP.ID_Estado_FK = 1;
     
 -- UPDATE Metodo_de_pago SET ID_Estado_FK = 0 WHERE ID_Metodo_Pago_PK = 4;
->>>>>>> cdfec89c30e92ad9cf187f8b2cd9cfa2ffc0579d:SIGFVI (VI) - Clone/SIGFVI_(BackEnd)/base_de_datos/V3/Consultas Ventas/Consultas_Ventas.sql

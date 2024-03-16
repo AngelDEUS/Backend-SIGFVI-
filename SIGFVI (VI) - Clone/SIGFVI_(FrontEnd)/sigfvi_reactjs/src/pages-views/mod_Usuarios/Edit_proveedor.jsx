@@ -21,65 +21,80 @@ const EditProveedor = ({ closeModal, datos }) => {
       console.error('No se pudo realizar la petición PUT:', error);
     }
   };
-  const consulta=(function (){
-    datos.consulta();});
 
-  function verificarNombreEmpresa() {
-    const inputNombreEmpresa = document.getElementById('nombreEmpresa').value;
-    let isValid = true;
-
-    if (inputNombreEmpresa.trim() === '') {
-      document.getElementById('wrongNombreEmpresa').textContent = 'Este espacio no puede quedar en blanco';
-      isValid = false;
-    } else {
-      document.getElementById('wrongNombreEmpresa').innerHTML = '';
+  const verificarNombreEmpresa = () => {
+    const inputNombreEmpresa = nombreEmpresa.trim();
+    if (!inputNombreEmpresa) {
+      mostrarErrorCampo('wrongNombreEmpresa', 'Este espacio no puede quedar en blanco');
+      return false;
     }
+    ocultarErrorCampo('wrongNombreEmpresa');
+    return true;
+  };
 
-    return isValid;
-  }
-
-  function verificarDiaVisita() {
-    const inputDiaVisita = document.getElementById('diaVisita').value;
-    let isValid = true;
-
-    if (inputDiaVisita.trim() === '') {
-      document.getElementById('wrongDiaVisita').textContent = 'Este espacio no puede quedar en blanco';
-      isValid = false;
-    } else {
-      document.getElementById('wrongDiaVisita').innerHTML = '';
+  const verificarDiaVisita = () => {
+    const inputDiaVisita = diaVisita.trim();
+    if (!inputDiaVisita) {
+      mostrarErrorCampo('wrongDiaVisita', 'Este espacio no puede quedar en blanco');
+      return false;
     }
+    ocultarErrorCampo('wrongDiaVisita');
+    return true;
+  };
 
-    return isValid;
-  }
-
-  function verificarTelefonoContacto() {
-    const inputTelefonoContacto = document.getElementById('telefonoContacto').value;
-    let isValid = true;
-
-    if (inputTelefonoContacto.trim() === '') {
-      document.getElementById('wrongTelefonoContacto').textContent = 'Este espacio no puede quedar en blanco';
-      isValid = false;
-    } else {
-      document.getElementById('wrongTelefonoContacto').innerHTML = '';
+  const verificarTelefonoContacto = () => {
+    const inputTelefonoContacto = telefonoContacto.trim();
+    if (!inputTelefonoContacto) {
+      mostrarErrorCampo('wrongTelefonoContacto', 'Este espacio no puede quedar en blanco');
+      return false;
     }
+    ocultarErrorCampo('wrongTelefonoContacto');
+    return true;
+  };
 
-    return isValid;
-  }
+  const verificarTelefonoExistente = () => {
+    const telefono = telefonoContacto.trim();
+    axios.post('http://localhost:3001/usuario/verificar-telefono', { telefono })
+      .then(response => {
+        if (response.status === 200) {
+          if (response.data.exists) {
+            mostrarAlerta('warning', 'Número de teléfono duplicado', 'El número de teléfono ya existe en la base de datos.');
+          } else {
+            verificarRegistro();
+          }
+        } else {
+          mostrarError('Error al verificar el número de teléfono', 'Ha ocurrido un error inesperado.');
+        }
+      })
+      .catch(error => {
+        mostrarError('Error al verificar el número de teléfono', 'Ha ocurrido un error al intentar verificar el número de teléfono.');
+      });
+  };
 
-  function verificarRegistro() {
-    let isValid = true;
+  const mostrarAlerta = (icon, title, text = '', toast = true) => {
+    Swal.fire({
+      icon,
+      title,
+      text,
+      toast,
+    });
+  };
 
-    if (!verificarNombreEmpresa()) {
-      isValid = false;
-    }
-    if (!verificarDiaVisita()) {
-      isValid = false;
-    }
-    if (!verificarTelefonoContacto()) {
-      isValid = false;
-    }
+  const mostrarError = (title, text) => {
+    console.error(title + ': ' + text);
+    mostrarAlerta('error', title, text);
+  };
 
-    if (isValid) {
+  const mostrarErrorCampo = (campo, mensaje) => {
+    document.getElementById(campo).textContent = mensaje;
+  };
+
+  const ocultarErrorCampo = (campo) => {
+    document.getElementById(campo).textContent = '';
+  };
+
+  const verificarRegistro = () => {
+    if (verificarNombreEmpresa() && verificarDiaVisita() && verificarTelefonoContacto()) {
       Swal.fire({
         icon: 'success',
         text: `Datos actualizados para: ${nombreEmpresa}`,
@@ -88,16 +103,32 @@ const EditProveedor = ({ closeModal, datos }) => {
         consulta();
         closeModal();
       });
-      return true;
     } else {
       Swal.fire({
         icon: 'warning',
         title: 'Rellene los campos del formulario para continuar',
         toast: true,
       });
-      return false;
     }
-  }
+  };
+
+  const consulta = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3001/usuario/proveedor/${datos.id}`);
+      console.log('Datos del proveedor consultados:', response.data);
+    } catch (error) {
+      console.error('Error al realizar la consulta del proveedor:', error);
+      mostrarError('Error al realizar la consulta del proveedor', 'Ha ocurrido un error al intentar consultar los datos del proveedor.');
+    }
+  };
+
+  const handleGuardarCambios = () => {
+    if (telefonoContacto.trim() === datos.cel.trim()) {
+      verificarRegistro();
+    } else {
+      verificarTelefonoExistente();
+    }
+  };
 
   return (
     <div className="register-container">
@@ -108,7 +139,7 @@ const EditProveedor = ({ closeModal, datos }) => {
         <div className="container__Main-register">
           <h1 className="main-title">Editar Proveedor</h1>
           <form action="" className="datos-contenido">
-          <span>
+            <span>
               <label htmlFor="idProveedor">Id Proveedor</label>
               <input
                 className="input-form"
@@ -118,7 +149,6 @@ const EditProveedor = ({ closeModal, datos }) => {
                 value={datos.id}
                 readOnly  
               />
-              <p id="wrongNombreEmpresa"></p>
             </span>
             <span>
               <label htmlFor="nombreEmpresa">Nombre de la Empresa</label>
@@ -155,13 +185,12 @@ const EditProveedor = ({ closeModal, datos }) => {
                 id="telefonoContacto"
                 value={telefonoContacto}
                 onChange={(e) => setTelefonoContacto(e.target.value)}
-                onBlur={verificarTelefonoContacto}
               />
               <p id="wrongTelefonoContacto"></p>
             </span>
             <span>
               <br />
-              <button type="button" name="submit" id="submit" className="boton b4" onClick={verificarRegistro}>
+              <button type="button" name="submit" id="submit" className="boton b4" onClick={handleGuardarCambios}>
                 Guardar Cambios
               </button>
             </span>

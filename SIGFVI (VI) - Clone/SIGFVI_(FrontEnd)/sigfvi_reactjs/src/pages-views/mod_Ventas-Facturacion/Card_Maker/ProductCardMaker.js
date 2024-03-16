@@ -17,12 +17,24 @@ const ProductCardMaker = ({ products, updateProduct, quitarProducto  }) => {
     };
 
     const sumarCantidad = () => {
-        setCantidad((prevCantidad) => prevCantidad + 1);
+        if (cantidad < selectedProduct.Stock_Total) {
+            setCantidad((prevCantidad) => prevCantidad + 1);
+        } else {
+            Swal.fire({
+                title: 'Stock insuficiente',
+                text: 'La cantidad seleccionada supera el stock disponible.',
+                icon: 'warning',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ok'
+            });
+        }
     };
 
     const restarCantidad = () => {
-        setCantidad((prevCantidad) => (prevCantidad > 1 ? prevCantidad - 1 : 1));
-    };
+    if (cantidad > 1) {
+        setCantidad((prevCantidad) => prevCantidad - 1);
+    }
+};
 
     // Actualizador
     const handleActualizarCantidad = () => {
@@ -118,10 +130,10 @@ const ProductCardMaker = ({ products, updateProduct, quitarProducto  }) => {
             {products.map((product) => (
                 <div key={product.ID_Producto_PK} className="product-card" onClick={() => handleOpenModal(product)}>
                     <div className="upCardProducto">
-                        <div className='product-image'>
+                        <div className='product-image' style={{display: 'none'}}>
                             <img src={product.image} alt={product.title} />
                         </div>
-                        <div className="product-details">
+                        <div className="product-details" style={{display: 'flex', flexDirection: 'column'}}>
                             <h3 className="product-title-ID">#{product.ID_Producto_PK}</h3>
                             <h2 className="product-title">{product.Nombre_Producto}</h2>
                             <p className="product-price">${product.Precio_Venta}</p>

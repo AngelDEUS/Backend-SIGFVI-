@@ -24,7 +24,7 @@ const Main_Metodo_Pago = () => {
 
     // Arreglos:
     const imgClases = ['--otro__MP', '--Efectivo__MP', '--Nequi__MP', '--Daviplata__MP', '--Tarjeta__MP'];
-    const estadoNombres = ['Activo', 'Inactivo', 'otro']
+    const estadoNombres = ['Inactivo', 'Activo', 'otro']
 
     //Activar y desactivar botones
     const [isUpdating, setIsUpdating] = useState(false);
@@ -56,7 +56,7 @@ const Main_Metodo_Pago = () => {
     const handleOptionSelectEstado = (option) => {
         setSelectedOptionEstado(option);
         //Asignar 0 para 'Activo' y 1 para 'Inactivo'
-        const idEstado = option === 'Activo' ? 0 : 1;
+        const idEstado = option === 'Activo' ? 1 : 0;
         setAgregarMetodoPago(prevState => ({
             ...prevState,
             ID_Estado_FK: idEstado
@@ -152,7 +152,7 @@ const Main_Metodo_Pago = () => {
 
         // Actualizar los estados de los dropdowns seleccionados
         setSelectedOptionTipo(metodoPago.Tipo_Metodo_Pago);
-        setSelectedOptionEstado(metodoPago.ID_Estado_FK === 0 ? 'Activo' : 'Inactivo');
+        setSelectedOptionEstado(metodoPago.ID_Estado_FK === 0 ? 'Inactivo' : 'Activo');
 
         // Llenar los campos del formulario
         setAgregarMetodoPago({
@@ -386,7 +386,7 @@ const Main_Metodo_Pago = () => {
     // Funciones Visuales.
     //---> Función para obtener la clase correspondiente al estado
     const obtenerClaseEstado = (ID_Estado_FK) => {
-        const estadoClases = ['estMD_Activo', 'estMD_Inactivo', 'estMD_Diferente', 'estMD_None'];
+        const estadoClases = ['estMD_Inactivo', 'estMD_Activo', 'estMD_Diferente', 'estMD_None'];
         return estadoClases[ID_Estado_FK] || estadoClases[0];
     };
 

@@ -44,3 +44,7 @@ Content-Type: application/json
 // Eliminar por ID
 DELETE http://localhost:3001/metodopagoEliminar/5 HTTP/1.1
 ###
+
+// Mostrar ultimo id de la venta:
+GET http://localhost:3001/pagoventa/ultimoidventa HTTP/1.1
+###
