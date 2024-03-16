@@ -47,7 +47,9 @@ export const Tabla_Entrega_item = (props) => {
         <h3>{props.descripcion}</h3>
       </td>
       <td>
+        <div className="entregabtn">
         <input
+          className="entregaInput"
           type="number"
           value={cantidad}
           onChange={(e) => setCantidad(e.target.value)}
@@ -56,11 +58,12 @@ export const Tabla_Entrega_item = (props) => {
           type="button"
           id="agregar"
           name="agregar"
-          className="btn_f limpiar"
+          className="btn_f limpiar entregaBoton"
           onClick={handleAgregar}
         >
           +Agregar
         </button>
+        </div>
       </td>
     </tr>
   );
