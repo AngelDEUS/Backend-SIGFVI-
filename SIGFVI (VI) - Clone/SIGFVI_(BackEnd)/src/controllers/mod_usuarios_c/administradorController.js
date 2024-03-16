@@ -1,6 +1,6 @@
 const db = require("../../models/sigfviDBModelo").promise();
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken')
+// const jwt = require('jsonwebtoken')
 
 const Get = async (req, res) => {
   try {
@@ -120,15 +120,15 @@ const autenticarUser = async(req,res)=>{
               console.log('el ingreso es → ',ingreso);
 
               if(ingreso){
-                const accessToken= jwt.sign(
-                  {
-                    user: usuario,
-                    rol: rol
-                  },
-                  "ASHEEE",
-                  {
-                    expiresIn: "3m"
-                  })
+                // const accessToken= jwt.sign(
+                //   {
+                //     user: usuario,
+                //     rol: rol
+                //   },
+                //   "ASHEEE",
+                //   {
+                //     expiresIn: "3m"
+                //   })
 
                 res.json({
                   message: "Ingreso exitoso C:",
@@ -137,7 +137,7 @@ const autenticarUser = async(req,res)=>{
                   rol:rol,
                   name:name,
                   lastname:lastname,
-                  accessToken:accessToken
+                  // accessToken:accessToken
                 });
               }else{
                 res.json({message: "Credenciales incorrectas :/",ingreso:false});

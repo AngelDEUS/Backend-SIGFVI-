@@ -4,7 +4,7 @@ const rutaProveedores = express.Router();
 
 /**
  * @swagger
- * /:
+ * /proveedores:
  *   get:
  *     summary: Buscar proveedores
  *     tags:
@@ -232,9 +232,56 @@ rutaProveedores.delete("/proveedor/:id", proveedorController.eliminarProveedor);
  *                   example: "Error interno al cambiar el estado"
  */
 rutaProveedores.put("/cambioestadoprovee/:id", proveedorController.cambioEstadoProveedor);
-
+/**
+ * @swagger
+ * /verificar-telefono:
+ *   post:
+ *     summary: Verificar si un número de teléfono ya existe en la base de datos
+ *     tags:
+ *       - Proveedores
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               telefono:
+ *                 type: string
+ *                 description: Número de teléfono a verificar
+ *                 example: "123456789"
+ *     responses:
+ *       200:
+ *         description: El número de teléfono está disponible
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "El número de teléfono está disponible."
+ *       409:
+ *         description: El número de teléfono ya existe en la base de datos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "El número de teléfono ya existe."
+ *       500:
+ *         description: Error interno del servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Error interno del servidor."
+ */
+rutaProveedores.post("/verificar-telefono", proveedorController.verificarTelefonoExistente);
 
 module.exports = rutaProveedores;
-
-
-     

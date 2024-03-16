@@ -94,11 +94,30 @@ const deleteDeudor = async(req,res)=>{
         res.json({message:"no se pudo eliminar datos ",error});
     }
 }
+
+const verificarIDDeudorExistente = async (req, res) => {
+    try {
+        const { idDeudor } = req.body;
+        const query = 'SELECT ID_Deudor_PK FROM Cuenta_Deudor WHERE ID_Deudor_PK = ? LIMIT 1';
+        const [rows] = await db.query(query, [idDeudor]);
+
+        if (rows.length > 0) {
+            return res.status(200).json({ exists: true, message: 'El ID del usuario ya existe.' });
+        }
+        return res.status(200).json({ exists: false, message: 'El ID del usuario estÃ¡ disponible.' });
+    } catch (error) {
+        console.error('Error al verificar el ID del usuario:', error);
+        return res.status(500).json({ error: 'Error interno del servidor.' });
+    }
+};
+
+
 module.exports = {
     consultaDeudor,
     crearDeudor,
     updateDeudor,
     deleteDeudor,
     cambioSaldoDeudor,
-    cambioEstado
+    cambioEstado,
+    verificarIDDeudorExistente
 }

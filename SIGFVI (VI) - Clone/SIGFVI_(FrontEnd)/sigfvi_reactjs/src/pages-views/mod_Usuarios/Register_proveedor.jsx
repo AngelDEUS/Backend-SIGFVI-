@@ -3,96 +3,118 @@ import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 
 const RegisterProveedor = ({ isOpen, closeModal, reConsulta }) => {
-
-  const agregarRegistro = () => {
-    axios.post('http://localhost:3001/usuario/proveedor', {
-      ID_Registro_Proveedor_PK : idProveedor,
-      Nombre_Empresa: nombreEmpresa,
-      Dia_Visita: diaVisita,
-      Telefono_Contacto: telefonoContacto,
-    });
-  };
   const [idProveedor, setidProveedor] = useState('');
   const [nombreEmpresa, setNombreEmpresa] = useState('');
   const [diaVisita, setDiaVisita] = useState('');
   const [telefonoContacto, setTelefonoContacto] = useState('');
 
+  /*MODIFICADO*/
+
   if (!isOpen) return null;
 
-  function verificarNombreEmpresa() {
-    const inputNombreEmpresa = document.getElementById('nombreEmpresa').value;
-    let isValid = true;
+  const agregarRegistro = () => {
+    axios.post('http://localhost:3001/usuario/proveedor', {
+      ID_Registro_Proveedor_PK: idProveedor,
+      Nombre_Empresa: nombreEmpresa,
+      Dia_Visita: diaVisita,
+      Telefono_Contacto: telefonoContacto,
+    })
+    .then(response => {
+      if (response.status === 200) {
+        Swal.fire({
+          icon: 'success',
+          text: `Registro completado para: ${nombreEmpresa}`,
+        }).then(() => {
+          reConsulta();
+          closeModal();
+        });
+      } else {
+        mostrarError('Error al registrar proveedor', response.data.error || 'Ha ocurrido un error inesperado.');
+      }
+    })
+    .catch(error => {
+      mostrarError('Error al registrar proveedor', 'Ha ocurrido un error inesperado.');
+    });
+  };
 
-    if (inputNombreEmpresa.trim() === '') {
-      document.getElementById('wrongNombreEmpresa').textContent = 'Este espacio no puede quedar en blanco';
-      isValid = false;
-    } else {
-      document.getElementById('wrongNombreEmpresa').innerHTML = '';
-    }
-
-    return isValid;
-  }
-
-  function verificarDiaVisita() {
-    const inputDiaVisita = document.getElementById('diaVisita').value;
-    let isValid = true;
-
-    if (inputDiaVisita.trim() === '') {
-      document.getElementById('wrongDiaVisita').textContent = 'Este espacio no puede quedar en blanco';
-      isValid = false;
-    } else {
-      document.getElementById('wrongDiaVisita').innerHTML = '';
-    }
-
-    return isValid;
-  }
-
-  function verificarTelefonoContacto() {
-    const inputTelefonoContacto = document.getElementById('telefonoContacto').value;
-    let isValid = true;
-
-    if (inputTelefonoContacto.trim() === '') {
-      document.getElementById('wrongTelefonoContacto').textContent = 'Este espacio no puede quedar en blanco';
-      isValid = false;
-    } else {
-      document.getElementById('wrongTelefonoContacto').innerHTML = '';
-    }
-
-    return isValid;
-  }
-
-  function verificarRegistro() {
-    let isValid = true;
-
-    if (!verificarNombreEmpresa()) {
-      isValid = false;
-    }
-    if (!verificarDiaVisita()) {
-      isValid = false;
-    }
-    if (!verificarTelefonoContacto()) {
-      isValid = false;
-    }
-
-    if (isValid) {
-      Swal.fire({
-        icon: 'success',
-        text: `Registro completado para: ${nombreEmpresa}`,
-      }).then(function () {
-        agregarRegistro();
-        reConsulta();
-        closeModal();
-      });
-      return true;
-    } else {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Rellene los campos del formulario para continuar',
-        toast: true,
-      });
+  const verificarNombreEmpresa = () => {
+    const inputNombreEmpresa = nombreEmpresa.trim();
+    if (!inputNombreEmpresa) {
+      mostrarErrorCampo('wrongNombreEmpresa', 'Este espacio no puede quedar en blanco');
       return false;
     }
-  }
+    ocultarErrorCampo('wrongNombreEmpresa');
+    return true;
+  };
+
+  const verificarDiaVisita = () => {
+    const inputDiaVisita = diaVisita.trim();
+    if (!inputDiaVisita) {
+      mostrarErrorCampo('wrongDiaVisita', 'Este espacio no puede quedar en blanco');
+      return false;
+    }
+    ocultarErrorCampo('wrongDiaVisita');
+    return true;
+  };
+
+  const verificarTelefonoContacto = () => {
+    const inputTelefonoContacto = telefonoContacto.trim();
+    if (!inputTelefonoContacto) {
+      mostrarErrorCampo('wrongTelefonoContacto', 'Este espacio no puede quedar en blanco');
+      return false;
+    }
+    ocultarErrorCampo('wrongTelefonoContacto');
+    return true;
+  };
+
+  const verificarRegistro = () => {
+    if (verificarNombreEmpresa() && verificarDiaVisita() && verificarTelefonoContacto()) {
+      verificarTelefonoExistente();
+    } else {
+      mostrarAlerta('warning', 'Rellene los campos del formulario para continuar');
+    }
+  };
+  
+  const verificarTelefonoExistente = () => {
+    const telefono = telefonoContacto.trim();
+    axios.post('http://localhost:3001/usuario/verificar-telefono', { telefono })
+      .then(response => {
+        if (response.status === 200) {
+          if (response.data.exists) {
+            mostrarAlerta('warning', 'Número de teléfono duplicado', 'El número de teléfono ya existe en la base de datos.');
+          } else {
+            agregarRegistro();
+          }
+        } else {
+          mostrarError('Error al verificar el número de teléfono', 'Ha ocurrido un error inesperado.');
+        }
+      })
+      .catch(error => {
+        mostrarError('Error al verificar el número de teléfono', 'Ha ocurrido un error al intentar verificar el número de teléfono.');
+      });
+  };
+
+  const mostrarAlerta = (icon, title, text = '', toast = true) => {
+    Swal.fire({
+      icon,
+      title,
+      text,
+      toast,
+    });
+  };
+
+  const mostrarError = (title, text) => {
+    console.error(title + ': ' + text);
+    mostrarAlerta('error', title, text);
+  };
+
+  const mostrarErrorCampo = (campo, mensaje) => {
+    document.getElementById(campo).textContent = mensaje;
+  };
+
+  const ocultarErrorCampo = (campo) => {
+    document.getElementById(campo).textContent = '';
+  };
 
   return (
     <div className="register-container">
@@ -110,10 +132,9 @@ const RegisterProveedor = ({ isOpen, closeModal, reConsulta }) => {
                 type="text"
                 name="idProveedor"
                 id="idProveedor"
-                placeholder="idProveedor"
-                onChange={(e) => setidProveedor(e.target.value)}
+                placeholder="idProveedor generado automaticamente"
+                readOnly
               />
-              <p id="wrongNombreEmpresa"></p>
             </span>
             <span>
               <label htmlFor="nombreEmpresa">Nombre de la Empresa</label>

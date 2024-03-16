@@ -79,11 +79,29 @@ const eliminarProveedor = async (req, res) => {
     }
 };
 
+const verificarTelefonoExistente = async (req, res) => {
+    try {
+        const { telefono } = req.body;
+        const query = 'SELECT Telefono_Contacto FROM Registro_Proveedor WHERE Telefono_Contacto = ? LIMIT 1';
+        const [rows] = await db.query(query, [telefono]);
+
+        if (rows.length > 0) {
+            return res.status(200).json({ exists: true, message: 'El número de teléfono ya existe.' });
+        }
+
+        return res.status(200).json({ exists: false, message: 'El número de teléfono está disponible.' });
+    } catch (error) {
+        console.error('Error al verificar el número de teléfono:', error);
+        return res.status(500).json({ error: 'Error interno del servidor.' });
+    }
+};
+
 module.exports = {
     obtenerProveedores,
     obtenerProveedorPorId,
     crearProveedor,
     actualizarProveedor,
     eliminarProveedor,
-    cambioEstadoProveedor
+    cambioEstadoProveedor,
+    verificarTelefonoExistente
 };

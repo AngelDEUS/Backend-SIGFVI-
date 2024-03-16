@@ -48,7 +48,29 @@ const Register_deudor = ({isOpen, closeModal, reConsulta}) => {
         
         return con;
     }
-    
+    function verificarIDExistente() {
+        const Inidp = document.getElementById('idp').value;
+        axios.post("http://localhost:3001/usuario/verificarID", { idDeudor: Inidp })
+            .then(response => {
+                if (response.data.exists) {
+                    Swal.fire({
+                        icon: 'error',
+                        text: 'El ID del usuario ya existe.'
+                    });
+                    document.getElementById('idp').style.borderColor = 'red'; 
+                    document.getElementById('idAvailabilityMessage').innerText = 'El ID del usuario ya existe.'; 
+                    document.getElementById('submit').disabled = true; 
+                } else {
+                    document.getElementById('idp').style.borderColor = '';
+                    document.getElementById('idAvailabilityMessage').innerText = ''; 
+                    document.getElementById('submit').disabled = false; 
+                }
+            })
+            .catch(error => {
+                console.error('Error al verificar el ID del usuario:', error);
+            });
+    }
+
     function Verificar_name1(){
         const Inname = document.getElementById('name1').value;
     
@@ -242,7 +264,8 @@ const Register_deudor = ({isOpen, closeModal, reConsulta}) => {
                     <span>
                         <br/><br/>
                         <label for="idp">identificacion</label>
-                        <input className='input-form' type="text" name="id" id="idp" placeholder="id" onBlur={Verificar_id} onChange={(e) => setId(e.target.value)} />
+                         <input className='input-form' type="text" name="id" id="idp" placeholder="id" onBlur={verificarIDExistente} onChange={(e) => setId(e.target.value)} />
+                         <p id="idAvailabilityMessage" style={{ color: 'red' }}></p>
                         <p id="wrongid"></p>
                     </span>
                     <span>
