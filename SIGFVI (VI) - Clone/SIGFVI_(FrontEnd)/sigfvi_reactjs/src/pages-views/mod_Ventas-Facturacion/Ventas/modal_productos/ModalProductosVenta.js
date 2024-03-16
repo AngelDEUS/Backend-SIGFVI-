@@ -57,7 +57,7 @@ const ModalProductosVenta = ({ onAgregarProductos, onClose }) => {
         if (!busqueda.trim()) {
             obtenerProductosVenta();
         } else {
-            if (/^[a-zA-Z0-9]+$/.test(busqueda)) {
+            if (/^[A-Z]{3}-\d{3}$/.test(busqueda)) {
                 // Verifica si la entrada es un ID válido.
                 buscarPorID();
             } else {

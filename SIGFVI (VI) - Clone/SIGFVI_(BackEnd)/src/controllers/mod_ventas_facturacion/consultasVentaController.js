@@ -7,24 +7,24 @@ const ObtenerProductosVenta = (req, res) => {
     console.log("\n-----> Obteniendo datos de productos...");
     db.query(`
     SELECT 
-    Producto.ID_Producto_PK,
-    Producto.Nombre_Producto,
-    Tipo_Producto.Nombre_Tipo_Producto,
-    Producto.Descripcion,
-    Producto.Precio_Venta,
-    SUM(Inventario.Stock) AS Stock_Total
-FROM 
-    Inventario
-JOIN 
-    Producto ON Inventario.ID_Producto_FK = Producto.ID_Producto_PK
-JOIN
-    Tipo_Producto ON Producto.ID_Tipo_Producto_FK = Tipo_Producto.ID_Tipo_Producto_PK
-GROUP BY 
-    Producto.ID_Producto_PK, 
-    Producto.Nombre_Producto,
-    Tipo_Producto.Nombre_Tipo_Producto,
-    Producto.Descripcion,
-    Producto.Precio_Venta;
+        Producto.ID_Producto_PK,
+        Producto.Nombre_Producto,
+        Tipo_Producto.Nombre_Tipo_Producto,
+        Producto.Descripcion,
+        Producto.Precio_Venta,
+        SUM(Inventario.Stock) AS Stock_Total
+    FROM 
+        Inventario
+    JOIN 
+        Producto ON Inventario.ID_Producto_FK = Producto.ID_Producto_PK
+    JOIN
+        Tipo_Producto ON Producto.ID_Tipo_Producto_FK = Tipo_Producto.ID_Tipo_Producto_PK
+    GROUP BY 
+        Producto.ID_Producto_PK, 
+        Producto.Nombre_Producto,
+        Tipo_Producto.Nombre_Tipo_Producto,
+        Producto.Descripcion,
+        Producto.Precio_Venta;
     `, (err, result) => {
         if (err) {
             console.error("Error al obtener datos de productos", err);
@@ -46,7 +46,7 @@ const BuscarProductoPorNombre = (req, res) => {
             Producto.ID_Producto_PK,
             Producto.Nombre_Producto,
             Tipo_Producto.Nombre_Tipo_Producto,
-            Producto.Descripcion_Producto,
+            Producto.Descripcion,
             Producto.Precio_Venta,
             SUM(Inventario.Stock) AS Stock_Total
         FROM 
@@ -61,7 +61,7 @@ const BuscarProductoPorNombre = (req, res) => {
             Producto.ID_Producto_PK, 
             Producto.Nombre_Producto,
             Tipo_Producto.Nombre_Tipo_Producto,
-            Producto.Descripcion_Producto,
+            Producto.Descripcion,
             Producto.Precio_Venta
         `,
         [`%${nombre}%`],
@@ -97,15 +97,15 @@ const BuscarProductoPorID = (req, res) => {
         JOIN
             Tipo_Producto ON Producto.ID_Tipo_Producto_FK = Tipo_Producto.ID_Tipo_Producto_PK
         WHERE
-            Producto.ID_Producto_PK = ?
+            Producto.ID_Producto_PK = ? 
         GROUP BY 
             Producto.ID_Producto_PK, 
             Producto.Nombre_Producto,
             Tipo_Producto.Nombre_Tipo_Producto,
             Producto.Descripcion,
-            Producto.Precio_Venta
+            Producto.Precio_Venta;
         `,
-        [id],
+        [id], // Usamos directamente el ID sin ningún operador
         (err, result) => {
             if (err) {
                 console.error("Error al buscar producto por ID", err);
@@ -117,6 +117,7 @@ const BuscarProductoPorID = (req, res) => {
         }
     );
 };
+
 
 module.exports = {
     ObtenerProductosVenta,

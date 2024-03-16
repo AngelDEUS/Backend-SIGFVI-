@@ -140,7 +140,6 @@ VALUES (1, 2, 2000, 1),
        (6, 3, 3000, 7),
        (7, 2, 4000, 7);
        
-
 -- # 16 -- Facturacion
 INSERT INTO Facturacion (Fecha_Factura, Hora_Factura, ID_Venta_Realizada_FK)
 VALUES ('2024-03-15', '12:30:00', 1),
