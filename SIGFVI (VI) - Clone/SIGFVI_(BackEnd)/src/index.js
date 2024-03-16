@@ -24,7 +24,8 @@ const empleadoRouter = require('./routers/mod_usuarios_r/empleadoRouter.js');
 const proveedorRouter = require('./routers/mod_usuarios_r/proveedorRouter.js');
 const adminRouter = require('./routers/mod_usuarios_r/administradorRouter.js');
 
-
+// ---> Rutas diferentes
+const rutaGraficas = require('./routers/mod_dashboard_graficas/dashboard_graficas.js')
 
 // - Uses
 const app = express();
@@ -58,6 +59,7 @@ app.use('/usuario', proveedorRouter); // Proveedores
 app.use('/usuario', adminRouter); // Administradores
 // app.use('/read', adminRouter); // Administradores
 
+app.use('/grafica', rutaGraficas); //Graficas dashboard
 
 app.get("/", (req, res) => { // Mensajes de pagina principal.
     res.send("¡Hola! Este es el servidor backend!");

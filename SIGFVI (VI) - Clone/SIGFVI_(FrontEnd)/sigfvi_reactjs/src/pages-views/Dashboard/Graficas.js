@@ -63,7 +63,6 @@ const GraficasMasVendido = () => {
         console.error('Error al obtener los productos más vendidos:', error);
       }
     };
-
     fetchData();
   }, []);
 
