@@ -22,6 +22,8 @@ const empleadoRouter = require('./routers/mod_usuarios_r/empleadoRouter.js');
 const proveedorRouter = require('./routers/mod_usuarios_r/proveedorRouter.js');
 const adminRouter = require('./routers/mod_usuarios_r/administradorRouter.js');
 
+//modulo informes
+const informesRouter = require('./routers/mod_informes_r/informesRouter.js')
 
 
 // - Uses
@@ -53,6 +55,9 @@ app.use('/usuario', empleadoRouter); // Empleados
 app.use('/usuario', proveedorRouter); // Proveedores
 app.use('/usuario', adminRouter); // Administradores
 // app.use('/read', adminRouter); // Administradores
+
+//modulo informes
+app.use('/informes', informesRouter); // Empleados
 
 
 app.get("/", (req, res) => { // Mensajes de pagina principal.

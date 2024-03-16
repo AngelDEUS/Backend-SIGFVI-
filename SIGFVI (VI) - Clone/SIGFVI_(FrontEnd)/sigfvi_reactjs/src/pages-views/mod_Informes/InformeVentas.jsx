@@ -9,9 +9,9 @@ const InformeVentas = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/informe/informeVenta');
+        const response = await axios.get('http://localhost:3001/informes/informeVenta');
         if (response.status === 200) {
-          setProductos(response.data.productos);
+          setProductos(response.data.ventas); // Aquí cambiamos productos por ventas
         } else {
           console.error('Error fetching data:', response.status);
         }
@@ -38,23 +38,19 @@ const InformeVentas = () => {
       <table>
         <thead>
           <tr>
-            <th style={{ textAlign: 'center' }}>ID Pedido</th>
+            <th style={{ textAlign: 'center' }}>ID Venta</th> {/* Cambiado de ID Pedido a ID Venta */}
             <th>Método de Pago</th>
-            <th>Fecha Pedido</th>
-            <th>Hora Pedido</th>
             <th>IVA</th>
             <th>Total Pedido</th>
           </tr>
         </thead>
         <tbody>
-          {productos.map((pedido, index) => (
+          {productos.map((venta, index) => ( // Cambiado de pedido a venta
             <tr key={index}>
-              <td>{pedido.ID_Pedido_PK}</td>
-              <td>{pedido.Nombre_Metodo_Pago}</td> {/* Mostrar el nombre del método de pago en lugar del ID */}
-              <td>{pedido.Fecha_Pedido}</td>
-              <td>{pedido.Hora_Pedido}</td>
-              <td>{pedido.IVA}</td>
-              <td>{pedido.Total_Pedido}</td>
+              <td>{venta.ID_Venta_PK}</td> {/* Cambiado de ID_Pedido_PK a ID_Venta_PK */}
+              <td>{venta.Nombre_Metodo_Pago}</td> {/* Mantenido Nombre_Metodo_Pago */}
+              <td>{venta.IVA}</td> {/* Mantenido IVA */}
+              <td>{venta.Total_Pedido}</td> {/* Mantenido Total_Pedido */}
             </tr>
           ))}
         </tbody>

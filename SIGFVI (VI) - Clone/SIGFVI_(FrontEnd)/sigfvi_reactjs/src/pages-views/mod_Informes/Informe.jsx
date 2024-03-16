@@ -1,235 +1,79 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Chart from 'chart.js/auto';
 import './Informes.css';
 import { Link } from 'react-router-dom';
 import TituloyDesc from '../../components/Titles/TituloyDesc';
 
-function Informe() {
-  const [fechaInicio, setFechaInicio] = useState('');
-  const [fechaFin, setFechaFin] = useState('');
-  const [mostrarGrafico, setMostrarGrafico] = useState(false);
-  const canvasRef = useRef(null);
+function InformeEmpleados() {
+  const [productos, setProductos] = useState([]);
 
   useEffect(() => {
-    //grafico
-    const datos = {
-      labels: ['Inventario', 'Ventas', 'Deudores', 'Empleados'],
-      datasets: [
-        {
-          label: 'Cantidad',
-          data: [20, 50, 20, 10], // Valores de cada categoría
-          backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#581845'], // Colores de cada categoría
-          borderColor: 'rgba(255, 255, 255, 0.7)', // Color del borde
-          borderWidth: 1, // Ancho del borde
-        },
-      ],
+    const fetchProductos = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/informes/informeInventario');
+        if (response.status !== 200) {
+          throw new Error('Error fetching data from API');
+        }
+        const data = response.data.datos;
+        setProductos(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     };
 
-    const opciones = {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        x: {
-          stacked: true,
-        },
-        y: {
-          stacked: true,
-        },
-      },
-    };
-
-    const canvas = canvasRef.current;
-
-    const grafico = new Chart(canvas, {
-      type: 'bar',
-      data: datos,
-      options: opciones,
-    });
-
-    return () => {
-      grafico.destroy();
-    };
+    fetchProductos();
   }, []);
 
-  const mostrarRango = () => {
-    alert(`Fecha de inicio: ${fechaInicio}\nFecha de fin: ${fechaFin}`);
-  };
-  const mostrarAlerta = (mensaje) => {
-    alert(mensaje);
-  };
-
-  const mostrarGraficoHandler = () => {
-    setMostrarGrafico(!mostrarGrafico);
-  };
-
   return (
-
     <main className='contenedor_informe'>
       <TituloyDesc
-        titulo='Informes'
+        titulo='Informe Inventario'
         descripcion='Este es el módulo encargado de realizar los Informes de los productos y generar los informes de cada reporte.'
       />
-
-
       <hr />
       <section className="">
+        {/* Botones de reportes */}
         <div className='mod__Ventas'>
           <div className="venta">
-            <div>
-              <h2>Escoger Rango de Fechas (Desde/Hasta)</h2><br />
-            </div>
-            <div>
-              <div>
-                <label htmlFor="fecha-inicio">Fecha de inicio:</label>
-                <input
-                  type="date"
-                  id="fecha-inicio"
-                  name="fecha-inicio"
-                  onChange={(e) => setFechaInicio(e.target.value)}
-                />
-              </div>
-              <div>
-                <label htmlFor="fecha-fin">Fecha de fin:</label>
-                <input
-                  type="date"
-                  id="fecha-fin"
-                  name="fecha-fin"
-                  onChange={(e) => setFechaFin(e.target.value)}
-                />
+            <div className="btones">
+              <div className="button-container">
+                <Link to='/GestionInformes/InformeVentas' className='prueba'><button className="b1" id="btn">Reporte de Ventas</button></Link>
+                <Link to='/GestionInformes/InformeDeudores'><button className="b1" id="btn">Reporte de Deudores</button></Link>
               </div>
             </div>
-
-            <button onClick={mostrarRango} className='mostrar'>Mostrar</button>
           </div>
-
-          <div className="btones">
-            <div className="button-container">
-              <Link to='/GestionInformes/InformeVentas' className='prueba'><button className="b1" id="btn" >Reporte de Ventas</button></Link>
-              <Link to='/GestionInformes/InformeEmpleados'><button className="b1" id="btn">Reporte de Empleados</button></Link>
-              {/* </div>
-            <div className="button-container"> */}
-              <Link to='/GestionInformes/InformeDeudores'><button className="b1" id="btn" >Reporte de Deudores</button></Link>
-              <Link to='/GestionInformes/InformeInventario'><button className="b1" id="btn">Reporte de Inventario</button></Link>
-            </div>
-            <div className="button-container">
-              <button className="b4" onClick={mostrarGraficoHandler}>
-                Resumen %</button>
-
-            </div>
-          </div>
-        </div>
-        <div className={`grafico${mostrarGrafico ? '' : ' oculto'}`}>
-          <br />
-          <canvas ref={canvasRef}></canvas>
         </div>
       </section>
-
+      {/* Tabla de productos */}
       <table>
         <thead>
           <tr>
-            <th>
-              <input type="checkbox" />
-            </th>
-            <th>ID</th>
-            <th>Fecha en la que se realizó la facturación</th>
-            <th>Total de la venta</th>
-            <th>Nombre del empleado que realizó la venta</th>
-            <th>Total (-) Menos el costo</th>
-            <th>Total (-) Menos el costo</th>
+            <th>ID Producto</th>
+            <th>Nombre Producto</th>
+            <th>Nombre Tipo Producto</th>
+            <th>Descripción</th>
+            <th>Precio Proveedor</th>
+            <th>Precio Venta</th>
+            <th>Stock</th>
           </tr>
         </thead>
         <tbody>
-          {[{
-            id: '103061',
-            fecha: '19/03/2023',
-            totalVenta: '$250.000',
-            nombreEmpleado: 'Luicia Martinez',
-            totalMenosCosto: '-$37.500',
-            totalMenosCosto2: '$212.000',
-          },
-          {
-            id: '103061',
-            fecha: '19/03/2023',
-            totalVenta: '$250.000',
-            nombreEmpleado: 'Luicia Martinez',
-            totalMenosCosto: '-$37.500',
-            totalMenosCosto2: '$212.000',
-          }, {
-            id: '103061',
-            fecha: '19/03/2023',
-            totalVenta: '$250.000',
-            nombreEmpleado: 'Luicia Martinez',
-            totalMenosCosto: '-$37.500',
-            totalMenosCosto2: '$212.000',
-          },
-          {
-            id: '103061',
-            fecha: '19/03/2023',
-            totalVenta: '$250.000',
-            nombreEmpleado: 'Luicia Martinez',
-            totalMenosCosto: '-$37.500',
-            totalMenosCosto2: '$212.000',
-          },
-          {
-            id: '103061',
-            fecha: '19/03/2023',
-            totalVenta: '$250.000',
-            nombreEmpleado: 'Luicia Martinez',
-            totalMenosCosto: '-$37.500',
-            totalMenosCosto2: '$212.000',
-          },
-          {
-            id: '103061',
-            fecha: '19/03/2023',
-            totalVenta: '$250.000',
-            nombreEmpleado: 'Luicia Martinez',
-            totalMenosCosto: '-$37.500',
-            totalMenosCosto2: '$212.000',
-          },
-          {
-            id: '103061',
-            fecha: '19/03/2023',
-            totalVenta: '$250.000',
-            nombreEmpleado: 'Luicia Martinez',
-            totalMenosCosto: '-$37.500',
-            totalMenosCosto2: '$212.000',
-          },
-          {
-            id: '103061',
-            fecha: '19/03/2023',
-            totalVenta: '$250.000',
-            nombreEmpleado: 'Luicia Martinez',
-            totalMenosCosto: '-$37.500',
-            totalMenosCosto2: '$212.000',
-          },].map((informe, index) => (
+          {productos.map((producto, index) => (
             <tr key={index}>
-              <td>
-                <input type="checkbox" />
-              </td>
-              <td>{informe.id}</td>
-              <td>{informe.fecha}</td>
-              <td>{informe.totalVenta}</td>
-              <td>{informe.nombreEmpleado}</td>
-              <td>{informe.totalMenosCosto}</td>
-              <td>{informe.totalMenosCosto2}</td>
+              <td>{producto.ID_Producto_PK}</td>
+              <td>{producto.Nombre_Producto}</td>
+              <td>{producto.Nombre_Tipo_Producto}</td>
+              <td>{producto.Descripcion}</td>
+              <td>{producto.Precio_Proveedor}</td>
+              <td>{producto.Precio_Venta}</td>
+              <td>{producto.Stock}</td>
             </tr>
           ))}
         </tbody>
       </table>
-      <br />
-      <section className="home">
-        <div className="button-container">
-          <br />
-          <button className="b5" id="bttn" onClick={() => mostrarAlerta('Informe Descargado')}>
-            Descargar Informe
-          </button>
-          <button className="b6" id="btton" onClick={() => mostrarAlerta('Generar Vista + Resumen')}>
-            Generar Vista + Resumen
-          </button>
-        </div>
-      </section>
     </main>
   );
 }
 
-export default Informe;
+export default InformeEmpleados;

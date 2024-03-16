@@ -9,7 +9,7 @@ function InformeDeudores() {
   useEffect(() => {
     const obtenerDatosDeudores = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/informe/informeDeudor');
+        const response = await axios.get('http://localhost:3001/informes/informeDeudor');
         setDeudores(response.data);
       } catch (error) {
         console.error('Error al obtener los deudores:', error);

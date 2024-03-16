@@ -6,7 +6,7 @@
  */
 
 const mysql = require("mysql2"); // importar el modulo de mysql
-const nomDatabase = "SIGFVI_V2"; // nombre de la base de datos.
+const nomDatabase = "SIGFVI_V3"; // nombre de la base de datos.
 
 
 // Conexion base de datos
@@ -14,7 +14,7 @@ const db = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
-    database: "SIGFVI_V2"
+    database: "SIGFVI_V3"
 })
 
 

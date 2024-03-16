@@ -336,4 +336,3 @@ CREATE TABLE
     
 describe  Registro_Proveedor;
 -- DROP TABLE Registro_Proveedor_has_Producto;
-    
