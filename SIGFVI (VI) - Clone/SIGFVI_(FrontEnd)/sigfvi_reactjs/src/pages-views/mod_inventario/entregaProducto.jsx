@@ -7,7 +7,7 @@ import "./Inventario.css";
 import "./AllStyle.css";
 import "./pruebastyle.css";
 
-function EntregaProducto() {
+function EntragaProducto() {
   const titulo = "Entrega de Productos";
   const descripcion =
     "En este panel es el encargado de gestionar las Cantidades Entrantes al Inventario.";
@@ -198,4 +198,4 @@ function EntregaProducto() {
   );
 }
 
-export default EntregaProducto;
+export default EntragaProducto

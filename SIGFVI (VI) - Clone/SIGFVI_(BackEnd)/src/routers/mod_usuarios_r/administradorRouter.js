@@ -489,8 +489,6 @@ rutaDatos.put('/updatesaldo/:id', datosDeudores.cambioSaldoDeudor);
 rutaDatos.put('/cambiarestado/:id', datosDeudores.cambioEstado);
 
 
-rutaDatos.post('/verificarID', datosDeudores.verificarIDDeudorExistente);
-
 
 
 

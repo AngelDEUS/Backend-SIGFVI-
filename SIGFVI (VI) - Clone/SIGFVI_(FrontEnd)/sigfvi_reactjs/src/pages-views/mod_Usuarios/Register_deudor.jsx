@@ -48,29 +48,7 @@ const Register_deudor = ({isOpen, closeModal, reConsulta}) => {
         
         return con;
     }
-    function verificarIDExistente() {
-        const Inidp = document.getElementById('idp').value;
-        axios.post("http://localhost:3001/usuario/verificarID", { idDeudor: Inidp })
-            .then(response => {
-                if (response.data.exists) {
-                    Swal.fire({
-                        icon: 'error',
-                        text: 'El ID del usuario ya existe.'
-                    });
-                    document.getElementById('idp').style.borderColor = 'red'; // Cambiar el color del borde a rojo
-                    document.getElementById('idAvailabilityMessage').innerText = 'El ID del usuario ya existe.'; // Mostrar mensaje de disponibilidad debajo del campo
-                    document.getElementById('submit').disabled = true; // Deshabilitar el botón de registro
-                } else {
-                    document.getElementById('idp').style.borderColor = ''; // Restaurar el color del borde por defecto
-                    document.getElementById('idAvailabilityMessage').innerText = ''; // Limpiar el mensaje de disponibilidad
-                    document.getElementById('submit').disabled = false; // Habilitar el botón de registro si el ID no existe
-                }
-            })
-            .catch(error => {
-                console.error('Error al verificar el ID del usuario:', error);
-            });
-    }
-
+    
     function Verificar_name1(){
         const Inname = document.getElementById('name1').value;
     
@@ -264,8 +242,7 @@ const Register_deudor = ({isOpen, closeModal, reConsulta}) => {
                     <span>
                         <br/><br/>
                         <label for="idp">identificacion</label>
-                         <input className='input-form' type="text" name="id" id="idp" placeholder="id" onBlur={verificarIDExistente} onChange={(e) => setId(e.target.value)} />
-                         <p id="idAvailabilityMessage" style={{ color: 'red' }}></p>
+                        <input className='input-form' type="text" name="id" id="idp" placeholder="id" onBlur={Verificar_id} onChange={(e) => setId(e.target.value)} />
                         <p id="wrongid"></p>
                     </span>
                     <span>
