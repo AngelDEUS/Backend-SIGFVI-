@@ -164,6 +164,7 @@ const PagoVenta = () => {
 
     console.log('Último ID de venta:', ultimo_id_venta);
 
+    // ---:::: FUNCIÓN PRINCIPAL ::::----- //
     const registrarVenta = async () => {
         try {
             // Registra la nueva venta
