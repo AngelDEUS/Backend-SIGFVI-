@@ -215,87 +215,45 @@ export const Register_user = ({isOpen, closeModal, reConsulta}) => {
         return con;
     }
     
-    function Verificar_registro(){
     
-        let con=true;
-        console.log(con);
-    
-        if(!Verificar_nombre1()){
-            con=false;
-            console.log(con);
-            /*Innombre.focus();*/
+    function Verificar_registro() {
+        let con = true;
+
+        if (!Verificar_nombre1() || !Verificar_nombre2() || !Verificar_apell1() || !Verificar_apell2() || !Verificar_tipoid() || !Verificar_id() || !Verificar_tel() || !Verificar_email() || !Verificar_password() || !Verificar_passwordcheck()) {
+            con = false;
         }
-        if(!Verificar_nombre2()){
-            con=false;
-            /*console.log(con);
-            /*Inapellido.focus();*/
-        }
-        if(!Verificar_apell1()){
-            con=false;
-            /*console.log(con);
-            /*Innacimiento.focus();*/
-        }
-        if(!Verificar_apell2()){
-            con=false;
-            /*console.log(con);
-            /*Incorreo.focus();*/
-        }
-        if(!Verificar_tipoid()){
-            con=false;
-            /*console.log(con);
-            /*Inusername.focus();*/
-        }
-        //validacion de cantidad de caracteres
-        if(!Verificar_id()){
-            /*document.write('La contraseña debe ser mayor a 8 caracteres para preservar la seguridad');*/
-            con=false;
-            /*console.log(con);*/
-        }
-        if(!Verificar_tel()){
-            /*document.write('Las contraseñas no son identicas');*/
-            con=false;
-            /*console.log(con);*/
-        }
-        if(!Verificar_email()){
-            /*document.write('Las contraseñas no son identicas');*/
-            con=false;
-            /*console.log(con);*/
-        }
-        if(!Verificar_password()){
-            /*document.write('Las contraseñas no son identicas');*/
-            con=false;
-            /*console.log(con);*/
-        }
-        if(!Verificar_passwordcheck()){
-            /*document.write('Las contraseñas no son identicas');*/
-            con=false;
-            /*console.log(con);*/
+        if (con) {
+            axios.get(`http://localhost:3001/usuario/usuario_empleado/${numid}`)
+                .then(response => {
+                    console.log("Respuesta del servidor:", response.data);
+                    if (response.data.ID_Numero_Identificacion_PK === numid) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'El número de identificación ya existe en la base de datos',
+                            toast: true
+                        })
+                        con = false;
+                    } else {
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'Registro completado. Bienvenido ' + document.getElementById('name1').value,
+                        }).then(function () {
+                            agregarRegistro();
+                            reConsulta();
+                            closeModal();
+                        })
+                        con = true;
+                    }
+                })
+                .catch(error => {
+                    console.error("Error al verificar el número de identificación:", error);
+                    con = false;
+                });
         }
     
-        
-        console.log(con);
-        if(con){
-            Swal.fire({
-                icon:'success',
-                text:'Registro completado. Bienvenido '+document.getElementById('name1').value,
-            }).then(function(){
-                agregarRegistro();
-                reConsulta();
-                closeModal();
-            })
-            return true;
-            
-        }else{
-            Swal.fire({
-                icon:'warning',
-                title:'Rellene los campos del formulario para continuar',
-                toast:true
-            })
-            return false;
-        }
-    
-        
+        return con;
     }
+    
 
   return (
     <div className='register-container' >

@@ -30,8 +30,9 @@ const Edit_user = ({closeModal, datos}) => {
         }
     }
 
-    const consulta=(function (){
-        datos.consulta();});
+    const consulta = () => {
+        datos.consulta();
+    };
 
         
     function Verificar_nombre1(){
