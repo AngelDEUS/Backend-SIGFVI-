@@ -177,7 +177,7 @@ rutaDatos.put('/Update/:id', datosController.Put);
 
 /**
  * @swagger
- * /cambioestadoadmin/{id}:
+ * /desactivarestadoadmin/{id}:
  *   put:
  *     summary: Cambiar el estado de un usuario por ID (solo para administradores)
  *     tags: [Gerentes]
@@ -208,7 +208,42 @@ rutaDatos.put('/Update/:id', datosController.Put);
  *                   type: string
  *                   example: "Estado cambiado correctamente"
  */
-rutaDatos.put('/cambioestadoadmin/:id', datosController.cambioEstadoAdmin);
+rutaDatos.put('/desactivarestadoadmin/:id', datosController.desactivarEstadoAdmin);
+
+/**
+ * @swagger
+ * /activarestadoadmin/{id}:
+ *   put:
+ *     summary: Cambiar el estado de un usuario por ID (solo para administradores)
+ *     tags: [Gerentes]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID del usuario
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               state:
+ *                 type: integer
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Estado cambiado correctamente"
+ */
+rutaDatos.put('/activarestadoadmin/:id',datosController.activarEstadoAdmin);
 
 /**
  * @swagger

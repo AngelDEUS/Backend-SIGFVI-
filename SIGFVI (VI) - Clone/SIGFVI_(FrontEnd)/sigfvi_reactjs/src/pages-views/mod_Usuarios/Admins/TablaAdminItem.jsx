@@ -9,8 +9,18 @@ export const TablaAdminItem = (props) => {
     const [mostrarEditForm, setMostrarEditForm] = useState(false);
     const [estado, setEstado] = useState(parseInt(props.idEstado));
 
+<<<<<<< HEAD
     const ponerTexto = () => {
         if (estado === 1) {
+=======
+    const [textoActivar,setTextoActivar]= useState('');
+    const [mostrarEditForm , setMostrarEditForm] = useState(false);
+    const [estado,setEstado] = useState(parseInt(props.idEstado));
+
+    const ponerTexto = () =>{
+        console.log('estado actualmente',estado);
+        if(estado === 1){
+>>>>>>> 08c25a6ec9ab3b88be27dee9bb0c5a44a45ec18a
             setTextoActivar('Desactivar');
         } else if (estado === 0) {
             setTextoActivar('Activar');
@@ -44,9 +54,10 @@ export const TablaAdminItem = (props) => {
                 }
 
                 try {
-                    //axios.delete(`http://localhost:3001/Delete/${val.id}`).then(()=>{
-                    await axios.put(`http://localhost:3001/usuario/cambioestadoadmin/${val.id}`, {
+                    if(estado===1){
+                        await axios.put(`http://localhost:3001/usuario/activarestadoadmin/${val.id}`, {
                         "state": estado
+<<<<<<< HEAD
                     }).then(() => {
                         Swal.fire({
                             title: "Actualizado!",
@@ -57,6 +68,50 @@ export const TablaAdminItem = (props) => {
                         ponerTexto();
                     })
 
+=======
+                        }).then(()=>{
+                            Swal.fire({
+                                title: "Actualizado!",
+                                text: `Se cambio el estadp del Gerente ${val.name1}`,
+                                icon: "success"
+                            });
+                            props.consulta();
+                            ponerTexto();
+                            console.log(estado);
+                        })
+                    }else if(estado===0){
+                        await axios.put(`http://localhost:3001/usuario/desactivarestadoadmin/${val.id}`, {
+                        "state": estado
+                        }).then((response)=>{
+                            if(response.data.continue){
+                                Swal.fire({
+                                    title: "Actualizado!",
+                                    text: `Se cambio el estado del Gerente ${val.name1}`,
+                                    icon: "success"
+                                });
+                                props.consulta();
+                                ponerTexto();
+                                console.log(estado);
+                            }else{
+                                Swal.fire({
+                                    title: "Actualizado!",
+                                    text: `No se cambio el estado del Gerente ${val.name1}`,
+                                    icon: "error"
+                                });
+                                props.consulta();
+                                setEstado(1);
+                                console.log(estado);
+                            }
+                            
+                        })
+                    }
+                    //axios.delete(`http://localhost:3001/Delete/${val.id}`).then(()=>{
+                    // await axios.put(`http://localhost:3001/usuario/cambioestadoadmin/${val.id}`, {
+                    //     "state": estado
+                    // })
+                    
+                                        
+>>>>>>> 08c25a6ec9ab3b88be27dee9bb0c5a44a45ec18a
                 } catch (error) {
                     console.error('no se pudo cambiar de estado en la función confirmDelete', error);
                 }

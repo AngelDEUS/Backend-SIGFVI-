@@ -367,7 +367,6 @@ const PagoVenta = () => {
                                 </div>
                             </div>
                         ))}
-
                     </div>
                     <div className="asignarComprobantePago" style={{ marginTop: '20px', display: 'none' }}>
                         <div className="tituloPagoVenta">

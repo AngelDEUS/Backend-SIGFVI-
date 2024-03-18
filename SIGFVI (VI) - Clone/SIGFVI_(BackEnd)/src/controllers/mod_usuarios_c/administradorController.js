@@ -73,19 +73,61 @@ const Put =async (req,res)=>{
     }
 }
 
-const cambioEstadoAdmin = async(req,res)=>{
+const activarEstadoAdmin = async(req,res)=>{
   const {id} = req.params;
   const {state} = req.body;
 
   try {
-      const estado = `UPDATE usuario SET ID_Estado_FK = ? WHERE ID_Numero_Identificacion_PK = ? ;`;
-      await db.query(estado,[state,id]);
-      res.json({message: "Estado cambiado"})
+    const estado = `UPDATE usuario SET ID_Estado_FK = ? WHERE ID_Numero_Identificacion_PK = ? ;`;
+    await db.query(estado,[state,id]);
+    res.json({message: "Estado cambiado",continue:true})
+    console.log(`Estado cambiado`);
   } catch (error) {
-      console.error('Edtado no cambiado',error);
-      res.json('Edtado no cambiado',error);
+    console.error('Edsado no cambiado',error);
+    res.json({message:`Estado no cambiado, ${error}`,continue:false});
   }
 }
+
+const desactivarEstadoAdmin = async(req,res)=>{
+  const {id} = req.params;
+  const {state} = req.body;
+  let cont = 0;
+
+  try {
+    const query = `select ID_Estado_FK as estado from Usuario where ID_Tipo_Cargo_FK = 2;`
+    const [result]  = await db.query (query);
+
+    console.log('resultado',result.estado);
+
+    for(let i = 0; i < result.length;i++ ){
+      if(result[i].estado === 1){
+        cont = cont + 1;
+      }
+    }
+
+    if(cont >=2){
+      console.log(`SI SE PUEDE`);
+      try {
+            const estado = `UPDATE usuario SET ID_Estado_FK = ? WHERE ID_Numero_Identificacion_PK = ? ;`;
+            await db.query(estado,[state,id]);
+            res.json({message: "Estado cambiado",continue:true})
+            console.log(`Estado cambiado`);
+        } catch (error) {
+            console.error('Edsado no cambiado',error);
+            res.json({message : `Estado no cambiado, ${error}`,continue: false});
+        }
+    }else{
+      res.json({message: `NO SE PUEDE porque no hay mas activos`,continue:false});
+      console.log(`NO SE PUEDE porque no hay mas activos`);
+    }
+
+  } catch (error) {
+    console.error(`No se puede desactivar ${error}`);
+    res.json({message: `No se puede desactivar ${error}`,continue:false})
+  }
+
+//   
+ }
 
 const Delete = async (req, res) => {
     const {id} = req.params;
@@ -105,11 +147,14 @@ const autenticarUser = async(req,res)=>{
   const {idEntra,contrasenaEntra}=req.body;
   console.log(contrasenaEntra,'log1');
   try {
-      const [result] = await db.query('SELECT ID_Numero_Identificacion_PK as id,Password_Usuario as contrasena,ID_Tipo_Cargo_FK as rol,Nombre_Usuario,Apellido_Usuario FROM Usuario WHERE ID_Numero_Identificacion_PK = ?', [idEntra]);
+      const [result] = await db.query(`SELECT ID_Numero_Identificacion_PK as id,Password_Usuario as contrasena,
+                                        ID_Tipo_Cargo_FK as rol,Nombre_Usuario,Apellido_Usuario,ID_Estado_FK as estado
+                                        FROM Usuario WHERE ID_Numero_Identificacion_PK = ?;`, [idEntra]);
       // console.log(result[0].contrasena,'log2');
+      console.log(result[0].estado);
       const usuario = result[0].id;
 
-      if (usuario === idEntra) {
+      if (usuario === idEntra && result[0].estado===1) {
           const passReal = result[0].contrasena;
           const rol = result[0].rol;
           const name = result[0].Nombre_Usuario;
@@ -146,9 +191,10 @@ const autenticarUser = async(req,res)=>{
 
           } catch (error) {
               console.log(`NT`,error);
+              res.json({message: "no se pudo iniciar :/",ingreso:false});
           }
       }else{
-          return res.status(500).json({ error: 'Usuario no encontrado en DATABASE' });
+          res.status(500).json({ error: 'Usuario no encontrado en DATABASE' ,message:'o no lo encontro o esta inactivo'});
       }
   } catch (error) {
       console.log('no se pudo realizar la adquisision de id ',error);
@@ -161,6 +207,7 @@ module.exports={
     Post,
     Put,
     Delete,
-    cambioEstadoAdmin,
+    activarEstadoAdmin,
+    desactivarEstadoAdmin,
     autenticarUser
 }

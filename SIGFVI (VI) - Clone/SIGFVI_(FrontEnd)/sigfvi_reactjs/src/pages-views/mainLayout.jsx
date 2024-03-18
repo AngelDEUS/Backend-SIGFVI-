@@ -101,8 +101,8 @@ const LayoutMain = () => {
                         <Route path='/Informes' element={<Informe />} />
                         <Route path='/GestionInformes/InformeVentas' element={<InformeVentas />} />
                         <Route path='/GestionInformes/InformeDeudores' element={<InformeDeudores />} />
-                        <Route path='/GestionInformes/InformeEmpleados' element={<InformeEmpleados />} />
-                        <Route path='/GestionInformes/InformeInventario' element={<InformeInventario />} />
+                        {/* <Route path='/GestionInformes/InformeEmpleados' element={<InformeEmpleados />} />
+                        <Route path='/GestionInformes/InformeInventario' element={<InformeInventario />} /> */}
 
 
 
