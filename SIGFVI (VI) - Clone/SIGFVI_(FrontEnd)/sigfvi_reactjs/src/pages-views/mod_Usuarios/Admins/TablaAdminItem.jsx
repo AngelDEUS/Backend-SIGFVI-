@@ -5,14 +5,6 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 
 export const TablaAdminItem = (props) => {
-    const [textoActivar, setTextoActivar] = useState('');
-    const [mostrarEditForm, setMostrarEditForm] = useState(false);
-    const [estado, setEstado] = useState(parseInt(props.idEstado));
-
-<<<<<<< HEAD
-    const ponerTexto = () => {
-        if (estado === 1) {
-=======
     const [textoActivar,setTextoActivar]= useState('');
     const [mostrarEditForm , setMostrarEditForm] = useState(false);
     const [estado,setEstado] = useState(parseInt(props.idEstado));
@@ -20,7 +12,6 @@ export const TablaAdminItem = (props) => {
     const ponerTexto = () =>{
         console.log('estado actualmente',estado);
         if(estado === 1){
->>>>>>> 08c25a6ec9ab3b88be27dee9bb0c5a44a45ec18a
             setTextoActivar('Desactivar');
         } else if (estado === 0) {
             setTextoActivar('Activar');
@@ -57,18 +48,6 @@ export const TablaAdminItem = (props) => {
                     if(estado===1){
                         await axios.put(`http://localhost:3001/usuario/activarestadoadmin/${val.id}`, {
                         "state": estado
-<<<<<<< HEAD
-                    }).then(() => {
-                        Swal.fire({
-                            title: "Actualizado!",
-                            text: `Se cambio el estado del Gerente ${val.name1}`,
-                            icon: "success"
-                        });
-                        props.consulta();
-                        ponerTexto();
-                    })
-
-=======
                         }).then(()=>{
                             Swal.fire({
                                 title: "Actualizado!",
@@ -111,7 +90,6 @@ export const TablaAdminItem = (props) => {
                     // })
                     
                                         
->>>>>>> 08c25a6ec9ab3b88be27dee9bb0c5a44a45ec18a
                 } catch (error) {
                     console.error('no se pudo cambiar de estado en la función confirmDelete', error);
                 }
