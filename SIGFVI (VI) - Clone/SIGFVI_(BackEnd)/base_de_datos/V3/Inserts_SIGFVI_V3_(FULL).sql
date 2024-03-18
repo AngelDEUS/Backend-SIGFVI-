@@ -56,12 +56,15 @@ INSERT INTO Usuario
             ('1006865674',1,'Fransico','Arnulfo','Aristizabal','Rodriguez','3194584239', 'Fra.Aris@gmail.com','$2b$08$hEwWwvSGwMQwfsOBK/60VOf5mdNTguAHScAWCjhh3jq6PEoDg/XVq',3,1), /*0000*/
             ('10564454999999994',2,'Jean','Carlo','Beltran','Amaya','3155758594', 'jean.carl@gmail.com','$2b$08$hEwWwvSGwMQwfsOBK/60VOf5mdNTguAHScAWCjhh3jq6PEoDg/XVq',3,0); /*0000*/
  
+<<<<<<< HEAD
+=======
  INSERT INTO Usuario values('444444',1,'Maycol','teush','Cardona','Ashe','3134352560','teush@hotmail.com','$2b$08$hEwWwvSGwMQwfsOBK/60VOf5mdNTguAHScAWCjhh3jq6PEoDg/XVq',2,1); /*0000*/
  
  select ID_Estado_FK from Usuario where ID_Tipo_Cargo_FK = 2;
  SELECT ID_Numero_Identificacion_PK as id,Password_Usuario as contrasena,ID_Tipo_Cargo_FK as rol,Nombre_Usuario,Apellido_Usuario,ID_Estado_FK as estado
  FROM Usuario WHERE ID_Numero_Identificacion_PK = 444444;
  
+>>>>>>> 08c25a6ec9ab3b88be27dee9bb0c5a44a45ec18a
  -- #7 -- Registro_Proveedor
 INSERT INTO Registro_Proveedor(Nombre_Empresa,Dia_Visita,Telefono_Contacto,Estado_ID_Estado_PK)
 	VALUES  ('Babaria','Lunes - Miercoles','3144441157',1),

@@ -22,6 +22,11 @@ function Tabla_deudor() {
         consulta();
     },[])
 
+    const actualizarTabla = () => {
+      consulta();
+    };
+  
+
   const [registerform, setRegisterform] = useState(false)
   
   return (
@@ -44,7 +49,7 @@ function Tabla_deudor() {
             <div className='teush'>
             <button type="button" className="boton b4" id="lanzar-modal" name="agregar" onClick={()=> setRegisterform(true)}>Agregar</button>
             </div>
-            <Register_deudor isOpen={registerform} closeModal={()=> setRegisterform(false)} reConsulta={consulta} />
+            <Register_deudor isOpen={registerform} closeModal={()=> setRegisterform(false)} reConsulta={actualizarTabla} />
           </form>
         </div>
 
@@ -90,7 +95,7 @@ function Tabla_deudor() {
                       saldo={datos.saldo}
                       state={datos.estado}
                       idEstado={datos.ID_Estado_FK}
-                      consulta={consulta}
+                      consulta={actualizarTabla}
                     />
                   )
                 })

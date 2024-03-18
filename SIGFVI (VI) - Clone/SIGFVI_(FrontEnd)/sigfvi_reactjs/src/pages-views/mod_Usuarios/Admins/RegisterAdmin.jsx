@@ -13,12 +13,17 @@ export const RegisterAdmin = ({isOpen, closeModal,reConsulta}) => {
             "name1" : name1,
             "name2" : name2,
             "lastname1" : apell1,
-            "lastname2" :apell2,
+            "lastname2" : apell2,
             "cel" : cel,
             "email" : email,
             "contrasena" :password,
-        })
-    }
+        }).then(() => {
+            reConsulta(); 
+            closeModal(); 
+        }).catch(error => {
+            console.error('Error al agregar el registro:', error);
+        });
+    };
    
     const [numid,setNumid] = useState('');
     const [tipoid,setTipoid] = useState('');
@@ -31,6 +36,7 @@ export const RegisterAdmin = ({isOpen, closeModal,reConsulta}) => {
     const [password,setPassword] = useState('');
 
     if(!isOpen) return null ;
+    
 
     function Verificar_nombre1(){
         const Innombre1 = document.getElementById('name1').value;
@@ -274,30 +280,34 @@ export const RegisterAdmin = ({isOpen, closeModal,reConsulta}) => {
             /*console.log(con);*/
         }
     
-        
-        console.log(con);
-        if(con){
-            Swal.fire({
-                icon:'success',
-                text:'Registro completado. Bienvenido '+document.getElementById('name1').value,
-            }).then(function(){
+        axios.get(`http://localhost:3001/usuario/usuario_empleado/${numid}`)
+        .then(response => {
+            console.log("Respuesta del servidor:", response.data);
+            if (response.data.ID_Numero_Identificacion_PK === numid) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'El número de identificación ya existe en la base de datos',
+                    toast: true
+                });
+                con = false;
+            } else {
                 agregarRegistro();
                 reConsulta();
                 closeModal();
-            })
-            return true;
-            
-        }else{
-            Swal.fire({
-                icon:'warning',
-                title:'Rellene los campos del formulario para continuar',
-                toast:true
-            })
-            return false;
-        }
-    
+                Swal.fire({
+                    icon: 'success',
+                    text: 'Registro completado. Bienvenido ' + name1,
+                });
+            }
+        })
+        .catch(error => {
+            console.error("Error al verificar el número de identificación:", error);
+            con = false;
+        });
+
+    return con;
+}
         
-    }
 
   return (
     <div className='register-container' >
