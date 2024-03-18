@@ -1,7 +1,6 @@
 /* 
 **** INSERTS -------> SIGFVI_V3
 */
-
 USE SIGFVI_V3;
 -- ----------
 
@@ -53,10 +52,15 @@ INSERT INTO Tipo_Cargo(ID_Tipo_Cargo_PK, Nombre_Tipo_cargo,Estado_ID_Estado_PK)
 INSERT INTO Usuario(ID_Numero_Identificacion_PK,ID_Tipo_Identificacion_FKPK,Nombre_Usuario,Segundo_Nombre_Usuario,Apellido_Usuario,Segundo_Apellido_Usuario,Numero_Contacto_Usuario,Email_Usuario,Password_Usuario,ID_Tipo_Cargo_FK,ID_Estado_FK)
     VALUES ('SW10053-1',1,'SuperUser','-','_1','.','3153851945','empresa1@gmail.com','$2b$08$CVWjEaDJaTBEm8Vo4ARc7eU9m24sJ4MDon6s1OgqlBaNUjKd/TPPq',1,1); /*Admon123*/
 INSERT INTO Usuario 
-    VALUES     ('35684579',1,'Luz','Estela','Rodriguez','Linares','3124352560','lstlinares@hotmail.com','$2b$08$XJd1gI0V1vWXNXHjX.3XTOxt82mIQ8Te3qx8U.TiM9FujleeXGN0i',2,0), /*Jesus01*/
-            ('1006865674',1,'Fransico','Arnulfo','Aristizabal','Rodriguez','3194584239', 'Fra.Aris@gmail.com','$2b$08$hEwWwvSGwMQwfsOBK/60VOf5mdNTguAHScAWCjhh3jq6PEoDg/XVq',3,0), /*0000*/
-            ('10564454999999994',2,'Jean','Carlo','Beltran','Amaya','3155758594', 'jean.carl@gmail.com','$2b$08$hEwWwvSGwMQwfsOBK/60VOf5mdNTguAHScAWCjhh3jq6PEoDg/XVq',3,1); /*0000*/
+    VALUES     ('35684579',1,'Luz','Estela','Rodriguez','Linares','3124352560','lstlinares@hotmail.com','$2b$08$XJd1gI0V1vWXNXHjX.3XTOxt82mIQ8Te3qx8U.TiM9FujleeXGN0i',2,1), /*Jesus01*/
+            ('1006865674',1,'Fransico','Arnulfo','Aristizabal','Rodriguez','3194584239', 'Fra.Aris@gmail.com','$2b$08$hEwWwvSGwMQwfsOBK/60VOf5mdNTguAHScAWCjhh3jq6PEoDg/XVq',3,1), /*0000*/
+            ('10564454999999994',2,'Jean','Carlo','Beltran','Amaya','3155758594', 'jean.carl@gmail.com','$2b$08$hEwWwvSGwMQwfsOBK/60VOf5mdNTguAHScAWCjhh3jq6PEoDg/XVq',3,0); /*0000*/
  
+ INSERT INTO Usuario values('444444',1,'Maycol','teush','Cardona','Ashe','3134352560','teush@hotmail.com','$2b$08$hEwWwvSGwMQwfsOBK/60VOf5mdNTguAHScAWCjhh3jq6PEoDg/XVq',2,1); /*0000*/
+ 
+ select ID_Estado_FK from Usuario where ID_Tipo_Cargo_FK = 2;
+ SELECT ID_Numero_Identificacion_PK as id,Password_Usuario as contrasena,ID_Tipo_Cargo_FK as rol,Nombre_Usuario,Apellido_Usuario,ID_Estado_FK as estado
+ FROM Usuario WHERE ID_Numero_Identificacion_PK = 444444;
  
  -- #7 -- Registro_Proveedor
 INSERT INTO Registro_Proveedor(Nombre_Empresa,Dia_Visita,Telefono_Contacto,Estado_ID_Estado_PK)
@@ -167,3 +171,4 @@ VALUES (2, 2000, 1, 1),
        (3, 3000, 6, 7),
        (2, 4000, 7, 8);
        
+	

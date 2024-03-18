@@ -11,6 +11,7 @@ export const TablaAdminItem = (props) => {
     const [estado,setEstado] = useState(parseInt(props.idEstado));
 
     const ponerTexto = () =>{
+        console.log('estado actualmente',estado);
         if(estado === 1){
             setTextoActivar('Desactivar');
         }else if(estado === 0){
@@ -45,18 +46,50 @@ export const TablaAdminItem = (props) => {
                 }
                 
                 try {
-                    //axios.delete(`http://localhost:3001/Delete/${val.id}`).then(()=>{
-                    await axios.put(`http://localhost:3001/usuario/cambioestadoadmin/${val.id}`, {
+                    if(estado===1){
+                        await axios.put(`http://localhost:3001/usuario/activarestadoadmin/${val.id}`, {
                         "state": estado
-                    }).then(()=>{
-                        Swal.fire({
-                            title: "Actualizado!",
-                            text: `Se cambio el estadp del Gerente ${val.name1}`,
-                            icon: "success"
-                        });
-                        props.consulta();
-                        ponerTexto();
-                    })
+                        }).then(()=>{
+                            Swal.fire({
+                                title: "Actualizado!",
+                                text: `Se cambio el estadp del Gerente ${val.name1}`,
+                                icon: "success"
+                            });
+                            props.consulta();
+                            ponerTexto();
+                            console.log(estado);
+                        })
+                    }else if(estado===0){
+                        await axios.put(`http://localhost:3001/usuario/desactivarestadoadmin/${val.id}`, {
+                        "state": estado
+                        }).then((response)=>{
+                            if(response.data.continue){
+                                Swal.fire({
+                                    title: "Actualizado!",
+                                    text: `Se cambio el estado del Gerente ${val.name1}`,
+                                    icon: "success"
+                                });
+                                props.consulta();
+                                ponerTexto();
+                                console.log(estado);
+                            }else{
+                                Swal.fire({
+                                    title: "Actualizado!",
+                                    text: `No se cambio el estado del Gerente ${val.name1}`,
+                                    icon: "error"
+                                });
+                                props.consulta();
+                                setEstado(1);
+                                console.log(estado);
+                            }
+                            
+                        })
+                    }
+                    //axios.delete(`http://localhost:3001/Delete/${val.id}`).then(()=>{
+                    // await axios.put(`http://localhost:3001/usuario/cambioestadoadmin/${val.id}`, {
+                    //     "state": estado
+                    // })
+                    
                                         
                 } catch (error) {
                     console.console.error('no s epudo cambiar de estado en la funcion confirmdelete', error);

@@ -52,3 +52,20 @@ Content-Type: application/json
 ###
 DELETE http://localhost:3001/usuario/usuario_empleado/85587 HTTP/1.1
 >>>>>>> origin/Login
+
+
+###
+PUT http://localhost:3001/usuario/desactivarestadoadmin/35684579 HTTP/1.1
+Content-Type: application/json
+
+{
+    "state":0
+}
+
+###
+PUT http://localhost:3001/usuario/activarestadoadmin/444444 HTTP/1.1
+Content-Type: application/json
+
+{
+    "state":1
+}
