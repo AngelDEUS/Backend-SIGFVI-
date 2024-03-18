@@ -2,7 +2,7 @@ import TituloyDescPagoVenta from '../../../components/Titles/TituloyDesc';
 import './PagoVenta.css'
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 
@@ -18,6 +18,9 @@ const PagoVenta = () => {
 
     const [metodoPagoSeleccionado, setMetodoPagoSeleccionado] = useState(false);
     const [selectedMethodName, setSelectedMethodName] = useState('');
+    let ultimo_id_venta;
+
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -31,6 +34,7 @@ const PagoVenta = () => {
         };
 
         fetchMetodosPago();
+        ultimo_id_venta = consultarUltimoIDVenta();
     }, []);
 
     const location = useLocation();
@@ -64,7 +68,7 @@ const PagoVenta = () => {
     };
 
 
-
+    // ---> Formateo de numeros a formato espa;ol Colombia.
     const formatNumber = (number) => {
         return number.toLocaleString('es-CO');
     };
@@ -142,8 +146,6 @@ const PagoVenta = () => {
     };
 
 
-    const { ultimo_id_venta } = consultarUltimoIDVenta();
-    console.log('Último ID de venta:', ultimo_id_venta);
 
 
     const { totalIVA, subtotalSinIVA, totalFactura, deudor } = detalleVenta;
@@ -160,6 +162,8 @@ const PagoVenta = () => {
         console.log('No hay productos seleccionados.');
     }
 
+    console.log('Último ID de venta:', ultimo_id_venta);
+
     const registrarVenta = async () => {
         try {
             // Registra la nueva venta
@@ -172,47 +176,72 @@ const PagoVenta = () => {
                 ID_Estado_FK: 1,
             });
 
-            // // Obtén el ID de la venta creada
-            //const ventaId = ventaResponse.data.ID_Venta;
-            //console.log('ID de la nueva venta:', ventaId);
-
-            // if (!ventaId) {
-            //     throw new Error('No se pudo obtener el ID de la venta creada.');
-            // }
-
             // Consulta el último ID de venta
-            const ultimoID = await consultarUltimoIDVenta();
-            console.log('Último ID de venta:', ultimoID);
+            const ultimo_id_venta = await consultarUltimoIDVenta(); // Esperar aquí
+            console.log('Último ID de venta:', ultimo_id_venta);
 
             // Asocia los detalles de venta con el ID de la nueva venta
             for (const producto of productosSeleccionados) {
-                if (!producto.Cantidad_Producto || isNaN(producto.Cantidad_Producto)) {
-                    console.error('Error: Cantidad de producto no válida:', producto.Cantidad_Producto);
+                if (!producto.cantidad || isNaN(producto.cantidad)) {
+                    console.error('Error: Cantidad de producto no válida:', producto.cantidad);
                     continue; // O maneja el error de otra manera según tu lógica
                 }
-            
+
                 await axios.post('http://localhost:3001/pagoventa/creardetalleventa', {
                     ID_Venta_FK: ultimo_id_venta,
-                    Cantidad_Producto: producto.Cantidad_Producto,
-                    SubTotal_detalle: producto.Precio_Venta * producto.Cantidad_Producto,
-                    ID_Inventario_FK: producto.ID_Producto_PK,
+                    Cantidad_Producto: producto.cantidad,
+                    SubTotal_detalle: producto.Precio_Venta * producto.cantidad,
+                    ID_Inventario_FK: producto.Inventario_ID,
                 });
-            
-                console.log(`Se inserta detalle de venta:
-                    ID_Venta_FK: ${ultimoID},
-                    Cantidad_Producto: ${producto.Cantidad_Producto},
-                    SubTotal_detalle: ${producto.Precio_Venta * producto.Cantidad_Producto},
-                    ID_Inventario_FK: ${producto.ID_Producto_PK}`);
-            }
-            
 
-            // Mostrar mensaje de éxito
-            Swal.fire('¡Venta registrada!', 'La venta se ha registrado correctamente.', 'success');
+                console.log(`Se inserta detalle de venta:
+                    ID_Venta_FK: ${ultimo_id_venta},
+                    Cantidad_Producto: ${producto.cantidad},
+                    SubTotal_detalle: ${producto.Precio_Venta * producto.cantidad},
+                    ID_Inventario_FK: ${producto.Inventario_ID}`);
+
+                await axios.put(`http://localhost:3001/pagoventa/restarstockinventario/${producto.Inventario_ID}`, {
+                    cantidad: producto.cantidad
+                });
+                console.log(`--> Se resto en el inventario con ID: [${producto.Inventario_ID}], La cantidad de: [${producto.cantidad}] en el "stock".`);
+            }
+
+            // Timer o delay para mostrar el mensaje de éxito!
+            let timerInterval;
+            Swal.fire({
+                title: "Espera hasta que termine.",
+                text: "Se está registrado la venta, esto puede tardar unos segundos.",
+                html: "Esperando: <b></b> milliseconds.",
+                timer: 1000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading();
+                    const timer = Swal.getPopup().querySelector("b");
+                    timerInterval = setInterval(() => {
+                        timer.textContent = `${Swal.getTimerLeft()}`;
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval);
+                }
+            }).then((result) => {
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    console.log("Se cierra el timer y se registra con exito, cambia de ventana a Main Venta.");
+
+                    // Mostrar mensaje de éxito después de 1 segundo
+                    setTimeout(() => {
+                        Swal.fire('¡Venta registrada!', 'La venta se ha registrado correctamente.', 'success');
+                        console.log('Redirigiendo a Ventas Main...');
+                        navigate('/VentasFacturacion/ventas_main');
+                    }, 500);
+                }
+            });
         } catch (error) {
             // Mostrar mensaje de error
             Swal.fire('Error', 'No se pudo registrar la venta.', 'error');
         }
     };
+
 
 
 

@@ -98,7 +98,7 @@ CREATE TABLE
         PRIMARY KEY (ID_Registro_Proveedor_PK),
         FOREIGN KEY (Estado_ID_Estado_PK) REFERENCES Estado (ID_Estado_PK)
 );
-select * from Registro_Proveedor;
+-- select * from Registro_Proveedor;
 
 -- #8 Cuenta_Deudor -------------->
 CREATE TABLE

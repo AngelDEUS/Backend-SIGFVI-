@@ -5,17 +5,27 @@
 USE SIGFVI_V3;
 
 
--- Vista para los productos y el estock total por ID (todos los resultado)
-SELECT * FROM producto;
+-- Ventas
+SELECT * FROM Venta;
+SELECT * FROM Detalle_Venta;
 SELECT * FROM Inventario;
+/*SELECT * FROM Facturacion;
+SELECT * FROM Detalle_Facturacion;*/
+
+
+
+-- Vista para los productos y el estock total por ID (todos los resultado)
+/*SELECT * FROM producto;
 SELECT * FROM Tipo_Producto;
+SELECT * FROM Inventario;*/
 SELECT 
     Producto.ID_Producto_PK,
     Producto.Nombre_Producto,
     Tipo_Producto.Nombre_Tipo_Producto,
     Producto.Descripcion,
     Producto.Precio_Venta,
-    SUM(Inventario.Stock) AS Stock_Total
+    SUM(Inventario.Stock) AS Stock_Total,    
+	Inventario.ID_Inventario_PK AS 'Inventario_ID'
 FROM 
     Inventario
 JOIN 
@@ -23,6 +33,7 @@ JOIN
 JOIN
     Tipo_Producto ON Producto.ID_Tipo_Producto_FK = Tipo_Producto.ID_Tipo_Producto_PK
 GROUP BY 
+	Inventario.ID_Inventario_PK,
     Producto.ID_Producto_PK, 
     Producto.Nombre_Producto,
     Tipo_Producto.Nombre_Tipo_Producto,
@@ -37,7 +48,8 @@ SELECT
 	Tipo_Producto.Nombre_Tipo_Producto,
 	Producto.Descripcion,
 	Producto.Precio_Venta,
-	SUM(Inventario.Stock) AS Stock_Total
+	SUM(Inventario.Stock) AS Stock_Total, 
+	Inventario.ID_Inventario_PK AS 'Inventario_ID'
 FROM 
 	Inventario
 JOIN 
@@ -47,6 +59,7 @@ JOIN
 WHERE
 	Producto.ID_Producto_PK = 'AGU-001'
 GROUP BY 
+	Inventario.ID_Inventario_PK,
 	Producto.ID_Producto_PK, 
 	Producto.Nombre_Producto,
 	Tipo_Producto.Nombre_Tipo_Producto,
@@ -83,7 +96,7 @@ FROM
 JOIN 
 	Estado ON CD.ID_Estado_FK = ID_Estado_PK
 WHERE
-	ID_Deudor_PK = 3;
+	ID_Deudor_PK = 111;
 
 -- -----> Vista de los deudores [BUSQUEDA POR ID].
 SELECT 
