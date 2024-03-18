@@ -1,26 +1,39 @@
 const db = require("../../models/sigfviDBModelo");
-
 const consultaDeudor = (req, res) => {
-    const query = `SELECT 
-    cd.ID_Deudor_PK AS id,
-    cd.Primer_Nombre,
-    cd.Segundo_Nombre,
-    cd.Primer_Apellido,
-    cd.Segundo_Apellido,
-    e.Nombre_Estado AS estado,
-    cd.ID_Estado_FK,
-    scd.Total_Saldo_Deuda AS saldo,
-    scd.Fecha_Cancelacion_Pedido
-FROM 
-    Cuenta_Deudor cd
-INNER JOIN 
-    Saldo_Cuenta_Deudor scd ON cd.ID_Deudor_PK = scd.ID_Deudor_FK
-INNER JOIN 
-    Estado e ON cd.ID_Estado_FK = e.ID_Estado_PK
-ORDER BY 
-    cd.ID_Deudor_PK ASC;
-    `;
+    // Obtener la fecha de registro desde la solicitud (si se proporciona)
+    const fechaRegistro = req.query.fechaRegistro;
 
+    // Construir la consulta SQL base
+    let query = `SELECT 
+        cd.ID_Deudor_PK AS id,
+        cd.Primer_Nombre,
+        cd.Segundo_Nombre,
+        cd.Primer_Apellido,
+        cd.Segundo_Apellido,
+        e.Nombre_Estado AS estado,
+        cd.ID_Estado_FK,
+        scd.Total_Saldo_Deuda AS saldo,
+        scd.Fecha_Cancelacion_Pedido
+    FROM 
+        Cuenta_Deudor cd
+    INNER JOIN 
+        Saldo_Cuenta_Deudor scd ON cd.ID_Deudor_PK = scd.ID_Deudor_FK
+    INNER JOIN 
+        Estado e ON cd.ID_Estado_FK = e.ID_Estado_PK`;
+
+    // Si se proporciona una fecha de registro, agregar la cláusula WHERE para filtrar por esa fecha
+    if (fechaRegistro) {
+        // Se asume que la fecha de registro está en formato YYYY-MM-DD
+        query += ` WHERE DATE(scd.Fecha_Cancelacion_Pedido) = '${fechaRegistro}'`;
+    } // else {
+    //     // Si no se proporciona una fecha de registro, retornar un error
+    //     return res.status(400).json({ error: 'Se debe proporcionar una fecha de registro.' });
+    // }
+
+    // Finalizar la consulta SQL con la cláusula ORDER BY
+    query += ` ORDER BY cd.ID_Deudor_PK ASC`;
+
+    // Ejecutar la consulta en la base de datos
     db.query(query, (error, result) => {
         if (error) {
             console.error(`No se pudo hacer la consulta: ${error}`);
@@ -30,6 +43,7 @@ ORDER BY
         }
     });
 };
+
 
 const obtenerUsuarios = (req, res) => {
     const query = `
@@ -97,17 +111,25 @@ const consultaDatos = (req, res) => {
 };
 
 const ObtenerProductosVenta = (req, res) => {
-    db.query(`
-    SELECT 
-    v.ID_Venta_PK, 
-    m.Nombre_Metodo AS Nombre_Metodo_Pago,
-    v.IVA, 
-    v.Total_Pedido, 
-    v.ID_Estado_FK, 
-    v.ID_Saldo_PK 
-FROM 
-    Venta v
-INNER JOIN Metodo_de_pago m ON v.ID_Metodo_Pago_FK = m.ID_Metodo_Pago_PK;`, (err, result) => {
+    const fechaFactura = req.query.fechaFactura;
+
+    let query = `
+        SELECT 
+            v.ID_Venta_PK, 
+            f.Fecha_Factura,
+            m.Nombre_Metodo AS Nombre_Metodo_Pago,
+            v.IVA, 
+            v.Total_Pedido
+        FROM 
+            Venta v
+        INNER JOIN Facturacion f ON v.ID_Venta_PK = f.ID_Venta_Realizada_FK
+        INNER JOIN Metodo_de_pago m ON v.ID_Metodo_Pago_FK = m.ID_Metodo_Pago_PK`;
+
+    if (fechaFactura) {
+        query += ` WHERE DATE(f.Fecha_Factura) = '${fechaFactura}'`;
+    }
+
+    db.query(query, (err, result) => {
         if (err) {
             console.error("Error al obtener datos de productos", err);
             res.status(500).json({ error: "No se pudieron obtener los datos de productos" });
@@ -116,6 +138,10 @@ INNER JOIN Metodo_de_pago m ON v.ID_Metodo_Pago_FK = m.ID_Metodo_Pago_PK;`, (err
         }
     });
 };
+
+
+
+
 
 
 module.exports = {

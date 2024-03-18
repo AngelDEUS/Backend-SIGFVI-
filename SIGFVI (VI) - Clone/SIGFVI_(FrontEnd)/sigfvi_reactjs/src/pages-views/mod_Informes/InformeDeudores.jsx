@@ -5,19 +5,32 @@ import axios from 'axios';
 
 function InformeDeudores() {
   const [deudores, setDeudores] = useState([]);
+  const [fechaFiltro, setFechaFiltro] = useState('');
 
   useEffect(() => {
-    const obtenerDatosDeudores = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/informes/informeDeudor');
-        setDeudores(response.data);
+        let url = 'http://localhost:3001/informes/informeDeudor';
+        if (fechaFiltro) {
+          url += `?fechaRegistro=${fechaFiltro}`;
+        }
+        const response = await axios.get(url);
+        if (response.status === 200) {
+          setDeudores(response.data);
+        } else {
+          console.error('Error fetching data:', response.status);
+        }
       } catch (error) {
-        console.error('Error al obtener los deudores:', error);
+        console.error('Error fetching data:', error);
       }
     };
 
-    obtenerDatosDeudores();
-  }, []);
+    fetchData();
+  }, [fechaFiltro]);
+
+  const handleFechaChange = (event) => {
+    setFechaFiltro(event.target.value);
+  };
 
   return (
     <main className='contenedor_informe'>
@@ -27,6 +40,10 @@ function InformeDeudores() {
       />
       <hr />
       <h2 style={{ textAlign: 'center' }}>Informe Deudores</h2>
+      <div style={{ textAlign: 'center', marginBottom: '10px' }}>
+        <label htmlFor="fecha">Fecha de Registro:</label>
+        <input type="date" id="fecha" value={fechaFiltro} onChange={handleFechaChange} />
+      </div>
       <Link to='/Informes'>
         <button className="bnt1">Volver</button>
       </Link>
@@ -43,31 +60,18 @@ function InformeDeudores() {
         </thead>
         <tbody>
           {deudores.map((deudor, index) => (
-            <FilaDeudor
-              key={index}
-              id={deudor.id}
-              nombre={`${deudor.Primer_Nombre} ${deudor.Segundo_Nombre} ${deudor.Primer_Apellido} ${deudor.Segundo_Apellido}`}
-              fechaRegistro={deudor.Fecha_Cancelacion_Pedido}
-              totalDeuda={deudor.saldo}
-              estado={deudor.estado}
-            />
+            <tr key={index}>
+              <td style={{ textAlign: 'center' }}><input type="checkbox" /></td>
+              <td>{deudor.id}</td>
+              <td>{`${deudor.Primer_Nombre} ${deudor.Segundo_Nombre} ${deudor.Primer_Apellido} ${deudor.Segundo_Apellido}`}</td>
+              <td>{deudor.Fecha_Cancelacion_Pedido}</td>
+              <td>{deudor.saldo}</td>
+              <td style={{ textAlign: 'center' }}>{deudor.estado}</td>
+            </tr>
           ))}
         </tbody>
       </table>
     </main>
-  );
-}
-
-function FilaDeudor({ id, nombre, fechaRegistro, totalDeuda, estado }) {
-  return (
-    <tr>
-      <td style={{ textAlign: 'center' }}><input type="checkbox" /></td>
-      <td>{id}</td>
-      <td>{nombre}</td>
-      <td>{fechaRegistro}</td>
-      <td>{totalDeuda}</td>
-      <td style={{ textAlign: 'center' }}>{estado}</td>
-    </tr>
   );
 }
 
