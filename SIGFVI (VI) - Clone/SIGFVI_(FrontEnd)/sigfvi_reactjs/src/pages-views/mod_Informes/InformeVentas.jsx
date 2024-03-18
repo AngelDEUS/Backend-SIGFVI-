@@ -4,14 +4,19 @@ import axios from 'axios';
 import TituloyDesc from '../../components/Titles/TituloyDesc';
 
 const InformeVentas = () => {
-  const [productos, setProductos] = useState([]);
+  const [ventas, setVentas] = useState([]);
+  const [fechaFiltro, setFechaFiltro] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/informes/informeVenta');
+        let url = 'http://localhost:3001/informes/informeVenta'; // Utilizamos la ruta correcta
+        if (fechaFiltro) {
+          url += `?fechaFactura=${fechaFiltro}`; // Cambiamos el parámetro a fechaFactura para que coincida con la ruta del servidor
+        }
+        const response = await axios.get(url);
         if (response.status === 200) {
-          setProductos(response.data.ventas); // Aquí cambiamos productos por ventas
+          setVentas(response.data.ventas);
         } else {
           console.error('Error fetching data:', response.status);
         }
@@ -21,34 +26,46 @@ const InformeVentas = () => {
     };
 
     fetchData();
-  }, []);
+  }, [fechaFiltro]);
+
+  const handleFechaChange = (event) => {
+    setFechaFiltro(event.target.value);
+  };
 
   return (
     <main className='contenedor_informe'>
       <TituloyDesc
         titulo='Informe de Ventas'
-        descripcion='Este es el módulo encargado de realizar los <s>Informes de las ventas</s> para generar un reporte de las ventas que se hacen.'
+        descripcion='Este es el módulo encargado de realizar los Informes de las ventas para generar un reporte de las ventas que se hacen.'
       />
       <hr/>
 
       <h2 style={{ textAlign: 'center' }}>Informe de Ventas</h2>
-      <Link to='/Informes'><button className="bnt1" >Volver</button></Link>
+      <div style={{ textAlign: 'center', marginBottom: '10px' }}>
+        <label htmlFor="fecha">Fecha de Factura:</label>
+        <input type="date" id="fecha" value={fechaFiltro} onChange={handleFechaChange} />
+      </div>
+      <Link to='/Informes'>
+        <button className="bnt1">Volver</button>
+      </Link>
       <table>
         <thead>
           <tr>
-            <th style={{ textAlign: 'center' }}>ID Venta</th> {/* Cambiado de ID Pedido a ID Venta */}
+            <th style={{ textAlign: 'center' }}>ID Venta</th>
+            <th>Fecha Factura</th>
             <th>Método de Pago</th>
             <th>IVA</th>
             <th>Total Pedido</th>
           </tr>
         </thead>
         <tbody>
-          {productos.map((venta, index) => ( // Cambiado de pedido a venta
+          {ventas.map((venta, index) => (
             <tr key={index}>
-              <td>{venta.ID_Venta_PK}</td> {/* Cambiado de ID_Pedido_PK a ID_Venta_PK */}
-              <td>{venta.Nombre_Metodo_Pago}</td> {/* Mantenido Nombre_Metodo_Pago */}
-              <td>{venta.IVA}</td> {/* Mantenido IVA */}
-              <td>{venta.Total_Pedido}</td> {/* Mantenido Total_Pedido */}
+              <td>{venta.ID_Venta_PK}</td>
+              <td>{venta.Fecha_Factura}</td>
+              <td>{venta.Nombre_Metodo_Pago}</td>
+              <td>{venta.IVA}</td>
+              <td>{venta.Total_Pedido}</td>
             </tr>
           ))}
         </tbody>
