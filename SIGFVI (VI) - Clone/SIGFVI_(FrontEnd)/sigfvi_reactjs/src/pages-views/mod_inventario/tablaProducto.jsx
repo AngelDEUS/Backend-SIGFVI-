@@ -47,7 +47,7 @@ const Tabla_Producto = () => {
   }, []);
 
   const [registerform, setRegisterform] = useState(false);
-  console.log(datos, "holaaa")
+  console.log(datos, "holaaa");
   return (
     <>
       <div className="mod__inventario--s">
@@ -59,54 +59,6 @@ const Tabla_Producto = () => {
             <div className="subtitulo">
               <h3 className="subtitulo__h3">Gestion Productos</h3>
             </div>
-            {/*
-            <div className="botones_arriba">
-              <div className="buscar">
-                <i className="bi bi-search buscar_i"></i>
-                <div className="sep_vertical_b"></div>
-                <input
-                  type="text"
-                  id="search"
-                  name="search"
-                  className="barra-buscar"
-                  placeholder="ID del Pedido"
-                  onChange={(e) => setSearchId(e.target.value)}
-                />
-                <button className="btn_buscar" onClick={handleSearch}>
-                  Buscar
-                </button>
-              </div>
-              <div className="valores">
-                <div>
-                  <div className="teush">
-                    <button
-                      type="button"
-                      className="btn_f limpiar"
-                      id="lanzar-modal"
-                      name="agregar"
-                      onClick={() => setRegisterform(true)}
-                    >
-                      Agregar
-                    </button>
-
-                    <button
-                      type="button"
-                      className="btn_f limpiar"
-                      id="lanzar-modal2"
-                      name="Reporte"
-                    >
-                      Reporte
-                    </button>
-                  </div>
-                </div>
-                <RegisterProd
-                  isOpen={registerform}
-                  closeModal={() => setRegisterform(false)}
-                  reConsulta={consulta}
-                />
-              </div>
-            </div>
-  */}
             <div className="busqueda__prod">
               <div className="buscar_productos">
                 <div className="right__b">
@@ -160,7 +112,6 @@ const Tabla_Producto = () => {
                 </tr>
               </thead>
               <tbody>
-                
                 {!datos
                   ? "Loading....."
                   : datos.map((dato) => (

@@ -16,6 +16,21 @@ function EntregaProducto() {
   const [productosAgregados, setProductosAgregados] = useState([]);
   const [searchId, setSearchId] = useState("");
 
+  const handleSearch = () => {
+    if (searchId.trim() !== "") {
+      axios
+        .get(`http://localhost:3001/producto/BuscarDatoPorId/${searchId}`)
+        .then((response) => {
+          setDatos(response.data.datos ? response.data.datos : []);
+        })
+        .catch((error) => {
+          console.error("Error al buscar el dato:", error);
+        });
+    } else {
+      consulta();
+    }
+  };
+
   const consulta = () => {
     axios
       .get("http://localhost:3001/producto/Datos")
@@ -35,19 +50,6 @@ function EntregaProducto() {
 
   const handleAgregarProducto = (producto) => {
     setProductosAgregados([...productosAgregados, producto]);
-  };
-
-  const handleSearch = () => {
-    if (searchId.trim() !== "") {
-      axios
-        .get(`http://localhost:3001/producto/BuscarDatoPorId/${searchId}`)
-        .then((response) => {
-          setDatos(response.data.dato ? [response.data.dato] : []);
-        })
-        .catch((error) => {
-          console.error("Error al buscar el dato:", error);
-        });
-    }
   };
 
   const handleIngresarProductos = async () => {

@@ -3,9 +3,20 @@ import axios from "axios";
 import "./inputstyle.css";
 
 export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
+  function Mayus(caracteres) {
+    let palabras = caracteres.toLowerCase().split(" ");
+    for (let i = 0; i < palabras.length; i++) {
+      palabras[i] =
+        palabras[i].charAt(0).toUpperCase() + palabras[i].substring(1);
+    }
+    return palabras.join(" ");
+  }
+
   const nuevoProducto = async () => {
     try {
       const descripcionCompleta = `${descripcion} ${medida}`;
+      const nombreMayus = Mayus(nombre);
+      console.log(nombreMayus);
 
       const generarId = async (pre) => {
         let num = 1;
@@ -27,7 +38,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
         "http://localhost:3001/producto/AgregarProducto",
         {
           ID_Producto_PK: formatoId,
-          Nombre_Producto: nombre,
+          Nombre_Producto: nombreMayus,
           ID_Tipo_Producto_FK: tProducto,
           Descripcion: descripcionCompleta,
           Precio_Proveedor: precioCompra,
@@ -81,6 +92,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
             <div className="form-group">
               <label>Nombre Producto</label>
               <input
+                required
                 type="text"
                 name="nombre"
                 id="nombre"
@@ -91,6 +103,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
             <div className="form-group">
               <label>Tipo de Producto</label>
               <select
+                required
                 name=""
                 id=""
                 type="text"
@@ -103,12 +116,14 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
                 <option value="2">Lata</option>
                 <option value="3">Paquete</option>
                 <option value="4">Caja</option>
+                <option value="5">Vaso</option>
               </select>
             </div>
             <div className="form-group">
               <label>Descripcion</label>
               <div className="descripcion-form">
                 <input
+                  required
                   type="text"
                   name="descripcion"
                   id="descripcion"
@@ -117,6 +132,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
                   onChange={(e) => setDescripcion(e.target.value)}
                 />
                 <select
+                  required
                   name="medida"
                   id="medida"
                   onChange={(e) => setMedida(e.target.value)}
@@ -134,6 +150,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
             <div className="form-group">
               <label>Precio de Compra</label>
               <input
+                required
                 type="text"
                 name="precioCompra"
                 id="precioCompra"
@@ -144,6 +161,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
             <div className="form-group">
               <label>Precio de Venta</label>
               <input
+                required
                 type="text"
                 name="precioVenta"
                 id="precioVenta"
@@ -154,6 +172,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
             <div className="form-group">
               <label>Foto</label>
               <input
+                required
                 type="text"
                 name="foto"
                 id="foto"
@@ -163,7 +182,12 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
             </div>
             <div className="form-group">
               <label>Estado</label>
-              <select name="" id="" onChange={(e) => setEstado(e.target.value)}>
+              <select
+                required
+                name=""
+                id=""
+                onChange={(e) => setEstado(e.target.value)}
+              >
                 <option value="" hidden>
                   Elegir Estado
                 </option>

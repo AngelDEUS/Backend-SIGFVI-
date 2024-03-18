@@ -15,16 +15,20 @@ const Gestion_Inventario = () => {
   const [datos, setDatos] = useState([]);
   const [searchId, setSearchId] = useState("");
 
+  console.log(searchId);
   const handleSearch = () => {
     if (searchId.trim() !== "") {
       axios
-        .get(`http://localhost:3001/producto/BuscarDatoPorId/${searchId}`)
+        .get(`http://localhost:3001/inventario/BusquedaInventario/${searchId}`)
         .then((response) => {
-          setDatos(response.data.dato ? [response.data.dato] : []);
+          setDatos(response.data.datos ? response.data.datos : []);
+          console.log('entro');
         })
         .catch((error) => {
           console.error("Error al buscar el dato:", error);
         });
+    } else {
+      consulta();
     }
   };
 

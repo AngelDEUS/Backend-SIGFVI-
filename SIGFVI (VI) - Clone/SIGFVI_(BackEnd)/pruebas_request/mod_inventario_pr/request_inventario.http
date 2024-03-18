@@ -1,2 +1,5 @@
 ###
 GET http://localhost:3001/inventario/consultaInventario HTTP/1.1
+
+###
+GET http://localhost:3001/inventario/BusquedaInventario/arroz HTTP/1.1

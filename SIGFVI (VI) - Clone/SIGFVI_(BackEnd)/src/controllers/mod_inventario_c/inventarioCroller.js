@@ -5,22 +5,24 @@ const consultaDatos = async (req, res) => {
       console.log("Obteniendo datos...");
 
       const [result] = await db.query(`
-          SELECT 
-              P.ID_Producto_PK,
-              P.Nombre_Producto,
-              TP.Nombre_Tipo_Producto,
-              P.Descripcion,
-              P.Precio_Proveedor,
-              P.Precio_Venta,
-              SUM(I.Stock) AS Stock
-          FROM 
-              Producto AS P
-          JOIN 
-              Tipo_Producto AS TP ON P.ID_Tipo_Producto_FK = TP.ID_Tipo_Producto_PK
-          JOIN 
-              Inventario AS I ON P.ID_Producto_PK = I.ID_Producto_FK
-          GROUP BY 
-              P.ID_Producto_PK, P.Nombre_Producto, TP.Nombre_Tipo_Producto, P.Descripcion;
+      SELECT 
+          P.ID_Producto_PK,
+          P.Nombre_Producto,
+          TP.Nombre_Tipo_Producto,
+          P.Descripcion,
+          P.Precio_Proveedor,
+          P.Precio_Venta,
+          I.Stock
+      FROM 
+          Producto AS P
+      JOIN 
+          Tipo_Producto AS TP ON P.ID_Tipo_Producto_FK = TP.ID_Tipo_Producto_PK
+      JOIN 
+          Inventario AS I ON P.ID_Producto_PK = I.ID_Producto_FK
+      WHERE 
+          P.ID_Estado_FK = 1
+      GROUP BY 
+          P.ID_Producto_PK, P.Nombre_Producto, TP.Nombre_Tipo_Producto, P.Descripcion;
       `);
 
       console.log("Enviando respuesta...");
@@ -30,6 +32,46 @@ const consultaDatos = async (req, res) => {
       res.status(500).json({ error: "No se pudo hacer la consulta" });
   }
 };
+
+const BuscarInventario = async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  console.log(id);
+  try {
+    const query =`
+    SELECT 
+        P.ID_Producto_PK,
+        P.Nombre_Producto,
+        TP.Nombre_Tipo_Producto,
+        P.Descripcion,
+        P.Precio_Proveedor,
+        P.Precio_Venta,
+        I.Stock
+    FROM 
+        Producto AS P
+    JOIN 
+        Tipo_Producto AS TP ON P.ID_Tipo_Producto_FK = TP.ID_Tipo_Producto_PK
+    JOIN 
+        Inventario AS I ON P.ID_Producto_PK = I.ID_Producto_FK
+    WHERE 
+        P.ID_Estado_FK = 1
+        AND (P.ID_Producto_PK = ? OR P.Nombre_Producto LIKE ?)
+    GROUP BY 
+        P.ID_Producto_PK, P.Nombre_Producto, TP.Nombre_Tipo_Producto, P.Descripcion;
+    `;
+    const [result] = await db.query(query, [id, `%${id}%`]);
+
+    if (result.length > 0) {
+      res.json({ datos: result });
+    } else {
+      res.status(404).json({ mensaje: "No se encontró el inventario para el producto" });
+    }
+  } catch (error) {
+    console.error("No se pudo realizar la búsqueda del inventario", error);
+    res.status(500).json({ error: "No se pudo realizar la búsqueda del inventario" });
+  }
+};
+
 
 const reportarProducto = async (req, res) => {
     try {
@@ -112,4 +154,5 @@ module.exports = {
     consultaDatos,
     reportarProducto,
     registrarEntradaProducto,
+    BuscarInventario,
   }
