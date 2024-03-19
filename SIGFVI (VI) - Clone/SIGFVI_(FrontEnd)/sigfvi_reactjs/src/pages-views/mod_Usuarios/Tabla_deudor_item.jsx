@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import Edit_deudor from './Edit_deudor'
+import React, { useEffect, useState } from 'react';
+import Edit_deudor from './Edit_deudor';
 import Sumar_deudor from './Sumar_deudor';
 import Pagar_deudor from './Pagar_deudor';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
 export const Tabla_deudor_item = (props) => {
-    
+
     const [textoActivar, setTextoActivar] = useState('');
     const [mostrarSumarform , setMostrarSumarform] = useState(false);
     const [mostrarPagarform , setMostrarPagarform] = useState(false);
@@ -44,7 +44,7 @@ export const Tabla_deudor_item = (props) => {
         } else if(estado === 0 || estado === '0'){
             newEstado = 1;
         }
-        setEstado(newEstado);
+
         Swal.fire({
             icon: 'warning',
             title: '<h2 style="color:yellow">¿Desea Cambiar el estado de este registro?</h2>',
@@ -60,6 +60,8 @@ export const Tabla_deudor_item = (props) => {
                     await axios.put(`http://localhost:3001/usuario/cambiarestado/${val.id}`, {
                         "state": newEstado
                     }).then(() => {
+                        setEstado(newEstado); // Actualizar el estado aquí
+                        ponerTexto(); // Actualizar el texto del botón
                         Swal.fire({
                             title: "Actualizado!",
                             text: `Los datos de ${val.name1}, se han actualizado`,
