@@ -100,13 +100,14 @@ const Tabla_Producto = () => {
             <table>
               <thead>
                 <tr>
+                  <th>foto</th>
                   <th>Codigo</th>
                   <th>Nombre</th>
                   <th>Tipo Producto</th>
                   <th>Descripcion</th>
                   <th>Precio Compra</th>
                   <th>Precio Venta</th>
-                  <th>foto</th>
+
                   <th>Estado</th>
                   <th>Acciones</th>
                 </tr>
@@ -117,13 +118,13 @@ const Tabla_Producto = () => {
                   : datos.map((dato) => (
                       <Tabla_Prod_item
                         key={dato.ID_Producto_PK}
+                        foto={dato.Foto_Url}
                         id={dato.ID_Producto_PK}
                         nombre={dato.Nombre_Producto}
                         tProducto={dato.Tipo_Producto}
                         descripcion={dato.Descripcion}
                         precioCompra={dato.Precio_Proveedor}
                         precioVenta={dato.Precio_Venta}
-                        foto={dato.Foto_Producto}
                         estado={dato.Estado}
                         consulta={consulta}
                       />

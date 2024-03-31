@@ -4,6 +4,7 @@
 
 // Exportaciones de modulos y dependencias necesarios para el BackEnd
 const express = require('express');
+const path = require("path"); 
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { swaggerJSDOCs } = require('./swagger.jsx');
@@ -38,6 +39,8 @@ app.use(cors(optionsCors)); // - Use de las opciones inicializadas del cors.
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use('/img', express.static(path.join(__dirname, 'img')));
 
 
 // Modulo de ventas y facturacion.

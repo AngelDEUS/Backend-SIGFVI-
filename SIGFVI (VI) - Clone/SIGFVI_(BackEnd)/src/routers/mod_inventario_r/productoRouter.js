@@ -172,8 +172,7 @@ rutaDatos.put("/ActualizarProducto/:id", productosController.ActualizarProducto)
  *       200:
  *         description: Producto agregado correctamente
  */
-rutaDatos.post("/AgregarProducto", productosController.AgregarProducto);
-
+rutaDatos.post("/AgregarProducto",productosController.upload.single('Foto_Producto'), productosController.AgregarProducto);
 /**
  * @swagger
  * /VerificarDuplicado/{id}:

@@ -22,7 +22,7 @@ const Gestion_Inventario = () => {
         .get(`http://localhost:3001/inventario/BusquedaInventario/${searchId}`)
         .then((response) => {
           setDatos(response.data.datos ? response.data.datos : []);
-          console.log('entro');
+          console.log("entro");
         })
         .catch((error) => {
           console.error("Error al buscar el dato:", error);
@@ -73,13 +73,15 @@ const Gestion_Inventario = () => {
                     id="buscarProducto"
                     onChange={(e) => setSearchId(e.target.value)}
                   />
-                  <button className="btn_buscar" onClick={handleSearch}>Buscar</button>
+                  <button className="btn_buscar" onClick={handleSearch}>
+                    Buscar
+                  </button>
                 </div>
                 <div className="sep_vertical_b--outS"></div>
               </div>
               <div className="left__b">
                 <Link to="/Inventario/EntregaProducto">
-                  <button className="btn_f limpiar" >entrega Productos</button>
+                  <button className="btn_f limpiar">entrega Productos</button>
                 </Link>
               </div>
             </div>
@@ -88,6 +90,7 @@ const Gestion_Inventario = () => {
             <table>
               <thead>
                 <tr>
+                  <th>foto</th>
                   <th>Codigo</th>
                   <th>Nombre del Producto</th>
                   <th>Tipo Producto</th>
@@ -102,12 +105,13 @@ const Gestion_Inventario = () => {
                   : datos.map((dato) => (
                       <Tabla_Stock_item
                         key={dato.ID_Producto_PK}
+                        foto={dato.Foto_Url}
                         id={dato.ID_Producto_PK}
                         nombre={dato.Nombre_Producto}
                         tProducto={dato.Nombre_Tipo_Producto}
                         descripcion={dato.Descripcion}
                         cantidad={dato.Stock}
-                        consulta={consulta} 
+                        consulta={consulta}
                       />
                     ))}
               </tbody>

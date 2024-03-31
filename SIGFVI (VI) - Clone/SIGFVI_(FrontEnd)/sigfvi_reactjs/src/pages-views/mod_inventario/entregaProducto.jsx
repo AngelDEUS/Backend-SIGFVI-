@@ -67,32 +67,35 @@ function EntregaProducto() {
         confirmButtonText: "Aceptar",
         cancelButtonText: "Cancelar",
       });
-  
+
       if (proveedorId) {
-        const productosData = productosAgregados.map(producto => ({
+        const productosData = productosAgregados.map((producto) => ({
           id: producto.id,
-          cantidad: producto.cantidad
+          cantidad: producto.cantidad,
         }));
 
         try {
-          const response = await axios.post("http://localhost:3001/inventario/registrarEntrada", {
-            productos: productosData,
-            proveedorId: proveedorId
-          });
-          
+          const response = await axios.post(
+            "http://localhost:3001/inventario/registrarEntrada",
+            {
+              productos: productosData,
+              proveedorId: proveedorId,
+            }
+          );
+
           Swal.fire({
             icon: "success",
             title: "Productos ingresados correctamente",
-            text: "Los productos han sido ingresados correctamente al inventario."
+            text: "Los productos han sido ingresados correctamente al inventario.",
           });
-          
+
           setProductosAgregados([]);
         } catch (error) {
           console.error("Error al ingresar productos", error);
           Swal.fire({
             icon: "error",
             title: "Error",
-            text: "Error al ingresar los productos. Por favor, intenta de nuevo."
+            text: "Error al ingresar los productos. Por favor, intenta de nuevo.",
           });
         }
       }
@@ -100,12 +103,11 @@ function EntregaProducto() {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "No hay productos agregados para ingresar"
+        text: "No hay productos agregados para ingresar",
       });
     }
   };
-  
-  
+
   return (
     <>
       <div className="mod__inventario--s">
@@ -130,7 +132,9 @@ function EntregaProducto() {
                     id="buscarProducto"
                     onChange={(e) => setSearchId(e.target.value)}
                   />
-                  <button className="btn_buscar" onClick={handleSearch}>Buscar</button>
+                  <button className="btn_buscar" onClick={handleSearch}>
+                    Buscar
+                  </button>
                 </div>
                 <div className="sep_vertical_b--outS"></div>
               </div>
@@ -142,6 +146,7 @@ function EntregaProducto() {
               <table>
                 <thead>
                   <tr>
+                    <th>foto</th>
                     <th>Codigo</th>
                     <th>Nombre</th>
                     <th>Tipo Producto</th>
@@ -155,6 +160,7 @@ function EntregaProducto() {
                     : datos.map((dato) => (
                         <Tabla_Entrega_item
                           key={dato.ID_Producto_PK}
+                          foto={dato.Foto_Url}
                           id={dato.ID_Producto_PK}
                           nombre={dato.Nombre_Producto}
                           tProducto={dato.Tipo_Producto}

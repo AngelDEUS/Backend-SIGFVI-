@@ -16,7 +16,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
     try {
       const descripcionCompleta = `${descripcion} ${medida}`;
       const nombreMayus = Mayus(nombre);
-      console.log(nombreMayus);
+
 
       const generarId = async (pre) => {
         let num = 1;
@@ -34,17 +34,23 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
 
       const formatoId = await generarId(idPre);
 
+      const formData = new FormData();
+      formData.append('ID_Producto_PK', formatoId); // Este campo debe manejarse en el backend
+      formData.append('Nombre_Producto', nombreMayus);
+      formData.append('ID_Tipo_Producto_FK', tProducto);
+      formData.append('Descripcion', descripcionCompleta);
+      formData.append('Precio_Proveedor', precioCompra);
+      formData.append('Precio_Venta', precioVenta);
+      formData.append('Foto_Producto', foto[0]); // Aquí se adjunta el archivo de imagen
+      formData.append('ID_Estado_FK', estado);
+
       const response = await axios.post(
         "http://localhost:3001/producto/AgregarProducto",
+        formData,
         {
-          ID_Producto_PK: formatoId,
-          Nombre_Producto: nombreMayus,
-          ID_Tipo_Producto_FK: tProducto,
-          Descripcion: descripcionCompleta,
-          Precio_Proveedor: precioCompra,
-          Precio_Venta: precioVenta,
-          Foto_Producto: foto,
-          ID_Estado_FK: estado,
+          headers: {
+            'Content-Type': 'multipart/form-data', // Es importante establecer el tipo de contenido como 'multipart/form-data'
+          }
         }
       );
 
@@ -141,6 +147,8 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
                     Medida
                   </option>
                   <option value="Gramos">Gramos</option>
+                  <option value="Libra(s)">Libra(s)</option>
+                  <option value="Kilo(s)">Kilo(s)</option>
                   <option value="Litro(s)">Litro(s)</option>
                   <option value="Mililitros">Mililitros</option>
                   <option value="Unidades">Unidades</option>
@@ -173,11 +181,11 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
               <label>Foto</label>
               <input
                 required
-                type="text"
+                type="file"
                 name="foto"
                 id="foto"
                 placeholder="Ingrese valor"
-                onChange={(e) => setFoto(e.target.value)}
+                onChange={(e) => setFoto(e.target.files)}
               />
             </div>
             <div className="form-group">
