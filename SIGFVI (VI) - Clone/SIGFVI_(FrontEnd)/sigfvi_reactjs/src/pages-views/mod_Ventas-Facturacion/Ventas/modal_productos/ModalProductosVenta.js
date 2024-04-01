@@ -313,7 +313,7 @@ const ModalProductosVenta = ({ onAgregarProductos, onClose }) => {
                                             <td>{producto.ID_Producto_PK}</td>
                                             <td>{producto.Nombre_Producto}</td>
                                             <td>{producto.Nombre_Tipo_Producto}</td>
-                                            <td>{producto.Descripcion_Producto}</td>
+                                            <td>{producto.Descripcion}</td>
                                             <td>{producto.Precio_Venta}</td>
                                             <td>{producto.Stock_Total}</td>
                                             <td className='tdAcciones'>

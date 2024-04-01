@@ -66,7 +66,34 @@ GROUP BY
 	Producto.Descripcion,
 	Producto.Precio_Venta;
     
+-- -------------------------------------------->>>>>
+-- -------------------------------------------->>>>>
+-- -----> Vista de los productos por stock sumado, si es igual a 0 no se muestra.
 
+SELECT 
+        Producto.ID_Producto_PK,
+        Producto.Nombre_Producto,
+        Tipo_Producto.Nombre_Tipo_Producto,
+        Producto.Descripcion,
+        Producto.Precio_Venta,
+        SUM(Inventario.Stock) AS Stock_Total,    
+        Inventario.ID_Inventario_PK AS 'Inventario_ID'
+    FROM 
+        Inventario
+    JOIN 
+        Producto ON Inventario.ID_Producto_FK = Producto.ID_Producto_PK
+    JOIN
+        Tipo_Producto ON Producto.ID_Tipo_Producto_FK = Tipo_Producto.ID_Tipo_Producto_PK
+    GROUP BY 
+        Inventario.ID_Inventario_PK,
+        Producto.ID_Producto_PK, 
+        Producto.Nombre_Producto,
+        Tipo_Producto.Nombre_Tipo_Producto,
+        Producto.Descripcion,
+        Producto.Precio_Venta
+    HAVING 
+        Stock_Total > 0;
+-- -------------------------------------------->>>>>
 -- -------------------------------------------->>>>>
 -- -----> Vista de los deudores [BUSQUEDA GENERAL].
 SELECT 
