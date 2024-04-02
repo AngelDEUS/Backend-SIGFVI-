@@ -149,8 +149,8 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
                   <option value="Gramos">Gramos</option>
                   <option value="Libra(s)">Libra(s)</option>
                   <option value="Kilo(s)">Kilo(s)</option>
-                  <option value="Litro(s)">Litro(s)</option>
                   <option value="Mililitros">Mililitros</option>
+                  <option value="Litro(s)">Litro(s)</option>
                   <option value="Unidades">Unidades</option>
                 </select>
               </div>
