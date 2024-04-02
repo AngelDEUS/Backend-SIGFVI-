@@ -35,13 +35,13 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
       const formatoId = await generarId(idPre);
 
       const formData = new FormData();
-      formData.append('ID_Producto_PK', formatoId); // Este campo debe manejarse en el backend
+      formData.append('ID_Producto_PK', formatoId); 
       formData.append('Nombre_Producto', nombreMayus);
       formData.append('ID_Tipo_Producto_FK', tProducto);
       formData.append('Descripcion', descripcionCompleta);
       formData.append('Precio_Proveedor', precioCompra);
       formData.append('Precio_Venta', precioVenta);
-      formData.append('Foto_Producto', foto[0]); // Aquí se adjunta el archivo de imagen
+      formData.append('Foto_Producto', foto[0]); 
       formData.append('ID_Estado_FK', estado);
 
       const response = await axios.post(
@@ -49,7 +49,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
         formData,
         {
           headers: {
-            'Content-Type': 'multipart/form-data', // Es importante establecer el tipo de contenido como 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
           }
         }
       );
