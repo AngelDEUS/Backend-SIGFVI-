@@ -164,6 +164,7 @@ const PagoVenta = () => {
 
     console.log('Último ID de venta:', ultimo_id_venta);
 
+<<<<<<< HEAD
     const getUserIdFromLocalStorage = () => {
         const userString = localStorage.getItem('usuario');
         if (userString) {
@@ -177,6 +178,9 @@ const PagoVenta = () => {
 
     getUserIdFromLocalStorage();
 
+=======
+    // ---:::: FUNCIÓN PRINCIPAL ::::----- //
+>>>>>>> 9a0862b430e833698e153b0ca4c1337939962e1d
     const registrarVenta = async () => {
         const userId = getUserIdFromLocalStorage();
         try {

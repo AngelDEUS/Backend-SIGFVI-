@@ -32,7 +32,7 @@ export const Tabla_proveedor_item = ({ consulta, ...props }) => {
         } else if (estado === 0 || estado === '0') {
             newEstado = 1;
         }
-        setEstado(newEstado);
+
         Swal.fire({
             icon: 'warning',
             title: '<h2 style="color:yellow">¿Desea Cambiar de estado este registro?</h2>',
@@ -48,6 +48,8 @@ export const Tabla_proveedor_item = ({ consulta, ...props }) => {
                     await axios.put(`http://localhost:3001/usuario/cambioestadoprovee/${val.id}`, {
                         "state": newEstado
                     }).then(() => {
+                        setEstado(newEstado); // Mover la actualización del estado aquí
+                        ponerTexto(); // Actualizar el texto del botón
                         Swal.fire({
                             title: "Actualizado!",
                             text: `Se cambio el estado del Gerente ${val.name1}`,
