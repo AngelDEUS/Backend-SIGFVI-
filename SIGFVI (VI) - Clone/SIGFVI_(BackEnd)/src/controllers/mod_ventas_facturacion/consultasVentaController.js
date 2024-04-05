@@ -12,7 +12,8 @@ const ObtenerProductosVenta = (req, res) => {
         Tipo_Producto.Nombre_Tipo_Producto,
         Producto.Descripcion,
         Producto.Precio_Venta,
-        SUM(Inventario.Stock) AS Stock_Total
+        SUM(Inventario.Stock) AS Stock_Total,    
+        Inventario.ID_Inventario_PK AS 'Inventario_ID'
     FROM 
         Inventario
     JOIN 
@@ -20,6 +21,7 @@ const ObtenerProductosVenta = (req, res) => {
     JOIN
         Tipo_Producto ON Producto.ID_Tipo_Producto_FK = Tipo_Producto.ID_Tipo_Producto_PK
     GROUP BY 
+        Inventario.ID_Inventario_PK,
         Producto.ID_Producto_PK, 
         Producto.Nombre_Producto,
         Tipo_Producto.Nombre_Tipo_Producto,
@@ -48,7 +50,8 @@ const BuscarProductoPorNombre = (req, res) => {
             Tipo_Producto.Nombre_Tipo_Producto,
             Producto.Descripcion,
             Producto.Precio_Venta,
-            SUM(Inventario.Stock) AS Stock_Total
+            SUM(Inventario.Stock) AS Stock_Total,    
+            Inventario.ID_Inventario_PK AS 'Inventario_ID'
         FROM 
             Inventario
         JOIN 
@@ -58,6 +61,7 @@ const BuscarProductoPorNombre = (req, res) => {
         WHERE
             Producto.Nombre_Producto LIKE ?
         GROUP BY 
+            Inventario.ID_Inventario_PK,
             Producto.ID_Producto_PK, 
             Producto.Nombre_Producto,
             Tipo_Producto.Nombre_Tipo_Producto,
@@ -89,7 +93,8 @@ const BuscarProductoPorID = (req, res) => {
             Tipo_Producto.Nombre_Tipo_Producto,
             Producto.Descripcion,
             Producto.Precio_Venta,
-            SUM(Inventario.Stock) AS Stock_Total
+            SUM(Inventario.Stock) AS Stock_Total,    
+            Inventario.ID_Inventario_PK AS 'Inventario_ID'
         FROM 
             Inventario
         JOIN 
@@ -99,6 +104,7 @@ const BuscarProductoPorID = (req, res) => {
         WHERE
             Producto.ID_Producto_PK = ? 
         GROUP BY 
+            Inventario.ID_Inventario_PK,
             Producto.ID_Producto_PK, 
             Producto.Nombre_Producto,
             Tipo_Producto.Nombre_Tipo_Producto,

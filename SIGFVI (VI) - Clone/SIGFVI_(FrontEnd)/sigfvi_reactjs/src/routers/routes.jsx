@@ -23,8 +23,8 @@ import Informe from '../pages-views/mod_Informes/Informe';
 
 import InformeVentas from '../pages-views/mod_Informes/InformeVentas';
 import InformeDeudores from '../pages-views/mod_Informes/InformeDeudores';
-import InformeInventario from '../pages-views/mod_Informes/InformeInventario';
-import InformeEmpleados from '../pages-views/mod_Informes/InformeEmpleados';
+//import InformeInventario from '../pages-views/mod_Informes/InformeInventario';
+//import InformeEmpleados from '../pages-views/mod_Informes/InformeEmpleados';
 
 
 import Tabla_Producto from "../pages-views/mod_inventario/tablaProducto";
@@ -64,8 +64,6 @@ export function MyRoutes() {
             <Route path='/Informes' element={<Informe />} />
             <Route path='/GestionInformes/InformeVentas' element={<InformeVentas />} />
             <Route path='/GestionInformes/InformeDeudores' element={<InformeDeudores />} />
-            <Route path='/GestionInformes/InformeEmpleados' element={<InformeEmpleados />} />
-            <Route path='/GestionInformes/InformeInventario' element={<InformeInventario />} />
 
             <Route path='/Ayuda' element={<Ayuda />} />
             <Route path='*' element={<Erro404 />} />

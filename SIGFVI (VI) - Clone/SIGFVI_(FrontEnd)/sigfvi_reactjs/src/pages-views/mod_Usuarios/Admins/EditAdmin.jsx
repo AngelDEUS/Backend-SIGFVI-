@@ -2,39 +2,38 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 
-const EditAdmin = ({closeModal, datos}) => {
+const EditAdmin = ({ closeModal, datos, consulta }) => {
+    const [name1, setName1] = useState(datos.name1);
+    const [name2, setName2] = useState(datos.name2);
+    const [lastname1, setLastname1] = useState(datos.lastname1);
+    const [lastname2, setLastname2] = useState(datos.lastname2);
+    const [cel, setCel] = useState(datos.tel);
+    const [email, setEmail] = useState(datos.email);
 
-    // console.log('ESTE ES EL ID PASADO POR PARAMETRO',datos.id);
-
-    const [name1,setName1]=useState(datos.name1);
-    const [name2,setName2]=useState(datos.name2);
-    const [lastname1,setLastname1]=useState(datos.lastname1);
-    const [lastname2,setLastname2]=useState(datos.lastname2);
-    const [cel,setCel]=useState(datos.tel);
-    const [email,setEmail]=useState(datos.email);
-
-    
-
-    const editarRegistro = async (x) =>{
-        try{
-            const response = await axios.put(`http://localhost:3001/usuario/Update/${x}`,{
-                name1:name1,
-                name2:name2,
-                lastname1:lastname1,
-                lastname2:lastname2,
-                cel:cel,
-                email:email,
-                contrasena:datos.contrasena
+    const editarRegistro = async (x) => {
+        try {
+            const response = await axios.put(`http://localhost:3001/usuario/Update/${x}`, {
+                name1: name1,
+                name2: name2,
+                lastname1: lastname1,
+                lastname2: lastname2,
+                cel: cel,
+                email: email,
+                contrasena: datos.contrasena
             });
             console.log(response.data);
-        }catch(err){
-            console.error('no se pudo hacer la peticion put  ',err);
+            consulta(); 
+            closeModal(); 
+        } catch (err) {
+            console.error('no se pudo hacer la petición put: ', err);
         }
     }
 
+
     //if(!isOpen) return null ;
-    const consulta=(function (){
-        datos.consulta();});
+    const consultaFuncion = () => {
+        consulta();
+    };
 
     function Verificar_nombre1(){
         const Innombre1 = document.getElementById('name1').value;
@@ -245,7 +244,7 @@ const EditAdmin = ({closeModal, datos}) => {
                 text:'Datos Actualizados para: '+document.getElementById('name1').value,
             }).then(function(){
                 editarRegistro(datos.id);
-                consulta()
+                consultaFuncion();
                 closeModal();
             })
             return true;

@@ -141,7 +141,7 @@ const VentasControl_Main = () => {
         });
         setModalDeudorAbierto(false);
     };
-    
+
     const quitarDeudor = () => {
         setDeudor({ nombre: '', telefono: '' });
     };
@@ -232,7 +232,7 @@ const VentasControl_Main = () => {
                     const totalIVA = calcularTotalIVA();
                     const subtotalSinIVA = calcularSubtotalSinIVA();
                     const totalFactura = calcularTotalFactura();
-    
+
                     const detalleVentaActualizado = {
                         productosSeleccionados: [...productosSeleccionados],
                         totalIVA,
@@ -240,21 +240,39 @@ const VentasControl_Main = () => {
                         totalFactura,
                         deudor
                     };
-    
+
                     // Navegar al componente PagoVenta con el detalleVenta actualizado
                     navigate('/VentasFacturacion/venta_pagar', { state: { detalleVenta: detalleVentaActualizado } });
                     console.log('----> Se envia desde el boton pagar: ', { state: { detalleVenta: detalleVentaActualizado } });
-    
+
+                    let timerInterval;
                     Swal.fire({
-                        title: "Deleted!",
-                        text: "Your file has been deleted.",
-                        icon: "success"
+                        title: "Espere un segundo",
+                        text: "Procediendo con el pago, esto puede tardar unos segundos.",
+                        html: "Esto se terminara en <b></b> milliseconds.",
+                        timer: 500,
+                        timerProgressBar: true,
+                        didOpen: () => {
+                            Swal.showLoading();
+                            const timer = Swal.getPopup().querySelector("b");
+                            timerInterval = setInterval(() => {
+                                timer.textContent = `${Swal.getTimerLeft()}`;
+                            }, 100);
+                        },
+                        willClose: () => {
+                            clearInterval(timerInterval);
+                        }
+                    }).then((result) => {
+                        /* Read more about handling dismissals below */
+                        if (result.dismiss === Swal.DismissReason.timer) {
+                            console.log("Se termino el timer.");
+                        }
                     });
                 }
             });
         }
     };
-    
+
 
 
     const handlePagarVenta__fix = async () => {

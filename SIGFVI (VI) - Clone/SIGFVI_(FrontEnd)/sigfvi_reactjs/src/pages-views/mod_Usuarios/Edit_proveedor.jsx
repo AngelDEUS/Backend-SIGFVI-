@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 
-const EditProveedor = ({ closeModal, datos }) => {
+const EditProveedor = ({ closeModal, datos, consulta }) => {
   console.log('ID del Proveedor:', datos.id);
 
   const [nombreEmpresa, setNombreEmpresa] = useState(datos.name);
@@ -17,6 +17,7 @@ const EditProveedor = ({ closeModal, datos }) => {
         Telefono_Contacto: telefonoContacto,
       });
       console.log(response.data);
+      consulta();
     } catch (error) {
       console.error('No se pudo realizar la petición PUT:', error);
     }
@@ -100,7 +101,7 @@ const EditProveedor = ({ closeModal, datos }) => {
         text: `Datos actualizados para: ${nombreEmpresa}`,
       }).then(function () {
         editarProveedor(datos.id);
-        consulta();
+        consulta(); 
         closeModal();
       });
     } else {
@@ -109,16 +110,6 @@ const EditProveedor = ({ closeModal, datos }) => {
         title: 'Rellene los campos del formulario para continuar',
         toast: true,
       });
-    }
-  };
-
-  const consulta = async () => {
-    try {
-      const response = await axios.get(`http://localhost:3001/usuario/proveedor/${datos.id}`);
-      console.log('Datos del proveedor consultados:', response.data);
-    } catch (error) {
-      console.error('Error al realizar la consulta del proveedor:', error);
-      mostrarError('Error al realizar la consulta del proveedor', 'Ha ocurrido un error al intentar consultar los datos del proveedor.');
     }
   };
 
@@ -180,7 +171,7 @@ const EditProveedor = ({ closeModal, datos }) => {
               <label htmlFor="telefonoContacto">Teléfono de Contacto</label>
               <input
                 className="input-form"
-                type="text"
+                type="number"
                 name="telefonoContacto"
                 id="telefonoContacto"
                 value={telefonoContacto}

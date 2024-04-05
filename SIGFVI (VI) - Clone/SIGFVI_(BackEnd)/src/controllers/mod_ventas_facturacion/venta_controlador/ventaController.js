@@ -23,6 +23,7 @@ const createVenta = async (req, res) => {
 // ENDPOINT para Crear una nueva venta:
 const createDetalleVenta = async (req, res) => {
     const { ID_Venta_FK, Cantidad_Producto, SubTotal_detalle, ID_Inventario_FK } = req.body;
+    const csubtotal_calculado = Cantidad_Producto * SubTotal_detalle;
     try {
         console.log("--> Creando nuevo detalle de venta...");
         const query = `

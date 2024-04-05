@@ -166,7 +166,7 @@ const RegisterProveedor = ({ isOpen, closeModal, reConsulta }) => {
               <label htmlFor="telefonoContacto">Teléfono de Contacto</label>
               <input
                 className="input-form"
-                type="text"
+                type="number"
                 name="telefonoContacto"
                 id="telefonoContacto"
                 placeholder="Teléfono de Contacto"
