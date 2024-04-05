@@ -129,12 +129,8 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
               <label>Descripcion</label>
               <div className="descripcion-form">
                 <input
-<<<<<<< HEAD
-                  type="number"
-=======
                   required
                   type="text"
->>>>>>> ac14cecf2d21d49ec1a654514aa0490fff12c304
                   name="descripcion"
                   id="descripcion"
                   className="inputDesc"
@@ -162,12 +158,8 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
             <div className="form-group">
               <label>Precio de Compra</label>
               <input
-<<<<<<< HEAD
-                type="number"
-=======
                 required
                 type="text"
->>>>>>> ac14cecf2d21d49ec1a654514aa0490fff12c304
                 name="precioCompra"
                 id="precioCompra"
                 placeholder="Ingrese valor"
@@ -177,12 +169,8 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
             <div className="form-group">
               <label>Precio de Venta</label>
               <input
-<<<<<<< HEAD
-                type="number"
-=======
                 required
                 type="text"
->>>>>>> ac14cecf2d21d49ec1a654514aa0490fff12c304
                 name="precioVenta"
                 id="precioVenta"
                 placeholder="Ingrese valor"
