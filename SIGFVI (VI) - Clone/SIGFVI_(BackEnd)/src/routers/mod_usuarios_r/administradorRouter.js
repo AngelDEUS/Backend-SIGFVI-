@@ -523,7 +523,47 @@ rutaDatos.put('/updatesaldo/:id', datosDeudores.cambioSaldoDeudor);
  */
 rutaDatos.put('/cambiarestado/:id', datosDeudores.cambioEstado);
 
-
+/**
+ * @swagger
+ * /rutaDatos/verificarID:
+ *   post:
+ *     summary: Verificar ID de deudor existente
+ *     tags: [Datos]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               idDeudor:
+ *                 type: string
+ *                 description: El ID del deudor a verificar
+ *     responses:
+ *       200:
+ *         description: Éxito. Devuelve si el ID del deudor existe o no.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 exists:
+ *                   type: boolean
+ *                   description: Indica si el ID del deudor existe.
+ *                 message:
+ *                   type: string
+ *                   description: Mensaje descriptivo sobre la existencia del ID del deudor.
+ *       500:
+ *         description: Error interno del servidor.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Descripción del error interno del servidor.
+ */
 rutaDatos.post('/verificarID', datosDeudores.verificarIDDeudorExistente);
 
 

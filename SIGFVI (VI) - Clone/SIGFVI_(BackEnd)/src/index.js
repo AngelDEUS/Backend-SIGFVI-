@@ -6,7 +6,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-//const swaggerDos = require('./swagger-jsdoc');
+const {swaggerJSDOCs} = require('./swagger.js');
 
 // ---> Modulos de Ventas y Facturación:
 const pedidosRouter = require('./routers/mod_ventas_facturacion_r/pedidosRouter');
@@ -39,7 +39,7 @@ const optionsCors = {
     methods: 'GET, POST, PUT, DELETE',
     optionsSuccessStatus: 200,  
 };
-app.use(cors(optionsCors)); // - Use de las opciones inicializadas del cors.
+app.use(cors(optionsCors)); 
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -66,7 +66,7 @@ app.use('/grafica', rutaGraficas); //Graficas dashboard
 
 //modulo informes
 app.use('/informes', informesRouter); // Empleados
-
+ 
 app.get("/", (req, res) => { // Mensajes de pagina principal.
     res.send("¡Hola! Este es el servidor backend!");
     console.log("¡Hola! Este es el servidor backend!");
@@ -75,7 +75,10 @@ app.get("/", (req, res) => { // Mensajes de pagina principal.
 
 // - Listen del puerto.
 app.listen(PORT, ()=>{
-    //swaggerJSDOCs(app, 3001);
+    
+    swaggerJSDOCs(app, PORT);
+
     console.log(`\n\n     El servidor funcionando en el puerto: \x1b[33m[${PORT}]\x1b[33m.`);
     console.log(`\n     Local:                  http://localhost:${PORT}\x1b[0m\n`);
 });
+

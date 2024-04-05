@@ -87,7 +87,7 @@ const LoginMain = () => {
                             <div className="form-container">
                                 <div className="input-container">
                                     <div>
-                                        <span className="highlight form-title">Nombre de Usuario</span>
+                                        <span className="highlight form-title">Numero de identificación</span>
                                         <input type="text" placeholder="Ingrese su ID" onChange={(e) => setUsername(e.target.value)} />
                                     </div>
                                     <svg className="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">

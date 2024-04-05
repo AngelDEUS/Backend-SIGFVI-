@@ -1,5 +1,6 @@
 const swaggerJSDOC = require("swagger-jsdoc");
 const swaggerUI = require("swagger-ui-express");
+// const pruebaDeRutas = require('./routers/mod_usuarios_r/proveedorRouter')
 
 const options = {
   definition: {
@@ -12,15 +13,16 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:3001/api",
+        url: "http://localhost:3001",
         description: "Documentación de la API",
       },
     ],
   },
-  apis: ["./routers/mod_inventario_r/productoRouter.js"],
+  apis: ["./routers/mod_usuarios_r/proveedorRouter"]
 };
 
 const swaggerSpec = swaggerJSDOC(options);
+console.log("Esto es:  ", swaggerSpec)
 
 const swaggerJSDOCs = (app, port) => {
   app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
@@ -30,8 +32,13 @@ const swaggerJSDOCs = (app, port) => {
   });
 
   console.log(`
-    Versión No 1 de la documentación estará disponible en http://localhost:${port}/api-docs
-  `);
+  \x1b[32m----------------------------------------------------------
+    Documentación disponible en: 
+    
+    http://localhost:${port}/api-docs
+  ----------------------------------------------------------
+  \x1b[0m
+`);
 };
 
 module.exports = {
