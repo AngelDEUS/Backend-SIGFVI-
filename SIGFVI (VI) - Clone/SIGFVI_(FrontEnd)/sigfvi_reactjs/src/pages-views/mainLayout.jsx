@@ -79,33 +79,20 @@ const LayoutMain = () => {
                     <Route element={<ProtectedRoute isAllowed={!!user && (user.rol === 2 || user.rol === 3)} redirectTo='/dashboard'/>}>
                         <Route path='/GestionUsuarios/TablaProveedores' element={<Tabla_proveedores />} />
                         <Route path='/GestionUsuarios/TablaDeudores' element={<Tabla_deudor />} /> 
-
-
-
                         <Route path='/Inventario' element={<Main_Inventario />} />
                         <Route path='/Inventario/Producto' element={<Tabla_Producto />} />
                         <Route path='/Inventario/GestionInventario' element={<Gestion_Inventario />} />
                         <Route path='/Inventario/EntregaProducto' element={<EntragaProducto />} />
-
-
-
                         <Route path='/VentasFacturacion/list' element={<Main_VentasFacturacion />} />
                         <Route path='/VentasFacturacion/ventas_main' element={<VentasControl_Main />} />
                         <Route path='/VentasFacturacion/venta_pagar' element={<PagoVenta />} />
                         <Route path='/VentasFacturacion/tabs' element={<TabsMainGenerator/>} />
                         <Route path='/VentasFacturacion/ventas' element={<MainVentas />} />
-                        
-
-
-
                         <Route path='/Informes' element={<Informe />} />
                         <Route path='/GestionInformes/InformeVentas' element={<InformeVentas />} />
                         <Route path='/GestionInformes/InformeDeudores' element={<InformeDeudores />} />
-                        <Route path='/GestionInformes/InformeEmpleados' element={<InformeEmpleados />} />
-                        <Route path='/GestionInformes/InformeInventario' element={<InformeInventario />} />
-
-
-
+                        {/* <Route path='/GestionInformes/InformeEmpleados' element={<InformeEmpleados />} /> */}
+                        {/* <Route path='/GestionInformes/InformeInventario' element={<InformeInventario />} /> */}
                         <Route path='/Ayuda' element={<MainAyuda />} />
                         <Route path='*' element={<Error404 />} />
                     </Route>

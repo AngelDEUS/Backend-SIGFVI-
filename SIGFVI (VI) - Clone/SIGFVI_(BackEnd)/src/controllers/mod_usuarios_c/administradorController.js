@@ -194,10 +194,11 @@ const autenticarUser = async(req,res)=>{
               res.json({message: "no se pudo iniciar :/",ingreso:false});
           }
       }else{
-          res.status(500).json({ error: 'Usuario no encontrado en DATABASE' ,message:'o no lo encontro o esta inactivo'});
+          res.status(500).json({ error: 'Usuario no encontrado en DATABASE' ,message:'o no lo encontro o esta inactivo',ingreso:false});
       }
   } catch (error) {
       console.log('no se pudo realizar la adquisision de id ',error);
+      res.status(500).json({ error: 'Usuario no encontrado en DATABASE',ingreso:false});
   }
 
 }
