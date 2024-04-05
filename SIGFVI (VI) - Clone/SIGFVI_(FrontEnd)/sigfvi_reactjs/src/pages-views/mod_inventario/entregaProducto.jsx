@@ -16,6 +16,21 @@ function EntragaProducto() {
   const [productosAgregados, setProductosAgregados] = useState([]);
   const [searchId, setSearchId] = useState("");
 
+  const handleSearch = () => {
+    if (searchId.trim() !== "") {
+      axios
+        .get(`http://localhost:3001/producto/BuscarDatoPorId/${searchId}`)
+        .then((response) => {
+          setDatos(response.data.datos ? response.data.datos : []);
+        })
+        .catch((error) => {
+          console.error("Error al buscar el dato:", error);
+        });
+    } else {
+      consulta();
+    }
+  };
+
   const consulta = () => {
     axios
       .get("http://localhost:3001/producto/Datos")
@@ -37,19 +52,6 @@ function EntragaProducto() {
     setProductosAgregados([...productosAgregados, producto]);
   };
 
-  const handleSearch = () => {
-    if (searchId.trim() !== "") {
-      axios
-        .get(`http://localhost:3001/producto/BuscarDatoPorId/${searchId}`)
-        .then((response) => {
-          setDatos(response.data.dato ? [response.data.dato] : []);
-        })
-        .catch((error) => {
-          console.error("Error al buscar el dato:", error);
-        });
-    }
-  };
-
   const handleIngresarProductos = async () => {
     if (productosAgregados.length > 0) {
       const { value: proveedorId } = await Swal.fire({
@@ -65,32 +67,35 @@ function EntragaProducto() {
         confirmButtonText: "Aceptar",
         cancelButtonText: "Cancelar",
       });
-  
+
       if (proveedorId) {
-        const productosData = productosAgregados.map(producto => ({
+        const productosData = productosAgregados.map((producto) => ({
           id: producto.id,
-          cantidad: producto.cantidad
+          cantidad: producto.cantidad,
         }));
 
         try {
-          const response = await axios.post("http://localhost:3001/inventario/registrarEntrada", {
-            productos: productosData,
-            proveedorId: proveedorId
-          });
-          
+          const response = await axios.post(
+            "http://localhost:3001/inventario/registrarEntrada",
+            {
+              productos: productosData,
+              proveedorId: proveedorId,
+            }
+          );
+
           Swal.fire({
             icon: "success",
             title: "Productos ingresados correctamente",
-            text: "Los productos han sido ingresados correctamente al inventario."
+            text: "Los productos han sido ingresados correctamente al inventario.",
           });
-          
+
           setProductosAgregados([]);
         } catch (error) {
           console.error("Error al ingresar productos", error);
           Swal.fire({
             icon: "error",
             title: "Error",
-            text: "Error al ingresar los productos. Por favor, intenta de nuevo."
+            text: "Error al ingresar los productos. Por favor, intenta de nuevo.",
           });
         }
       }
@@ -98,12 +103,11 @@ function EntragaProducto() {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "No hay productos agregados para ingresar"
+        text: "No hay productos agregados para ingresar",
       });
     }
   };
-  
-  
+
   return (
     <>
       <div className="mod__inventario--s">
@@ -128,7 +132,9 @@ function EntragaProducto() {
                     id="buscarProducto"
                     onChange={(e) => setSearchId(e.target.value)}
                   />
-                  <button className="btn_buscar" onClick={handleSearch}>Buscar</button>
+                  <button className="btn_buscar" onClick={handleSearch}>
+                    Buscar
+                  </button>
                 </div>
                 <div className="sep_vertical_b--outS"></div>
               </div>
@@ -140,6 +146,7 @@ function EntragaProducto() {
               <table>
                 <thead>
                   <tr>
+                    <th>foto</th>
                     <th>Codigo</th>
                     <th>Nombre</th>
                     <th>Tipo Producto</th>
@@ -153,6 +160,7 @@ function EntragaProducto() {
                     : datos.map((dato) => (
                         <Tabla_Entrega_item
                           key={dato.ID_Producto_PK}
+                          foto={dato.Foto_Url}
                           id={dato.ID_Producto_PK}
                           nombre={dato.Nombre_Producto}
                           tProducto={dato.Tipo_Producto}

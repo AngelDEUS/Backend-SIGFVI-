@@ -3,9 +3,20 @@ import axios from "axios";
 import "./inputstyle.css";
 
 export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
+  function Mayus(caracteres) {
+    let palabras = caracteres.toLowerCase().split(" ");
+    for (let i = 0; i < palabras.length; i++) {
+      palabras[i] =
+        palabras[i].charAt(0).toUpperCase() + palabras[i].substring(1);
+    }
+    return palabras.join(" ");
+  }
+
   const nuevoProducto = async () => {
     try {
       const descripcionCompleta = `${descripcion} ${medida}`;
+      const nombreMayus = Mayus(nombre);
+
 
       const generarId = async (pre) => {
         let num = 1;
@@ -23,17 +34,23 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
 
       const formatoId = await generarId(idPre);
 
+      const formData = new FormData();
+      formData.append('ID_Producto_PK', formatoId); 
+      formData.append('Nombre_Producto', nombreMayus);
+      formData.append('ID_Tipo_Producto_FK', tProducto);
+      formData.append('Descripcion', descripcionCompleta);
+      formData.append('Precio_Proveedor', precioCompra);
+      formData.append('Precio_Venta', precioVenta);
+      formData.append('Foto_Producto', foto[0]); 
+      formData.append('ID_Estado_FK', estado);
+
       const response = await axios.post(
         "http://localhost:3001/producto/AgregarProducto",
+        formData,
         {
-          ID_Producto_PK: formatoId,
-          Nombre_Producto: nombre,
-          ID_Tipo_Producto_FK: tProducto,
-          Descripcion: descripcionCompleta,
-          Precio_Proveedor: precioCompra,
-          Precio_Venta: precioVenta,
-          Foto_Producto: foto,
-          ID_Estado_FK: estado,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          }
         }
       );
 
@@ -81,6 +98,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
             <div className="form-group">
               <label>Nombre Producto</label>
               <input
+                required
                 type="text"
                 name="nombre"
                 id="nombre"
@@ -91,6 +109,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
             <div className="form-group">
               <label>Tipo de Producto</label>
               <select
+                required
                 name=""
                 id=""
                 type="text"
@@ -103,13 +122,19 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
                 <option value="2">Lata</option>
                 <option value="3">Paquete</option>
                 <option value="4">Caja</option>
+                <option value="5">Vaso</option>
               </select>
             </div>
             <div className="form-group">
               <label>Descripcion</label>
               <div className="descripcion-form">
                 <input
+<<<<<<< HEAD
                   type="number"
+=======
+                  required
+                  type="text"
+>>>>>>> ac14cecf2d21d49ec1a654514aa0490fff12c304
                   name="descripcion"
                   id="descripcion"
                   className="inputDesc"
@@ -117,6 +142,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
                   onChange={(e) => setDescripcion(e.target.value)}
                 />
                 <select
+                  required
                   name="medida"
                   id="medida"
                   onChange={(e) => setMedida(e.target.value)}
@@ -125,8 +151,10 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
                     Medida
                   </option>
                   <option value="Gramos">Gramos</option>
-                  <option value="Litro(s)">Litro(s)</option>
+                  <option value="Libra(s)">Libra(s)</option>
+                  <option value="Kilo(s)">Kilo(s)</option>
                   <option value="Mililitros">Mililitros</option>
+                  <option value="Litro(s)">Litro(s)</option>
                   <option value="Unidades">Unidades</option>
                 </select>
               </div>
@@ -134,7 +162,12 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
             <div className="form-group">
               <label>Precio de Compra</label>
               <input
+<<<<<<< HEAD
                 type="number"
+=======
+                required
+                type="text"
+>>>>>>> ac14cecf2d21d49ec1a654514aa0490fff12c304
                 name="precioCompra"
                 id="precioCompra"
                 placeholder="Ingrese valor"
@@ -144,7 +177,12 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
             <div className="form-group">
               <label>Precio de Venta</label>
               <input
+<<<<<<< HEAD
                 type="number"
+=======
+                required
+                type="text"
+>>>>>>> ac14cecf2d21d49ec1a654514aa0490fff12c304
                 name="precioVenta"
                 id="precioVenta"
                 placeholder="Ingrese valor"
@@ -154,16 +192,22 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
             <div className="form-group">
               <label>Foto</label>
               <input
-                type="text"
+                required
+                type="file"
                 name="foto"
                 id="foto"
                 placeholder="Ingrese valor"
-                onChange={(e) => setFoto(e.target.value)}
+                onChange={(e) => setFoto(e.target.files)}
               />
             </div>
             <div className="form-group">
               <label>Estado</label>
-              <select name="" id="" onChange={(e) => setEstado(e.target.value)}>
+              <select
+                required
+                name=""
+                id=""
+                onChange={(e) => setEstado(e.target.value)}
+              >
                 <option value="" hidden>
                   Elegir Estado
                 </option>
