@@ -12,12 +12,16 @@ import Main_Dashboard from './Dashboard/main_Dashboard';
 import Main_Inventario from './mod_inventario/mai_Inventario';
 import Tabla_Producto from './mod_inventario/tablaProducto';
 import Gestion_Inventario from './mod_inventario/tablaInventario';
+
+// Ventas y facturación.
 import Main_VentasFacturacion from './mod_Ventas-Facturacion/main_VentasFacturacion';
 import VentasControl_Main from './mod_Ventas-Facturacion/Ventas/VentasControl_Main';
 import PagoVenta from './mod_Ventas-Facturacion/pago_calculo_pt2/PagoVenta';
+import FacturaMain from './mod_Ventas-Facturacion/Facturacion_p3/Main_Factura_Document';
 import TabsMainGenerator from './mod_Ventas-Facturacion/Tabs/TabsMainGenerator';
 import MainVentas from './mod_Ventas-Facturacion/main_ventas';
 import Main_Metodo_Pago from './mod_Ventas-Facturacion/Metodos_Pago/main_Metodo_Pago';
+
 import Informe from './mod_Informes/Informe';
 import InformeVentas from './mod_Informes/InformeVentas';
 import InformeDeudores from './mod_Informes/InformeDeudores';
@@ -92,6 +96,7 @@ const LayoutMain = () => {
                         <Route path='/VentasFacturacion/list' element={<Main_VentasFacturacion />} />
                         <Route path='/VentasFacturacion/ventas_main' element={<VentasControl_Main />} />
                         <Route path='/VentasFacturacion/venta_pagar' element={<PagoVenta />} />
+                        <Route path='/VentasFacturacion/factura_generada' element={<FacturaMain />} />
                         <Route path='/VentasFacturacion/tabs' element={<TabsMainGenerator/>} />
                         <Route path='/VentasFacturacion/ventas' element={<MainVentas />} />
                         

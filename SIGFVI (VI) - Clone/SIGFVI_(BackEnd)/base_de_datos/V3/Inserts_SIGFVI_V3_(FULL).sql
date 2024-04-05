@@ -9,7 +9,9 @@ INSERT INTO Estado(ID_Estado_PK, Nombre_Estado)
 	VALUES  (0,'Inactivo'),
 			(1,'Activo'),
 			(2,'Cancelado'),
-			(3,'Asignado A Deudor');
+			(3,'Asignado A Deudor'),
+            (4,'Pagado');
+            
             
  -- #2 -- Tipo_Producto
 INSERT INTO Tipo_Producto(ID_Tipo_Producto_PK, Nombre_Tipo_Producto)
@@ -125,16 +127,17 @@ INSERT INTO Metodo_de_pago(Nombre_Metodo, Tipo_Metodo_Pago, Referencia, ID_Estad
 -- SELECT * FROM Metodo_de_pago;  
             
 -- # 14 -- Venta
-INSERT INTO Venta (ID_Metodo_Pago_FK, IVA, SubTotal_Venta, Total_Pedido, ID_Saldo_PK, ID_Estado_FK)
-VALUES (1, 19, 10000, 11900, 1, 1),
-       (2, 19, 5000, 5950, NULL, 1),
-       (3, 19, 7500, 8925, 2, 1),
-       (1, 19, 12000, 14280, 3, 1),
-       (2, 19, 3000, 3570, NULL, 1),
-       (3, 19, 4500, 5355, 4, 1),
-       (1, 19, 8000, 9520, 5, 1);
+INSERT INTO Venta (ID_Metodo_Pago_FK, IVA, SubTotal_Venta, Total_Pedido, ID_Saldo_PK, Fecha_Venta, Hora_Venta, ID_Numero_Identificacion_FK, ID_Estado_FK)
+VALUES (1, 19, 10000, 11900, NULL,'2024-03-11','11:30:00','1006865674', 4),
+       (2, 19, 5000, 5950, NULL,'2024-03-11','12:30:00','1006865674', 4),
+       (3, 19, 7500, 8925, NULL,'2024-03-11','13:30:00','1006865674', 4),
+       (1, 19, 12000, 14280, 3,'2024-03-12','09:30:00','10564454999999994', 3),
+       (2, 19, 3000, 3570, NULL,'2024-03-12','08:30:00','10564454999999994', 4),
+       (3, 19, 4500, 5355, 4,'2024-03-13','10:35:00','1006865674', 3),
+       (1, 19, 8000, 9520, NULL,'2024-03-13','14:25:00','1006865674', 4);
 
 SELECT * FROM Venta;
+SELECT * FROM Usuario;
 
 -- # 15 -- Detalle_Venta
 INSERT INTO Detalle_Venta (ID_Venta_FK, Cantidad_Producto, SubTotal_detalle, ID_Inventario_FK)
@@ -159,16 +162,16 @@ VALUES ('2024-03-15', '12:30:00', 1),
        ('2024-03-17', '12:00:00', 6),
        ('2024-03-18', '15:30:00', 7);
 
-
+/*
 -- # 17 -- Detalle_Facturacion
-INSERT INTO Detalle_Facturacion (Cantidad_Producto, SubTotal, ID_Factura_FK, ID_Detalle_Venta_FK)
-VALUES (2, 2000, 1, 1),
-       (3, 3000, 1, 2),
-       (1, 5000, 2, 3),
-       (2, 6000, 3, 4),
-       (4, 8000, 4, 5),
-       (1, 2000, 5, 6),
-       (3, 3000, 6, 7),
-       (2, 4000, 7, 8);
+INSERT INTO Detalle_Factura ( ID_Factura_FK, ID_Detalle_Factura_Venta_FK)
+VALUES (1, 1),
+       (1, 2),
+       (2, 3),
+       (3, 4),
+       (4, 5),
+       (5, 6),
+       (6, 7),
+       (7, 8);
        
-	
+*/

@@ -164,10 +164,29 @@ const PagoVenta = () => {
 
     console.log('Último ID de venta:', ultimo_id_venta);
 
+    const getUserIdFromLocalStorage = () => {
+        const userString = localStorage.getItem('usuario');
+        if (userString) {
+            const user = JSON.parse(userString);
+            console.log('Id del usuario es: ', user.user);
+            return user.user;
+        }        
+        console.error('No se pudo obtener el Id del usuario, desde el local storage. ');
+        return null;
+    };
+
+    getUserIdFromLocalStorage();
+
     const registrarVenta = async () => {
+        const userId = getUserIdFromLocalStorage();
         try {
+            if (!userId) {
+                console.error('No se pudo obtener el ID del usuario del localStorage');
+                return;
+            }
             // Registra la nueva venta
             const ventaResponse = await axios.post('http://localhost:3001/pagoventa/crearventa', {
+                ID_Numero_Identificacion_FK: userId,
                 ID_Metodo_Pago_FK: selectedMethodId,
                 IVA: totalIVA,
                 SubTotal_Venta: subtotalSinIVA,
@@ -232,6 +251,7 @@ const PagoVenta = () => {
                     setTimeout(() => {
                         Swal.fire('¡Venta registrada!', 'La venta se ha registrado correctamente.', 'success');
                         console.log('Redirigiendo a Ventas Main...');
+                        registratFactura();
                         navigate('/VentasFacturacion/ventas_main');
                     }, 500);
                 }
@@ -241,6 +261,26 @@ const PagoVenta = () => {
             Swal.fire('Error', 'No se pudo registrar la venta.', 'error');
         }
     };
+
+    const registratFactura = async () => {
+        try {
+            // Consulta el último ID de venta
+            const ultimo_id_venta_FK = await consultarUltimoIDVenta(); // Esperar aquí
+            console.log('Último ID de venta:', ultimo_id_venta_FK);
+            // Paso 1: Crear la factura
+            const responseFactura = await axios.post('http://localhost:3001/facturacion/crearfactura', {
+                ID_Venta_Realizada_FK: ultimo_id_venta_FK
+            });
+            console.log('Respuesta de crear factura:', responseFactura.data);
+        
+            // Puedes manejar más lógica aquí, como actualizar el estado de tu aplicación, etc.
+        } catch (error) {
+            console.error('Error al registrar factura', error);
+            // Manejar el error de alguna forma, por ejemplo, mostrando un mensaje al usuario
+        }
+    };
+    
+      
 
 
 

@@ -72,10 +72,15 @@ app.get("/", (req, res) => { // Mensajes de pagina principal.
     console.log("¡Hola! Este es el servidor backend!");
 });
 
+const fechaVenta = new Date().toISOString().split('T')[0];
+const horaVenta = `${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`;
+
+
 
 // - Listen del puerto.
 app.listen(PORT, ()=>{
     //swaggerJSDOCs(app, 3001);
     console.log(`\n\n     El servidor funcionando en el puerto: \x1b[33m[${PORT}]\x1b[33m.`);
     console.log(`\n     Local:                  http://localhost:${PORT}\x1b[0m\n`);
+    console.log(`     Fecha actual: [${fechaVenta}], Hora actual: [${horaVenta}].\n`);
 });
