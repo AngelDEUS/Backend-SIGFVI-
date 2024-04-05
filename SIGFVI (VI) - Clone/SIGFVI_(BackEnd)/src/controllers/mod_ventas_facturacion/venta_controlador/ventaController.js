@@ -5,15 +5,15 @@ const db = require('../../../models/sigfviDBModelo').promise();
 
 // ENDPOINT para Crear una nueva venta:
 const createVenta = async (req, res) => {
-    const { ID_Metodo_Pago_FK, IVA, SubTotal_Venta, Total_Pedido, ID_Saldo_PK, ID_Estado_FK, ID_Numero_Identificacion_FK } = req.body;
-    const fechaVenta = new Date().toISOString().split('T')[0];
-    const horaVenta = `${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`;
+    const { ID_Metodo_Pago_FK, IVA, SubTotal_Venta, Total_Pedido, ID_Saldo_PK, Fecha_Venta, Hora_Venta, ID_Estado_FK, ID_Numero_Identificacion_FK } = req.body;
+    // const fechaVenta = new Date().toISOString().split('T')[0];
+    // const horaVenta = `${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`;
     try {
         console.log("--> Creando nueva venta...");
         const query = `
             INSERT INTO Venta (ID_Metodo_Pago_FK, IVA, SubTotal_Venta, Total_Pedido, ID_Saldo_PK, Fecha_Venta, Hora_Venta, ID_Estado_FK, ID_Numero_Identificacion_FK)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-        const result = await db.query(query, [ID_Metodo_Pago_FK, IVA, SubTotal_Venta, Total_Pedido, ID_Saldo_PK, fechaVenta, horaVenta, ID_Estado_FK, ID_Numero_Identificacion_FK]);
+        const result = await db.query(query, [ID_Metodo_Pago_FK, IVA, SubTotal_Venta, Total_Pedido, ID_Saldo_PK, Fecha_Venta, Hora_Venta, ID_Estado_FK, ID_Numero_Identificacion_FK]);
         console.log("\n---> Venta creada exitosamente.");
         res.json({ message: "Venta creada exitosamente." });
     } catch (error) {

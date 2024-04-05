@@ -164,23 +164,19 @@ const PagoVenta = () => {
 
     console.log('Último ID de venta:', ultimo_id_venta);
 
-<<<<<<< HEAD
     const getUserIdFromLocalStorage = () => {
         const userString = localStorage.getItem('usuario');
         if (userString) {
             const user = JSON.parse(userString);
             console.log('Id del usuario es: ', user.user);
             return user.user;
-        }        
+        }
         console.error('No se pudo obtener el Id del usuario, desde el local storage. ');
         return null;
     };
 
     getUserIdFromLocalStorage();
 
-=======
-    // ---:::: FUNCIÓN PRINCIPAL ::::----- //
->>>>>>> 9a0862b430e833698e153b0ca4c1337939962e1d
     const registrarVenta = async () => {
         const userId = getUserIdFromLocalStorage();
         try {
@@ -188,6 +184,11 @@ const PagoVenta = () => {
                 console.error('No se pudo obtener el ID del usuario del localStorage');
                 return;
             }
+            const fechaActual = new Date();
+            const fechaVentaActual = fechaActual.toISOString().split('T')[0];
+            const horaVentaActual = fechaActual.toLocaleTimeString('en-US', { hour12: false });
+            console.log('Fecha y hora captura para la venta: ', `Fecha: [${fechaVentaActual}] y Hora: [${horaVentaActual}]`);
+
             // Registra la nueva venta
             const ventaResponse = await axios.post('http://localhost:3001/pagoventa/crearventa', {
                 ID_Numero_Identificacion_FK: userId,
@@ -195,8 +196,10 @@ const PagoVenta = () => {
                 IVA: totalIVA,
                 SubTotal_Venta: subtotalSinIVA,
                 Total_Pedido: totalFactura,
+                Fecha_Venta: fechaVentaActual,
+                Hora_Venta: horaVentaActual,
                 ID_Saldo_PK: null,
-                ID_Estado_FK: 1,
+                ID_Estado_FK: 4,
             });
 
             // Consulta el último ID de venta
@@ -276,18 +279,13 @@ const PagoVenta = () => {
                 ID_Venta_Realizada_FK: ultimo_id_venta_FK
             });
             console.log('Respuesta de crear factura:', responseFactura.data);
-        
+
             // Puedes manejar más lógica aquí, como actualizar el estado de tu aplicación, etc.
         } catch (error) {
             console.error('Error al registrar factura', error);
             // Manejar el error de alguna forma, por ejemplo, mostrando un mensaje al usuario
         }
     };
-    
-      
-
-
-
 
 
     return (

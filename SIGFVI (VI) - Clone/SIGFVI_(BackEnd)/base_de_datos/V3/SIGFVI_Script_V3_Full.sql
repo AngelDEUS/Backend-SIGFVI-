@@ -35,7 +35,7 @@ CREATE TABLE
         Descripcion varchar(20) NOT NULL COMMENT 'Campo con una descripcion basica del producto.',
         Precio_Proveedor DECIMAL(11, 2) NOT NULL COMMENT 'Campo con el precio inicial de compra a el proveedor.',
         Precio_Venta DECIMAL(11, 2) NOT NULL COMMENT 'Campo con el precio de venta al cliente.',
-        Foto_Producto VARCHAR(255) NOT NULL COMMENT 'Campo en donde se almacena la url o direccion de alojamiento de la imagen.',
+        Foto_Producto VARCHAR(255)  COMMENT 'Campo en donde se almacena la url o direccion de alojamiento de la imagen.',
         ID_Estado_FK TINYINT NOT NULL COMMENT 'Campo de la llave foranea que viene desde la tabla Estado(ID_Estado_PK).',
         PRIMARY KEY (ID_Producto_PK),
         FOREIGN KEY (ID_Estado_FK) REFERENCES Estado (ID_Estado_PK),
@@ -222,7 +222,7 @@ CREATE TABLE
         PRIMARY KEY (ID_Detalle_Venta_PK),
         FOREIGN KEY (ID_Venta_FK) REFERENCES Venta (ID_Venta_PK),
         FOREIGN KEY (ID_Inventario_FK) REFERENCES Inventario (ID_Inventario_PK)
-);
+);	
     
     
 -- # 16 Facturacion ----------------------->
