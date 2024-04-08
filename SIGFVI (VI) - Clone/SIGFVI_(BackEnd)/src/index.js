@@ -4,6 +4,7 @@
 
 // Exportaciones de modulos y dependencias necesarios para el BackEnd
 const express = require('express');
+const path = require("path"); 
 const bodyParser = require('body-parser');
 const cors = require('cors');
 //const swaggerDos = require('./swagger-jsdoc');
@@ -35,7 +36,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 // - Cors Options
 const optionsCors = {
-    origin: `http://localhost:3000 `|| `exp://192.168.0.5:8081`,
+    origin: `http://localhost:3000 `|| `exp://192.168.0.6:8081`,
     methods: 'GET, POST, PUT, DELETE',
     optionsSuccessStatus: 200,  
 };
@@ -43,6 +44,8 @@ app.use(cors(optionsCors)); // - Use de las opciones inicializadas del cors.
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use('/img', express.static(path.join(__dirname, 'img')));
 
 
 // Modulo de ventas y facturacion.

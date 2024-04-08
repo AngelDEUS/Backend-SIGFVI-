@@ -377,13 +377,8 @@ body:hover::-webkit-scrollbar-thumb {
 }
 
 .btones {
-  /* display: block;
-  text-align: right;
-  direction: rtl; */
-  /* margin-top:-4%;  */
   display: flex;
   flex-direction: column;
-  margin-left: 10%;
 }
 
 .btones a {

@@ -1,13 +1,18 @@
-import React from 'react'
-import './Style_Factura.css'
+import React from 'react';
+import './Style_Factura.css';
 
-import LogoFactura from '../../../assets/Logo/Logo-SIGFVI-factura.png'
-import LogoFactura2 from '../../../assets/Logo/Logo-Tiendecita_Alemana.jpg'
+import LogoFactura from '../../../assets/Logo/Logo-SIGFVI-factura.png';
+import LogoFactura2 from '../../../assets/Logo/Logo-Tiendecita_Alemana.jpg';
 import TituloyDesc from '../../../components/Titles/TituloyDesc';
 import Swal from 'sweetalert2';
-
+import { useLocation, useHistory, useNavigate} from 'react-router-dom'; // Importa useLocation y useHistory
 
 const Main_Factura_Document = () => {
+  const location = useLocation(); // Obtiene la location actual
+  const { detalleVentaAFactura } = location.state || {};
+  console.log('esto me esta llegando desde PagarVenta: ', detalleVentaAFactura);
+  
+  const navigate = useNavigate();
 
   const descipcion = 'En este panel puede realizar la busqueda de todos los productos, tanto las busquedas por nombre o por ID de producto.'
   const tituloVentasControl = 'Factura Generada.'
@@ -19,6 +24,18 @@ const Main_Factura_Document = () => {
     <div key={index} className='triangulito__factura'></div>
   ));
 
+
+  const pasarAVenta = () => {
+    // Redirecciona a la página de ventas
+    navigate('/VentasFacturacion/ventas_main')
+    // Muestra una alerta indicando que se envió correctamente a la venta
+    Swal.fire({
+      icon: 'success',
+      title: '¡Pasando a otra Venta!',
+      text: 'La venta se ha registrado correctamente, y vamos a una nueva.',
+      confirmButtonText: 'Aceptar'
+    });
+  }
   return (
     <div className='main_content_factura'>
       <div>
@@ -252,9 +269,10 @@ const Main_Factura_Document = () => {
         <div className="divisor_factura"></div>
         <div className="buttons_final_factura">
           <div className='nada__'></div>
-          <button className='btn__factura_nextVenta' >Siguiente Venta
+          <button className='btn__factura_nextVenta' onClick={pasarAVenta}>Siguiente Venta
             <i className="bi bi-chevron-double-right"></i>
           </button>
+
         </div>
       </div>
     </div>

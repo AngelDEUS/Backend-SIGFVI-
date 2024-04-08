@@ -79,7 +79,7 @@ const LoginMain = () => {
                         <span className="highlight">.</span>
                     </div>
                     <div className="right-subtitle">
-                        <span>Inicia sesión con tus </span>
+                        <span>Inicie sesión con sus </span>
                         <span className="highlight">credenciales.</span>
                     </div>
                     <form className="login-form" onSubmit={verifcarUser}>
@@ -87,7 +87,7 @@ const LoginMain = () => {
                             <div className="form-container">
                                 <div className="input-container">
                                     <div>
-                                        <span className="highlight form-title">Nombre de Usuario</span>
+                                        <span className="highlight form-title">ID de Usuario</span>
                                         <input type="text" placeholder="Ingrese su ID" onChange={(e) => setUsername(e.target.value)} />
                                     </div>
                                     <svg className="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
@@ -109,7 +109,7 @@ const LoginMain = () => {
                         </div>
                     </form>
 
-                    <div className="forgot-password">
+                    <div className="forgot-password" style={{display: 'none'}}>
                         ¿Olvidaste tu contraseña?
                     </div>
                 </div>
