@@ -125,7 +125,8 @@ CREATE TABLE
         PRIMARY KEY (ID_Saldo_PK),
         FOREIGN KEY (ID_Deudor_FK) REFERENCES Cuenta_Deudor (ID_Deudor_PK)
 );
-
+select * from Cuenta_Deudor;
+select * from Saldo_Cuenta_Deudor;
 
 -- #10 Inventario -------------->
 CREATE TABLE
