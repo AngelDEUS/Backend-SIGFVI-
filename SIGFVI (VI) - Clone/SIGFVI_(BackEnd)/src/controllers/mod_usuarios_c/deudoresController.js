@@ -19,6 +19,45 @@ const consultaDeudor= async (req,res)=>{
     }
 }
 
+const buscarDeudorPersonalizado = async (req, res) => {
+    try {
+        const { nombre, apellido, id } = req.body; // Recibe los parámetros de búsqueda desde el cuerpo de la solicitud
+
+        let query = `SELECT 
+                        cd.ID_Deudor_PK as id,
+                        cd.Primer_Nombre,
+                        cd.Segundo_Nombre,
+                        cd.Primer_Apellido,
+                        cd.Segundo_Apellido,
+                        cd.Direccion_Deudor,
+                        cd.Telefono_Deudor,
+                        e.Nombre_Estado as estado,
+                        cd.ID_Estado_FK,
+                        scd.Total_Saldo_Deuda as saldo
+                    FROM 
+                        Cuenta_Deudor cd
+                    INNER JOIN 
+                        Saldo_Cuenta_Deudor scd ON cd.ID_Deudor_PK = scd.ID_Deudor_FK
+                    INNER JOIN 
+                        Estado e ON cd.ID_Estado_FK = e.ID_Estado_PK
+                    WHERE 
+                        (cd.Primer_Nombre LIKE ? OR
+                        cd.Segundo_Nombre LIKE ? OR
+                        cd.Primer_Apellido LIKE ? OR
+                        cd.Segundo_Apellido LIKE ? OR
+                        cd.ID_Deudor_PK = ?)
+                    ORDER BY 
+                        cd.ID_Deudor_PK ASC;`;
+
+        const [result] = await db.query(query, [`%${nombre}%`, `%${nombre}%`, `%${apellido}%`, `%${apellido}%`, id]);
+        res.json(result);
+    } catch (error) {
+        console.error(`No se pudo realizar la consulta: ${error}`);
+        res.status(500).json({ message: 'Error al realizar la consulta' });
+    }
+}
+
+
 const crearDeudor = async(req,res)=>{
     const {id,name1,name2,lastname1,lastname2,address,tel,saldo} = req.body;
 
@@ -73,6 +112,23 @@ const cambioEstado = async(req,res)=>{
     try {
         const estado = `update Cuenta_Deudor set ID_Estado_FK = ? where ID_Deudor_PK = ?;`;
         await db.query(estado,[state,id]);
+        console.log('Se cambio con exito el estado del Deudor con id: ', id);
+        res.json({message: "Estado cambiado"})
+    } catch (error) {
+        console.error('Edtado no cambiado',error);
+        res.json('Edtado no cambiado',error);
+    }
+}
+
+const desactivarDeudorID = async(req,res)=>{
+    const {id} = req.params;
+    const {state} = req.body;
+    const {ID_Estado_FK} = 0;
+
+    try {
+        const estado = `update Cuenta_Deudor set ID_Estado_FK = ? where ID_Deudor_PK = ?;`;
+        await db.query(estado,[ID_Estado_FK,`${id}`]);
+        console.log('Se cambio con exito el estado del Deudor con id: ', id);
         res.json({message: "Estado cambiado"})
     } catch (error) {
         console.error('Edtado no cambiado',error);
@@ -114,10 +170,12 @@ const verificarIDDeudorExistente = async (req, res) => {
 
 module.exports = {
     consultaDeudor,
+    buscarDeudorPersonalizado,
     crearDeudor,
     updateDeudor,
     deleteDeudor,
     cambioSaldoDeudor,
+    desactivarDeudorID,
     cambioEstado,
     verificarIDDeudorExistente
 }

@@ -1,5 +1,5 @@
 /* 
-**** Consultas Ventas -------> SIGFVI_V2
+**** Consultas Ventas -------> SIGFVI_V3
 */
 
 USE SIGFVI_V3;

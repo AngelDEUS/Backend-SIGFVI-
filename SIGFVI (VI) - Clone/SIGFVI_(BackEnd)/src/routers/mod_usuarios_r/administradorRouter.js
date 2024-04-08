@@ -523,10 +523,11 @@ rutaDatos.put('/updatesaldo/:id', datosDeudores.cambioSaldoDeudor);
  */
 rutaDatos.put('/cambiarestado/:id', datosDeudores.cambioEstado);
 
+rutaDatos.put('/desactivarDeudorID/:id', datosDeudores.desactivarDeudorID);
 
 rutaDatos.post('/verificarID', datosDeudores.verificarIDDeudorExistente);
 
-
+rutaDatos.post('/buscardeudorlong', datosDeudores.buscarDeudorPersonalizado);
 
 
 module.exports = rutaDatos
