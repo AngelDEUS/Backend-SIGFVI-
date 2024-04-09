@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import {Link} from 'react-router-dom';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
 import TituloyDesc from '../../components/Titles/TituloyDesc';
-
+import axios from 'axios';
 
 function InformeDeudores() {
   const [deudores, setDeudores] = useState([]);
-  const [fechaFiltro, setFechaFiltro] = useState('');
+  const [fechaInicio, setFechaInicio] = useState('');
+  const [fechaFin, setFechaFin] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         let url = 'http://localhost:3001/informes/informeDeudor';
-        if (fechaFiltro) {
-          url += `?fechaRegistro=${fechaFiltro}`;
+        if (fechaInicio && fechaFin) {
+          url += `?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`;
         }
         const response = await axios.get(url);
         if (response.status === 200) {
@@ -27,23 +27,30 @@ function InformeDeudores() {
     };
 
     fetchData();
-  }, [fechaFiltro]);
+  }, [fechaInicio, fechaFin]);
 
-  const handleFechaChange = (event) => {
-    setFechaFiltro(event.target.value);
+  const handleFechaInicioChange = (event) => {
+    setFechaInicio(event.target.value);
+  };
+
+  const handleFechaFinChange = (event) => {
+    setFechaFin(event.target.value);
   };
 
   return (
     <main className='contenedor_informe'>
       <TituloyDesc
         titulo='Informe de Deudores'
-        descripcion='Este es el módulo encargado de realizar los Informes de los deudores</s> para generar un reporte de quienes están en la lista.'
+        descripcion='Este es el módulo encargado de realizar los Informes de los deudores para generar un reporte de quienes están en la lista.'
       />
       <hr />
       <h2 style={{ textAlign: 'center' }}>Informe Deudores</h2>
-      <div style={{ textAlign: 'center', marginBottom: '10px' }}>
-        <label htmlFor="fecha">Fecha de Registro:</label>
-        <input type="date" id="fecha" value={fechaFiltro} onChange={handleFechaChange} />
+      <div style={{ textAlign: 'center', marginBottom: '10px' }}><center>
+        <label htmlFor="fechaInicio">Fecha de Inicio:</label>
+        <input type="date" id="fechaInicio" value={fechaInicio} onChange={handleFechaInicioChange} />
+        <label htmlFor="fechaFin">Fecha de Fin:</label>
+        <input type="date" id="fechaFin" value={fechaFin} onChange={handleFechaFinChange} />
+        </center>
       </div>
       <Link to='/Informes'>
         <button className="bnt1">Volver</button>

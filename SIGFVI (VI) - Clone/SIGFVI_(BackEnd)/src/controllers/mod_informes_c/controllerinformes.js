@@ -1,7 +1,8 @@
 const db = require("../../models/sigfviDBModelo");
 const consultaDeudor = (req, res) => {
-    // Obtener la fecha de registro desde la solicitud (si se proporciona)
-    const fechaRegistro = req.query.fechaRegistro;
+    // Obtener la fecha de registro de la solicitud (si se proporciona)
+    const fechaInicio = req.query.fechaInicio;
+    const fechaFin = req.query.fechaFin;
 
     // Construir la consulta SQL base
     let query = `SELECT 
@@ -21,13 +22,12 @@ const consultaDeudor = (req, res) => {
     INNER JOIN 
         Estado e ON cd.ID_Estado_FK = e.ID_Estado_PK`;
 
-    // Si se proporciona una fecha de registro, agregar la cláusula WHERE para filtrar por esa fecha
-    if (fechaRegistro) {
-        // Se asume que la fecha de registro está en formato YYYY-MM-DD
-        query += ` WHERE DATE(scd.Fecha_Cancelacion_Pedido) = '${fechaRegistro}'`;
-    } // else {
-    //     // Si no se proporciona una fecha de registro, retornar un error
-    //     return res.status(400).json({ error: 'Se debe proporcionar una fecha de registro.' });
+    // Si se proporciona un rango de fechas, agregar la cláusula WHERE para filtrar por ese rango
+    if (fechaInicio && fechaFin) {
+        query += ` WHERE DATE(scd.Fecha_Cancelacion_Pedido) BETWEEN '${fechaInicio}' AND '${fechaFin}'`;
+    } //else {
+    //     // Si no se proporciona un rango de fechas, retornar un error
+    //     return res.status(400).json({ error: 'Se debe proporcionar un rango de fechas.' });
     // }
 
     // Finalizar la consulta SQL con la cláusula ORDER BY
@@ -111,7 +111,8 @@ const consultaDatos = (req, res) => {
 };
 
 const ObtenerProductosVenta = (req, res) => {
-    const fechaFactura = req.query.fechaFactura;
+    const fechaInicio = req.query.fechaInicio;
+    const fechaFin = req.query.fechaFin;
 
     let query = `
         SELECT 
@@ -125,8 +126,12 @@ const ObtenerProductosVenta = (req, res) => {
         INNER JOIN Facturacion f ON v.ID_Venta_PK = f.ID_Venta_Realizada_FK
         INNER JOIN Metodo_de_pago m ON v.ID_Metodo_Pago_FK = m.ID_Metodo_Pago_PK`;
 
-    if (fechaFactura) {
-        query += ` WHERE DATE(f.Fecha_Factura) = '${fechaFactura}'`;
+    if (fechaInicio && fechaFin) {
+        query += ` WHERE DATE(f.Fecha_Factura) BETWEEN '${fechaInicio}' AND '${fechaFin}'`;
+    } else if (fechaInicio) {
+        query += ` WHERE DATE(f.Fecha_Factura) >= '${fechaInicio}'`;
+    } else if (fechaFin) {
+        query += ` WHERE DATE(f.Fecha_Factura) <= '${fechaFin}'`;
     }
 
     db.query(query, (err, result) => {
@@ -138,6 +143,7 @@ const ObtenerProductosVenta = (req, res) => {
         }
     });
 };
+
 
 
 

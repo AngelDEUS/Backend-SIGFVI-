@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import {Link} from 'react-router-dom';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import TituloyDesc from '../../components/Titles/TituloyDesc';
 
 const InformeVentas = () => {
   const [ventas, setVentas] = useState([]);
-  const [fechaFiltro, setFechaFiltro] = useState('');
+  const [fechaInicio, setFechaInicio] = useState('');
+  const [fechaFin, setFechaFin] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let url = 'http://localhost:3001/informes/informeVenta'; // Utilizamos la ruta correcta
-        if (fechaFiltro) {
-          url += `?fechaFactura=${fechaFiltro}`; // Cambiamos el parámetro a fechaFactura para que coincida con la ruta del servidor
+        let url = 'http://localhost:3001/informes/informeVenta';
+        if (fechaInicio && fechaFin) {
+          url += `?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`;
         }
         const response = await axios.get(url);
         if (response.status === 200) {
@@ -26,10 +27,14 @@ const InformeVentas = () => {
     };
 
     fetchData();
-  }, [fechaFiltro]);
+  }, [fechaInicio, fechaFin]);
 
-  const handleFechaChange = (event) => {
-    setFechaFiltro(event.target.value);
+  const handleFechaInicioChange = (event) => {
+    setFechaInicio(event.target.value);
+  };
+
+  const handleFechaFinChange = (event) => {
+    setFechaFin(event.target.value);
   };
 
   return (
@@ -38,16 +43,21 @@ const InformeVentas = () => {
         titulo='Informe de Ventas'
         descripcion='Este es el módulo encargado de realizar los Informes de las ventas para generar un reporte de las ventas que se hacen.'
       />
-      <hr/>
+      <hr />
 
       <h2 style={{ textAlign: 'center' }}>Informe de Ventas</h2>
       <div style={{ textAlign: 'center', marginBottom: '10px' }}>
-        <label htmlFor="fecha">Fecha de Factura:</label>
-        <input type="date" id="fecha" value={fechaFiltro} onChange={handleFechaChange} />
+        <center>
+          <label htmlFor="fechaInicio">Fecha de Inicio:</label>
+          <input type="date" id="fechaInicio" value={fechaInicio} onChange={handleFechaInicioChange} />
+          <label htmlFor="fechaFin">Fecha de Fin:</label>
+          <input type="date" id="fechaFin" value={fechaFin} onChange={handleFechaFinChange} />
+        </center>
       </div>
+      <center>
       <Link to='/Informes'>
         <button className="bnt1">Volver</button>
-      </Link>
+      </Link></center>
       <table>
         <thead>
           <tr>
