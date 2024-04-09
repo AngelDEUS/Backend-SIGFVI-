@@ -237,7 +237,7 @@ CREATE TABLE
 );
 
 -- # 17 Detalle_Factura ----------------------->
-/*
+/* 
 CREATE TABLE
     Detalle_Factura (
         ID_Detalle_Factura_PK INT NOT NULL AUTO_INCREMENT COMMENT 'Campo con la llave primaria del detalle de la factura.',
