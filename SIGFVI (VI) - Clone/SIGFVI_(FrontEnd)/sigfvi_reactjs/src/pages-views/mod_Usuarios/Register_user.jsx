@@ -34,7 +34,7 @@ export const Register_user = ({isOpen, closeModal, reConsulta}) => {
         const Innombre1 = document.getElementById('name1').value;
         
         let con=true;
-        let validacionlt=/^[A-Za-z]+$/;
+        let validacionlt=/^[A-Za-zÁÉÍÓÚÑáéíóúü\s]+$/;
         
         if(Innombre1.trim() === ""){
             document.getElementById('wrongname1').innerHTML='Este espacio no puede quedar en blanco';
@@ -55,7 +55,7 @@ export const Register_user = ({isOpen, closeModal, reConsulta}) => {
         const Innombre2 = document.getElementById('name2').value;
     
         let con=true;
-        let validacionlt=/^[A-Za-z]+$/;
+        let validacionlt=/^[A-Za-zÁÉÍÓÚÑáéíóúü\s]+$/;
     
         if(Innombre2.trim() === ""){
             document.getElementById('wrongname2').innerHTML='Este espacio no puede quedar en blanco';
@@ -74,7 +74,7 @@ export const Register_user = ({isOpen, closeModal, reConsulta}) => {
         const Inapell1 = document.getElementById('apell1').value;
     
         let con=true;
-        let validacionlt=/^[A-Za-z]+$/;
+        let validacionlt=/^[A-Za-zÁÉÍÓÚÑáéíóúü\s]+$/;
     
         if(Inapell1.trim() === ""){
             document.getElementById('wrongapell1').innerHTML='Este espacio no puede quedar en blanco';
@@ -93,7 +93,7 @@ export const Register_user = ({isOpen, closeModal, reConsulta}) => {
         const Inapell2 = document.getElementById('apell2').value;
     
         let con=true;
-        let validacionlt=/^[A-Za-z]+$/;
+        let validacionlt=/^[A-Za-zÁÉÍÓÚÑáéíóúü\s]+$/;
     
         if(Inapell2.trim() === ""){
             document.getElementById('wrongapell2').innerHTML='Este espacio no puede quedar en blanco';

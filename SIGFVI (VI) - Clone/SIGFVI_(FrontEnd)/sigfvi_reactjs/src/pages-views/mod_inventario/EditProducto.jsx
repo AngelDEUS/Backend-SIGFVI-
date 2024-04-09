@@ -8,6 +8,7 @@ const EditProducto = ({ closeModal, datos }) => {
   const [descripcion, setDescripcion] = useState(datos.descripcion || "");
   const [precioCompra, setPrecioC] = useState(datos.precioCompra || "");
   const [precioVenta, setPrecioV] = useState(datos.precioVenta || "");
+  const [estado, setEstado] = useState("");
   const [con, setCon] = useState(true);
 
   const editarRegistro = async (id) => {
@@ -19,6 +20,7 @@ const EditProducto = ({ closeModal, datos }) => {
           Descripcion: descripcion,
           Precio_Proveedor: precioCompra,
           Precio_Venta: precioVenta,
+          ID_Estado_FK: estado,
         }
       );
       setCon(true);
@@ -45,8 +47,8 @@ const EditProducto = ({ closeModal, datos }) => {
         icon: "success",
         text: "Datos Actualizados para: " + nombre,
       }).then(() => {
-        editarRegistro(datos.id);
 
+        editarRegistro(datos.id);
         closeModal();
       });
     } else {
@@ -59,162 +61,91 @@ const EditProducto = ({ closeModal, datos }) => {
   };
 
   return (
-    {
-      /* 
-    <div className="register-container">
-      <div className="fondo-register">
+    <div className="editarPedido register-container">
+      <div className="inputsGrup fondo-register">
         <div>
           <p onClick={closeModal}>X</p>
         </div>
-        <div className="container__Main-register">
-          <h1 className="main-title">Editar Producto</h1>
-          <form  className="datos-contenido">
-            <span>
-              <label htmlFor="nombre">Nombre</label>
+        <fieldset>
+          <legend>Editar Producto</legend>
+          <div className="inputs-grup">
+            <div className="form-group">
+              <label>Nombre</label>
               <input
-                className="input-form"
                 type="text"
                 name="nombre"
                 id="nombre"
+                placeholder="Ingrese el valor"
                 value={nombre}
                 onChange={(e) => {
                   setNombre(e.target.value);
                 }}
               />
-            </span>
-            <span>
-              <label htmlFor="descripcion">descripcion</label>
+            </div>
+            <div className="form-group">
+              <label>descripcion</label>
               <input
-                className="input-form"
                 type="text"
                 name="descripcion"
                 id="cantiad"
+                placeholder="Ingrese el valor"
                 value={descripcion}
                 onChange={(e) => {
                   setDescripcion(e.target.value);
                 }}
               />
-            </span>
-            <span>
-              <label htmlFor="precioCompra">Precio de Compra</label>
+            </div>
+            <div className="form-group">
+              <label>Precio Compra</label>
               <input
-                className="input-form"
                 type="text"
                 name="precioCompra"
                 id="precioCompra"
                 value={precioCompra}
+                placeholder="Ingrese el valor"
                 onChange={(e) => {
                   setPrecioC(e.target.value);
                 }}
               />
-            </span>
-            <span>
-              <label htmlFor="tipoid">Precio de Venta</label>
+            </div>
+            <div className="form-group">
+              <label>Precio de Venta</label>
               <input
-                className="input-form"
                 type="text"
                 name="tipoid"
                 id="tipoid"
+                placeholder="Ingrese el valor"
                 value={precioVenta}
                 onChange={(e) => {
                   setPrecioV(e.target.value);
                 }}
               />
-            </span>
-            <span>
-              <br />
-              <button
-                type="submit"
-                name="submit"
-                id="submit"
-                className="boton b4"
-                onClick={handleSubmit}
-              >
-                Guardar Cambios
-              </button>
-            </span>
-          </form>
-        </div>
-      </div>
-    </div> */
-    },
-    (
-      <div className="editarPedido register-container">
-        <div className="inputsGrup fondo-register">
-          <div>
-            <p onClick={closeModal}>X</p>
+            </div>
+            <div className="form-group">
+              <label>Estado</label>
+              <select name="" id="" value={estado} onChange={(e) => setEstado(e.target.value)}>
+                <option value="" hidden>
+                  Elegir Estado
+                </option>
+                <option value="0">Inactivo</option>
+                <option value="1">Activo</option>
+              </select>
+            </div>
           </div>
-          <fieldset>
-            <legend>Editar Producto</legend>
-            <div className="inputs-grup">
-              <div className="form-group">
-                <label>Nombre</label>
-                <input
-                  type="text"
-                  name="nombre"
-                  id="nombre"
-                  placeholder="Ingrese el valor"
-                  value={nombre}
-                  onChange={(e) => {
-                    setNombre(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="form-group">
-                <label>descripcion</label>
-                <input
-                  type="text"
-                  name="descripcion"
-                  id="cantiad"
-                  placeholder="Ingrese el valor"
-                  value={descripcion}
-                  onChange={(e) => {
-                    setDescripcion(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="form-group">
-                <label>Precio Compra</label>
-                <input
-                  type="text"
-                  name="precioCompra"
-                  id="precioCompra"
-                  value={precioCompra}
-                  placeholder="Ingrese el valor"
-                  onChange={(e) => {
-                    setPrecioC(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="form-group">
-                <label>Precio de Venta</label>
-                <input
-                  type="text"
-                  name="tipoid"
-                  id="tipoid"
-                  placeholder="Ingrese el valor"
-                  value={precioVenta}
-                  onChange={(e) => {
-                    setPrecioV(e.target.value);
-                  }}
-                />
-              </div>
-            </div>
-            <div className="form-btn">
+          <div className="form-btn">
             <button
-                type="submit"
-                name="submit"
-                id="submit"
-                className="btn_f limpiar btn-registro"
-                onClick={handleSubmit}
-              >
-                Guardar Cambios
-              </button>
-            </div>
-          </fieldset>
-        </div>
+              type="submit"
+              name="submit"
+              id="submit"
+              className="btn_f limpiar btn-registro"
+              onClick={handleSubmit}
+            >
+              Guardar Cambios
+            </button>
+          </div>
+        </fieldset>
       </div>
-    )
+    </div>
   );
 };
 

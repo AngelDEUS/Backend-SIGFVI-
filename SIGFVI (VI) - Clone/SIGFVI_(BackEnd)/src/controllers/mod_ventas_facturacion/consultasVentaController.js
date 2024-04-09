@@ -26,7 +26,10 @@ const ObtenerProductosVenta = (req, res) => {
         Producto.Nombre_Producto,
         Tipo_Producto.Nombre_Tipo_Producto,
         Producto.Descripcion,
-        Producto.Precio_Venta;
+        Producto.Precio_Venta
+    HAVING 
+        Stock_Total > 0;
+
     `, (err, result) => {
         if (err) {
             console.error("Error al obtener datos de productos", err);

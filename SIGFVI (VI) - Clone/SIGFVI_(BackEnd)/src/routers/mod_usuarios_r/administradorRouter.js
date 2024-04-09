@@ -566,7 +566,7 @@ rutaDatos.put('/cambiarestado/:id', datosDeudores.cambioEstado);
  */
 rutaDatos.post('/verificarID', datosDeudores.verificarIDDeudorExistente);
 
-
+rutaDatos.post('/buscardeudorlong', datosDeudores.buscarDeudorPersonalizado);
 
 
 module.exports = rutaDatos

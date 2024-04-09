@@ -8,5 +8,5 @@ GET http://localhost:3001/producto/Datos HTTP/1.1
 ###
 
 // Mostrar producto por nombre:
-GET http://localhost:3001/producto/BuscarDatoPorId/e HTTP/1.1
+GET http://localhost:3001/producto/BuscarDatoPorId/poker HTTP/1.1
 ###

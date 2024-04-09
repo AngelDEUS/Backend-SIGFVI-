@@ -4,6 +4,7 @@
 
 // Exportaciones de modulos y dependencias necesarios para el BackEnd
 const express = require('express');
+const path = require("path"); 
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const {swaggerJSDOCs} = require('./swagger.js');
@@ -35,7 +36,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 // - Cors Options
 const optionsCors = {
-    origin: `http://localhost:3000`,
+    origin: `http://localhost:3000 `|| `exp://192.168.0.6:8081`,
     methods: 'GET, POST, PUT, DELETE',
     optionsSuccessStatus: 200,  
 };
@@ -43,6 +44,8 @@ app.use(cors(optionsCors));
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use('/img', express.static(path.join(__dirname, 'img')));
 
 
 // Modulo de ventas y facturacion.
@@ -72,6 +75,10 @@ app.get("/", (req, res) => { // Mensajes de pagina principal.
     console.log("¡Hola! Este es el servidor backend!");
 });
 
+const fechaVenta = new Date().toISOString().split('T')[0];
+const horaVenta = `${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`;
+
+
 
 // - Listen del puerto.
 app.listen(PORT, ()=>{
@@ -80,5 +87,5 @@ app.listen(PORT, ()=>{
 
     console.log(`\n\n     El servidor funcionando en el puerto: \x1b[33m[${PORT}]\x1b[33m.`);
     console.log(`\n     Local:                  http://localhost:${PORT}\x1b[0m\n`);
+    console.log(`     Fecha actual: [${fechaVenta}], Hora actual: [${horaVenta}].\n`);
 });
-

@@ -36,7 +36,7 @@ const Edit_deudor = ({closeModal, datos}) => {
         const Inname = document.getElementById('name1').value;
     
         let con=true;
-        let validacionlt=/^[A-Za-z]+$/;
+        let validacionlt=/^[A-Za-zÁÉÍÓÚÑáéíóúü\s]+$/;
     
         if(Inname.trim() === ""){
             document.getElementById('wrongname1').innerHTML='Este espacio no puede quedar en blanco';
@@ -56,7 +56,7 @@ const Edit_deudor = ({closeModal, datos}) => {
         const Inname = document.getElementById('name2').value;
     
         let con=true;
-        let validacionlt=/^[A-Za-z]+$/;
+        let validacionlt=/^[A-Za-zÁÉÍÓÚÑáéíóúü\s]+$/;
     
         if(Inname.trim() === ""){
             document.getElementById('wrongname2').innerHTML='Este espacio no puede quedar en blanco';
@@ -76,7 +76,7 @@ const Edit_deudor = ({closeModal, datos}) => {
         const Inname = document.getElementById('last1').value;
     
         let con=true;
-        let validacionlt=/^[A-Za-z]+$/;
+        let validacionlt=/^[A-Za-zÁÉÍÓÚÑáéíóúü\s]+$/;
     
         if(Inname.trim() === ""){
             document.getElementById('wronglast1').innerHTML='Este espacio no puede quedar en blanco';
@@ -96,7 +96,7 @@ const Edit_deudor = ({closeModal, datos}) => {
         const Inname = document.getElementById('last2').value;
     
         let con=true;
-        let validacionlt=/^[A-Za-z]+$/;
+        let validacionlt=/^[A-Za-zÁÉÍÓÚÑáéíóúü\s]+$/;
     
         if(Inname.trim() === ""){
             document.getElementById('wronglast2').innerHTML='Este espacio no puede quedar en blanco';

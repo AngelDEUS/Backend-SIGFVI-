@@ -137,6 +137,8 @@
 .mod__inventario table,
 .mod__inventario th,
 .mod__inventario td {
+    text-align: center; /* Centra el contenido horizontalmente */
+  vertical-align: middle;
   border-collapse: collapse;
   padding: 2px 10px 2px 10px;
 }

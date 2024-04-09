@@ -105,5 +105,6 @@ rutaDatosInventario.post("/reportarProducto", inventario.reportarProducto);
  */
 
 rutaDatosInventario.post("/registrarEntrada", inventario.registrarEntradaProducto);
+rutaDatosInventario.get("/BusquedaInventario/:id", inventario.BuscarInventario);
 
 module.exports = rutaDatosInventario;

@@ -35,6 +35,19 @@ export const Tabla_Entrega_item = (props) => {
   return (
     <tr>
       <td>
+        <img
+          src={props.foto}
+          alt="Producto"
+          style={{
+            width: "40px",
+            height: "40px",
+            borderRadius: "5px",
+            border: "3px solid #fc7c02",
+            boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.3)", // Agregar sombra
+          }}
+        />
+      </td>
+      <td>
         <h3>{props.id}</h3>
       </td>
       <td>
@@ -48,21 +61,21 @@ export const Tabla_Entrega_item = (props) => {
       </td>
       <td>
         <div className="entregabtn">
-        <input
-          className="entregaInput"
-          type="number"
-          value={cantidad}
-          onChange={(e) => setCantidad(e.target.value)}
-        />
-        <button
-          type="button"
-          id="agregar"
-          name="agregar"
-          className="btn_f limpiar entregaBoton"
-          onClick={handleAgregar}
-        >
-          +Agregar
-        </button>
+          <input
+            className="entregaInput"
+            type="number"
+            value={cantidad}
+            onChange={(e) => setCantidad(e.target.value)}
+          />
+          <button
+            type="button"
+            id="agregar"
+            name="agregar"
+            className="btn_f limpiar entregaBoton"
+            onClick={handleAgregar}
+          >
+            +Agregar
+          </button>
         </div>
       </td>
     </tr>

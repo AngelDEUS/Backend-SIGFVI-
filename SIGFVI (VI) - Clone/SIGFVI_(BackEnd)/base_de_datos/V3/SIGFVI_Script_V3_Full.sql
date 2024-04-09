@@ -35,7 +35,7 @@ CREATE TABLE
         Descripcion varchar(20) NOT NULL COMMENT 'Campo con una descripcion basica del producto.',
         Precio_Proveedor DECIMAL(11, 2) NOT NULL COMMENT 'Campo con el precio inicial de compra a el proveedor.',
         Precio_Venta DECIMAL(11, 2) NOT NULL COMMENT 'Campo con el precio de venta al cliente.',
-        Foto_Producto VARCHAR(255) NOT NULL COMMENT 'Campo en donde se almacena la url o direccion de alojamiento de la imagen.',
+        Foto_Producto VARCHAR(255)  COMMENT 'Campo en donde se almacena la url o direccion de alojamiento de la imagen.',
         ID_Estado_FK TINYINT NOT NULL COMMENT 'Campo de la llave foranea que viene desde la tabla Estado(ID_Estado_PK).',
         PRIMARY KEY (ID_Producto_PK),
         FOREIGN KEY (ID_Estado_FK) REFERENCES Estado (ID_Estado_PK),
@@ -125,7 +125,8 @@ CREATE TABLE
         PRIMARY KEY (ID_Saldo_PK),
         FOREIGN KEY (ID_Deudor_FK) REFERENCES Cuenta_Deudor (ID_Deudor_PK)
 );
-
+select * from Cuenta_Deudor;
+select * from Saldo_Cuenta_Deudor;
 
 -- #10 Inventario -------------->
 CREATE TABLE
@@ -199,12 +200,16 @@ CREATE TABLE
         SubTotal_Venta DECIMAL(10,2) NOT NULL COMMENT 'Campo con el calculo de la sumatoria de todos los subtotales del detalle de la Venta.',
         Total_Pedido DECIMAL(10,2) NOT NULL COMMENT 'Campo con el calculo de la sumatoria del subtotal y el IVA calculado, este calculo forma el total de la venta.',
         ID_Saldo_PK INT NULL COMMENT 'Campo con el ID del saldo de la cuenta de un deudor asignado que puede ser nulo.',
+        Fecha_Venta DATE NOT NULL COMMENT 'Campo en el que se ingresa la fecha en la que se genera la Venta.',
+        Hora_Venta TIME NOT NULL COMMENT 'Campo en el que se ingresa la hora en la que se genera la Venta.',
+        ID_Numero_Identificacion_FK VARCHAR(25) NOT NULL COMMENT 'Campo con la llave Foranea del numero de identificacion del Usuario a cargo de la venta.',
         ID_Estado_FK TINYINT NOT NULL COMMENT 'Campo con el estado actual de la Venta, puede variar al agregar un deudor a la venta activa.',
         PRIMARY KEY (ID_Venta_PK),
-        FOREIGN KEY (ID_Estado_FK) REFERENCES Estado (ID_Estado_PK),
         FOREIGN KEY (ID_Metodo_Pago_FK) REFERENCES Metodo_de_pago (ID_Metodo_Pago_PK),
-        FOREIGN KEY (ID_Saldo_PK) REFERENCES Saldo_Cuenta_Deudor (ID_Saldo_PK)
-    );
+        FOREIGN KEY (ID_Saldo_PK) REFERENCES Saldo_Cuenta_Deudor (ID_Saldo_PK),
+        FOREIGN KEY (ID_Numero_Identificacion_FK) REFERENCES Usuario (ID_Numero_Identificacion_PK),
+        FOREIGN KEY (ID_Estado_FK) REFERENCES Estado (ID_Estado_PK)
+);
 
 
 -- # 15 Detalle_Venta ----------------------->
@@ -218,7 +223,7 @@ CREATE TABLE
         PRIMARY KEY (ID_Detalle_Venta_PK),
         FOREIGN KEY (ID_Venta_FK) REFERENCES Venta (ID_Venta_PK),
         FOREIGN KEY (ID_Inventario_FK) REFERENCES Inventario (ID_Inventario_PK)
-);
+);	
     
     
 -- # 16 Facturacion ----------------------->
@@ -227,20 +232,20 @@ CREATE TABLE
         ID_Factura_PK INT NOT NULL AUTO_INCREMENT COMMENT 'Campo con la llave primaria de la factura.',
         Fecha_Factura DATE NOT NULL COMMENT 'Campo en el que se ingresa la fecha en la que se genera la factura.',
         Hora_Factura TIME NOT NULL COMMENT 'Campo en el que se ingresa la hora en la que se genera la factura.',
-        ID_Venta_Realizada_FK INT NOT NULL COMMENT 'Campo con la llave foranea del ID de la venta realizada referenciada a facturacion',
+        ID_Venta_Realizada_FK INT NOT NULL COMMENT 'Campo con la llave foranea del ID de la venta realizada referenciada a facturacion.',
         PRIMARY KEY (ID_Factura_PK),
         FOREIGN KEY (ID_Venta_Realizada_FK) REFERENCES Venta(ID_Venta_PK)
 );
 
-
--- # 17 Detalle_Factura -------------->
-CREATE TABLE Detalle_Facturacion (
-    ID_Detalle_Factura_PK INT NOT NULL AUTO_INCREMENT COMMENT 'Campo con la llave primaria del detalle de la factura.',
-    Cantidad_Producto SMALLINT NOT NULL COMMENT 'Campo con la cantidad de unidades de productos a que se descontaran en el inventario en el stock y numero necesario para calcular el subtotal.',
-    SubTotal DECIMAL(10,2) NOT NULL COMMENT 'Campo con el sub-total del detalle del pedido segun la cantidad y el precio del producto.',
-    ID_Factura_FK INT NOT NULL COMMENT 'Campo con el ID de la llave foranea de la Factura',
-    ID_Detalle_Venta_FK INT NOT NULL COMMENT 'Campo con el ID de la llave foranea del detalle de la venta',
-    PRIMARY KEY (ID_Detalle_Factura_PK),
-    FOREIGN KEY (ID_Factura_FK) REFERENCES Facturacion(ID_Factura_PK),
-    FOREIGN KEY (ID_Detalle_Venta_FK) REFERENCES Detalle_Venta(ID_Detalle_Venta_PK)
+-- # 17 Detalle_Factura ----------------------->
+/*
+CREATE TABLE
+    Detalle_Factura (
+        ID_Detalle_Factura_PK INT NOT NULL AUTO_INCREMENT COMMENT 'Campo con la llave primaria del detalle de la factura.',
+        ID_Factura_FK INT NOT NULL COMMENT 'Campo con el ID de la llave foranea de la Factura',
+        ID_Detalle_Factura_Venta_FK INT NOT NULL COMMENT 'Campo con el ID de la llave foranea del Detalle de Venta relacionado',
+        PRIMARY KEY (ID_Detalle_Factura_PK),
+        FOREIGN KEY (ID_Factura_FK) REFERENCES Facturacion (ID_Factura_PK),
+        FOREIGN KEY (ID_Detalle_Factura_Venta_FK) REFERENCES Detalle_Venta (ID_Detalle_Venta_PK)
 );
+*/

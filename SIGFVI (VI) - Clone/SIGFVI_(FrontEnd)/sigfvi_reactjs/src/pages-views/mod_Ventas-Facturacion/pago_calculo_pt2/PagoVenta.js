@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 
+
 /* Modal Para pagar Venta, escoger metodo de pago y proceder a facturacion. */
 const PagoVenta = () => {
     const descipcionPagoVenta = 'En este panel puede realizar la validación del pago de la venta, puede ingresar la entrada del dinero suministrado por el cliente, para posteriormente calcular el cambio de dinero que se tiene que devolver al cliente.';
@@ -21,6 +22,7 @@ const PagoVenta = () => {
     let ultimo_id_venta;
 
     const navigate = useNavigate();
+
 
 
     useEffect(() => {
@@ -39,6 +41,9 @@ const PagoVenta = () => {
 
     const location = useLocation();
     const detalleVenta = location.state ? location.state.detalleVenta : null;
+
+    // Creamos el objeto que enviaremos a MainFactura:
+
 
     useEffect(() => {
         // console.log('Detalle de la venta:', detalleVenta);
@@ -164,17 +169,48 @@ const PagoVenta = () => {
 
     console.log('Último ID de venta:', ultimo_id_venta);
 
-    // ---:::: FUNCIÓN PRINCIPAL ::::----- //
+    const getUserIdFromLocalStorage = () => {
+        const userString = localStorage.getItem('usuario');
+        if (userString) {
+            const user = JSON.parse(userString);
+            console.log('Id del usuario es: ', user.user);
+            return user.user;
+        }
+        console.error('No se pudo obtener el Id del usuario, desde el local storage. ');
+        return null;
+    };
+
+    getUserIdFromLocalStorage();
+
+    const getFechaHoraActual = () => {
+        const fechaActual = new Date();
+        const fechaVentaActual = fechaActual.toISOString().split('T')[0];
+        const horaVentaActual = fechaActual.toLocaleTimeString('en-US', { hour12: false });
+        console.log('Fecha y hora captura para la venta: ', `Fecha: [${fechaVentaActual}] y Hora: [${horaVentaActual}]`);
+        return { fechaVentaActual, horaVentaActual };
+    };
+
+
     const registrarVenta = async () => {
+        const userId = getUserIdFromLocalStorage();
         try {
+            if (!userId) {
+                console.error('No se pudo obtener el ID del usuario del localStorage');
+                return;
+            }
+            const { fechaVentaActual, horaVentaActual } = getFechaHoraActual();
+
             // Registra la nueva venta
             const ventaResponse = await axios.post('http://localhost:3001/pagoventa/crearventa', {
+                ID_Numero_Identificacion_FK: userId,
                 ID_Metodo_Pago_FK: selectedMethodId,
                 IVA: totalIVA,
                 SubTotal_Venta: subtotalSinIVA,
                 Total_Pedido: totalFactura,
+                Fecha_Venta: fechaVentaActual,
+                Hora_Venta: horaVentaActual,
                 ID_Saldo_PK: null,
-                ID_Estado_FK: 1,
+                ID_Estado_FK: 4,
             });
 
             // Consulta el último ID de venta
@@ -207,6 +243,32 @@ const PagoVenta = () => {
                 console.log(`--> Se resto en el inventario con ID: [${producto.Inventario_ID}], La cantidad de: [${producto.cantidad}] en el "stock".`);
             }
 
+            // Creo el nuevo Detalle para la factura:
+            const detalleVentaAFactura = {
+                ID_Factura: null,
+                Fecha_Factura: fechaVentaActual,
+                Hora_Factura: horaVentaActual,
+                Empleado_Encargado: {
+                    ID_Empleado: getUserIdFromLocalStorage(),
+                    Nombre_Empleado: null, // Asegúrate de actualizar este valor con el nombre del empleado
+                },
+                Detalle_Productos_Agregados: {
+                    Deudor: {
+                        Nombre: detalleVenta.deudor.nombre,
+                        Telefono: detalleVenta.deudor.telefono,
+                    },
+                    Productos_Seleccionados: detalleVenta.productosSeleccionados,
+                    Subtotal_Sin_IVA: detalleVenta.subtotalSinIVA,
+                    Total_Factura: detalleVenta.totalFactura,
+                    Total_IVA: detalleVenta.totalIVA,
+                },
+                Dinero_Recibido: entrada,
+                Dinero_Devuelto: cambio,
+            };
+
+
+            console.log('Detalle de la venta para la factura:', detalleVentaAFactura);
+
             // Timer o delay para mostrar el mensaje de éxito!
             let timerInterval;
             Swal.fire({
@@ -233,7 +295,8 @@ const PagoVenta = () => {
                     setTimeout(() => {
                         Swal.fire('¡Venta registrada!', 'La venta se ha registrado correctamente.', 'success');
                         console.log('Redirigiendo a Ventas Main...');
-                        navigate('/VentasFacturacion/ventas_main');
+                        registratFactura();
+                        navigate('/VentasFacturacion/factura_generada', { state: { detalleVentaAFactura } });
                     }, 500);
                 }
             });
@@ -242,8 +305,25 @@ const PagoVenta = () => {
             Swal.fire('Error', 'No se pudo registrar la venta.', 'error');
         }
     };
+    
+    
+    const registratFactura = async () => {
+        try {
+            // Consulta el último ID de venta
+            const ultimo_id_venta_FK = await consultarUltimoIDVenta(); // Esperar aquí
+            console.log('Último ID de venta:', ultimo_id_venta_FK);
+            // Paso 1: Crear la factura
+            const responseFactura = await axios.post('http://localhost:3001/facturacion/crearfactura', {
+                ID_Venta_Realizada_FK: ultimo_id_venta_FK
+            });
+            console.log('Respuesta de crear factura:', responseFactura.data);
 
-
+            // Puedes manejar más lógica aquí, como actualizar el estado de tu aplicación, etc.
+        } catch (error) {
+            console.error('Error al registrar factura', error);
+            // Manejar el error de alguna forma, por ejemplo, mostrando un mensaje al usuario
+        }
+    };
 
 
 
