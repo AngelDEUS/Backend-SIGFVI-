@@ -6,7 +6,7 @@ const rutaDatos = express.Router();
 
 /**
  * @swagger
- * /read:
+ * /usuario/read/:
  *   get:
  *     summary: Obtener usuarios
  *     tags: [Gerentes]
@@ -528,7 +528,7 @@ rutaDatos.put('/cambiarestado/:id', datosDeudores.cambioEstado);
  * /rutaDatos/verificarID:
  *   post:
  *     summary: Verificar ID de deudor existente
- *     tags: [Datos]
+ *     tags: [Deudor]
  *     requestBody:
  *       required: true
  *       content:

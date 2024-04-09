@@ -1,6 +1,7 @@
 const swaggerJSDOC = require("swagger-jsdoc");
 const swaggerUI = require("swagger-ui-express");
-// const pruebaDeRutas = require('./routers/mod_usuarios_r/proveedorRouter')
+const path = require('path')
+// const pruebaDeRutas = require('./routers/mod_usuarios_r/administradorRouter')
 
 const options = {
   definition: {
@@ -9,7 +10,7 @@ const options = {
       title: "Conexión con API MySQL",
       version: "1.0.0",
       description:
-        "Documentación de los endpoints de proveedor y descripción de rutas",
+        "Documentación de los endpoints",
     },
     servers: [
       {
@@ -18,7 +19,13 @@ const options = {
       },
     ],
   },
-  apis: ["./routers/mod_usuarios_r/proveedorRouter"]
+  apis: [path.join(__dirname, "./routers/mod_usuarios_r/*.js"),
+  path.join(__dirname, "./routers/mod_informes_r/*.js"),
+  path.join(__dirname, "./routers/mod_ventas_facturacion_r/*.js"),
+  path.join(__dirname, "./routers/mod_dashboard_graficas/*.js"),
+  path.join(__dirname, "./routers/mod_inventario_r/*.js"),
+  path.join(__dirname, "./routers/global_r/*.js"),
+]
 };
 
 const swaggerSpec = swaggerJSDOC(options);
