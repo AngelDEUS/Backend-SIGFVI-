@@ -1,108 +1,109 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 
-const Sumar_deudor = ( {closeModal,datos}) => {
+const Sumar_deudor = ({ closeModal, datos }) => {
 
-    //if(!isOpen) return null ;
-    const saldo=parseInt(datos.saldo);
-    const [adicional,setAdicional]=useState(0);
+    const saldo = parseInt(datos.saldo);
+    const [adicional, setAdicional] = useState(0);
 
-    // function sumar(num1,num2){
-    //     let result = parseInt(num1)+parseInt(num2);
-    //     setSaldo(result);
-    //     sumarSaldo(datos.id);
-    // }
+    useEffect(() => {
+        consulta();
+    }, []);
 
-    const sumarSaldo = async (id) =>{
-        let adicion = (saldo + adicional)
+    const consulta = () => {
+        axios.get("http://localhost:3001/usuario/consdeudor")
+            .then((response) => {
+                datos.consulta(response.data);
+            });
+    }
+
+    const sumarSaldo = async (id) => {
+        let adicion = saldo + adicional;
         try {
-            const response = await axios.put(`http://localhost:3001/usuario/updatesaldo/${id}`,{
+            const response = await axios.put(`http://localhost:3001/usuario/updatesaldo/${id}`, {
                 saldo: adicion
             })
             console.log(response);
+            consulta(); 
         } catch (error) {
-            console.error('no se pudo sumar ',error);
+            console.error('no se pudo sumar ', error);
         }
     }
 
-    const consulta=(function (){
-        datos.consulta();});
-
-    function Verificar_suma(){
+    function Verificar_suma() {
         const Insuma = document.getElementById('suma').value;
-    
-        var con=true;
-        let validacionlt=/^[A-Za-z]+$/;
-    
-        if(Insuma.trim() === ''){
-            document.getElementById('wrong').innerHTML='Digite un valor para añadir a la cuenta';
-            con=false;
-        }else if(validacionlt.test(Insuma)){
-            document.getElementById('wrong').innerHTML='Digite solo numeros';
-        }else{
-            document.getElementById('wrong').innerHTML='';
+
+        let con = true;
+        let validacionlt = /^[A-Za-z]+$/;
+
+        if (Insuma.trim() === '') {
+            document.getElementById('wrong').innerHTML = 'Digite un valor para añadir a la cuenta';
+            con = false;
+        } else if (validacionlt.test(Insuma)) {
+            document.getElementById('wrong').innerHTML = 'Digite solo numeros';
+        } else {
+            document.getElementById('wrong').innerHTML = '';
         }
 
         return con;
     }
-    
-    function suma(){
-        let con=true;
-    
-        if(!Verificar_suma()){
-            con=false
+
+    function suma() {
+        let con = true;
+
+        if (!Verificar_suma()) {
+            con = false
         }
-    
-        if(con){
+
+        if (con) {
             Swal.fire({
-                icon:'success',
-                text:'Adicion exitosa'
-            }).then(function(){
+                icon: 'success',
+                text: 'Adición exitosa'
+            }).then(function () {
                 sumarSaldo(datos.id);
-                consulta();
                 closeModal();
             })
             return true;
-            
-        }else{
+
+        } else {
             Swal.fire({
-                icon:'warning',
-                title:'Rellene los campos del formulario para continuar',
-                toast:true
+                icon: 'warning',
+                title: 'Rellene los campos del formulario para continuar',
+                toast: true
             })
             return false;
         }
     }
 
-  return (
-    <div className='register-container'>
-        <div className='fondo-register'>
-            <div>
-                <p onClick={closeModal} >X</p>
+    return (
+        <div className='register-container'>
+            <div className='fondo-register'>
+                <div>
+                    <p onClick={closeModal} >X</p>
+                </div>
+                <div className="container__Main-register">
+                    <h1 className='main-title'>Añadir monto</h1>
+                    <form action="" className="">
+                        <span>
+                            <h2>Monto actual</h2>
+                            <input type="text" name="monto" id="monto" value={saldo} readOnly />
+                            <br />
+                            <label htmlFor="suma">Sumar</label><br />
+                            <input type="number" name="suma" id="suma" placeholder="Añadir" onChange={(e) => { setAdicional(parseInt(e.target.value)) }} onBlur={Verificar_suma} />
+                            <p id="wrong"></p>
+                        </span>
+                        <span>
+                            <button type="button" name="submit" id="submit" className="boton b5" onClick={suma}>Añadir</button>
+                        </span>
+                        <span>
+                            <a href="./Deudores"><button type="button" className="boton b2">Regresar</button></a>
+                        </span>
+                    </form>
+                </div>
             </div>
-            <div class="container__Main-register">
-            <h1 className='main-title'>Añadir monto</h1>
-            <form action="" class="">
-                <span>
-                    <h2>Monto actual</h2>
-                    <input type="text" name="mopnto" id="monto" value={saldo} readOnly />
-                    <br />
-                    <label for="suma">Sumar</label><br/>
-                    <input type="number" name="suma" id="suma" placeholder="Añadir" onChange={(e)=>{setAdicional(parseInt(e.target.value))}} onBlur={Verificar_suma} />
-                    <p id="wrong"></p>
-                </span>
-                <span>
-                    <button type="button" name="submit" id="submit" class="boton b5" onClick={suma}>Añadir</button>
-                </span>
-                <span>
-                    <a href="./Deudores"><button type="button" class="boton b2">Regresar</button></a>
-                </span>
-            </form>       
         </div>
-        </div>
-    </div>
-  )
+    )
 }
 
-export default Sumar_deudor
+export default Sumar_deudor;

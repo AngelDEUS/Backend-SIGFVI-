@@ -171,10 +171,16 @@ const PagoVenta = () => {
 
     const getUserIdFromLocalStorage = () => {
         const userString = localStorage.getItem('usuario');
+        let empleadoData = {ID: '', nombre: ''}
         if (userString) {
             const user = JSON.parse(userString);
-            console.log('Id del usuario es: ', user.user);
-            return user.user;
+            empleadoData = {
+                ID: `${user.user}`,
+                nombreUsuario: `${user.name}`
+            }
+            console.log('Id del usuario es (Objet): ', empleadoData.ID, ' y su nombre es (Objet): ', empleadoData.nombreUsuario);
+
+            return empleadoData; 
         }
         console.error('No se pudo obtener el Id del usuario, desde el local storage. ');
         return null;
@@ -192,9 +198,9 @@ const PagoVenta = () => {
 
 
     const registrarVenta = async () => {
-        const userId = getUserIdFromLocalStorage();
+        const empleadoData = getUserIdFromLocalStorage();
         try {
-            if (!userId) {
+            if (!empleadoData.ID) {
                 console.error('No se pudo obtener el ID del usuario del localStorage');
                 return;
             }
@@ -202,7 +208,7 @@ const PagoVenta = () => {
 
             // Registra la nueva venta
             const ventaResponse = await axios.post('http://localhost:3001/pagoventa/crearventa', {
-                ID_Numero_Identificacion_FK: userId,
+                ID_Numero_Identificacion_FK: empleadoData.ID,
                 ID_Metodo_Pago_FK: selectedMethodId,
                 IVA: totalIVA,
                 SubTotal_Venta: subtotalSinIVA,
@@ -242,15 +248,14 @@ const PagoVenta = () => {
                 });
                 console.log(`--> Se resto en el inventario con ID: [${producto.Inventario_ID}], La cantidad de: [${producto.cantidad}] en el "stock".`);
             }
-
             // Creo el nuevo Detalle para la factura:
             const detalleVentaAFactura = {
                 ID_Factura: null,
                 Fecha_Factura: fechaVentaActual,
                 Hora_Factura: horaVentaActual,
                 Empleado_Encargado: {
-                    ID_Empleado: getUserIdFromLocalStorage(),
-                    Nombre_Empleado: null, // Asegúrate de actualizar este valor con el nombre del empleado
+                    ID_Empleado: empleadoData.ID,
+                    Nombre_Empleado: empleadoData.nombreUsuario,
                 },
                 Detalle_Productos_Agregados: {
                     Deudor: {

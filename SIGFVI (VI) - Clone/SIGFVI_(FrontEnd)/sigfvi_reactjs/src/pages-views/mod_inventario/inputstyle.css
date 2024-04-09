@@ -216,3 +216,20 @@ fieldset {
   .inputDes{
     width: 80px;
   }
+
+  input[type="file"] {
+    height: 50px;
+    width: 250px;
+    opacity: 1;
+    cursor: pointer;
+    border: none;
+  }
+  
+  input[type="file"]:hover {
+    opacity: 0.7;
+  }
+  
+  input[type="file"]:active {
+    opacity: 0.5;
+  }
+  

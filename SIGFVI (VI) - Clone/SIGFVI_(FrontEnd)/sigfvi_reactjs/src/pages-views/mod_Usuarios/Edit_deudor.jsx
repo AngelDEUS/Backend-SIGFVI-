@@ -23,6 +23,7 @@ const Edit_deudor = ({closeModal, datos}) => {
                 tel:tel,
             });
             console.log(response.data);
+            datos.consulta();
         } catch (error) {
             console.error(`no se pudo hacer la actualizacion ${error}`);
         }

@@ -121,7 +121,7 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                 </div>
                 <div className='rules'>
                     <div>
-                        <Link to='VentasFacturacion/ventas'>
+                        <Link to='/VentasFacturacion/ventas_main'>
                             <button className='boton'>
                                 <i className="bi bi-patch-plus-fill svg"></i>
                                 <span className=''>Nueva Venta</span>
@@ -211,14 +211,13 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                                     <div className="arrow">
                                         <i className={`bi bi-chevron-right rotate-icon${showSubMenu ? 'rotate-icon-active' : ''}`}></i>
                                     </div>
-
                                 </Link>
                                 <ul className={`sub-menu-options${showSubMenu === 'ventas' ? ' active' : ''}`}>
                                     <li ><Link to="/VentasFacturacion/ventas_main">
                                         <div className='circle__sidemenu'></div>
                                         <span>Ventas Main</span>
                                     </Link></li>
-                                    <li ><Link to="/VentasFacturacion/factura_generada">
+                                    {/* <li ><Link to="/VentasFacturacion/factura_generada">
                                         <div className='circle__sidemenu'></div>
                                         <span>Factura</span>
                                     </Link></li>
@@ -229,7 +228,7 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                                     <li ><Link to="/VentasFacturacion/list">
                                         <div className='circle__sidemenu'></div>
                                         <span>Lista de ventas</span>
-                                    </Link></li>
+                                    </Link></li> */}
                                     <div className={usuario && usuario.rol === 2 ? '' : 'hide'}>
                                         <li ><Link to="/VentasFacturacion/metodo_pago">
                                             <div className='circle__sidemenu'></div>
@@ -248,12 +247,12 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/Ayuda">
+                                {/* <Link to="/Ayuda">
                                     <div className='btnList'>
                                         <i className="bi bi-chat-heart-fill svg"></i>
                                     </div>
                                     <span>Ayuda</span>
-                                </Link>
+                                </Link> */}
                             </li>
                         </ul>
                     </div>
@@ -264,12 +263,12 @@ function SideMenu({ miniBarraLateral, toggleMiniBarraLateral }) {
                         <div className="navegacion ">
                             <ul>
                                 <li>
-                                    <Link to="/Configuracion">
+                                    {/* <Link to="/Configuracion">
                                         <div className='btnList'>
                                             <i className="bi bi-gear-fill svg"></i>
                                         </div>
                                         <span>Configuración</span>
-                                    </Link>
+                                    </Link> */}
                                 </li>
                                 <li>
                                     <Link onClick={handleLogout}>

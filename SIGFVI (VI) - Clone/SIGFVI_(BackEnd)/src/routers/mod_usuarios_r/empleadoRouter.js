@@ -184,6 +184,51 @@ rutaUsuarios.put("/usuario_empleado/:id", usuarioController.actualizarUsuario);
  */
 rutaUsuarios.delete("/usuario_empleado/:id", usuarioController.eliminarUsuario);
 
+/**
+ * @swagger
+ * /rutaUsuarios/cambioestadoempleado/{id}:
+ *   put:
+ *     summary: Cambiar estado de un empleado
+ *     tags: [Usuarios]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID del empleado
+ *         schema:
+ *           type: string
+ *       - in: body
+ *         name: body
+ *         required: true
+ *         description: Estado del empleado a cambiar
+ *         schema:
+ *           type: object
+ *           properties:
+ *             state:
+ *               type: string
+ *               description: Nuevo estado del empleado
+ *     responses:
+ *       200:
+ *         description: Éxito. El estado del empleado ha sido cambiado correctamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Estado cambiado
+ *       500:
+ *         description: Error interno del servidor.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Descripción del error interno del servidor.
+ */
 rutaUsuarios.put("/cambioestadoempleado/:id", usuarioController.cambioEstadoEmpleado);
 
 module.exports = rutaUsuarios;

@@ -4,7 +4,7 @@ const rutaProveedores = express.Router();
 
 /**
  * @swagger
- * /proveedores:
+ * /usuario/proveedores:
  *   get:
  *     summary: Buscar proveedores
  *     tags:
@@ -28,7 +28,7 @@ const rutaProveedores = express.Router();
 rutaProveedores.get("/proveedores", proveedorController.obtenerProveedores);
 /**
  * @swagger
- * /{id}:
+ * /usuario/proveedor/{id}:
  *   get:
  *     summary: Buscar por ID
  *     tags:
@@ -57,7 +57,7 @@ rutaProveedores.get("/proveedores", proveedorController.obtenerProveedores);
 rutaProveedores.get("/proveedor/:id", proveedorController.obtenerProveedorPorId);
 /**
  * @swagger
- * /crear:
+ * /usuario/proveedor:
  *   post:
  *     summary: Crear un nuevo proveedor
  *     tags:
@@ -103,7 +103,7 @@ rutaProveedores.get("/proveedor/:id", proveedorController.obtenerProveedorPorId)
 rutaProveedores.post("/proveedor", proveedorController.crearProveedor);
 /**
  * @swagger
- * /actualizar/{id}:
+ * /usuario/proveedor/{id}:
  *   put:
  *     summary: Actualizar un proveedor por ID
  *     tags:
@@ -150,7 +150,7 @@ rutaProveedores.post("/proveedor", proveedorController.crearProveedor);
 rutaProveedores.put("/proveedor/:id", proveedorController.actualizarProveedor);
 /**
  * @swagger
- * /eliminar/{id}:
+ * /usuario/proveedor/{id}:
  *   delete:
  *     summary: Eliminar proveedor
  *     tags:
@@ -177,7 +177,7 @@ rutaProveedores.put("/proveedor/:id", proveedorController.actualizarProveedor);
 rutaProveedores.delete("/proveedor/:id", proveedorController.eliminarProveedor);
 /**
  * @swagger
- * /cambioestadoprovee/{id}:
+ * /usuario/cambioestadoprovee/{id}:
  *   put:
  *     summary: Cambiar estado de un proveedor por ID
  *     tags: [Proveedores]
@@ -234,7 +234,7 @@ rutaProveedores.delete("/proveedor/:id", proveedorController.eliminarProveedor);
 rutaProveedores.put("/cambioestadoprovee/:id", proveedorController.cambioEstadoProveedor);
 /**
  * @swagger
- * /verificar-telefono:
+ * /usuario/verificar-telefono:
  *   post:
  *     summary: Verificar si un número de teléfono ya existe en la base de datos
  *     tags:
