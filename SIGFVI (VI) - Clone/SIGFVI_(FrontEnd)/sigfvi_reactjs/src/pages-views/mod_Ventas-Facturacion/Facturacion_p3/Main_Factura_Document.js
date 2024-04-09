@@ -77,9 +77,150 @@ const Main_Factura_Document = () => {
                     <span className='tittle_factura_format'>La Tiendecita Alemana</span>
                     <span className='tittle_factura_format'>http://www.LaTiendecitaAlemana.com</span>
                     <span className='tittle_factura_format'>-------------------</span>
-                    <span className='tittle_factura_format'>Servido por Empleado nombre</span>
+                    <span className='tittle_factura_format'>Servido por {Nombre_Empleado}</span>
                   </div>
-                  {/* <div className="content__factura_gn" style={{ display: 'none' }}>
+                  <div className="content__factura_gn2" >
+                    <div className="factura_formatt_main">
+                      <div className="header_factura_gn">
+                        <div className="left_factura_gn">
+                          <div className="tittles_factura_generada">
+                            <span className='cuerpo__tittle_factura_gn'>ID Factura:</span>
+                            <span className='cuerpo_fecha__tittle_factura_gn' style={{ marginLeft: '15px' }}>#560500</span>
+                          </div>
+                          <div className="tittles_factura_generada">
+                            <span className='cuerpo__tittle_factura_gn'>Fecha Factura:</span>
+                            <span className='cuerpo_fecha__tittle_factura_gn' style={{ marginLeft: '15px' }}>{Fecha_Factura}</span>
+                          </div>
+                          <div className="tittles_factura_generada">
+                            <span className='cuerpo__tittle_factura_gn'>Hora Factura:</span>
+                            <span className='cuerpo_fecha__tittle_factura_gn' style={{ marginLeft: '15px' }}>{Hora_Factura}</span>
+                          </div>
+                        </div>
+                        <div className="right_factura_gn">
+                          <img className='logo__Factura_gn2' src={LogoFactura2} alt="Logo Factura" />
+                          <div className="txtHeader__factura">
+                            <span className='tittle_tiendecita'>La Tiendecita</span>
+                            <span className='tittle_tiendecita'>Alemana<span className='puntito_factura'>.</span></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="header_factura_gn">
+                        <div className="left_factura_gn">
+                          <div className="tittles_factura_generada">
+                            <span className='cuerpo__tittle_factura_gn' style={{ marginBottom: '7px' }}>Deudor Asignado</span>
+                          </div>
+                          <div className="tittles_factura_generada">
+                            <span className='cuerpo__tittle_factura_gn' style={{ marginBottom: '7px', fontSize: '20px', width: '200px' }}>{Nombre_Deudor}</span>
+                          </div>
+                          <div className="tittles_factura_generada">
+                            <span className='cuerpo__tittle_factura_gn' style={{ marginBottom: '7px', fontSize: '20px', width: '200px' }}>{Telefono_Deudor}</span>
+                          </div>
+                        </div>
+                        <div className="right_factura_gn__sub">
+                          <div className="tittles_factura_generada">
+                            <span className='cuerpo__tittle_factura_gn' style={{ marginBottom: '7px' }}>Empleado encargado</span>
+                          </div>
+                          <div className="tittles_factura_generada">
+                            <span className='cuerpo__tittle_factura_gn' style={{ marginBottom: '7px', fontSize: '20px', width: '200px' }}>{Nombre_Empleado}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="factura_format_datos_gn">
+                      <table class="tg">
+                        <thead>
+                          <tr>
+                            <th class="tg-lan2">Descripción</th>
+                            <th class="tg-lan2">Cantidad</th>
+                            <th class="tg-lan2">Precio</th>
+                            <th class="tg-lan2">Importe</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                          {Productos_Seleccionados?.map((producto, index) => (
+                            <tr key={index}>
+                              <td className="tg-iks7">{producto.Nombre_Producto}</td>
+                              <td className="tg-gczw">{producto.cantidad}</td>
+                              <td className="tg-gczw">$ {producto.Precio_Venta}</td>
+                              <td className="tg-gczw">$ {producto.Precio_Venta * producto.cantidad}</td>
+                            </tr>
+                          ))}
+
+                          <tr>
+                            <td class="tg-48gu" rowspan="3"></td>
+                            <td class="tg-hpx4" colSpan="2">SUBTOTAL</td>
+                            <td class="tg-k5zi">${Subtotal_Sin_IVA}</td>
+                          </tr>
+                          <tr>
+                            <td class="tg-hpx4" colSpan="2">IVA</td>
+                            <td class="tg-k5zi">$ {Total_IVA}</td>
+                          </tr>
+                          <tr>
+                            <td class="tg-hpx4" colSpan="2">TOTAL</td>
+                            <td class="tg-7s0x">$ {Total_Factura}</td>
+                          </tr>
+                          <tr>
+                            <td class="tg-hpx4" >Dinero Recibido: </td>
+                            <td class="tg-hpx4"><span className="puntito_factura"> $ {Dinero_Recibido}</span></td>
+                            <td class="tg-hpx4">Dinero Devuelto: </td>
+                            <td class="tg-hpx4"><span className="puntito_factura"> $ {Dinero_Devuelto}</span></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div className="triangulos_container_top_factura invertir_triangulos">
+                  {triangulos}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="divisor_vertical_factura"></div>
+        <div className="content_factura__left">
+          <span className='titulo__factura' style={{ marginTop: '40px' }}><i className="bi bi-check-lg"></i></span>
+          <span className='titulo__factura'>Listo.</span>
+          <span className='sub_titulo__factura'>Finalizaste tu pago.</span>
+          <span className='sub_titulo__factura' style={{ color: '#fc7c00', letterSpacing: '5pt' }}> -------------</span>
+          <div className="titlle_up_factura" style={{ marginTop: '20px' }}>
+            <span style={{ marginRight: '5px' }}>Opciones</span>
+            <i className="bi bi-caret-down-fill"></i>
+          </div>
+          <div className="misbotons_factura">
+            <div className="button_factura_actions">
+              <div className="icon_button_factura">
+                <i className="bi bi-file-earmark-arrow-down-fill"></i>
+              </div>
+              <span className='text_button_factura'>Descargar PDF</span>
+            </div>
+            <div className="button_factura_actions">
+              <div className="icon_button_factura">
+                <i className="bi bi-printer-fill"></i>
+              </div>
+              <span className='text_button_factura'>Imprimir Recibo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="content_factura__bottom">
+        <div className="divisor_factura"></div>
+        <div className="buttons_final_factura">
+          <div className='nada__'></div>
+          <button className='btn__factura_nextVenta' onClick={pasarAVenta}>Siguiente Venta
+            <i className="bi bi-chevron-double-right"></i>
+          </button>
+
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default Main_Factura_Document
+
+ {/* <div className="content__factura_gn" style={{ display: 'none' }}>
                     <div className="content_fechas_factura">
                       <div className="fechas_factura" >
                         <span className='cuerpo__tittle_factura_gn'>ID Factura:</span>
@@ -144,143 +285,3 @@ const Main_Factura_Document = () => {
                       </tbody>
                     </table>
                   </div> */}
-                  <div className="content__factura_gn2" >
-                    <div className="factura_formatt_main">
-                      <div className="header_factura_gn">
-                        <div className="left_factura_gn">
-                          <div className="tittles_factura_generada">
-                            <span className='cuerpo__tittle_factura_gn'>ID Factura:</span>
-                            <span className='cuerpo_fecha__tittle_factura_gn' style={{ marginLeft: '15px' }}>#560500</span>
-                          </div>
-                          <div className="tittles_factura_generada">
-                            <span className='cuerpo__tittle_factura_gn'>Fecha Factura:</span>
-                            <span className='cuerpo_fecha__tittle_factura_gn' style={{ marginLeft: '15px' }}>13/08/2024</span>
-                          </div>
-                          <div className="tittles_factura_generada">
-                            <span className='cuerpo__tittle_factura_gn'>Hora Factura:</span>
-                            <span className='cuerpo_fecha__tittle_factura_gn' style={{ marginLeft: '15px' }}>13:05:13</span>
-                          </div>
-                        </div>
-                        <div className="right_factura_gn">
-                          <img className='logo__Factura_gn2' src={LogoFactura2} alt="Logo Factura" />
-                          <div className="txtHeader__factura">
-                            <span className='tittle_tiendecita'>La Tiendecita</span>
-                            <span className='tittle_tiendecita'>Alemana<span className='puntito_factura'>.</span></span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="header_factura_gn">
-                        <div className="left_factura_gn">
-                          <div className="tittles_factura_generada">
-                            <span className='cuerpo__tittle_factura_gn' style={{ marginBottom: '7px' }}>Deudor Asignado</span>
-                          </div>
-                          <div className="tittles_factura_generada">
-                            <span className='cuerpo__tittle_factura_gn' style={{ marginBottom: '7px', fontSize: '20px', width: '200px' }}>Nombre del Deudor</span>
-                          </div>
-                          <div className="tittles_factura_generada">
-                            <span className='cuerpo__tittle_factura_gn' style={{ marginBottom: '7px', fontSize: '20px', width: '200px' }}>3224188231</span>
-                          </div>
-                        </div>
-                        <div className="right_factura_gn__sub">
-                          <div className="tittles_factura_generada">
-                            <span className='cuerpo__tittle_factura_gn' style={{ marginBottom: '7px' }}>Empleado encargado</span>
-                          </div>
-                          <div className="tittles_factura_generada">
-                            <span className='cuerpo__tittle_factura_gn' style={{ marginBottom: '7px', fontSize: '20px', width: '200px' }}>Nombre del Empleado</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="factura_format_datos_gn">
-                      <table class="tg">
-                        <thead>
-                          <tr>
-                            <th class="tg-lan2">Descripción</th>
-                            <th class="tg-lan2">Cantidad</th>
-                            <th class="tg-lan2">Precio</th>
-                            <th class="tg-lan2">Importe</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-
-                          {Productos_Seleccionados?.map((producto, index) => (
-                            <tr key={index}>
-                              <td className="tg-iks7">{producto.Nombre_Producto}</td>
-                              <td className="tg-gczw">{producto.cantidad}</td>
-                              <td className="tg-gczw">$ {producto.Precio_Venta}</td>
-                              <td className="tg-gczw">$ {producto.Precio_Venta * producto.cantidad}</td>
-                            </tr>
-                          ))}
-
-                          <tr>
-                            <td class="tg-48gu" rowspan="3"></td>
-                            <td class="tg-hpx4" colSpan="2">SUBTOTAL</td>
-                            <td class="tg-k5zi">${}</td>
-                          </tr>
-                          <tr>
-                            <td class="tg-hpx4" colSpan="2">IVA</td>
-                            <td class="tg-k5zi">$ 18.000</td>
-                          </tr>
-                          <tr>
-                            <td class="tg-hpx4" colSpan="2">TOTAL</td>
-                            <td class="tg-7s0x">$ 168.000</td>
-                          </tr>
-                          <tr>
-                            <td class="tg-hpx4" >Dinero Recibido: </td>
-                            <td class="tg-hpx4"><span className="puntito_factura"> $ 50.000</span></td>
-                            <td class="tg-hpx4">Dinero Devuelto: </td>
-                            <td class="tg-hpx4"><span className="puntito_factura"> $ 45.000</span></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-                <div className="triangulos_container_top_factura invertir_triangulos">
-                  {triangulos}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="divisor_vertical_factura"></div>
-        <div className="content_factura__left">
-          <span className='titulo__factura' style={{ marginTop: '40px' }}><i className="bi bi-check-lg"></i></span>
-          <span className='titulo__factura'>Listo.</span>
-          <span className='sub_titulo__factura'>Finalizaste tu pago.</span>
-          <span className='sub_titulo__factura' style={{ color: '#fc7c00', letterSpacing: '5pt' }}> -------------</span>
-          <div className="titlle_up_factura" style={{ marginTop: '20px' }}>
-            <span style={{ marginRight: '5px' }}>Opciones</span>
-            <i className="bi bi-caret-down-fill"></i>
-          </div>
-          <div className="misbotons_factura">
-            <div className="button_factura_actions">
-              <div className="icon_button_factura">
-                <i className="bi bi-file-earmark-arrow-down-fill"></i>
-              </div>
-              <span className='text_button_factura'>Descargar PDF</span>
-            </div>
-            <div className="button_factura_actions">
-              <div className="icon_button_factura">
-                <i className="bi bi-printer-fill"></i>
-              </div>
-              <span className='text_button_factura'>Imprimir Recibo</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="content_factura__bottom">
-        <div className="divisor_factura"></div>
-        <div className="buttons_final_factura">
-          <div className='nada__'></div>
-          <button className='btn__factura_nextVenta' onClick={pasarAVenta}>Siguiente Venta
-            <i className="bi bi-chevron-double-right"></i>
-          </button>
-
-        </div>
-      </div>
-    </div>
-  )
-}
-
-export default Main_Factura_Document
