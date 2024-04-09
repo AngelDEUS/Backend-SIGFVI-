@@ -184,9 +184,7 @@ const AgregarProducto = async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ error: "No se ha subido ninguna imagen" });
     }
-    console.log(Foto_Producto);
     const Foto_Producto = req.file.filename;
-    console.log(Foto_Producto);
     const query = `
       INSERT INTO producto 
       (ID_Producto_PK, Nombre_Producto, ID_Tipo_Producto_FK, Descripcion, Precio_Proveedor, Precio_Venta, Foto_Producto, ID_Estado_FK) 
