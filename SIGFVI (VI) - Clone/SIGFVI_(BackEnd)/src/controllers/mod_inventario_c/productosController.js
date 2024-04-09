@@ -1,12 +1,12 @@
 const db = require("../../models/sigfviDBModelo").promise();
-const multer = require('multer');
-const path = require('path');
+const multer = require("multer");
+const path = require("path");
 
 const storage = multer.diskStorage({
-  destination: path.join (__dirname, '../../img'),
+  destination: path.join(__dirname, "../../img"),
   filename: (req, file, cb) => {
-    cb (null, `${Date.now()} - ${file.originalname}`)
-  }
+    cb(null, `${Date.now()} - ${file.originalname}`);
+  },
 });
 const upload = multer({ storage: storage });
 
@@ -33,11 +33,11 @@ const Datos = async (req, res) => {
       CASE WHEN E.Nombre_Estado = 'Activo' THEN 0 ELSE 1 END;
     `;
     const [result] = await db.query(query);
-    
-    const productosConImagen = result.map(producto => {
+
+    const productosConImagen = result.map((producto) => {
       return {
         ...producto,
-        Foto_Url: `http://localhost:3001/img/${producto.Foto_Producto}`
+        Foto_Url: `http://localhost:3001/img/${producto.Foto_Producto}`,
       };
     });
 
@@ -53,18 +53,25 @@ const BorrarDatos = async (req, res) => {
   const { id } = req.params;
   try {
     await db.query(
-      `DELETE FROM entrada_producto WHERE Producto_Inventario = ?`,
+      `DELETE FROM Entrada_Producto WHERE Producto_Inventario = ?`,
       [id]
     );
 
     await db.query(
-      `DELETE FROM salida_producto_inventario WHERE ID_Inventario_FK IN (SELECT ID_Inventario_PK FROM inventario WHERE ID_Producto_FK = ?)`,
+      `DELETE FROM Salida_producto_Inventario WHERE ID_Inventario_FK IN 
+      (SELECT ID_Inventario_PK FROM Inventario WHERE ID_Producto_FK = ?)`,
       [id]
     );
 
-    await db.query(`DELETE FROM inventario WHERE ID_Producto_FK = ?`, [id]);
+    await db.query(
+      `DELETE FROM Detalle_Venta WHERE ID_Inventario_FK IN 
+      (SELECT ID_Inventario_PK FROM Inventario WHERE ID_Producto_FK = ?)`,
+      [id]
+    );
 
-    await db.query(`DELETE FROM producto WHERE ID_Producto_PK = ?`, [id]);
+    await db.query(`DELETE FROM Inventario WHERE ID_Producto_FK = ?`, [id]);
+
+    await db.query(`DELETE FROM Producto WHERE ID_Producto_PK = ?`, [id]);
 
     res.json({
       mensaje: "Producto y registros asociados eliminados exitosamente",
@@ -74,6 +81,7 @@ const BorrarDatos = async (req, res) => {
     res.status(500).json({ error: "No se pudo borrar los datos" });
   }
 };
+
 const BorrarInventario = async (req, res) => {
   const { id } = req.params;
   try {
@@ -111,10 +119,10 @@ const BuscarDatoPorId = async (req, res) => {
     `;
     const [result] = await db.query(query, [id, `%${id}%`]);
 
-    const productosConImagen = result.map(producto => {
+    const productosConImagen = result.map((producto) => {
       return {
         ...producto,
-        Foto_Url: `http://localhost:3001/img/${producto.Foto_Producto}`
+        Foto_Url: `http://localhost:3001/img/${producto.Foto_Producto}`,
       };
     });
 
@@ -171,14 +179,14 @@ const AgregarProducto = async (req, res) => {
     Precio_Venta,
     ID_Estado_FK,
   } = req.body;
-
+  console.log(req.body);
   try {
     if (!req.file) {
-      return res.status(400).json({ error: 'No se ha subido ninguna imagen' });
+      return res.status(400).json({ error: "No se ha subido ninguna imagen" });
     }
-
-    const Foto_Producto = req.file.filename; 
-
+    console.log(Foto_Producto);
+    const Foto_Producto = req.file.filename;
+    console.log(Foto_Producto);
     const query = `
       INSERT INTO producto 
       (ID_Producto_PK, Nombre_Producto, ID_Tipo_Producto_FK, Descripcion, Precio_Proveedor, Precio_Venta, Foto_Producto, ID_Estado_FK) 
@@ -218,6 +226,42 @@ const VerificarDuplicado = async (req, res) => {
   }
 };
 
+const AgregarProductoMovil = async (req, res) => {
+  const {
+    ID_Producto_PK,
+    Nombre_Producto,
+    ID_Tipo_Producto_FK,
+    Descripcion,
+    Precio_Proveedor,
+    Precio_Venta,
+    ID_Estado_FK,
+  } = req.body;
+
+  console.log(req.body);
+
+  try {
+    const query = `
+      INSERT INTO producto 
+      (ID_Producto_PK, Nombre_Producto, ID_Tipo_Producto_FK, Descripcion, Precio_Proveedor, Precio_Venta, ID_Estado_FK) 
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `;
+    await db.query(query, [
+      ID_Producto_PK,
+      Nombre_Producto,
+      ID_Tipo_Producto_FK,
+      Descripcion,
+      Precio_Proveedor,
+      Precio_Venta,
+      ID_Estado_FK,
+    ]);
+
+    res.json({ mensaje: "Producto agregado correctamente" });
+  } catch (error) {
+    console.error("Error al agregar el producto", error);
+    res.status(500).json({ error: "No se pudo agregar el producto" });
+  }
+};
+
 module.exports = {
   Datos,
   BorrarDatos,
@@ -225,7 +269,7 @@ module.exports = {
   BorrarInventario,
   ActualizarProducto,
   AgregarProducto,
+  AgregarProductoMovil,
   VerificarDuplicado,
-  upload 
+  upload,
 };
-

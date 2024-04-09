@@ -138,6 +138,8 @@ rutaDatos.get("/BuscarDatoPorId/:id", productosController.BuscarDatoPorId);
  */
 rutaDatos.put("/ActualizarProducto/:id", productosController.ActualizarProducto);
 
+rutaDatos.post("/AgregarProductomovil", productosController.AgregarProductoMovil);
+
 /**
  * @swagger
  * /AgregarProducto:
