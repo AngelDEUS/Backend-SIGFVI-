@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './Style_Factura.css';
+import { jsPDF } from 'jspdf';
+import 'jspdf-autotable';
+import html2canvas from 'html2canvas'; 
 
 import LogoFactura from '../../../assets/Logo/Logo-SIGFVI-factura.png';
 import LogoFactura2 from '../../../assets/Logo/Logo-Tiendecita_Alemana.jpg';
@@ -24,7 +27,7 @@ const Main_Factura_Document = () => {
     <div key={index} className='triangulito__factura'></div>
   ));
 
-
+  
   // desestructuración de mi objeto padre detalleVentaAFactura
   const {
     ID_Factura,
@@ -54,6 +57,152 @@ const Main_Factura_Document = () => {
       confirmButtonText: 'Aceptar'
     });
   }
+
+  const containerRef = useRef(null); // Ref para el contenedor
+
+  const descargarPDF = () => {
+    html2canvas(containerRef.current, { scale: 2 }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const imgWidth = 210;
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+      const nombreArchivo = `${Fecha_Factura}-${Hora_Factura}-${Nombre_Empleado}.pdf`;
+      pdf.save(nombreArchivo);
+    });
+  };
+
+  const imprimirRecibo = () => {
+    html2canvas(containerRef.current, { scale: 2 }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+  
+      const printWindow = window.open('', '_blank');
+      printWindow.document.open();
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Print Document</title>
+            <style>
+              body { margin: 0; }
+              img { width: 100%; height: auto; }
+            </style>
+          </head>
+          <body>
+            <img src="${imgData}" />
+            <script>
+              setTimeout(() => {
+                window.print();
+                window.close();
+              }, 100);
+            </script>
+          </body>
+        </html>
+      `);
+      printWindow.document.close();
+    });
+  };
+  
+
+  const descargarPDF2 = () => {
+    const doc = new jsPDF();
+  
+    // Agregar contenido al PDF
+    doc.setFont('Helvetica', 'normal');
+    doc.setFontSize(12);
+  
+    // Datos de la factura
+    doc.text(`Factura Generada`, 105, 15, { align: 'center' });
+    doc.setFont('Helvetica', 'bold');
+    doc.text(`ID Factura: #${ID_Factura}`, 20, 30);
+    doc.text(`Fecha Factura: ${Fecha_Factura}`, 20, 40);
+    doc.text(`Hora Factura: ${Hora_Factura}`, 20, 50);
+  
+    // Detalle de los productos
+    doc.setFont('Helvetica', 'normal');
+    let y = 70;
+    const data = Productos_Seleccionados.map(producto => {
+      return [producto.Nombre_Producto, producto.cantidad, `$ ${producto.Precio_Venta}`, `$ ${producto.Precio_Venta * producto.cantidad}`];
+    });
+    doc.autoTable({
+      startY: y,
+      head: [['Descripción', 'Cantidad', 'Precio', 'Importe']],
+      body: data,
+      theme: 'plain',
+      styles: { fontSize: 10, cellPadding: 2, halign: 'center' },
+      columnStyles: { 0: { halign: 'left' }, 1: { halign: 'center' }, 2: { halign: 'center' }, 3: { halign: 'center' } },
+    });
+    y += data.length * 10 + 10;
+  
+    // Subtotal, Total e IVA
+    doc.text(`Subtotal: $ ${Subtotal_Sin_IVA}`, 20, y);
+    doc.text(`IVA: $ ${Total_IVA}`, 20, y + 10);
+    doc.text(`Total: $ ${Total_Factura}`, 20, y + 20);
+  
+    // Dinero recibido y devuelto
+    doc.text(`Dinero Recibido: $ ${Dinero_Recibido}`, 20, y + 40);
+    doc.text(`Dinero Devuelto: $ ${Dinero_Devuelto}`, 20, y + 50);
+  
+    // Agregar logos con dimensiones específicas
+    const imgWidth = 50;
+    const imgHeight = 50;
+    doc.addImage(LogoFactura, 'PNG', 10, 10, imgWidth, imgHeight);
+    doc.addImage(LogoFactura2, 'JPG', 150, 10, imgWidth, imgHeight);
+  
+    const nombreArchivo = `${Fecha_Factura}-${Hora_Factura}-${Nombre_Empleado}.pdf`;
+    doc.save(nombreArchivo);
+  };
+  
+  const imprimirRecibo2 = () => {
+    const doc = new jsPDF();
+  
+    // Agregar contenido al PDF
+    doc.setFont('Helvetica', 'normal');
+    doc.setFontSize(12);
+  
+    // Datos de la factura
+    doc.text(`Factura Generada`, 105, 15, { align: 'center' });
+    doc.setFont('Helvetica', 'bold');
+    doc.text(`ID Factura: #${ID_Factura}`, 20, 30);
+    doc.text(`Fecha Factura: ${Fecha_Factura}`, 20, 40);
+    doc.text(`Hora Factura: ${Hora_Factura}`, 20, 50);
+  
+    // Detalle de los productos
+    doc.setFont('Helvetica', 'normal');
+    let y = 70;
+    const data = Productos_Seleccionados.map(producto => {
+      return [producto.Nombre_Producto, producto.cantidad, `$ ${producto.Precio_Venta}`, `$ ${producto.Precio_Venta * producto.cantidad}`];
+    });
+    doc.autoTable({
+      startY: y,
+      head: [['Descripción', 'Cantidad', 'Precio', 'Importe']],
+      body: data,
+      theme: 'plain',
+      styles: { fontSize: 10, cellPadding: 2, halign: 'center' },
+      columnStyles: { 0: { halign: 'left' }, 1: { halign: 'center' }, 2: { halign: 'center' }, 3: { halign: 'center' } },
+    });
+    y += data.length * 10 + 10;
+  
+    // Subtotal, Total e IVA
+    doc.text(`Subtotal: $ ${Subtotal_Sin_IVA}`, 20, y);
+    doc.text(`IVA: $ ${Total_IVA}`, 20, y + 10);
+    doc.text(`Total: $ ${Total_Factura}`, 20, y + 20);
+  
+    // Dinero recibido y devuelto
+    doc.text(`Dinero Recibido: $ ${Dinero_Recibido}`, 20, y + 40);
+    doc.text(`Dinero Devuelto: $ ${Dinero_Devuelto}`, 20, y + 50);
+  
+    // Agregar logos con dimensiones específicas
+    const imgWidth = 50;
+    const imgHeight = 50;
+    doc.addImage(LogoFactura, 'PNG', 10, 10, imgWidth, imgHeight);
+    doc.addImage(LogoFactura2, 'JPG', 150, 10, imgWidth, imgHeight);
+  
+    // Imprimir el PDF
+    doc.autoPrint();
+    window.open(doc.output('bloburl'), '_blank');
+  };
+  
+  
   return (
     <div className='main_content_factura'>
       <div>
@@ -66,7 +215,7 @@ const Main_Factura_Document = () => {
               <span>Factura</span>
               <i className="bi bi-caret-down-fill"></i>
             </div>
-            <div className="factura__generada_ms">
+            <div className="factura__generada_ms" ref={containerRef}>
               <div className="content_main_factura_gen">
                 <div className="triangulos_container_top_factura">
                   {triangulos}
@@ -189,13 +338,13 @@ const Main_Factura_Document = () => {
             <i className="bi bi-caret-down-fill"></i>
           </div>
           <div className="misbotons_factura">
-            <div className="button_factura_actions">
-              <div className="icon_button_factura">
+            <div className="button_factura_actions" onClick={descargarPDF}>
+              <div className="icon_button_factura" >
                 <i className="bi bi-file-earmark-arrow-down-fill"></i>
               </div>
               <span className='text_button_factura'>Descargar PDF</span>
             </div>
-            <div className="button_factura_actions">
+            <div className="button_factura_actions" onClick={imprimirRecibo}>
               <div className="icon_button_factura">
                 <i className="bi bi-printer-fill"></i>
               </div>

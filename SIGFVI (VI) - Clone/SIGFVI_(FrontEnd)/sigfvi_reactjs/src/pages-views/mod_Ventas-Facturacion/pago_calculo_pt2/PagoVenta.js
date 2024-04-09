@@ -17,6 +17,10 @@ const PagoVenta = () => {
     const [entrada, setEntrada] = useState(0);
     const [cambio, setCambio] = useState(0);
 
+    const [idDeudor, setIdDeudor] = useState('');
+  const [nuevoSaldo, setNuevoSaldo] = useState('');
+  const [mensaje, setMensaje] = useState('');
+
     const [metodoPagoSeleccionado, setMetodoPagoSeleccionado] = useState(false);
     const [selectedMethodName, setSelectedMethodName] = useState('');
     let ultimo_id_venta;
@@ -168,7 +172,7 @@ const PagoVenta = () => {
     };
 
 
-
+    // Volver atras
 
     const { totalIVA, subtotalSinIVA, totalFactura, deudor } = detalleVenta;
     const { productosSeleccionados } = detalleVenta;
@@ -213,6 +217,29 @@ const PagoVenta = () => {
         return { fechaVentaActual, horaVentaActual };
     };
 
+  const handleActualizarSaldo = async () => {
+    try {
+      // Verificar si se ha ingresado un ID de deudor
+      if (!idDeudor) {
+        setMensaje('Por favor ingresa un ID de deudor.');
+        return;
+      }
+
+      // Verificar si se ha ingresado un nuevo saldo
+      if (!nuevoSaldo) {
+        setMensaje('Por favor ingresa un nuevo saldo.');
+        return;
+      }
+
+      // Realizar la petición para actualizar el saldo del deudor
+      await axios.put(`/updatesaldo/${idDeudor}`, { saldo: nuevoSaldo });
+      setMensaje('Saldo actualizado correctamente.');
+
+    } catch (error) {
+      console.error('Error al actualizar el saldo del deudor:', error);
+      setMensaje('Error al actualizar el saldo del deudor.');
+    }
+  };
 
     const registrarVenta = async () => {
         const empleadoData = getUserIdFromLocalStorage();
