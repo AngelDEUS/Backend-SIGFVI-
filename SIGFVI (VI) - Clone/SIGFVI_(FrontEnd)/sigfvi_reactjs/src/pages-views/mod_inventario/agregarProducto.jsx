@@ -49,7 +49,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
         formData,
         {
           headers: {
-            'Content-Type': 'multipart/form-data', // Es importante establecer el tipo de contenido como 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
           }
         }
       );

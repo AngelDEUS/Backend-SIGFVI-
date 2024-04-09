@@ -22,12 +22,9 @@ const consultaDatos = async (req, res) => {
           Inventario AS I ON P.ID_Producto_PK = I.ID_Producto_FK
       WHERE 
           P.ID_Estado_FK = 1
-      GROUP BY 
-          P.ID_Producto_PK, P.Nombre_Producto, TP.Nombre_Tipo_Producto, P.Descripcion;
       `);
     const [result] = await db.query(query);
 
-    // Construir la URL de la imagen y agregarla a los datos del producto
     const productosConImagen = result.map((producto) => {
       return {
         ...producto,
@@ -48,24 +45,24 @@ const BuscarInventario = async (req, res) => {
   console.log(id);
   try {
     const query = `
-    SELECT
-      P.ID_Producto_PK,
-      P.Nombre_Producto,
-      TP.Nombre_Tipo_Producto AS Tipo_Producto,
-      P.Descripcion,
-      P.Precio_Proveedor,
-      P.Precio_Venta,
-      P.Foto_Producto,
-      E.Nombre_Estado AS Estado
-    FROM
-      Producto P
-    JOIN
-      Tipo_Producto TP ON P.ID_Tipo_Producto_FK = TP.ID_Tipo_Producto_PK
-    JOIN
-      Estado E ON P.ID_Estado_FK = E.ID_Estado_PK
-    WHERE
-      P.ID_Producto_PK = ? OR
-      P.Nombre_Producto LIKE ?;
+    SELECT 
+        P.ID_Producto_PK,
+        P.Nombre_Producto,
+        TP.Nombre_Tipo_Producto,
+        P.Descripcion,
+        P.Foto_Producto,
+        P.Precio_Proveedor,
+        P.Precio_Venta,
+        I.Stock
+    FROM 
+        Producto AS P
+    JOIN 
+        Tipo_Producto AS TP ON P.ID_Tipo_Producto_FK = TP.ID_Tipo_Producto_PK
+    JOIN 
+        Inventario AS I ON P.ID_Producto_PK = I.ID_Producto_FK
+    WHERE 
+        P.ID_Estado_FK = 1
+        AND (P.ID_Producto_PK = ? OR P.Nombre_Producto LIKE ?)
     `;
     const [result] = await db.query(query, [id, `%${id}%`]);
 
@@ -77,7 +74,7 @@ const BuscarInventario = async (req, res) => {
     });
 
     if (result.length > 0) {
-      console.log("Enviando respuesta...");
+      console.log("Enviando respuesta de inventario...");
       res.json({ datos: productosConImagen });
     } else {
       res.status(404).json({ mensaje: "No se encontró el dato" });
