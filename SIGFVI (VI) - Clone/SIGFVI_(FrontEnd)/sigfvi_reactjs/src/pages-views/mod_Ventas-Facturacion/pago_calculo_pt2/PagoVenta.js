@@ -99,32 +99,49 @@ const PagoVenta = () => {
     };
 
     const handleRegistrarVenta = () => {
-        // if (!selectedMethodId) {
-        //     Swal.fire('Error', 'Por favor selecciona un método de pago.', 'error');
-        //     return;
-        // }
+        if (!selectedMethodId) {
+            Swal.fire('Error', 'Por favor selecciona un método de pago.', 'error');
+            return;
+        }
+        if (entrada === 0) {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Por favor, la entrada del dinero NO puede esta vacío.",
+            });
+            return;
+        }
+        if (entrada < detalleVenta.totalFactura) {
+            Swal.fire('Error', 'Por favor, la entrada del dinero NO puede ser menor al total a pagar.', 'error');
+            return;
+        }
 
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: '¿Quieres registrar la venta?',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Sí',
-            cancelButtonText: 'No',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire({
-                    title: 'Registrando venta...',
-                    text: 'Por favor espera un momento.',
-                    icon: 'info',
-                    showConfirmButton: false,
-                    timer: 2000, // Tiempo en milisegundos (en este caso, 2 segundos)
-                });
-
-                // Aquí llamas a tu función para registrar la venta
-                registrarVenta();
-            }
-        });
+        if (entrada >= detalleVenta.totalFactura ) {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: '¿Quieres registrar la venta?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Sí',
+                cancelButtonText: 'No',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'Registrando venta...',
+                        text: 'Por favor espera un momento.',
+                        icon: 'info',
+                        showConfirmButton: false,
+                        timer: 2000,
+                    });
+                    registrarVenta();
+                }
+            });
+        }
+        else {
+            Swal.fire('Error', 'Consulte con su administrador.', 'error');
+            return;
+        }
+        
     };
 
 
@@ -171,7 +188,7 @@ const PagoVenta = () => {
 
     const getUserIdFromLocalStorage = () => {
         const userString = localStorage.getItem('usuario');
-        let empleadoData = {ID: '', nombre: ''}
+        let empleadoData = { ID: '', nombre: '' }
         if (userString) {
             const user = JSON.parse(userString);
             empleadoData = {
@@ -180,7 +197,7 @@ const PagoVenta = () => {
             }
             console.log('Id del usuario es (Objet): ', empleadoData.ID, ' y su nombre es (Objet): ', empleadoData.nombreUsuario);
 
-            return empleadoData; 
+            return empleadoData;
         }
         console.error('No se pudo obtener el Id del usuario, desde el local storage. ');
         return null;
@@ -310,8 +327,8 @@ const PagoVenta = () => {
             Swal.fire('Error', 'No se pudo registrar la venta.', 'error');
         }
     };
-    
-    
+
+
     const registratFactura = async () => {
         try {
             // Consulta el último ID de venta
