@@ -36,12 +36,13 @@ function InformeEmpleados() {
         {/* Botones de reportes */}
         <div className='mod__Ventas'>
           <div className="venta">
-            <div className="btones">
-              <div className="button-container">
-                <Link to='/GestionInformes/InformeVentas' className='prueba'><button className="b1" id="btn">Reporte de Ventas</button></Link>
-                <Link to='/GestionInformes/InformeDeudores'><button className="b1" id="btn">Reporte de Deudores</button></Link>
+              <div className="btones">
+            <center>
+                <div className="button-container">
+                  <Link to='/GestionInformes/InformeVentas' className='prueba'><button className="b1" id="btn">Reporte de Ventas</button></Link>
+                  <Link to='/GestionInformes/InformeDeudores'><button className="b1" id="btn">Reporte de Deudores</button></Link>
+                </div></center>
               </div>
-            </div>
           </div>
         </div>
       </section>
