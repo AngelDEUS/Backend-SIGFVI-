@@ -179,14 +179,14 @@ const AgregarProducto = async (req, res) => {
     Precio_Venta,
     ID_Estado_FK,
   } = req.body;
-  console.log(req.body);
+
   try {
     if (!req.file) {
       return res.status(400).json({ error: "No se ha subido ninguna imagen" });
     }
-    console.log(Foto_Producto);
-    const Foto_Producto = req.file.filename;
-    console.log(Foto_Producto);
+
+    const Foto_Producto = req.file.filename; // Debes declarar la variable antes de usarla
+
     const query = `
       INSERT INTO producto 
       (ID_Producto_PK, Nombre_Producto, ID_Tipo_Producto_FK, Descripcion, Precio_Proveedor, Precio_Venta, Foto_Producto, ID_Estado_FK) 
@@ -209,7 +209,6 @@ const AgregarProducto = async (req, res) => {
     res.status(500).json({ error: "No se pudo agregar el producto" });
   }
 };
-
 const VerificarDuplicado = async (req, res) => {
   const { id } = req.params;
 
