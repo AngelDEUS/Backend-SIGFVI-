@@ -29,7 +29,7 @@ const options = {
 };
 
 const swaggerSpec = swaggerJSDOC(options);
-console.log("Esto es:  ", swaggerSpec)
+// console.log("Esto es:  ", swaggerSpec)
 
 const swaggerJSDOCs = (app, port) => {
   app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));

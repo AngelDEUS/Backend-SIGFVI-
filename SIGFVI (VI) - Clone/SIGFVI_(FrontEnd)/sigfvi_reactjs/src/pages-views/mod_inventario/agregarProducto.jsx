@@ -102,7 +102,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
                 type="text"
                 name="nombre"
                 id="nombre"
-                placeholder="Ingrese valor"
+                placeholder="Ingrese Nombre Producto"
                 onChange={(e) => setNombre(e.target.value)}
               />
             </div>
@@ -134,7 +134,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
                   name="descripcion"
                   id="descripcion"
                   className="inputDesc"
-                  placeholder="Ingrese valor"
+                  placeholder="Ingrese Descripcion"
                   onChange={(e) => setDescripcion(e.target.value)}
                 />
                 <select
@@ -162,7 +162,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
                 type="text"
                 name="precioCompra"
                 id="precioCompra"
-                placeholder="Ingrese valor"
+                placeholder="Ingrese Precio de Compra"
                 onChange={(e) => setPrecioCompra(e.target.value)}
               />
             </div>
@@ -173,7 +173,7 @@ export const RegisterProd = ({ isOpen, closeModal, reConsulta }) => {
                 type="text"
                 name="precioVenta"
                 id="precioVenta"
-                placeholder="Ingrese valor"
+                placeholder="Ingrese Precio de Venta"
                 onChange={(e) => setPrecioVenta(e.target.value)}
               />
             </div>
