@@ -99,7 +99,7 @@ const Edit_user = ({closeModal, datos}) => {
     
         let con=true;
         let validacionlt=/^[A-Za-zÁÉÍÓÚÑáéíóúü\s]+$/;
-    
+     
         if(Inapell2.trim() === ""){
             document.getElementById('wrongapell2').innerHTML='Este espacio no puede quedar en blanco';
             con=false;
