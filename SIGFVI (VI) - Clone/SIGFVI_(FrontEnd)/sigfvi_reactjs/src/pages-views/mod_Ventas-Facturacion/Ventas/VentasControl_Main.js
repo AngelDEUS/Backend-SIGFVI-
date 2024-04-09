@@ -325,15 +325,17 @@ const VentasControl_Main = () => {
                 <div className="busqueda__prod">
                     <div className='buscar_productos'>
                         <div className='right__b'>
-                            <div className="buscar--Ventas">
+                            <div className="buscar--Ventas" 
+                                    style={{opacity: '50%'}} disabled>
                                 <i className="bi bi-search buscar_i"></i>
                                 <div className='sep_vertical_b'></div>
                                 <input
                                     type="text"
                                     placeholder='Buscar productos'
                                     id='buscarProducto'
+                                    disabled
                                 />
-                                <button className='btn_buscar'>Buscar</button>
+                                <button className='btn_buscar' disabled>Buscar</button>
                             </div>
                             <button className="btn_f abrir" onClick={handleToggleModal}>+ Abrir lista</button>
                             {modalAbierto ? (
