@@ -5,13 +5,13 @@ import LogoFactura from '../../../assets/Logo/Logo-SIGFVI-factura.png';
 import LogoFactura2 from '../../../assets/Logo/Logo-Tiendecita_Alemana.jpg';
 import TituloyDesc from '../../../components/Titles/TituloyDesc';
 import Swal from 'sweetalert2';
-import { useLocation, useHistory, useNavigate} from 'react-router-dom'; // Importa useLocation y useHistory
+import { useLocation, useHistory, useNavigate } from 'react-router-dom'; // Importa useLocation y useHistory
 
 const Main_Factura_Document = () => {
   const location = useLocation(); // Obtiene la location actual
   const { detalleVentaAFactura } = location.state || {};
   console.log('esto me esta llegando desde PagarVenta: ', detalleVentaAFactura);
-  
+
   const navigate = useNavigate();
 
   const descipcion = 'En este panel puede realizar la busqueda de todos los productos, tanto las busquedas por nombre o por ID de producto.'
@@ -23,6 +23,24 @@ const Main_Factura_Document = () => {
   const triangulos = Array.from({ length: cantidadTriangulos }, (_, index) => (
     <div key={index} className='triangulito__factura'></div>
   ));
+
+
+  // desestructuración de mi objeto padre detalleVentaAFactura
+  const {
+    ID_Factura,
+    Fecha_Factura,
+    Hora_Factura,
+    Empleado_Encargado: { ID_Empleado, Nombre_Empleado },
+    Detalle_Productos_Agregados: {
+      Deudor: { Nombre: Nombre_Deudor, Telefono: Telefono_Deudor },
+      Productos_Seleccionados,
+      Subtotal_Sin_IVA,
+      Total_Factura,
+      Total_IVA,
+    },
+    Dinero_Recibido,
+    Dinero_Devuelto,
+  } = detalleVentaAFactura;
 
 
   const pasarAVenta = () => {
@@ -61,7 +79,7 @@ const Main_Factura_Document = () => {
                     <span className='tittle_factura_format'>-------------------</span>
                     <span className='tittle_factura_format'>Servido por Empleado nombre</span>
                   </div>
-                  <div className="content__factura_gn" style={{ display: 'none' }}>
+                  {/* <div className="content__factura_gn" style={{ display: 'none' }}>
                     <div className="content_fechas_factura">
                       <div className="fechas_factura" >
                         <span className='cuerpo__tittle_factura_gn'>ID Factura:</span>
@@ -82,18 +100,12 @@ const Main_Factura_Document = () => {
                         <tr>
                           <td><span className='title_factura_gn'>Productos</span></td>
                         </tr>
-                        <tr>
-                          <td>Nombre de producto x 2</td>
-                          <td className='subtotal_prod_factura'>$ 5.000</td>
-                        </tr>
-                        <tr>
-                          <td>Nombre de producto x 5</td>
-                          <td className='subtotal_prod_factura'>$ 3.000</td>
-                        </tr>
-                        <tr>
-                          <td>Nombre de producto x 4</td>
-                          <td className='subtotal_prod_factura'>$ 15.000</td>
-                        </tr>
+                        {detalleVentaAFactura?.Detalle_Productos_Agregados?.Productos_Seleccionados?.map((producto, index) => (
+                          <tr key={index}>
+                            <td>{producto.Nombre_Producto} x {producto.Cantidad}</td>
+                            <td className='subtotal_prod_factura'>$ {producto.Precio_Venta * producto.Cantidad}</td>
+                          </tr>
+                        ))}
                       </tbody>
                     </table>
                     <table className='Table_factura_gn'>
@@ -131,7 +143,7 @@ const Main_Factura_Document = () => {
                         </tr>
                       </tbody>
                     </table>
-                  </div>
+                  </div> */}
                   <div className="content__factura_gn2" >
                     <div className="factura_formatt_main">
                       <div className="header_factura_gn">
@@ -190,35 +202,27 @@ const Main_Factura_Document = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td class="tg-iks7">Nombre de producto 1</td>
-                            <td class="tg-gczw">5</td>
-                            <td class="tg-gczw">$ 10.000</td>
-                            <td class="tg-gczw">$50.000</td>
-                          </tr>
-                          <tr>
-                            <td class="tg-iks7">Nombre de producto 1</td>
-                            <td class="tg-gczw">5</td>
-                            <td class="tg-gczw">$ 10.000</td>
-                            <td class="tg-gczw">$50.000</td>
-                          </tr>
-                          <tr>
-                            <td class="tg-iks7">Nombre de producto 1</td>
-                            <td class="tg-gczw">5</td>
-                            <td class="tg-gczw">$ 10.000</td>
-                            <td class="tg-gczw">$50.000</td>
-                          </tr>
+
+                          {Productos_Seleccionados?.map((producto, index) => (
+                            <tr key={index}>
+                              <td className="tg-iks7">{producto.Nombre_Producto}</td>
+                              <td className="tg-gczw">{producto.cantidad}</td>
+                              <td className="tg-gczw">$ {producto.Precio_Venta}</td>
+                              <td className="tg-gczw">$ {producto.Precio_Venta * producto.cantidad}</td>
+                            </tr>
+                          ))}
+
                           <tr>
                             <td class="tg-48gu" rowspan="3"></td>
-                            <td class="tg-hpx4" colspan="2">SUBTOTAL</td>
-                            <td class="tg-k5zi">$150.000</td>
+                            <td class="tg-hpx4" colSpan="2">SUBTOTAL</td>
+                            <td class="tg-k5zi">${}</td>
                           </tr>
                           <tr>
-                            <td class="tg-hpx4" colspan="2">IVA</td>
+                            <td class="tg-hpx4" colSpan="2">IVA</td>
                             <td class="tg-k5zi">$ 18.000</td>
                           </tr>
                           <tr>
-                            <td class="tg-hpx4" colspan="2">TOTAL</td>
+                            <td class="tg-hpx4" colSpan="2">TOTAL</td>
                             <td class="tg-7s0x">$ 168.000</td>
                           </tr>
                           <tr>
