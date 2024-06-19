@@ -35,7 +35,7 @@ CREATE TABLE
         Descripcion varchar(20) NOT NULL COMMENT 'Campo con una descripcion basica del producto.',
         Precio_Proveedor DECIMAL(11, 2) NOT NULL COMMENT 'Campo con el precio inicial de compra a el proveedor.',
         Precio_Venta DECIMAL(11, 2) NOT NULL COMMENT 'Campo con el precio de venta al cliente.',
-        Foto_Producto VARCHAR(255)  COMMENT 'Campo en donde se almacena la url o direccion de alojamiento de la imagen.',
+        Foto_Producto VARCHAR(255) NOT NULL COMMENT 'Campo en donde se almacena la url o direccion de alojamiento de la imagen.',
         ID_Estado_FK TINYINT NOT NULL COMMENT 'Campo de la llave foranea que viene desde la tabla Estado(ID_Estado_PK).',
         PRIMARY KEY (ID_Producto_PK),
         FOREIGN KEY (ID_Estado_FK) REFERENCES Estado (ID_Estado_PK),
@@ -97,8 +97,13 @@ CREATE TABLE
         Estado_ID_Estado_PK TINYINT NOT NULL COMMENT 'Campo para el estado actual del Registro de Proveedor',
         PRIMARY KEY (ID_Registro_Proveedor_PK),
         FOREIGN KEY (Estado_ID_Estado_PK) REFERENCES Estado (ID_Estado_PK)
+<<<<<<<< HEAD:SIGFVI (VI) - Clone/SIGFVI_(BackEnd)/base_de_datos/Antiguo/SIGFVI_ScriptV2.sql
+    );
+select * from Registro_Proveedor;
+========
 );
--- select * from Registro_Proveedor;
+
+>>>>>>>> 65927334f3d5100f5edf4f10d264f36fbdcb025d:SIGFVI (VI) - Clone/SIGFVI_(BackEnd)/base_de_datos/SIGFVI_Script_V3_Full.sql
 
 -- #8 Cuenta_Deudor -------------->
 CREATE TABLE
@@ -113,20 +118,102 @@ CREATE TABLE
         ID_Estado_FK TINYINT NOT NULL COMMENT 'Campo para el estado actual de la Cuenta del Deudor',
         PRIMARY KEY (ID_Deudor_PK),
         FOREIGN KEY (ID_Estado_FK) REFERENCES Estado (ID_Estado_PK)
+<<<<<<<< HEAD:SIGFVI (VI) - Clone/SIGFVI_(BackEnd)/base_de_datos/Antiguo/SIGFVI_ScriptV2.sql
+    );
+select * from Cuenta_Deudor;
+-- #9 Metodo_de_pago -------------->
+
+CREATE TABLE
+    Metodo_de_pago (
+        ID_Metodo_Pago_PK SMALLINT AUTO_INCREMENT NOT NULL COMMENT 'Campo con la llave primaria del metodo de pago',
+        Nombre_Metodo VARCHAR(45) NOT NULL COMMENT 'Campo con el nombre del metodo de pago.',
+        Tipo_Metodo_Pago VARCHAR(45) NOT NULL COMMENT 'Campo con el nombre del tipo de metodo de pago.',
+        Referencia VARCHAR(45) COMMENT 'Campo con el nombre de la referencia del metodo de pago, puede estar vacio',
+        ID_Estado_FK TINYINT NOT NULL COMMENT 'Campo con la llave foranea de la tabla Estado para los metodos de pagos.',
+        PRIMARY KEY (ID_Metodo_Pago_PK),
+        FOREIGN KEY (Id_Estado_FK) REFERENCES Estado(ID_Estado_PK)
+    );
+
+-- #10 Saldo_Cuenta_Deudor -------------->
+========
 );
 
 -- #9 Saldo_Cuenta_Deudor -------------->
+>>>>>>>> 65927334f3d5100f5edf4f10d264f36fbdcb025d:SIGFVI (VI) - Clone/SIGFVI_(BackEnd)/base_de_datos/SIGFVI_Script_V3_Full.sql
 CREATE TABLE
     Saldo_Cuenta_Deudor (
         ID_Saldo_PK INT NOT NULL AUTO_INCREMENT COMMENT 'Campo con la llave primaria del ID del saldo de la cuenta del deudor auto incrementable.',
+<<<<<<< HEAD:SIGFVI (VI) - Clone/SIGFVI_(BackEnd)/base_de_datos/Antiguo/SIGFVI_ScriptV2.sql
+        ID_Deudor_FK INT NOT NULL COMMENT 'Campo con la llave foranea del ID de la cuenta del deudor asociada',
+        -- Fecha_Cancelacion_Pedido DATE NOT NULL COMMENT 'Campo con la fecha oportuna para realizar el pago de la deuda, conciliada entre el deudor y el gerente.',
+=======
         ID_Deudor_FK VARCHAR(25) NOT NULL COMMENT 'Campo con la llave foranea del ID de la cuenta del deudor asociada',
+<<<<<<<< HEAD:SIGFVI (VI) - Clone/SIGFVI_(BackEnd)/base_de_datos/Antiguo/SIGFVI_ScriptV2.sql
+        Fecha_Cancelacion_Pedido DATE NOT NULL COMMENT 'Campo con la fecha oportuna para realizar el pago de la deuda, conciliada entre el deudor y el gerente.',
+>>>>>>> 4020598dfa612dfeb23e99c9faeb0ccccd0c145b:SIGFVI (VI) - Clone/SIGFVI_(BackEnd)/base_de_datos/SIGFVI_ScriptV2.sql
+        Total_Saldo_Deuda INT NOT NULL COMMENT 'Campo en donde se suman todos los totales de los pedidos acumulados en la cuenta del deudor.',
+        PRIMARY KEY (ID_Saldo_PK),
+        FOREIGN KEY (ID_Deudor_FK) REFERENCES Cuenta_Deudor (ID_Deudor_PK)
+    );
+select * from Saldo_Cuenta_Deudor;
+-- #11 Pedido -------------->
+CREATE TABLE
+    Pedido (
+        ID_Pedido_PK INT NOT NULL AUTO_INCREMENT COMMENT 'Campo con la llave primaria del pedido.',
+        ID_Metodo_Pago_FK SMALLINT NOT NULL COMMENT 'Campo con el ID de la llave foranea del metodo de pago.',
+        Fecha_Pedido DATE NOT NULL COMMENT 'Campo con la fecha en la que crea el pedido.',
+        Hora_Pedido TIME NOT NULL COMMENT 'Campo con la hora en la que se crea el pedido.',
+        IVA TINYINT(30) NOT NULL COMMENT 'Campo en donde se calcula el total del IVA segun el total del pedido.',
+        Total_Pedido INT NOT NULL COMMENT 'Campo con el calculo del total de los subtotales del detalle del pedido.',
+        ID_Estado_FK TINYINT NOT NULL COMMENT 'Campo con el estado actual del Pedido.',
+        ID_Saldo_PK INT NULL COMMENT 'Campo con el ID del saldo de la cuenta de un deudor asignado.',
+        PRIMARY KEY (ID_Pedido_PK),
+        FOREIGN KEY (ID_Estado_FK) REFERENCES Estado (ID_Estado_PK),
+        FOREIGN KEY (ID_Metodo_Pago_FK) REFERENCES Metodo_de_pago (ID_Metodo_Pago_PK),
+        FOREIGN KEY (ID_Saldo_PK) REFERENCES Saldo_Cuenta_Deudor (ID_Saldo_PK)
+    );
+
+SELECT * FROM Pedido;
+
+-- #12 Venta_Realizada -------------->
+
+CREATE TABLE
+    Venta_Realizada (
+        ID_Venta_Realizada_PK INT NOT NULL AUTO_INCREMENT COMMENT 'Campo con la llave primaria de la venta realizada despues del pedido.',
+        ID_Saldo_Cuenta_Deudor_FK INT NOT NULL COMMENT 'Campo con la llave foranea del ID del saldo de la cuenta del deudor referenciado.',
+        ID_Pedido_FK INT NOT NULL COMMENT 'Campo con la llave foranea del pepido referenciado.',
+        PRIMARY KEY (ID_Venta_Realizada_PK),
+        FOREIGN KEY (ID_Saldo_Cuenta_Deudor_FK) REFERENCES Saldo_Cuenta_Deudor (ID_Saldo_PK),
+        FOREIGN KEY (ID_Pedido_FK) REFERENCES Pedido (ID_Pedido_PK)
+    );
+
+-- #13 Facturacion -------------->
+
+-- USE SIGFVI_V2;
+
+CREATE TABLE
+    Facturacion (
+        ID_Factura_PK INT NOT NULL AUTO_INCREMENT COMMENT 'Campo con la llave primaria de la factura.',
+        Fecha_Factura DATE NOT NULL COMMENT 'Campo en el que se ingresa la fecha en la que se genera la factura.',
+        Hora_Factura TIME NOT NULL COMMENT 'Campo en el que se ingresa la hora en la que se genera la factura.',
+        ID_Venta_Realizada_FK INT NOT NULL COMMENT 'Campo con la llave foranea del ID de la venta realizada referenciada a facturacion',
+        PRIMARY KEY (ID_Factura_PK),
+        FOREIGN KEY (ID_Venta_Realizada_FK) REFERENCES Venta_Realizada(ID_Venta_Realizada_PK)
+    );
+
+SELECT * FROM Facturacion;
+
+-- #14 Inventario -------------->
+
+-- DROP TABLE Inventario;
+========
         Fecha_Cancelacion_Pedido DATE COMMENT 'Campo con la fecha oportuna para realizar el pago de la deuda completa, conciliada entre el deudor y el gerente.',
         Total_Saldo_Deuda INT NOT NULL COMMENT 'Campo en donde se suman todos los totales de los pedidos acumulados en la cuenta del deudor.',
         PRIMARY KEY (ID_Saldo_PK),
         FOREIGN KEY (ID_Deudor_FK) REFERENCES Cuenta_Deudor (ID_Deudor_PK)
 );
-select * from Cuenta_Deudor;
-select * from Saldo_Cuenta_Deudor;
+
+>>>>>>>> 65927334f3d5100f5edf4f10d264f36fbdcb025d:SIGFVI (VI) - Clone/SIGFVI_(BackEnd)/base_de_datos/SIGFVI_Script_V3_Full.sql
 
 -- #10 Inventario -------------->
 CREATE TABLE
@@ -143,7 +230,11 @@ CREATE TABLE
 CREATE TABLE
     Salida_producto_Inventario (
         ID_Salida_producto_Inventario_PK INT NOT NULL AUTO_INCREMENT COMMENT 'Campo con la llave primaria del ID de la salida de un producto en el inventario autoincrementable.',
+<<<<<<<< HEAD:SIGFVI (VI) - Clone/SIGFVI_(BackEnd)/base_de_datos/Antiguo/SIGFVI_ScriptV2.sql
+        Descripcion_Salida TEXT(400) NOT NULL COMMENT 'Campo con la descripcion detallada de la salida de un producto en el inventario',
+========
         Descripcion_Salida TEXT(150) NOT NULL COMMENT 'Campo con la descripcion detallada de la salida de un producto en el inventario',
+>>>>>>>> 65927334f3d5100f5edf4f10d264f36fbdcb025d:SIGFVI (VI) - Clone/SIGFVI_(BackEnd)/base_de_datos/SIGFVI_Script_V3_Full.sql
         Cantidad_Salida INT UNSIGNED NOT NULL COMMENT 'Campo Con la cantidad de salida del producto',
         Fecha_Salida DATE NOT NULL COMMENT 'Campo con el ingreso de la fecha de la salida de un producto en el inventario.',
         Hora_Salida TIME NOT NULL COMMENT 'Campo con el ingreso de la hora de la salida de un producto en el inventario.',
@@ -168,7 +259,11 @@ CREATE TABLE
 CREATE TABLE
     Entrada_Producto (
         ID_Entrada_Producto_PK INT AUTO_INCREMENT NOT NULL COMMENT 'Campo con la llave primaria del ID de la entra del producto a el sistema',
+<<<<<<<< HEAD:SIGFVI (VI) - Clone/SIGFVI_(BackEnd)/base_de_datos/Antiguo/SIGFVI_ScriptV2.sql
+        Cantidad_Entrada INT UNSIGNED NOT NULL COMMENT 'Campo Con la cantidad que ingresa al sistema del producto',
+========
         Cantidad_Entrada INT NOT NULL COMMENT 'Campo Con la cantidad que ingresa al sistema del producto',
+>>>>>>>> 65927334f3d5100f5edf4f10d264f36fbdcb025d:SIGFVI (VI) - Clone/SIGFVI_(BackEnd)/base_de_datos/SIGFVI_Script_V3_Full.sql
         Fecha_Entrada_Producto DATE NOT NULL COMMENT 'Campo que almacena la fecha de entrada de un producto en el sistema.',
         Hora_Entrada_Producto TIME NOT NULL COMMENT 'Campo que almacena la hora de entrada de un producto en el sistema.',
         ID_Registro_Proveedor_Fk INT NOT NULL,
@@ -176,6 +271,12 @@ CREATE TABLE
         PRIMARY KEY (ID_Entrada_Producto_PK),
         FOREIGN KEY (ID_Registro_Proveedor_Fk) REFERENCES registro_proveedor (ID_Registro_Proveedor_PK),
         FOREIGN KEY (Producto_Inventario) REFERENCES Inventario (ID_Producto_FK)
+<<<<<<<< HEAD:SIGFVI (VI) - Clone/SIGFVI_(BackEnd)/base_de_datos/Antiguo/SIGFVI_ScriptV2.sql
+    );
+    -- ALTER TABLE Entrada_Producto AUTO_INCREMENT=0;
+ --   DROP TABLE Tipo_Informe_Empleado;
+ --   DROP TABLE Entrada_Producto;
+========
 );
     
     
@@ -200,16 +301,12 @@ CREATE TABLE
         SubTotal_Venta DECIMAL(10,2) NOT NULL COMMENT 'Campo con el calculo de la sumatoria de todos los subtotales del detalle de la Venta.',
         Total_Pedido DECIMAL(10,2) NOT NULL COMMENT 'Campo con el calculo de la sumatoria del subtotal y el IVA calculado, este calculo forma el total de la venta.',
         ID_Saldo_PK INT NULL COMMENT 'Campo con el ID del saldo de la cuenta de un deudor asignado que puede ser nulo.',
-        Fecha_Venta DATE NOT NULL COMMENT 'Campo en el que se ingresa la fecha en la que se genera la Venta.',
-        Hora_Venta TIME NOT NULL COMMENT 'Campo en el que se ingresa la hora en la que se genera la Venta.',
-        ID_Numero_Identificacion_FK VARCHAR(25) NOT NULL COMMENT 'Campo con la llave Foranea del numero de identificacion del Usuario a cargo de la venta.',
         ID_Estado_FK TINYINT NOT NULL COMMENT 'Campo con el estado actual de la Venta, puede variar al agregar un deudor a la venta activa.',
         PRIMARY KEY (ID_Venta_PK),
+        FOREIGN KEY (ID_Estado_FK) REFERENCES Estado (ID_Estado_PK),
         FOREIGN KEY (ID_Metodo_Pago_FK) REFERENCES Metodo_de_pago (ID_Metodo_Pago_PK),
-        FOREIGN KEY (ID_Saldo_PK) REFERENCES Saldo_Cuenta_Deudor (ID_Saldo_PK),
-        FOREIGN KEY (ID_Numero_Identificacion_FK) REFERENCES Usuario (ID_Numero_Identificacion_PK),
-        FOREIGN KEY (ID_Estado_FK) REFERENCES Estado (ID_Estado_PK)
-);
+        FOREIGN KEY (ID_Saldo_PK) REFERENCES Saldo_Cuenta_Deudor (ID_Saldo_PK)
+    );
 
 
 -- # 15 Detalle_Venta ----------------------->
@@ -223,7 +320,8 @@ CREATE TABLE
         PRIMARY KEY (ID_Detalle_Venta_PK),
         FOREIGN KEY (ID_Venta_FK) REFERENCES Venta (ID_Venta_PK),
         FOREIGN KEY (ID_Inventario_FK) REFERENCES Inventario (ID_Inventario_PK)
-);	
+);
+>>>>>>>> 65927334f3d5100f5edf4f10d264f36fbdcb025d:SIGFVI (VI) - Clone/SIGFVI_(BackEnd)/base_de_datos/SIGFVI_Script_V3_Full.sql
     
     
 -- # 16 Facturacion ----------------------->
@@ -232,20 +330,63 @@ CREATE TABLE
         ID_Factura_PK INT NOT NULL AUTO_INCREMENT COMMENT 'Campo con la llave primaria de la factura.',
         Fecha_Factura DATE NOT NULL COMMENT 'Campo en el que se ingresa la fecha en la que se genera la factura.',
         Hora_Factura TIME NOT NULL COMMENT 'Campo en el que se ingresa la hora en la que se genera la factura.',
-        ID_Venta_Realizada_FK INT NOT NULL COMMENT 'Campo con la llave foranea del ID de la venta realizada referenciada a facturacion.',
+        ID_Venta_Realizada_FK INT NOT NULL COMMENT 'Campo con la llave foranea del ID de la venta realizada referenciada a facturacion',
         PRIMARY KEY (ID_Factura_PK),
         FOREIGN KEY (ID_Venta_Realizada_FK) REFERENCES Venta(ID_Venta_PK)
 );
 
--- # 17 Detalle_Factura ----------------------->
-/*
+
+<<<<<<<< HEAD:SIGFVI (VI) - Clone/SIGFVI_(BackEnd)/base_de_datos/Antiguo/SIGFVI_ScriptV2.sql
 CREATE TABLE
-    Detalle_Factura (
-        ID_Detalle_Factura_PK INT NOT NULL AUTO_INCREMENT COMMENT 'Campo con la llave primaria del detalle de la factura.',
-        ID_Factura_FK INT NOT NULL COMMENT 'Campo con el ID de la llave foranea de la Factura',
-        ID_Detalle_Factura_Venta_FK INT NOT NULL COMMENT 'Campo con el ID de la llave foranea del Detalle de Venta relacionado',
-        PRIMARY KEY (ID_Detalle_Factura_PK),
-        FOREIGN KEY (ID_Factura_FK) REFERENCES Facturacion (ID_Factura_PK),
-        FOREIGN KEY (ID_Detalle_Factura_Venta_FK) REFERENCES Detalle_Venta (ID_Detalle_Venta_PK)
+    Detalle_Pedido (
+        ID_Detalle_Pedido_PK INT NOT NULL AUTO_INCREMENT COMMENT 'Campo con la llave primaria del detalle del pedido.',
+        Cantidad_Producto SMALLINT NOT NULL COMMENT 'Campo con la cantidad de unidades de productos a que se descontaran en el inventario.',
+        SubTotal INT NOT NULL COMMENT 'Campo con el sub-total del detalle del pedido segun la cantidad y el precio del producto.',
+        Pedido_ID_Pedido_FK INT NOT NULL COMMENT 'Campo con el ID de la llave foranea del Pedido',
+        ID_Inventario_FK SMALLINT(10) NOT NULL COMMENT 'Campo con el ID de la llave foranea del Inventario referenciado',
+        PRIMARY KEY (ID_Detalle_Pedido_PK),
+        FOREIGN KEY (Pedido_ID_Pedido_FK) REFERENCES Pedido (ID_Pedido_PK),
+        FOREIGN KEY (ID_Inventario_FK) REFERENCES Inventario (ID_Inventario_PK)
+    );
+
+-- #21 Tipo_Informe_Cuenta_Deudor -------------->
+
+CREATE TABLE
+    Tipo_Informe_Cuenta_Deudor (
+        ID_Tipo_Informe_Cuenta_Deudor_PK INT NOT NULL AUTO_INCREMENT COMMENT 'Campo con la llave primaria del tipo de informe de la cuenta del deudor.',
+        ID_Saldo_Cuenta_Deudor_FK INT NOT NULL COMMENT 'Campo con el ID de la llave foranea del Saldo de la cuenta de un deudor',
+        PRIMARY KEY (
+            ID_Tipo_Informe_Cuenta_Deudor_PK
+        ),
+        FOREIGN KEY (ID_Saldo_Cuenta_Deudor_FK) REFERENCES Saldo_Cuenta_Deudor (ID_Saldo_PK)
+    );
+
+-- #22 Registro_Proveedor_has_Producto -------------->
+
+CREATE TABLE
+    Registro_Proveedor_has_Producto (
+        ID_Registro_Proveedor_FKPK INT NOT NULL COMMENT 'Campo con el ID del proveedor como relacion Identificable NtN',
+        ID_Producto_FKPK VARCHAR(15) NOT NULL COMMENT 'Campo con el ID del Producto como relacion Identificable NtN',
+        PRIMARY KEY (
+            ID_Registro_Proveedor_FKPK,
+            ID_Producto_FKPK
+        ),
+        FOREIGN KEY (ID_Registro_Proveedor_FKPK) REFERENCES Registro_Proveedor (ID_Registro_Proveedor_PK),
+        FOREIGN KEY (ID_Producto_FKPK) REFERENCES Producto (ID_Producto_PK)
+    );
+    
+-- DROP TABLE Registro_Proveedor_has_Producto;
+    
+========
+-- # 17 Detalle_Factura -------------->
+CREATE TABLE Detalle_Facturacion (
+    ID_Detalle_Factura_PK INT NOT NULL AUTO_INCREMENT COMMENT 'Campo con la llave primaria del detalle de la factura.',
+    Cantidad_Producto SMALLINT NOT NULL COMMENT 'Campo con la cantidad de unidades de productos a que se descontaran en el inventario en el stock y numero necesario para calcular el subtotal.',
+    SubTotal DECIMAL(10,2) NOT NULL COMMENT 'Campo con el sub-total del detalle del pedido segun la cantidad y el precio del producto.',
+    ID_Factura_FK INT NOT NULL COMMENT 'Campo con el ID de la llave foranea de la Factura',
+    ID_Detalle_Venta_FK INT NOT NULL COMMENT 'Campo con el ID de la llave foranea del detalle de la venta',
+    PRIMARY KEY (ID_Detalle_Factura_PK),
+    FOREIGN KEY (ID_Factura_FK) REFERENCES Facturacion(ID_Factura_PK),
+    FOREIGN KEY (ID_Detalle_Venta_FK) REFERENCES Detalle_Venta(ID_Detalle_Venta_PK)
 );
-*/
+>>>>>>>> 65927334f3d5100f5edf4f10d264f36fbdcb025d:SIGFVI (VI) - Clone/SIGFVI_(BackEnd)/base_de_datos/SIGFVI_Script_V3_Full.sql

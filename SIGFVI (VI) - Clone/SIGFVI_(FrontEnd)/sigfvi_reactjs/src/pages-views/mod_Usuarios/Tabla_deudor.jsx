@@ -74,7 +74,7 @@ function Tabla_deudor() {
                 <th>
                     <h2>Estado</h2>
                 </th>
-                <th>
+                <th className='acciones_General_Tittle'>
                     <h2>Acciones</h2>
                 </th>
             </thead>

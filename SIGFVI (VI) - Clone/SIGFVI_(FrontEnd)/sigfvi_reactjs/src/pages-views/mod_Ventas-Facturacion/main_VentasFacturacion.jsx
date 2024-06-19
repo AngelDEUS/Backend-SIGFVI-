@@ -4,7 +4,7 @@ import Axios from 'axios';
 import Swal from 'sweetalert2';
 
 import "./estilosListaVentas.css"
-import './Tabla.css';
+import './Tabla2.css';
 import './mod_ventas.css';
 
 // Modal

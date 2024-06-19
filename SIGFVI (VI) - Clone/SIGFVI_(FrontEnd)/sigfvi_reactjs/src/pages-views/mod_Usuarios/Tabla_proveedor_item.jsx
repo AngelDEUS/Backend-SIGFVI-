@@ -82,7 +82,7 @@ export const Tabla_proveedor_item = ({ consulta, ...props }) => {
                 <td>
                     <h3>{props.state}</h3>
                 </td>
-                <td>
+                <td className='acciones_General'>
                     <button type="button" id="edit" name="edit" className="boton b1" onClick={handleMostrarEdit}>Editar</button>
                     <button type="button" id="delete" name="delete" className="boton b2" onClick={() => { confirmDelete(props) }}>{textoActivar}</button>
                 </td>

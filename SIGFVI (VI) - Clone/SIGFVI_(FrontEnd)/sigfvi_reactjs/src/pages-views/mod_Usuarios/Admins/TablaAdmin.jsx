@@ -68,7 +68,7 @@ function TablaAdmins() {
                   <td>Telefono</td>
                   <td>Correo</td>
                   <td>Estado</td>
-                  <td>Acciones</td>
+                  <td className='acciones_General_Tittle'>Acciones</td>
                 </tr>
               </thead>
               <tbody>

@@ -87,5 +87,6 @@ app.listen(PORT, ()=>{
 
     console.log(`\n\n     El servidor funcionando en el puerto: \x1b[33m[${PORT}]\x1b[33m.`);
     console.log(`\n     Local:                  http://localhost:${PORT}\x1b[0m\n`);
-    console.log(`     Fecha actual: [${fechaVenta}], Hora actual: [${horaVenta}].\n`);
+    console.log('\x1b[32m%s\x1b[0m',"     Versión de JavaScript:     " + process.versions.v8 + "\n");
+    console.log('\x1b[95m%s\x1b[0m',`     Fecha actual: [${fechaVenta}], Hora actual: [${horaVenta}].\n`);
 });

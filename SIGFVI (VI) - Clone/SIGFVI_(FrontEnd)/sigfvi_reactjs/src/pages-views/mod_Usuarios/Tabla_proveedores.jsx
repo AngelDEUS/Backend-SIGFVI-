@@ -64,7 +64,7 @@ function Tabla_proveedores() {
                   <th><h2>Número</h2></th>
                   <th><h2>Frecuencia</h2></th>
                   <th><h2>Estado</h2></th>
-                  <th><h2>Acciones</h2></th>
+                  <th className='acciones_General_Tittle'><h2>Acciones</h2></th>
                 </tr>
               </thead>
               <tbody>

@@ -5,6 +5,7 @@ import Pagar_deudor from './Pagar_deudor';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
+
 export const Tabla_deudor_item = (props) => {
 
     const [textoActivar, setTextoActivar] = useState('');
@@ -97,11 +98,11 @@ export const Tabla_deudor_item = (props) => {
                 <td>
                     <h3>{props.state}</h3>
                 </td>
-                <td>
-                    <button type="button" id="edit" name="edit" className="boton b1" onClick={handleMostrarEdit}>Editar</button>
-                    <button type="button" id="sumar" name="sumar" className="boton b1" onClick={handleMostrarSumar}>Sumar</button>
-                    <button type="button" id="pay" name="pay" className="boton b4" onClick={handleMostrarPagar}>Pagar</button>
-                    <button type="button" id="edit" name="edit" className="boton b2" onClick={() => { confirmDelete(props) }}>{textoActivar}</button>
+                <td className='acciones_General'>
+                    <button type="button" id="edit" name="edit" className="boton_Genral b1" onClick={handleMostrarEdit}>Editar</button>
+                    <button type="button" id="sumar" name="sumar" className="boton_Genral b1-5" onClick={handleMostrarSumar}>Sumar</button>
+                    <button type="button" id="pay" name="pay" className="boton_Genral b4" onClick={handleMostrarPagar}>Pagar</button>
+                    <button type="button" id="edit" name="edit" className="boton_Genral b2" onClick={() => { confirmDelete(props) }}>{textoActivar}</button>
                 </td>
             </tr>
             {mostrarEditForm && <Edit_deudor closeModal={handleMostrarEdit} datos={props}/>}
