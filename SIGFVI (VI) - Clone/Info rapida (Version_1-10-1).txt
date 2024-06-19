@@ -1,9 +1,7 @@
 +++++++++++++++++++++++++++++++++++*+++++++++++++++++++++++++++++++++++
 ========================/ Notas de la version (FrontEnd) \========================
-=======> Versión Actual: 1.10.1
-=======> Notas de la versión: Se actualiza a la version 1.10.0, esta version contiene la inplementacion del backend, 
-con la conexion a la base de datos V2, y la crud en frontend, el proyecto se actualiza a la version mas reciente y se cambian las ramas con terminacion, 
-fs (Full Stack), Haciendo referencia a la implementacion de la nueva version del proyecto SIGFVI.
+=======> Versión Actual: 1.15.1
+=======> Se arreglan los errores de la facturacion y ventas.
 ______________________________________________________________________________
 =======> Ramas:
                            /main ¿ ("Rama BackUp")
