@@ -8,6 +8,8 @@ const path = require("path");
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const {swaggerJSDOCs} = require('./swagger.js');
+require('dotenv').config();
+
 
 // ---> Modulos de Ventas y Facturación:
 const pedidosRouter = require('./routers/mod_ventas_facturacion_r/pedidosRouter');
@@ -34,6 +36,7 @@ const informesRouter = require('./routers/mod_informes_r/informesRouter.js')
 // - Uses
 const app = express();
 const PORT = process.env.PORT || 3001;
+
 // - Cors Options
 const optionsCors = {
     origin: `http://localhost:3000 `|| `exp://192.168.0.6:8081`,
