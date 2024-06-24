@@ -1,0 +1,42 @@
+[
+    {
+        "id":"1",
+        "Nombre":"Francisco Ariztizabal",
+        "Direccion":"Cra 11 #23-56",
+        "Telefono":"3114785252",
+        "Deuda":"50000",
+        "Estado":"Activo"
+    },
+    {
+        "id":"2",
+        "Nombre":"Ferney Colon",
+        "Direccion":"Transversal 25 #28-96",
+        "Telefono":"3587485252",
+        "Deuda":"45000",
+        "Estado":"Activo"
+    },
+    {
+        "id":"3",
+        "Nombre":"Arnulfo Cristancho",
+        "Direccion":"Cra 48 #33-86",
+        "Telefono":"3175896565",
+        "Deuda":"0",
+        "Estado":"Inactivo"
+    },
+    {
+        "id":"4",
+        "Nombre":"Juan Gonzalez",
+        "Direccion":"Cra 48 #83-56",
+        "Telefono":"3128478987",
+        "Deuda":"100000",
+        "Estado":"Activo"
+    },
+    {
+        "id":"5",
+        "Nombre":"Rosalba Quintero",
+        "Direccion":"Calle 85 #11-45",
+        "Telefono":"3214566200",
+        "Deuda":"28000",
+        "Estado":"Activo"
+    }
+]

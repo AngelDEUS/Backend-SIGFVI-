@@ -129,13 +129,13 @@ select * from Cuenta_Deudor;
 select * from Saldo_Cuenta_Deudor;
 
 -- #10 Inventario -------------->
-CREATE TABLE
-    Inventario (
-        ID_Inventario_PK INT AUTO_INCREMENT NOT NULL COMMENT 'Campo que contiene la clave única del registro del inventario autoincrementable.',
-        Stock INT NOT NULL COMMENT 'Campo que calcula y agrupa la cantidad del stock de productos registrados.',
-        ID_Producto_FK VARCHAR(15) NOT NULL COMMENT 'Campo con la llave foránea el ID del producto referenciado.',
-        PRIMARY KEY (ID_Inventario_PK),
-        FOREIGN KEY (ID_Producto_FK) REFERENCES Producto (ID_Producto_PK)
+
+CREATE TABLE Inventario (
+	ID_Inventario_PK INT AUTO_INCREMENT NOT NULL COMMENT 'Campo que contiene la clave única del registro del inventario autoincrementable.',
+	Stock INT NOT NULL COMMENT 'Campo que calcula y agrupa la cantidad del stock de productos registrados.',
+	ID_Producto_FK VARCHAR(15) NOT NULL COMMENT 'Campo con la llave foránea el ID del producto referenciado.',
+	PRIMARY KEY (ID_Inventario_PK),
+	FOREIGN KEY (ID_Producto_FK) REFERENCES Producto (ID_Producto_PK)
 );
 
 
@@ -210,6 +210,7 @@ CREATE TABLE
         FOREIGN KEY (ID_Numero_Identificacion_FK) REFERENCES Usuario (ID_Numero_Identificacion_PK),
         FOREIGN KEY (ID_Estado_FK) REFERENCES Estado (ID_Estado_PK)
 );
+SELECT VERSION();
 
 
 -- # 15 Detalle_Venta ----------------------->
